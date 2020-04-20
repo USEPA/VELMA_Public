@@ -1,0 +1,9 @@
+2020-2-17
+Mashel_SmallDemo_ActualLndscp_NoHarvest_22Feb20a <-- Mashel_ActualLndscp_NoHarvest_smallReach_13Aug18
+   - Outlet 830, 344 (upper Busy Wild subwatershed) --> 613, 306 (Tutorial subwatershed)
+   - Input Path:C:\Users\bmckane\Documents\VELMA_Tutorial_Feb2020\VELMA_Mashel_Example\DataInputs
+   - Output Path: C:\Users\bmckane\Documents\VELMA_Tutorial_Feb2020\VELMA_Mashel_Example\Results
+   - MULTI_MODE --> SOLO_MODE
+   - Deleted all sub-reach coorindates
+   - m_7_Observed\Validation\WS10_StreamChemistry_1969-2488(520yr).csv -->  MashelObsQ_mmD_1980-2200.csv  
+   - NOTE: WS10 data were not present & caused crash (fixed)
