@@ -1,0 +1,8 @@
+# The primary and sub-reach pour-point (outlets) for August 2018 tutorial:
+ iCell   xCell   yCell
+318342     830     344 <-- primary outlet
+332228     871     359 <-- reach A
+329460     872     356 <-- reach B
+325758     862     352 <-- reach C
+323902     852     350 <-- reach D
+331306     872     358 <-- reach E

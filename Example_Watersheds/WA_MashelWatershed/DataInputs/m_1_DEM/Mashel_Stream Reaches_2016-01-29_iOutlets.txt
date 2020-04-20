@@ -1,0 +1,14 @@
+# These linear cell indices mark the pour points ("outlets")
+# of the EDT Stream Reaches for the Mashel River.
+# These are reaches that Greg Blair sent to the EPA.
+145015
+142313
+164471
+105494
+113916
+143467
+370734
+187933
+178737
+340358
+321104
