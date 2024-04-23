@@ -1,0 +1,286 @@
+<h1>Appendix 1:</h1>
+    <div class="toc"><a href="part37.htm">Overview of VELMA's Leaf-Stem-Root (LSR)</a><a class="toc1"
+            href="part38.htm">and flu es.(g N m-2 d-1</a><a href="part39.htm">Appendix 2:</a><a class="toc1"
+            href="part40.htm">Add the New Disturbance Parameters to the Simulation Configuration</a><a class="toc1"
+            href="part41.htm">Configure the New Disturbance Parameters</a></div>
+
+    <div>Overview of VELMA’s Leaf-Stem-Root (LSR) Plant Biomass Submodel
+        <p>In VELMA version 1.0, plant biomass in each cell was simulated in aggregate. That is, leaves, stems and roots
+            were lumped together in a single biomass pool (Abdelnour et al. 2011). This lumped approach greatly simplified
+            the structure and application of the model. Although version 1.0 successfully simulates important aspects of
+            catchment hydrology and biogeochemistry (e.g., Abdelnour et al. 2011, 2013), it does not simulate effects
+            associated with phenological changes and disturbances and that disproportionately affect specific plant tissues,
+            for example, leaf growth and senescence, defoliation events, selective removal of high or low C/N tissues via
+            harvest, grazing, fire, etc.</p>
+        <p>To address such effects, version 2.0 simulates four plant biomass pools: leaves, aboveground stems, belowground
+            stems, and fine roots. Main features of this leaf-stem-root (LSR) submodel include:</p>
+        <p>-</span><a href="part33.htm#bookmark88"> Live plant biomass pools for four tissue types (also see
+            </a><span>Figure 1</span> <a href="part33.htm#bookmark87">and </a><span>explanation</span> <span>preceding “All
+                Parameters Section 5.0” of the User Manual)</span></p>
+        <p>o Leaves (annual or perennial grasses, deciduous or coniferous trees, etc.)</span></p>
+        <p>o Aboveground stems (trees, grasses, etc.)</span></p>
+        <p>o belowground stems (&lt;2 mm diameter, not involved in water and nutrient uptake)</span></p>
+        <p>o fine roots (&lt;2 mm diameter, involved in water and nutrient uptake)</span></p>
+        <p>- Dead (detritus) plant biomass pools for each of the four plant tissue types</span></p>
+        <p>- A user-specified C/N ratio for each plant tissue type. In version 2.0, a tissue's C/N ratio is applied to both
+            the live and dead biomass pools. Simulation of separate live and dead C/N ratios will be addressed in future
+            versions</span></p>
+        <p>- A new plant tissue mortality submodel simulates the loss of live biomass to detritus (see Appendix 1, Figures
+            A1.1 - A1.4)</span></p>
+        <p>-</span> A new decomposition model based on Potter et al. (1993) simulates the decomposition of </span>detritus
+            to CO2 </span>and humus (Appendix 1, Figures A1.5 - A1.8)</p>
+        <p>- A specified fraction of total plant nitrogen uptake is allocated to each plant tissue type, such that the
+            fractions for all tissues = 1.0 (see Appendix 1, Figures A1.1 - A1.4)</span></p>
+        <p>Figures A1.1 - A1.11, below, graphically summarize the LSR submodel structure and model equations. These figures
+            portray the pools (boxes) and fluxes (arrows) of nitrogen and/or carbon from live to dead biomass and from dead
+            biomass to the humus pool and atmosphere. Pools and fluxes involving VELMA's four soil layers are also shown. In
+            each successive figure, a red encircling line delineates a subset of the LSR system for which text is provided
+            to describe associated model parameters and equations that govern simulated C and N pools and fluxes.
+            </span>Note that parameter names in the VELMA</span> </span>version 2.0 program Java code and GUI do not
+            necessarily conform to Figures A1.1 - A1.11 parameter</span> </span>names, which were modified using more
+            rigorous naming rules during the VELMA programming</span> </span>process</span>.</span></p>
+        <p>Figure A1.1</p>
+        <p><br /></p>
+        <p><span>B</span><span>i</span><span>om</span><span>ass </span><span>o</span>ta<span>l</span><span>N
+            </span><span>Detr</span><span>i</span>t<span>u</span><span>s</span><span>To</span>t<span>a</span><span>l</span><span>N</span>
+        </p>
+        <p>Det</span>ri</span>tu</span>s</span>leafN
+            </span>IH<span>u</span>m<span>u</span><span>s</span>C<span>b</span>o<span>N </span><span>= </span>10</span></p>
+        <p><span>B</span><span>i</span><span>om</span><span>ass</span><span>l</span><span>e
+            </span><span>-----</span>,<span>!</span>-+-<span>t</span>_<span>:</span>_<span>;</span>_<span>· </span>-<span>t
+            </span>_<span>i </span><span>_
+                _</span><span>s</span><span>_</span><span>LL</span><span>:</span><span>_</span><span>:</span><span>_</span><span>N</span><span>_</span><span>N</span><span>_</span><span>-fli!</span><span>:
+            </span><span>D</span>-<span>,</span><span>e</span>- - -<span>t </span>-<span>:</span>-
+            <span>e</span>-<span>ecd</span><span>N</span>
+            </span><span>!,</span><span>--+--</span><span>T</span><span>-</span><span>o</span><span>_</span><span>H</span><span>_</span><span>u</span><span>_</span><span>m</span><span>_</span><span>u</span><span>_</span><span>s</span><span>_</span><span>N</span><span>_</span><span>L......1</span><span>---&#39;l&gt;l
+            </span>---<span>-----------</span></p>
+        <p><br /></p>
+        <p>------- -- - -<span>----</span>-<span>---</span>j <u>--- - -- --</u>----</span><u>j</u>
+            <span>D</span><span>e</span><span>t</span><span>r</span><span>i</span><span>t</span><span>u</span><span>sS</span><span>t
+            </span><span>Hu</span><span>, </span><span>L </span><span>&#39;;;rO</span></p>
+        <p><br /></p>
+        <p><span>Hu</span>m<span>u</span><span>s</span><span>l</span><span>a</span><span>yer1 </span>C<span>b</span>o<span>N
+            </span>10</span></p>
+        <p>, <span>El&#39;i</span></p>
+        <p><br /></p>
+        <p>-</p>
+        <p><br /></p>
+        <p>Hu<span>m</span>u<span>s</span><span>l</span><span>a</span><span>y</span><span>er2 CboN </span>10</span></p>
+        <p><br /></p>
+        <p><span>N</span>p,p
+            </span><span>o</span><span>B</span><span>i</span>om<span>ass</span>RJoo<span>t</span><span>N</span></p>
+        <p>G<span>al</span>e-G<span>rigal</span></p>
+        <p><br /></p>
+        <p><span>(</span>S<span>t</span>a<span>r</span><span>,</span><span>t</span>o<span>f </span><span>d</span>a<span>y 1
+            </span><span>in </span>s<span>imul</span>a<span>ti</span>o<span>n}</span></p>
+        <p><br /></p>
+        <p>)</p>
+        <p>
+        <p>B<span>i</span><span>,</span>o<span>m</span>ass<span>l</span>ea<span>fN </span>pools </span>(</span>g </span>N
+            </span>m-</span>2</span></p>
+        <p><span>andfluxes </span>(<span>g </span>N m-2 </span><span>d-</span>1</span></p>
+        <p><span>wh</span>ere <span>initial </span>state <span>valu</span>e <span>must be
+            </span>spe<span>ci</span><span>fi</span>e<span>d</span></p>
+        <p>),</p>
+        <p>
+        <p><span>N</span><span>p</span><span>p</span><span>T</span><span>ot</span>a<span>lN </span><span>=
+            </span><span>c</span>a<span>lcul</span>a<span>t</span>e<span>d </span>as <span>b</span>efo<span>r</span>e
+            <span>u</span>s<span>in</span><span>gM</span><span>i</span><span>c</span><span>h</span>ae<span>li</span>s.--<span>M</span>e<span>nt</span>e<span>n
+            </span>e<span>q</span><span>u</span>a<span>tion</span></p>
+        <p><br /></p>
+        <p>N<span>p</span><span>p</span><span>T</span><span>oBiom</span><span>ass</span>L<span>ea</span><span>fN
+            </span><span>= </span>Npp<span>T</span><span>ota</span>lN *
+            </span><span>(Npp,</span><span>T</span><span>ota</span>lNF<span>ir</span><span>a</span><span>ction</span><span>T</span><span>oB</span>iom<span>ass</span>L<span>ea</span><span>f</span>N,
+            <span>0-1)</span></p>
+        <p><br /></p>
+        <p><span>M</span>o<span>r</span><span>t</span>a<span>lityL</span>ea<span>if</span><span>Nt</span><span>oUet</span><span>r</span><span>itU1</span>s<span>L</span>ea<span>f</span><span>N
+            </span><span>= </span><span>Bio</span><span>m</span>ass<span>L</span>ea<span>ifN </span>*
+            </span><span>(M</span>o<span>rt</span>a<span>lityL</span>ea<span>ifNF</span>ra<span>ct</span><span>i</span><span>o</span><span>n,
+            </span><span>0</span><span>-</span><span>1)</span></p>
+        <p><br /></p>
+        <p><span>Biom</span>as<span>sL</span>e<span>,</span>a<span>if</span><span>N </span><span>=
+            </span><span>Biom</span>ass<span>L</span>e<span>,</span>a<span>ifN </span>-t
+            </span><span>Np</span><span>p</span><span>T</span><span>oB</span><span>i</span><span>omass</span><span>L</span>ea<span>ifN
+            </span><span>-
+            </span><span>MmtalityL</span>ea<span>if</span><span>Nt</span><span>oDetr</span><span>itU1</span>s<span>L</span>ea<span>ifN
+                w</span><span>h</span><span>e</span><span>re
+            </span><span>B</span><span>i</span><span>o</span><span>m</span>ass<span>L</span><span>e</span>a<span>fN
+            </span><span>vs </span><span>t</span><span>im</span>e <span>mu</span><span>s</span><span>t
+                r</span><span>e</span><span>f</span><span>l</span>e<span>cts</span><span>u</span><span>oo</span>e<span>:SS</span><span>i</span><span>o</span><span>n</span>a<span>l
+            </span>a<span>oc</span><span>umul</span>a <span>i</span><span>o</span><span>11</span></p>
+        <p><br /></p>
+        <p>B<span>i</span><span>,</span>o<span>m</span>a<span>.</span>ss<span>l</span>ea<span>fC </span>poo</span>l</span>s
+            </span>&amp; </span>fluxes in </span>g</span>C/m</span>2</span></p>
+        <p><br /></p>
+        <p><span>Bi</span>o<span>rn</span>as<span>sL</span>e<span>,</span>a<span>ifC </span><span>=
+            </span><span>Bi</span>o<span>rn</span>as<span>sL</span>ea<span>if</span><span>N </span>*
+            </span><span>B</span><span>i</span><span>omass</span><span>L</span>ea<span>ifC</span><span>t</span>o<span>N</span>
+        </p>
+        <p><span><img width="837" height="607" alt="image" src="Image_164.png" /></span></p>
+        <p>Figure A1.2</p>
+        <p><br /></p>
+        <p><span>B</span><span>i</span><span>om</span>ass<span>T</span><span>ot-</span>a<span>l</span><span>N</span><span>I
+            </span>CtoN</span> ca</span>l</span>ou</span>l </span><u>ate</u>d</span></p>
+        <p><br /></p>
+        <p>Mo<span>r</span><span>t</span><span>a</span><span>Ii</span>cyli<span>eafN</span></p>
+        <p><span>Det</span><span>r</span><span>i</span><span>&#39;ll</span>u:iS<span>T</span>o&#39;IJa<span>l</span><span>N</span><span>I</span>
+        </p>
+        <p><u>CtoN</u> ca <span>l</span>ou<span>l </span><span>ate</span>d--,</span></p>
+        <p>I</p>
+        <p><br /></p>
+        <p>Detrit1.151.eafN To<span>H</span><span>u</span>mLJS<span>N</span></p>
+        <p><br /></p>
+        <p><span>H</span><span>u</span>muiS CtoN<span>I</span><span>= </span>10</p>
+        <p>N<span>p;p</span>T</span>o</span>B</span>i</span>o:m</span>assueaf</span><u>N</u><span>I</span></p>
+        <p>B<span>i</span><span>o:m</span><span>a</span><span>5:.!a</span>Leaf<span>N</span><span>I </span><span>CtoN
+            </span><span>5</span></p>
+        <p><span>to</span><span>De</span>t<span>r</span><span>i</span>n..r<span>e</span><span>LeiafN</span></p>
+        <p><span>De</span>t<span>r</span><span>i</span>t<span>u</span><span>t:LeafN</span></p>
+        <p><span>L</span>a<span>y</span>e<span>rO </span><span>CtoN</span><span>I </span>S</span>O</span></p>
+        <p>:<span>-+ +-</span></p>
+        <p>:</p>
+        <p>
+        <p>I</p>
+        <p><br /></p>
+        <p>I I I</p>
+        <p><br /></p>
+        <p><span>H</span>umu:iS<span>L</span>ayerO CtoN<span>I </span>10</p>
+        <p><br /></p>
+        <p>N&#39;°&#39;<span>T</span><span>r</span><span>=</span></p>
+        <p><br /></p>
+        <p>Np;p o</span>B</span>i</span>,</span>om</span>assR</span>ioatN</span><span>I</span></p>
+        <p>1</span>6<span>a</span><span>J</span><span>e--&lt;(£</span><span>ri</span>g<span>t1</span><span>1</span></p>
+        <p><span>, </span>Mo<span>rta</span><span>Ii</span>q6&quot;&#39;1lemJl.gN<span>I</span></p>
+        <p>N<span>I </span><span>. </span><span>:</span></p>
+        <p>B</span>1</span>0:m</span>a</span>s.:sS&quot;temA,gN</span>I
+            </span>-+&#39;-+-_</span>to</span>_</span>D</span>_</span>et</span>_</span>r</span>i</span>_</span>w</span>_</span>tsS</span>_
+            _</span>mA</span>,g</span>_</span>. </span>_</span>.</span>&quot;&#39;</span>N</span>- </span></p>
+        <p>CtoN <span>5</span><span>00</span></p>
+        <p><span>--]
+            </span><span>Mort</span><span>a</span><span>li</span>-q;S&quot;&#39;Dem<span>l½;</span><span>N</span><span>I
+            </span><span>B,</span><span>i</span><span>,</span>om<span>a</span>:S:SSLEm<span>Bg</span><span>N</span><span>I
+            </span><span>:</span></p>
+        <p>CtoN </span>5</span>00 </span>T&quot;&#39;I&#39;---------------</span>---- </span></p>
+        <p><br /></p>
+        <p>B</span>i</span>,</span><u>om</u>a</span><u>:S:SRno</u>t:N CtoN 7<span>0</span></p>
+        <p><br /></p>
+        <p>D</span>e<span>t</span>ri</span><span>tu:i5Ste</span>ml¼;</span><span>N</span></p>
+        <p><span>L</span><span>a</span>y<span>e</span>rO <span>CtoN</span><span>I </span><span>5</span><span>00</span></p>
+        <p><br /></p>
+        <p><span>H</span>umutS<span>L</span>ay<span>erl </span>CtoN 10</p>
+        <p><br /></p>
+        <p><span>H</span>u:mUiS<span>L</span>ay<span>er</span>2 CtoN<span>l</span><span>l</span><span>O</span></p>
+        <p>- &#39;I</p>
+        <p>I</p>
+        <p>
+        <p>:</p>
+        <p>H<span>umu:</span><span>iS</span>L<span>ay</span><span>er3 </span>i</span></p>
+        <p>:</p>
+        <p>
+        <p>CtoN 1</span>0 </span>:</span></p>
+        <p>I</p>
+        <p>- &#39;</p>
+        <p>)</p>
+        <p>
+        <p>Biomassl!oo</span>,</span>tN </span>p<span>oo</span><span>l</span><span>s.</span>(<span>g </span>N
+            m<span>-</span>2</span></p>
+        <p><span>a</span>nd flu<span>xes </span>(<span>g </span>N m<span>-</span>2 </span>d<span>-</span>1</span></p>
+        <p><span>wh</span>e<span>r</span>e <span>initi</span><span>a</span><span>l </span>state
+            <span>v</span>a<span>l</span><span>u</span>e <span>mu</span>s<span>t
+                b</span><span>e</span>s<span>p</span>ec<span>ifi</span>e<span>d</span></p>
+        <p><br /></p>
+        <p>},</p>
+        <p>
+        <p>N<span>pp</span><span>,</span><span>T</span><span>o</span><span>t</span><span>a</span><span>I</span>N
+            =</span><span>,ca </span>k </span>u <span>l</span><span>at</span><span>e</span><span>d </span><span>as
+            </span>b<span>e</span><span>foi-</span><span>e </span>u<span>s</span><span>i</span>n<span>g
+            </span><span>M</span><span>i</span><span>,</span><span>c</span>h<span>ae</span><span>l</span><span>is.--M</span><span>e</span>n<span>t</span><span>e</span>n
+            <span>e</span>qu<span>a</span><span>t</span><span>i</span><span>o</span>n
+            N<span>pp</span><span>To</span><span>B</span><span>i</span><span>om</span><span>ass</span><span>R</span><span>oo</span><span>t</span>N
+            =</span>N</span>pp</span>To</span>t</span>a</span>l</span>N</span>*
+            </span>(</span>N</span>ppTo</span>t</span>a</span>l</span>N</span>lrr</span>a</span>c</span>t</span>i</span>o</span>n</span>To</span>B</span>i</span>om</span>ass</span>R</span>o</span>o</span>t</span>N</span>,</span>0-11</span>
+        </p>
+        <p><span>M</span><span>o</span><span>rt</span><span>a</span><span>I</span><span>i</span><span>ty</span>R!<span>oo</span>t<span>N</span>t<span>o</span>D<span>e</span>tr<span>i</span>t<span>u</span><span>sR</span><span>o</span><span>ot</span><span>N
+            </span>= </span><span>B</span><span>i</span><span>om</span><span>ass</span>Ri<span>oo</span>t<span>N
+            </span>*</span><span>IM
+            </span><span>orta</span><span>I</span><span>ity</span>R!<span>oo</span>t<span>N</span>F<span>r</span><span>,</span><span>act</span><span>i</span><span>o</span><span>n</span>&#39;b<span>o</span>D<span>et</span><span>r·
+            </span><span>u</span><span>sR</span><span>o</span><span>o</span>t<span>N</span><span>, </span>0-1</span>l</span>
+        </p>
+        <p><br /></p>
+        <p><span>B</span><span>i</span><span>o</span><span>m</span>assRoo<span>t</span><span>N </span>=
+            </span><span>B</span><span>i</span><span>om</span>ass<span>R</span><span>oo</span><span>t</span><span>N</span>+
+            </span><span>Np</span><span>p</span><span>T</span><span>o</span><span>B</span><span>i</span><span>om</span>ass<span>R</span><span>oot</span><span>N</span><span>-
+            </span><span>M</span><span>o</span><span>rt</span>a<span>I</span><span>ity</span><span>Ri</span><span>oo</span><span>t</span><span>N</span><span>tJ</span><span>o</span><span>D</span>e<span>t</span><span>ir</span><span>i</span><span>t</span><span>u</span>sRoo<span>t</span><span>N
+            </span><span>w</span><span>h</span>e<span>re
+            </span><span>B</span><span>i</span><span>om</span>ass<span>l</span><span>e</span>a N
+            </span><span>v</span>s<span>.</span><span>t</span><span>i</span><span>m</span>e
+            <span>m</span><span>u</span>s<span>t </span><span>ref</span><span>l</span><span>e</span>c<span>t
+            </span>s<span>u</span>cie:<span>e</span>ss<span>i</span><span>o</span><span>n</span>a<span>l</span><span>,</span>a<span>c</span><span>1</span><span>c</span><span>u</span><span>m</span><span>u</span>l</span><b>at</b><span>i</span><span>o</span><span>n</span>
+        </p>
+        <p><br /></p>
+        <p>Biomass.Roo</span>,</span>tC</span><span>p</span>oo<span>l</span><span>sg </span>C
+            <span>m</span><span>-</span>2</span></p>
+        <p><span>B</span><span>i</span><span>om.</span><span>assRootc </span>=
+            </span>B<span>i</span><span>om</span><span>ass</span>R<span>oo</span>t<span>N </span>*
+            </span><span>B</span><span>i</span><span>om</span><span>ass</span>Ri<span>oo</span>t<span>cto</span><span>N</span>
+        </p>
+        <p><span><img width="835" height="598" alt="image" src="Image_165.png" /></span></p>
+        <p>Figure A1.3</p>
+        <p><br /></p>
+        <p><span>B</span><span>i</span><span>o:</span><span>m</span>a:ss<span>T</span><span>ot</span>a<span>l</span><span>N
+            </span>Ct</span>oN c</span><u>a</u>l</span>ou</span>l</span><u>ate</u>d</span></p>
+        <p>--1,</p>
+        <p><br /></p>
+        <p>M <span>Drt</span><span>a</span><span>Ii</span>-cylc<span>eaf</span>N
+            to<span>De</span>t<span>r</span><span>i</span>nr<span>!Sleaf</span>N</p>
+        <p><br /></p>
+        <p><span>Det</span><span>r</span><span>i</span><span>t</span><span>Lli5</span><span>T</span><span>ma</span><span>l</span><span>N
+            </span><span>Ct</span>oN<span>I
+            </span>ca</span><span>l</span>ou<span>l</span><span>ate</span>iC-</span>I-</span>I-.</span></p>
+        <p><span>De</span>t<span>r</span><span>i</span>tu<span>!Sleaf</span>N &#39;</span></p>
+        <p><br /></p>
+        <p>DetritL.151..eafN ToH<span>umL.tSNI</span></p>
+        <p><br /></p>
+        <p>H<span>umUi5CtoN </span><span>= </span><span>1</span><span>0</span></p>
+        <p>N<span>p </span>T</span>o</span>B</span>i</span>o:m</span>ass</span>L</span>eaf</span><u>N</u></p>
+        <p>B<span>i</span><span>o:m</span><span>aS=LeafN</span><span>I</span></p>
+        <p>CtoN<span>I </span><span>5</span><span>0</span></p>
+        <p><span>L</span>a<span>y</span>e<span>rO </span><span>CtoN </span><span>5</span><span>0</span></p>
+        <p>!<span>--, ,</span></p>
+        <p><span>, </span>D<span>e</span><span>t</span><span>r</span><span>i</span>t<span>u</span><span>!SS</span></p>
+        <p>&#39;</p>
+        <p><span>H</span>umL1i5<span>L</span><span>aye</span><span>rO </span>CtoN <span>1</span><span>0</span></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p>B<span>i</span><span>o:m</span><span>a:ssS</span><span>&quot;&#39;tem</span>Bg<span>N</span><span>I
+            </span><span>NOP</span><span>T</span><span>r</span><span>om
+            </span><span>-</span>ass.S&#39;b<span>--</span>em<span>-</span><span>-</span><span>-</span>Bg<span>-</span><span>:
+            </span>+¼I </span><span>CtoN</span><span>I </span><span>5</span><span>00</span></p>
+        <p><br /></p>
+        <p>to<span>De</span><span>t</span><span>r</span><span>i</span>tLJtSS.<span>&quot;lE</span>.m<span>Bd,1</span><span>1</span>
+        </p>
+        <p>6<span>o</span><span>J</span>e-6<span>rl</span><span>g</span><span>a</span><span>J</span></p>
+        <p><br /></p>
+        <p>. --.</span></p>
+        <p>tlaf53mm</span>S</span>gN</span>- </span> </span>f,</span></p>
+        <p>&#39; </span>-</span>-</span>-</span>i-­</span></p>
+        <p>-<span>---½</span><span>lieN</span><span>L-SOO </span>I-&quot;</span></p>
+        <p><span>H</span>umL1i5<span>L</span><span>ayer1 Ct</span><span>o</span>N<span>l</span><span>lO</span></p>
+        <p><br /></p>
+        <p><span>H</span>umL1i5<span>L</span>ay<span>e</span><span>r</span><span>2 </span>CtoN <span>1</span></p>
+        <p>i</p>
+        <p><span>H</span>umu<span>cS</span><span>L</span>ay<span>e</span><span>r</span><span>3 </span>&#39;</span></p>
+        <p>N <span>p </span>o</span>B</span>i</span>o:</span>massR</span>o</span>at</span><u>N</u></p>
+        <p>a<span>a</span><span>J</span>e-&lt;G<span>&#39;</span><span>n</span><span>go</span><span>J</span></p>
+        <p> B<span>i</span><span>o:m</span><span>a</span>s:.5P.DotN </span></p>
+        <p> Cto<span>N </span><span>70 </span></p>
+        <p>!,</p>
+        <p><span>Ct</span>oN<span>l</span>lO <span>,</span></p>
+        <p>- !</span></p>
+        <p><br /></p>
+        <p>)</p>
+        <p>
+        <p>Biom<span>,</span>assS<span>t</span>emAgN poo</span>l</span>s.</span>(</span>g </span>N
+            </span>m</span>-</span>2</span></p>
+        <div class="toc"><a href="part38.htm">and flu es.(g N m-2 d-1</a></div>
+    </div>

@@ -1,0 +1,194 @@
+<h1>Appendix 4:</h1>
+    <div class="toc"><a href="part49.htm">Overview of VELMA Simulator Output</a></div>
+    <p>Overview of VELMA Simulator Output</p>
+    <p><span><img width="683" height="1" alt="image" src="Image_186.png" /></span></p>
+    <p><a href="#bookmark20" name="bookmark176">(Link to All Parameters Table of Contents)</a></p>
+    <p><br /></p>
+    <p>Where are VELMA Simulator Results Located?</p>
+    <p>The results of a VELMA Simulator run are a collection of data files that the simulator writes to a specific
+        directory location. That directory is specified in the simulator configuration by 2 related parameters:</p>
+    <p>/calibration/VelmaInputs.properties/initializeOutputDataLocationRoot</p>
+    <p><br /></p>
+    <p>and</p>
+    <p>/calibration/VelmaInputs.properties/run_index</p>
+    <p><br /></p>
+    <p>The initializeOutputDataLocationRoot</span>'s value should be a fully qualified path, and the run_index
+        </span>should be the name of a directory under that path.</p>
+    <p>For example, given the following configuration:</p>
+    <p><br /></p>
+    <table>
+        <tr>
+            <td>
+                <p>ID Key</p>
+            </td>
+            <td>
+                <p>Value</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>/calibration/VelmaInputs.properties/initializeOutputDataLocationRoot</p>
+            </td>
+            <td>
+                <p>C:/MyVELMA_OutputData</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>/calibration/VelmaInputs.properties/run_index</p>
+            </td>
+            <td>
+                <p>LittleMtn_ClearCut</p>
+            </td>
+        </tr>
+    </table>
+    <p><br /></p>
+    <p>All results for the simulation run are written to the directory:</p>
+    <p>C:/MyVELMA_OutputData/LittleMtn_ClearCut</p>
+    <p><br /></p>
+    <p>If the directory name specified as the value for run_index </span>does not exist as a subdirectory of the
+        directory path specified for initializeOutputDataLocationRoot</span>, the VELMA simulator will create it as a
+        subdirectory before writing any results.</p>
+    <p>If the run_index </span>directory name already exists as a subdirectory of the initializeOutputDataLocationRoot
+        </span>directory path, the VELMA simulator does not overwrite existing contents. Instead, it creates a new
+        subdirectory named &lt;run_index&gt;_&lt;n&gt;</span>, where &lt;run_index&gt; </span>is the value of the
+        run_index </span>parameter, and &lt;n&gt; </span>is a unique sequence number. This allows you to run the same
+        simulation several times, without losing the results for any of the individual simulation runs.</p>
+    <p>If you ran the simulation run with the example parameters above 3 times in a row, without removing any results
+        directories, you would end up with 3 complete sets of results data in the 3 following directories:</p>
+    <p>C:/MyVELMA_OutputData/LittleMtn_ClearCut C:/MyVELMA_OutputData/LittleMtn_ClearCut_0
+        C:/MyVELMA_OutputData/LittleMtn_ClearCut_1</p>
+    <p>What Results are Available after a VELMA Simulation is Run?</p>
+    <p>The VELMA simulator writes several different types of results data, in several different file formats:</p>
+    <p>Image Data</p>
+    <p>For each year of the simulations runs via the JVelma GUI, the GUI creates a PNG image that shows the current
+        graph/chart state on the last day of the year. These files appear in the run_index directory with the following
+        naming format:</p>
+    <p>out_&lt;run_index&gt;_&lt;loopNumber&gt;_&lt;YYYY&gt;.png</p>
+    <p>Where &lt;run_index&gt; </span>is the value of the run_index parameter, &lt;loop_number&gt; </span>is the
+        simulation loop number and &lt;YYYY&gt; </span>is the year for the particular image.</p>
+    <p>For example here is the 2nd</span> loop, year 1979 PNG file for a simulation run of the example configuration
+        used earlier in this document:</p>
+    <p>out_LittleMtn_ClearCut_1_1978.png</p>
+    <p>The actual chart or graph type in the image is whatever the user had selected in the JVelma GUI when the
+        simulator completed the particular year.</p>
+    <p>Table Data</p>
+    <p>Table data are files of comma-separated values (.csv) data. They are the primary results output of a VELMA
+        simulator run. The VELMA simulator produces several .csv files; some document what the configuration of the
+        simulation run was, while others report the actual simulation results.</p>
+    <p><br /></p>
+    <table>
+        <tr>
+            <td>
+                <p>File name</p>
+            </td>
+            <td>
+                <p>Contents Type</p>
+            </td>
+            <td>
+                <p>Description</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>DemState.csv</p>
+            </td>
+            <td>
+                <p>Simulation Configuration</p>
+            </td>
+            <td>
+                <p>Information about the DEM and watershed</p>
+                <p>delineation.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>CoverState.csv</p>
+            </td>
+            <td>
+                <p>Simulation Configuration</p>
+            </td>
+            <td>
+                <p>Information about the specified cover types.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>SoilState.csv</p>
+            </td>
+            <td>
+                <p>Simulation Configuration</p>
+            </td>
+            <td>
+                <p>Information about the specified soil</p>
+                <p>parameterizations.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>SimulationConfiguration.csv</p>
+            </td>
+            <td>
+                <p>Simulation Configuration</p>
+            </td>
+            <td>
+                <p>The full set of parameters used to configure</p>
+                <p>the simulation.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>DailyResults.csv</p>
+            </td>
+            <td>
+                <p>Simulation Results</p>
+            </td>
+            <td>
+                <p>The primary, per-day results output for the</p>
+                <p>simulation run.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Combined_DailyResults.csv</p>
+            </td>
+            <td>
+                <p>Simulation Results</p>
+            </td>
+            <td>
+                <p>A convenience file: contains the combined contents of the DemState, SoilState,</p>
+                <p>CoverState and DailyResults .csv files.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Calibration_DailyResults.csv</p>
+            </td>
+            <td>
+                <p>Simulation Results</p>
+            </td>
+            <td>
+                <p>Additional, per-day results data that does</p>
+                <p>not appear in the DailyResults .csv file.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>AnnualResults.csv</p>
+            </td>
+            <td>
+                <p>Simulation Results</p>
+            </td>
+            <td>
+                <p>Derived from the contents of DailyResults;</p>
+                <p>per year min, max, sum and range values for each column of DailyResults file.</p>
+            </td>
+        </tr>
+    </table>
+    <p><br /></p>
+    <p>Text Data</p>
+    <p>Text data files contain simple text summaries of either results data or simulator configuration information for a
+        particular simulation run.</p>
+    <p>Of these, the most important is the NashSutcliffeCoefficients.txt, </span>which contains a Nash-Sutcliffe
+        coefficient value computed for the simulated runoff values. Note that this file only contains useful data if the
+        VELMA simulator was provided with observed runoff data as part of its simulation configuration.</p>
