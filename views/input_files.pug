@@ -1,0 +1,147 @@
+extends layout.pug
+block content
+    h1 IV. Required Input Data Files for VELMA Simulations
+    p The primary input file for a given simulation run is an XML file of initialization parameters known as the simulator configuration file (often abbreviated as the "simconfig" or "the XML" file). In addition to the simulator configuration file, the following data files must be complete and available for the VELMA Simulator to run:
+    
+    table(cellspacing='0')
+      tbody
+        tr
+          td FILE
+          td TYPE
+          td CONTAINS
+        tr
+          td Flat-Processed DEM
+          td Spatial / Grid ASCII (.asc)
+          td Elevation in meters
+        tr
+          td Cover Species ID Map
+          td Spatial / Grid ASCII (.asc)
+          td Cover Species ID integers
+        tr
+          td Cover Species Age Map
+          td Spatial / Grid ASCII (.asc)
+          td Cover Species age in years
+        tr
+          td Soil Parameters ID Map
+          td Spatial / Grid ASCII (.asc)
+          td Soil Parameterization ID integers
+        tr
+          td Precipitation Driver Data
+          td Temporal / (.csv or .txt)
+          td Precipitation per in mm
+        tr
+          td Air Temperature Driver Data
+          td Temporal / (.csv or .txt)
+          td Air Temperature in degrees C
+    p
+      | If your simulation is using the optional spatially-explicit weather model, the following files must also be complete and available:
+      table(cellspacing='0')
+        tbody
+          tr
+            td FILE
+            td TYPE
+            td CONTAINS
+          tr
+            td Head Index Map
+            td Spatial / ESRI Grid ASCII (.asc)
+            td Heat index values
+          tr
+            td Precipitation Coefficients
+            td Tabular (.csv)
+            td Coefficient values
+          tr
+            td Air Temperature Coefficients
+            td Tabular (.csv)
+            td Coefficient values
+        p Finally, the following files are not required for the VELMA Simulator to run, but providing them for a simulation run is recommended. Their availability allows the simulator to provide more run-time information and some additional results data. (E.g. The VELMA Simulator can only compute a Nash- Sutcliffe coefficient value for a simulation run&apos;s runoff data if the Observed Runoff data file was provided as part of the input data).
+      table(cellspacing='0')
+        tbody
+          tr
+            td FILE
+            td TYPE
+            td CONTAINS
+          tr
+            td Observed Runoff
+            td Temporal (.csv or .txt)
+            td Observed runoff in mm
+          tr
+            td Observed Stream Chemistry
+            td Temporal Tabular (.csv)
+            td Observed chemistry values
+        p 1 &quot;Simulator Configuration&quot; and &quot;Simulation Configuration&quot; are both used as the term for this primary file. The former emphasizes the fact that the file&apos;s contents configure the simulator, while the latter emphasizes the (equally true) fact that the file&apos;s contents form a particular configuration of a given simulation scenario.
+        h3 The Simulator Configuration file specifies the Names of all other input data files.
+        p When you run a VELMA Simulation, the simulator engine is given the simulator configuration file. The first thing the simulator engine does is initialize itself, using the key-value pairs in the file. Each of the required or optional files mentioned above is present as a key-value pair in the simulator configuration file.
+      table(cellspacing='0')
+        tbody
+          tr
+            td FILE
+            td CONFIGURATION ID KEY
+          tr
+            td Flat-Processed DEM
+            td /calibration/VelmaInputs.properties/input_dem
+          tr
+            td Cover Species ID Map
+            td /calibration/VelmaInputs.properties/coverSpeciesIndexMapFileName
+          tr
+            td Cover Species Age Map
+            td /calibration/VelmaInputs.properties/coverAgeMapFileName
+          tr
+            td Soil Parameters ID Map
+            td /calibration/VelmaInputs.properties/soilParametersIndexMapFileName
+          tr
+            td Precipitation Driver Data
+            td /weather/SpatialWeatherModel/rainDriverDataFileName
+          tr
+            td Air Temperature Driver Data
+            td /weather/SpatialWeatherModel/airTemperatureDriverDataFileName
+          tr
+            td Head Index Map
+            td /weather/SpatialWeatherModel/heatIndexMapFileName
+          tr
+            td Precipitation Coefficients
+            td /weather/SpatialWeatherModel/rainCoefficientDataFileName
+          tr
+            td Air Temperature Coefficients
+            td /weather/SpatialWeatherModel/airTemperatureCoefficientsDataFileName
+          tr
+            td Observed Runoff
+            td /calibration/VelmaInputs.properties/input_runoff
+          tr
+            td Observed Stream Chemistry
+            td /calibration/VelmaInputs.properties/input_stream_chem
+        p ID keys for required input data files 
+      i must
+      | have the name of an existing, valid and readable file specified, while optional input data files ID keys may be left blank.
+        p 2 Sometimes just the name and extension of the file will do, sometimes the fully-specified path must be included as part of the name, and sometimes the path is optional. This unfortunately-confusing state of affairs exists due the history of the Simulator&apos;s development. For the input data files discussed here, supply only the name and extension as an ID Key&apos;s value.
+        p The Simulator Configuration file specifies the Location of all other input data files.
+        p The simulation configuration specifies the location of a directory (a.k.a. &quot;folder&quot;) and the VELMA simulator engine looks in that directory for the input data files specified by the appropriate ID Keys (as listed in the previous table). The simulation configuration uses two, separate ID Keys to specify one fully-qualified path + directory name:
+      table(cellspacing='0')
+        tbody
+          tr
+            td Location Path
+            td /startups/VelmaStartups.properties/inputDataLocationRootName
+          tr
+            td Directory Name
+            td /startups/VelmaStartups.properties/inputDataLocationDirName
+        p The fully-qualified location of input data files is <b>Location Path </b>+ "/" + <b>Directory Name</b>. For example, the following ID Key values:
+      table(cellspacing='0')
+        tbody
+          tr
+            td ID Key
+            td Value
+          tr
+            td /startups/VelmaStartups.properties/inputDataLocationRootName
+            td C:/MyVELMA_InputData
+          tr
+            td /startups/VelmaStartups.properties/inputDataLocationDirName
+            td LittleMtn_Watershed
+    p … indicate that the VELMA simulator should look for input data files in this directory: <b>C:\MyVELMA_InputData\LittleMtn_Watershed</b>
+    
+    h5 IMPORTANT NOTE
+    p The example above uses Microsoft Window file system "back slash" separators, however you should ALWAYS use "forward slash" (a.k.a. Unix-style) separators when specifying path name values for the simulator configuration's ID Keys.
+    p Given the fully-qualified input data location in the example above, suppose the LittleMtn_Watershed's DEM file name (for ID Key /calibration/VelmaInputs.properties/input_dem) was specified as: LittleMtn_30m_DEM.asc
+    p The VELMA simulator would attempt to open and read elevation data from the file:
+    p C:\MyVELMA_InputData\LittleMtn_Watershed\LittleMtn_30m_DEM.asc
+    h5 The Flat-Processed DEM File
+    p A spatial data file (.asc) containing elevation values (in meters) for every cell in the simulation area. The term "Flat-Processed" indicates that the contents of the file have been pre-processed by the JPDEM flat-processing utility. The DEM file is the "master" film for a simulation run: all other spatially- explicit data is assumed to have the same row, column, cell size and x, y offset values as the DEM file.
+    p See "Appendix 7: Creating Flat-Processed DEM Data For The VELMA Simulator and Determining Outlet and Watershed Delineation" for details on the use of the JPDEM.jar program to flat process a DEM file.
