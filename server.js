@@ -22,7 +22,15 @@ app.get('/about', (req, res) => {
 })
 
 app.get('/files', (req, res) => {
-  res.render('files', { pageTitle: 'Input Files'})
+  res.render('input_files', { pageTitle: 'Input Files'})
+})
+
+app.get('/sim-config', (req, res) => {
+  res.render('new_sim_config', { pageTitle: 'New Sim Config'})
+})
+
+app.get('/param-config', (req, res) => {
+  res.render('parameter_config', { pageTitle: 'New Sim Config'})
 })
 // use this as an example https://github.com/expressjs/express/blob/master/examples/ejs/index.js
 // already have express and pug installed just need to go from there.

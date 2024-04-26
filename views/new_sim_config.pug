@@ -1,0 +1,34 @@
+extends layout.pug
+block content
+    h1 V. Creating a Simulator Configuration (New VELMA Application)
+    ul 
+        li Required Input Files
+        li Configuration Steps
+        li Start the JVelma GUI
+        li Using the GUI
+        li Using the GUI to Specify Startup and Input Parameters
+        li Overview of the All Parameters Table of Contents (TOC)
+        li All Parameters Table of Contents
+    div#required_files
+        h2 Required Input Files
+        p The following simulation data input files must be available prior to creating a new VELMA application:
+        ol
+            li JPDEM flat-processed Grid ASCII (.asc) DEM map file. (see JPDEM user guide in Appendix 7)
+            li Cover Species ID Grid ASCII map (.asc) file.
+            li Cover Species Age Grid ASCII map (.asc) file.
+            li Soil Parameters ID Grid ASCII map (.asc) file.
+            li Daily Rainfall driver data file (.txt or .csv) file.
+            li Daily Air Temperature data file (.txt or .csv) file.
+    div#config_steps 
+        h2 Configuration Steps
+        p With the above files available, perform the following steps:
+        ol 
+        li Start the JVelma graphical user interface (GUI)
+        li Create a New Simulator Configuration
+        li Specify Startup Parameters
+        li Specify Input Parameters
+        li Specify Weather Parameters
+        li Add and Specify Parameters for Each Cover Species
+        li Add and Specify Parameters for Each Soil Parameterization
+    
+    p Additional details for these steps appear in the following pages.
