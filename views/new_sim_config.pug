@@ -23,12 +23,238 @@ block content
         h2 Configuration Steps
         p With the above files available, perform the following steps:
         ol 
-        li Start the JVelma graphical user interface (GUI)
-        li Create a New Simulator Configuration
-        li Specify Startup Parameters
-        li Specify Input Parameters
-        li Specify Weather Parameters
-        li Add and Specify Parameters for Each Cover Species
-        li Add and Specify Parameters for Each Soil Parameterization
+            li Start the JVelma graphical user interface (GUI)
+            li Create a New Simulator Configuration
+            li Specify Startup Parameters
+            li Specify Input Parameters
+            li Specify Weather Parameters
+            li Add and Specify Parameters for Each Cover Species
+            li Add and Specify Parameters for Each Soil Parameterization
+    h2 Start the JVelma GUI
+    br 
+    p To start the JVelma GUI, open a Windows command prompt, and launch the GUI via Java and the JVelma.jar file.
+    p Here is an example of the form the startup command takes:
+    p C:\&gt; java -Xmx1024m -jar C:\Some\full\Path\JVelma.jar
+    p Of course, replace C:\Some\full\Path\ with the actual, fully-qualified path name of the location where your copyof the JVelma.jar file resides.
+    p Here are a couple of screen captures showing actual command lines for starting JVelma:
+    br 
+    img(width="531" height="96" alt="image" src="Image_015.gif")
+    p (In the above screen-capture, the double-quotes around the fully-qualified path+name of the JVelma.jar file arerequired because the text of the path contains whitespace.)
+    br 
+    img(width="517" height="107" alt="image" src="Image_016.gif")
+    p (When there is no whitespace in the entire path the double-quotes are not required.)
+    p The "-Xmx1024m" command line option specifies the amount of memory available to the JVelma GUI and simulator. Thevalue 1024 is in Megabytes, so this command line allocates a 1 Gigabyte memory space for the JVelma GUI andsimulator to run in. You can allocate more memory than 1 GB (e.g. the option "-Xmx4096m" would allocate 4 GB)but if you allocate more memory than your computer can make available, JVelma will fail to start properly.
+    p Once you type in the command line and press the enter key, the JVelma GUI should begin running. Initially, theGUI looks like this:
+    br 
+    img(width="614" height="555" alt="image" src="Image_017.jpg")
+
+    h2 Using the GUI 
+    hr
+    p Click the <b>Edit </b>menu's <b>Create a New, Empty Configuration </b>item:
+    br 
+    img(width="625" height="565" alt="image" src="Image_019.jpg")
+    p Clicking this item creates a new, empty simulation configuration in the JVelma GUI and opens the <b>All    Parameters </b>table view. The All Parameters table lists the Group, Item and Parameter keys and the currentvalue of all the parameters used by a single VELMA simulation run. When we speak of the "SimulationConfiguration", this list of parameters is what we're speaking of.
+    p For demonstration purposes, here is an annotated screen-captured snapshot of the All Parameters table for anexisting simulator configuration (cells under the Value column will be blank for new simulator configurations):
     
-    p Additional details for these steps appear in the following pages.
+    br 
+    img(width="661" height="586" alt="image" src="Image_020.jpg")
+    br 
+    p In addition to filtering by an arbitrary text string, the filter field at the top of the table can be set to anyof several pre-composed filtering expressions.
+    p For example, In the All Parameters table, click "Clear Filters" at the left of side of the filter fields, thenclick the drop-down button (<img width="19" height="24" alt="image" src="Image_021.gif" />) on theright side of the leftmost filter field to display a drop-down menu (see demonstration, below).
+    br 
+
+    h2 Using the GUI to Specify Startup and Input Parameters
+    h3 Specify Startup Parameters
+    p In the All Parameters table, click the first (leftmost) filter field's drop-down button and select "startups"from the drop-down list:
+    br 
+    img(width="623" height="302" alt="image" src="Image_024.jpg")
+    br 
+    p The resulting display shows 13 "startups" parameters under the 3rd column. For now, we will focus on 2startup parameters that VELMA uses to locate simulation input files at the start of a simulation. You will needto specify a valid value in the 4th column for these:
+    div#param_def
+        h5#param_name inputDataLocationDirName:
+        p#param_desc The name of the directory containing your simulation input data files
+        h5#param_name inputDataLocationRootName 
+        p#param_desc The fully-qualified path above the directory name you specified for inputDataLocationDirName
+    h3 Specify Input Parameters
+    p Under the All Parameters menu tab, in the 2nd filter field to the left of the "Clear Filters" button, type"VelmaInputs" (case sensitive, without the double-quotes):
+    img(width="625" height="278" alt="image" src="Image_025.jpg")
+    br 
+    p In the displayed subset of configuration parameters, enter values for the following parameters:
+    div#param_def
+        h5#param_name input_dem
+        p#param_desc The name (plus extension, ".asc") of this simulation's DEM spatial data file. The simulator will lookfor the file in the directory specified by the inputDataLocationDirName + "/" + inputDataLocationRootName thatyou specified as Startups parameters.
+        h5#param_name cell
+        p#param_desc The width of a cell in the DEM grid (should match the "cellsize" header value in the DEM Grid ASCII file andwill be a value in meters).
+        h5#param_name ncol
+        p#param_desc The number of columns in the DEM grid (should match the DEM Grid ASCII file's ncols header value).
+        h5#param_name nrow
+        p#param_desc The number of rows in the DEM grid (should match the DEM Grid ASCII file's nrows header value).
+        h5#param_name cellOffsetX
+        p#param_desc Horizontal (column) offset of the DEM&#39;s zeroth pixel in meters.
+        h5#param_name cellOffsetY
+        p#param_desc Vertical (row) offset of the DEM&#39;s zeroth pixel in meters.
+        h5#param_name outx
+        p#param_desc The zero-based x-coordinate (column index) of the outlet cell for this simulation's watershed.
+        h5#param_name outy
+        p#param_desc The zero-based y-coordinate (row index) of the outlet cell for this simulation's watershed.
+        h5#param_name coverAgeMapFileName
+        p#param_desc The name (and ".asc" extension) of this simulation's cover species age spatial data map.
+        h5#param_name coverSpeciesIndexMapFileName
+        p#param_desc The name (and ".asc" extension) of this simulation's cover species ID spatial data map.
+        h5#param_name soilParametersIndexMapFileName
+        p#param_desc The name (and ".asc" extension) of this simulation's soil parameterizations ID spatial data map.
+        h5#param_name forcing_start
+        p#param_desc The first year (inclusive) of temporal data available for simulation runs.
+        h5#param_name forcing_end
+        p#param_desc The last year (inclusive) of temporal data available for simulation runs.
+        h5#param_name syear
+        p#param_desc The starting year of the simulation run.
+        h5#param_name eyear
+        p#param_desc The ending year of the simulation run.
+        h5#param_name input_runoff
+        p#param_desc The name of the observed runoff data for simulation runs. (Specifying this file is optional, buthighly recommended.)
+        h5#param_name input_stream_chem
+        p#param_desc The name of the observed stream chemistry data for simulation runs. (Specifying this file is optional, but highly recommended.)
+        h5#param_name run_index
+        p#param_desc The name of the directory where the VELMA simulation will save simulation results files.
+        h5#param_name initializeOutputDataLocationRoot
+        p#param_desc The fully-qualified path above the directory name you specifiedfor the run_index.
+    br 
+    p The drop-down filter field menu above the "Group" column can also be used to add and specify parameters for theother parameter categories listed: cover, disturbance, cellDataWriter, spatialDataWriter, soil,and weather:
+    img(width="627" height="164" alt="image" src="Image_026.jpg")
+    p However, we recommend that you use the "All Parameters Table of Contents" described in the next section toconfigure these and other subsets of parameters.
+
+    h2 Overview of the All Parameters Table of Contents (TOC)
+    hr
+    p The "All Parameters Table of Contents" (TOC) provides users with a logical sequence of steps for creating a newsimulator configuration, or for quickly locating and calibrating parameters for existing configurations.
+    p To access the All Parameter TOC, click the GUI's "All Parameters" tab, then click the drop-down button (<img width="19" height="24" alt="image" src="Image_028.gif" />) located on the right side of the4-window filter field (don't confuse this button with the one located next to the leftmost filter field):
+    li <img width="627" height="393" alt="image" src="Image_029.jpg" />
+    p That drop-down menu that appears is designed to organize subsets of model parameters in a "Table of Contents"format. The screenshot above shows the first page of the All Parameters TOC. Additional pages can be viewed byholding your mouse cursor over the TOC and scrolling down.
+    p In all, the TOC includes 26 main sections (0.0 - 25.0), each of which addresses a particular simulationconfiguration procedure.
+    p The All Parameters TOC is designed to:
+    ul 
+        li Provide a structured step-by-step guide for building a new simulator configuration.
+        li Help users quickly make specific adjustments to an existing simulator configuration, for example, to change thedirectory path and/or folder name for input and output files, or to calibrate a particular subset of parametersfor a hydrological or biogeochemical process.
+    br
+
+    h2 All Parameters Table of Contents
+    h3 Click an underlined hyperlink to jump to configuration instructions
+    ol 
+        li <a href="part31.htm#bookmark74" class="a" name="bookmark21">0.0 All Configuration Parameters</a>
+        li <a href="part31.htm#bookmark76" class="a" name="bookmark22">1.0 Input Data Location</a>
+        li <a href="part31.htm#bookmark78" class="a" name="bookmark24">2.0 Results Data Location</a>
+            ul 
+                li 2.1 Results Data Directory Name
+                li 2.2 Results Directory Logfile Names
+        li <a href="part32.htm#bookmark80" class="a" name="bookmark26">3.0 Spatial Dimensions and DEM File</a>
+            ul
+                li 3.1 DEM Row and Column Counts
+                li 3.2 DEM Cell Size (Assumes a square cell, i.e. Width and Height equal)
+                li 3.3 Watershed Outlet (X and Y coordinates are Column and Row indices)
+        li <a href="part32.htm#bookmark83" class="a" name="bookmark28">4.0 Soil Types</a>
+            ul
+                li 4.1 Soil ID Map File
+                li 4.2 Soil IDs and Names
+                li 4.3 Soil Depth Values
+                li 4.3.1 Soil Depth Direct Specification
+                li 4.3.2 Soil Depth Indirect Specification
+                li 4.4 Soil Ks Values
+                li 4.4.1 Soil Ks Values Direct Specification
+                li 4.4.2 Soil Ks Values Indirect Specification
+                li 4.5 Soil Other Hydrologic Parameters
+        li <a href="part32.htm#bookmark83" class="a" name="bookmark30">4.0 Soil Types</a>
+            ul
+                li 4.1 Soil ID Map File
+        li <a href="#bookmark87" name="bookmark31">Important Information for Sections 5.0 - 25.0 of the All Parameters TOC</a>
+        li <a href="part33.htm#bookmark89" class="a" name="bookmark32">5.0 Cover Types</a>
+            ul
+                li 5.1 Cover ID Map File
+                li 5.2 Cover Age Map File
+                li 5.3 Cover IDs and Names
+                li 5.4 Cover Carbon-To-Nitrogen Ratios
+                li 5.5 Cover Uniform-Cell Initialization Amounts
+                li 5.6 Cover Gale-Grigal Root Parameters
+                li 5.7 Cover Leaf Stem and Root Pool Parameters
+                li 5.7.1 Cover Leaf Pool Parameters
+                li 5.7.2 Cover Above-Ground Stem Pool Parameters
+                li 5.7.3 Cover Below-Ground Stem Pool Parameters
+                li 5.7.4 Cover Root Pool Parameters
+        li <a href="part33.htm#bookmark91" class="a" name="bookmark34">6.0 Weather Model</a>
+            ul
+                li 6.1 Weather Rain Driver File
+                li 6.2 Weather Air Temperature Driver File
+                li 6.3.1 Weather Model Coefficients Files (Only Spatial Weather)
+                li 6.4 Latitude/Longitude
+                li 6.5 Solar Radiation
+                li 6.6 Soil Layer Temperature
+        li <a href="part33.htm#bookmark99" class="a" name="bookmark36">7.0 Initialize Uniform Water Amount per Cell</a>
+        li <a href="part33.htm#bookmark101" class="a" name="bookmark38">8.0 </a>Chemistry Pools (Dissolved C and N)
+            ul
+                li 8.1 Chemistry Amounts for uniform cell-initialization
+                li 8.2 Chemistry Water Loss Fractions
+        li <a href="part33.htm#bookmark103" class="a" name="bookmark40">9.0 Nitrogen Deposition</a>
+            ul
+                li 9.1 Nitrogen Deposition Model Selection (useExperimental=true HIGHLY RECOMMENDED)
+                li 9.1.1 Nitrogen Deposition Parameters
+                li 9.1.2 Old (DEPRECATED) Nitrogen Deposition Parameters
+        li <a href="part33.htm#bookmark105" class="a" name="bookmark42">10.0 Transpiration</a>
+            ul
+                li 10.1 Core PET and ET Parameters
+                li 10.2 ET Recovery On/Off ?
+                li 10.2.1 ET Recovery Parameters
+                li 10.3 Transpiration Limiter On/Off ?
+                li 10.3.1 Transpiration Parameters
+        li <a href="part33.htm#bookmark107" class="a" name="bookmark44">11.0 Plant Uptake</a>
+            ul
+                li 11.1 Plant Uptake NH4-specific
+                li 11.2 Plant Uptake NO3-specific
+                li 11.3 Plant Uptake GEM Temperature Component
+                li 11.4 Plant Update NPP Distribution Fractions
+                li 11.5 Plant Uptake Phenology
+        li <a href="part33.htm#bookmark109" class="a" name="bookmark46">12.0 Plant Mortality</a>
+            ul
+                li 12.1 Plant Mortality Logistic or Linear ?
+                li 12.1.1 Plant Mortality Logistic Parameters
+                li 12.1.1.1 Plant Mortality Leaf Logistic Parameters
+                li 12.1.1.2 Plant Mortality Above-Ground Stem Logistic Parameters
+                li 12.1.1.3 Plant Mortality Below-Ground Stem Logistic Parameters
+                li 12.1.1.4 Plant Mortality Root Logistic Parameters
+                li 12.2 Plant Mortality Phenology
+        li <a href="part33.htm#bookmark111" class="a" name="bookmark48">13.0 Decomposition</a>
+            ul
+                li 13.1 Decomposition Nitrogen-To-DON Fraction
+                li 13.2 Decomposition CO2 Respiration Fraction
+                li 13.3 Decomposition Microbe Efficiency
+                li 13.4 Decomposition Cover-Specific Parameters
+        li <a href="part33.htm#bookmark113" class="a" name="bookmark50">14.0 Nitrogen-Fixation</a>
+            ul
+                li 14.1 Nitrogen-Fixation On/Off ?
+        li <a href="part33.htm#bookmark115" class="a" name="bookmark52">15.0 Nitrification</a>
+            ul
+                li 15.1 Nitrification On/Off ?
+                li 15.1.1 Nitrification Function Type
+                li 15.1.2 Nitrification Soil-Specific Parameters
+        li <a href="part33.htm#bookmark117" class="a" name="bookmark54">16.0 Denitrification</a>
+            ul
+                li 16.1 Denitrification On/Off ?
+                li 16.1.1 Denitrification Core Parameters
+                li 16.1.2 Denitrification Soil-Specific Parameters
+        li <a href="part33.htm#bookmark118" class="a" name="bookmark56">17.0 Simulation Run Schedule</a>
+        li <a href="part33.htm#bookmark131" class="a" name="bookmark58">18.0 Years to Compute Nash-Sutcliffe for Runoff</a>
+        li <a href="part33.htm#bookmark133" class="a" name="bookmark60">19.0 Observed Data Files</a>
+        li <a href="part33.htm#bookmark135" class="a" name="bookmark62">20.0 Simulation-End Data Capture for Spin-up Initialization Use</a>
+        li <a href="part34.htm#bookmark143" class="a" name="bookmark64">21.0 Simulation-Start Initialization from Spin-up Data</a>
+        li <a href="part35.htm#bookmark151" class="a" name="bookmark66">22.0 Cell Data Writer Items</a>
+        li <a href="part35.htm#bookmark164" class="a" name="bookmark67">23.0 Spatial Data Writer Items</a>
+            ul
+                li 23.1 Spatial Data Writer Items by Model Type
+                li 23.2 Spatial Data Writer Items Data Sources
+                li 23.3 Spatial Data Writer Items Core Scheduling
+                li 23.4 Spatial Data Writer Items Output Map Size
+        li <a href="part35.htm#bookmark166" class="a" name="bookmark69">24.0 Disturbance Items</a>
+            ul
+                li 24.1 Disturbance Items by Model Type
+                li 24.2 Disturbance Items Core Scheduling
+                li 24.3 Disturbance Items Spatial Specifiers (Raster Rally)
+        li <a href="part35.htm#bookmark167" class="a" name="bookmark71">25.0 Runtime Chart Display Scale</a>
+

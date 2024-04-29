@@ -1,0 +1,139 @@
+extends layout.pug
+block content
+    h1 Appendix 3:
+    h2 Creating Initial ASCII Grid Chemistry Spatial Data Pools
+    p Initial chemistry or nutrient pools are created through a series of transformations of above ground Biomass to each of the respective spatial data pools. These transformations are defined by relationship ratios (fractions) each pool has to "real" or estimated measurements of Biomass (g/m²) for the study area.
+    p 37 VELMA Simulator spatial data pools will be created from this one raster grid Biomass layer. See Table 1 for the complete list of initial layers that will be created. Each spatial data pool layer will have its own corresponding Grid ASCII (.asc) map file upon completion of the Python script. These Grid ASCII (.asc) map files will be used as inputs to VELMA for initializing the map disturbance events.
+    p Figure 1 describes the internal processing flow, inputs, and outputs of the script. Figure 2 describes the calculations and quality control of the internal Python processing.
+    br 
+    h3 Software Requirements
+    ul 
+        li ArcGIS 10.0 or higher with "Spatial Analyst" license
+        li NumPy package installed, for the Python version used by ArcGIS 10.X
+        li IDLE - Python's Integrated Development Environment installed
+    br 
+
+    h3 File Requirements for Data Processing
+    ul 
+        li Raster above ground biomass of the study area
+            ul 
+                li Unit type - Carbon grams / m²
+                li ".tif" extension
+                li Raster has been clipped and snapped to same dimensions as the Grid ASCII map of DEM data that the simulation will use.
+        li Summary Biomass to ratio pools file
+            ul
+                li ".csv" comma delaminate format
+                li No headers
+                li Biomass values (stand age / mass) is in the first column
+                li Pool ratios values in subsequent columns (quantity 37)
+                li Column arrangement /order is known for the ratios
+
+    h3 Setting up Python Script for Data Processing
+    p The script is set up in two general sections, "User defined inputs" and "Processing functions". "User defined inputs" is where inputs, outputs, and column order will be defined or edited. Changes to the "Processing functions" section of the Python code should be avoided.
+    h6 Note
+    p While editing "User defined inputs"
+    ul 
+        li All file and folder paths need to be enclosed in double quotes: &quot;C:/Temp/Biomass/&quot;
+        li All paths in Python use a "/" instead of the DOS "\"
+        li Folder defined paths need to end in "/" &quot;C:/Temp/Biomass/&quot;
+        li File defined paths need to end with correct extension &quot;C:/Temp/Biomass/C_g_leaf.tif&quot;
+        li Ensure that all final output working directories are the same
+    p Note
+    p Biomass to ratio pools file
+    ul 
+        li Column arrangement must be maintained as noted above
+
+    h3 Editing the Python Script
+    ol 
+        li Right click the "lookup_ratio_calculate_biomass_func.py" script and click "Edit With IDLE"
+        li Editing within the "User defined inputs" section
+        li Edit all path variables for:
+            ul         
+                li "biomassLayer" - Biomass file
+                li "inputPath" - Main output directory
+                li "massRatio" - ".csv" Summary Biomass to ratio pools file
+                li Ouput rasters files, for each of the velma attributes - <b>".tif" </b>extension
+                li Column number of pool ratio to biomass - Order specific
+                li Carbon to nitrogen ratios
+                li Raster attributes
+                    ul 
+                        li  xllcorner
+                        li  yllcorner
+                        li  cellsize
+                        li  nodata
+        li Pres Ctrl+S to save the file
+        li Press F5 to run!
+    h6 Note
+    p Processing time is very dependent on processing power and the size of your study area. For example the Blue River, in Oregon, had a study grid of ~350,000 cells and took 7-12hours to complete all 37 pools. The Python shell will print updates of pool processing steps, and say "All Done!" when it's done.
+    table
+        tr
+            td Table 1. Initial spatial pools derived from ratios to above ground biomass (C g/m^2)
+        tr
+            th Spatial Data Pool Name
+            th Layers
+            th Unit Type
+        tr
+            td BIOMASS_AG_STEM_N
+            td 1
+            td N g/m^2
+        tr
+            td BIOMASS_BG_STEM_N
+            td 1
+            td N g/m^2
+        tr
+            td BIOMASS_LEAF_N
+            td 1
+            td N g/m^2
+        tr
+            td BIOMASS_ROOT_N
+            td 4
+            td N g/m^2
+        tr
+            td DETRITUS_AG_STEM_N
+            td 1
+            td N g/m^2
+        tr
+            td DETRITUS_BG_STEM_N
+            td 4
+            td N g/m^2
+        tr
+            td DETRITUS_LEAF_N
+            td 1
+            td N g/m^2
+        tr
+            td DETRITUS_ROOT_N
+            td 4
+            td N g/m^2
+        tr
+            td DOC
+            td 4
+            td C g/m^2
+        tr
+            td DON
+            td 4
+            td N g/m^2
+        tr
+            td HUMUS
+            td 4
+            td N g/m^2
+        tr
+            td NH4
+            td 4
+            td N g/m^2
+        tr
+            td NO3
+            td 4
+            td N g/m^2
+    br 
+    img(width="243" height="80" alt="image" src="Image_179.png")
+    img(width="435" height="311" alt="image" src="Image_180.png")
+    
+    img(width="98" height="43" alt="image" src="Image_181.png")
+    img(width="98" height="43" alt="image" src="Image_182.png")
+    img(width="435" height="82" alt="image" src="Image_183.png")
+    img(width="98" height="43" alt="image" src="Image_184.png")
+     
+    p Figure 1. Process flow diagram of ratio (fractions) processing of "observed" above ground biomass (g / m²) to thefinal nitrogen (g / m²) spatial data pools for VELMA's initialization of disturbance events.
+    img(width="673" height="496" alt="image" src="Image_185.jpg")
+    p Figure 2. Quality control check of Python script's dynamic conversions of "observed" above ground biomass (g /m²) to the final nitrogen (g / m²) spatial data pools. Conversion of biomass (g / m²) to the final nitrogen (g /m²) were made through an intermediate step of converting mass to carbon (g / m²), and then using different C toN ratios for each pool to calculate the final nitrogen pools. Fractions (ratios) of spatial pools change both inthe positive and negative direction as a forest ages or increases in total biomass. Ratio pools can increases ordecreases between stand age increments, and the calculations of these intermediate biomass observational valuesmust reflect this dynamic nature of changing ratios between time steps. Intermediate values of biomass, thosethat land in between time step years, were therefore linearly interpolated between the time point bounds.Spatial map ASCII grid values for each of the 37 pools should then backward match ratio conversions and final Cto N calculations to the original "observed" above ground biomass. (Only a partial list of pools is displayedhere).
+    p Example: A mid biomass cell value at B10 = 3276 (g / m²) and is part way between stand age values at L9 and L10.It's above ground stem carbon mass fraction increases from 0.8609 (D9) to 0.8642 (D10). So its fraction stemmass (column D) should increase as its percentage difference moves from L9 towards LD10. Conversely, for all theother pool attributes, its percentage difference would increase as its fraction moves the opposite directionfrom rows 10 to rows 9.

@@ -1,0 +1,389 @@
+extends layout.pug
+block content
+    h1 Appendix 5:
+    h2 Generating daily temperature and precipitation grids for running VELMA
+    h3 Introduction
+    p The VELMA model runs at a daily time step on a spatial grid covering the study area of interest. The grid isscalable but is often desired to be at a fairly fine scale of resolution, e.g., 30-m cells. The model requiresdaily values of precipitation and mean temperature for each cell. Historic daily temperature and precipitationrecords can be obtained from weather stations in the National Weather Service or other networks. A simplisticapproach would be to assign temperature and precipitation values to each cell equal to those at the nearestweather station (Thiessen polygons). However, this would lead to a very “blocky” spatial data set with sharpdiscontinuities along lines equidistant from two weather stations.
+    p Smoother surfaces could be obtained by using algorithms such as inverse distance weighting to calculate valuesfor each cell depending on their distance from multiple weather stations. Both of these approaches ignorespatial variation in weather variables that are related to physiographic characteristics other than distancefrom a data source. Elevation is often a strong driver of both temperature gradients due to adiabatic coolingand precipitation gradients due to orographic effects produced as the rising air cools, lowering itsmoisture-holding capacity and causing precipitation of the excess.
+    p The PRISM model was developed to spatially interpolate climate data from observational networks in a way thataccounts for elevation and other physiographic variables of importance.
+    p Originally developed for precipitation (Daly et al. 1994), it has since been expanded to include temperature as well (Dalyet al. 2008). The model has become the most widely used source of spatial    climate data sets in the U.S. and has been extensively used worldwide (Daly and Bryant 2013).
+    p Daily time series of PRISM interpolated temperature and precipitation data are    supposed to be available for grids in the conterminous U.S. at a 4-km resolution (PRISM Climate Group 2013; data set AN81d), but as of 3/6/14 this FTP link    through the PRISM Climate Group web site (http://prism.oregonstate.edu/) was notfunctional. Even if available, a 4-km grid scale is very coarse compared to the finer scale resolution (e.g.,30-m) often desired for VELMA runs. Daily PRISM time series at higher resolution more suitable for supportingVELMA runs would need to be purchased, which would add significant cost to the application of VELMA to a studyarea. Depending on the number of cells in the study area, reading in daily grids of weather data would alsosignificantly slow down the processing time for VELMA runs as well as greatly increasing the memoryrequirements.
+    p This manual describes an alternative approach for providing VELMA with daily temperature and precipitation datafor each cell in a study grid. The desire is to capture the essence of PRISM's consideration of physiographicfactors, but without (a) the expense of purchasing custom PRISM high- resolution daily time series products, or(b) the processing time and memory requirements that use of these products would entail. The method involvesdeveloping statistical regression relationships between weather variables from PRISM monthly 30-year normal mapsand physiographic factors (elevation, etc.). Those relationships are then applied on a cell-by-cell basis,adjusting for the departure of daily weather values from monthly normals at a reference weather station in thestudy area. The steps involved in developing and applying these regressions are described below, using a VELMAapplication
+    p at the H.J. Andrews Experimental Forest in Oregon (hereafter referred to a HJA) as a specific example. Commentsare also given about how this may vary for other application study sites.
+    
+    h3 Procedure
+    h4 1. Choose candidate variables and assemble data
+    p PRISM assumes that elevation is the most important factor in the distribution oftemperature and precipitation, but it also includes effects of a variety of other physiographic variables;these include topographic facet, proximity to coastlines, cold air drainage, and measures of topographiccomplexity (Daly and Bryant 2013). The first step in the regression approach is to choose proxyvariables, for which data are available on a cell-by-cell basis, that are relevant to these physiographicrelationships in PRISM. For the HJA we chose <u>elevation</u>, <u>flow accumulation</u>, and <u>heat loadindex</u>. Flow accumulation (also known as contributing area) is the areaof cells that are upslope of the target cell, into which water would flow. This is commonly used to modelhydrologic routing, but is also relevant to cold air drainage modeled in PRISM. Heat load index is avariable that quantifies the heat load from annual incident solar radiation as a function of slope andaspect (McCune and Keon 2002), which relates to the topographic facets in PRISM. In other study areas,other appropriate variables might include distance from coastline if there is a significant coastal to inlandgradient, or latitude if there is a sizable north to south gradient, for example.
+    p Once these physiographic variables have been selected, adata set must be assembled that includes values for each of the cells in the study area. In the HJA study, a30-m grid was used. A 30-m Digital Elevation Model (DEM) provided the data necessary for elevation andcalculation of flow accumulation and heat index in a Geographic Information System (GIS) for each 30-m gridcell. In addition to physiographic data, PRISM monthly “normals” for temperature and precipitation must beassembled for each cell. On the PRISM web site (http://prism.oregonstate.edu) data sets are freely available for the conterminous United States thatinclude 30-year monthly temperature and precipitation normals for 1981-2010 at resolutions of 800 m and 4 km(<a href="http://andrewsforest.oregonstate.edu/" target="_blank">PRISM Climate Group 2013</a>). As analternative, for the HJA study we used 50-m resolution PRISM data sets from the HJA web site(http://andrewsforest.oregonstate.edu/) that included monthly normals for totalprecipitation (mm) and daily mean temperature (C; average of daily minimum and daily maximum). The PRISMtemperature data were based on 30 years of weather station observation (1971-2000), but 50-m PRISM precipitationdata were only available at the time for 1981-1989. The monthly normals were rescaled to the 30-m grid, and thisdata set was merged with the 30-m physiographic data set. In summary, for each of 73,331 30-m cells the HJA dataset included:
+    
+    p Jan - Dec monthly normal precipitation (mm/month)
+    p Jan - Dec monthly normal mean temperature (C; average of daily min and max) elevation (m)
+    p flow accumulation (unitless) heat load index (unitless)
+    
+    p Example maps of these HJA data are shown in Fig. 1.
+    
+    h4 2. Exploratory data analysis
+    p Once the data set has been read in, the distributions of values for the variables should be examined. This servestwo purposes. First, it allows checking to see if all values are in an appropriate range and that there have notbeen any gross data transcription errors. Second, it allows consideration of whether transformations of theoriginal variables might be another choice. In the case of the HJA data,
+    p for example, the flow accumulation variable was found to be very highly right skewed. A log10transformation was used to create an alternative variable for testing in the regression modelfitting.
+    p Correlation coefficients can be calculated between the weather variables (temperature and precipitation) and thephysiographic variables. As expected, and as assumed by PRISM, in the HJA data set this analysis revealed thatthe strongest correlation was with elevation. Plots of temperature and precipitation versus elevation should bemade for each month to see the form of this relationship. For HJA precipitation, this revealed fairly linearpatterns for some months (Fig. 2a), but concave-upwards patterns for other months (Fig. 2b) indicating apossible quadratic relationship with elevation.
+    p Consequently, an elevation2 variable was created for testing alternative regression models. For HJAtemperature, there was a linear increase with elevation up to a point, and then a linear decrease with elevation(Fig. 3). This indicated that a spline regression model be used, fitting a piecewise linear model with aninflection point.
+    h4 3. Regression and model selection
+    p Once the physiographic variables have been selected (step 1), additionalpolynomial terms have been created if indicated (step 2), and alternative transformations have been createdif indicated (step 2), then alternative regression models can be fit for each month and the most appropriatemodel form chosen. Akaike's information criterion (AIC; Akaike 1974) is a widely used statistic tochoose among competing regression models. It represents a compromise between goodness of fit (which increaseswith more parameters) and parsimony (which decreases with more parameters). In practice, ΔAIC values arecomputed as the model AIC value minus the minimum AIC value for all models tested.
+    p While it is possible that different models might have the lowest AIC value for different months, models with ΔAIC<u>&lt;</u> 2 are considered roughly equivalent. For consistency, it is desirable to choose a single model formthat applies for all months and has ΔAIC <u>&lt;</u> 2.
+    p For HJA precipitation, the dependent variable was the mean precipitation for each month, and theindependent variables were elevation (<i>elev</i>), elevation2 (<i>elevsq</i>), heat load index(<i>hli</i>), and log10 of flow accumulation (<i>logfacc</i>). Alternative regression models werefit that included <i>elev </i>and various subsets of the other variables. The full model with all thevariables was selected as the best model; it had ΔAIC = 0 for 8 of the 12 months and <u>&lt;</u>2 for theother 4 months (Fig. 4). The regression parameters are shown in Table 1. The regression residuals fell inside anenvelope of <u>+</u>20% (or better) of the monthly estimates over all months (Fig. 5). Sample SAS codefor generating and comparing the regression models is given in Appendix 5.1, below.
+    p For HJA temperature, the dependent variable was the mean temperature for each month, and the independentvariables were elevation (<i>elev</i>), heat load index (<i>hli</i>), and either flow accumulation (<i>facc</i>)or log10 of flow accumulation (<i>logfacc</i>). Alternative regression models were fit thatincluded <i>elev </i>and various subsets of the other variables. To do the spline fit, anon-linear regression procedure was used (PROC NLIN in SAS) that seeks an iterative solution to the regressionparameters for each of the two linear pieces, as well as the inflection point where they meet. The full modelwith <i>elev, hli, </i>and <i>facc </i>was selected as the best model; it had ΔAIC = 0 for 9 of the 12 months,<u>&lt;</u>2 for 2 months, and 2.6 for the remaining month (Fig. 6). Models incorporating <i>logfacc </i>ratherthan <i>facc </i>failed to converge for several of the months, so <i>facc </i>was used instead. The regressionparameters are shown in Table 2. The regression residuals roughly fell inside an envelope of <u>+</u>1 °C overall months (Fig. 7). Sample SAS code for generating and comparing the regression models is given in Appendix5.2, below.
+    h4 4. Implementation to get daily temperature and precipitation
+    p The regression models give estimates of the long-term normal monthly mean temperature and precipitation totals ateach cell, based on its elevation, heat load index, and flow accumulation values. (The monthly precipitationtotals must be divided by the number of days in the month to translate this to a daily basis.) However, manyVELMA applications seek to do simulations based on historic daily
+    p weather time series, or even on future scenarios of daily weather time series (adding projected temperature andprecipitation changes to historic weather time series, for example).
+    p One mechanism to translate the regression temperature and precipitation monthly estimates into daily time seriesfor each cell is to adjust the values using daily deviations from the monthly normals for a reference weatherstation in the study area. Essentially, this assumes that the daily deviations from climate normals are the sameacross the entire study area. For the HJA study, the PRIMET weather station was used as the reference (Fig. 8).(For future development, methods to use several reference weather stations might be explored, e.g., usinginverse distance weighting to determine the deviations to apply to each cell in the study area.) Using the HJAexample, the steps for this procedure were as follows:
+    ul
+        li Compute expected daily PRIMET temperature (T) and precipitation (P) using the regression equations forthat month, and the <i>elev</i>, <i>hli</i>, and <i>facc </i>values for the PRIMET location. (Divide the monthlyP total estimates by the number of days in the month to get the daily estimate; this is not necessary fortemperature.)
+        li Using the observed daily PRIMET T and P values, compute T and P deviations (observed - expected).
+        li Compute expected T and P values for all other cells using their <i>elev</i>, <i>hli</i>, and <i>facc</i>values.
+        li Add the PRIMET T and P deviations to the expected values for all cells.
+        li Using P as an example:
+            ul 
+                li Subscript 0 denotes PRIMET, x denotes other location, m denotes month, ndaysm denotes number of days inmonth m, exp denotes expected value from regression
+                li P0 = observed P at PRIMET for a day in month m
+                li P0,exp = (am + bm*elev0 + cm*elevsq0+ dm*hli0 + em*logfacc0) / ndaysm Δ = P0 - P0,exp
+                li Px' = Px,exp + Δ
+                li \= (am + bm*<i>elev</i>x + cm*<i>elevsq</i>x +dm*<i>hli</i>x + em*<i>logfacc</i>x) / ndaysm + Δ
+    p A test was done to make sure the adjustment was working correctly in the VELMA code by focusing on the 30-m cellin which PRIMET was located. For each day in 2007, the expected daily precipitation and temperature werecalculated from the regression equations and then adjusted following the procedure above. As expected, theadjusted simulated results for PRIMET were identical to the observed precipitation and temperature data,indicating that the code correctly implemented these procedures (Fig. 9).
+    img(width="582" height="235" alt="image" src="Image_188.png")
+    img(width="230" height="164" alt="L:\Public\dphill02\from Jonathan\HJA Climate Work\HJA_ClimateModeling_FACC.png" title="L:\Public\dphill02\from Jonathan\HJA Climate Work\HJA_ClimateModeling_FACC.png" src="Image_189.jpg") 
+    img(width="230" height="164" alt="L:\Public\dphill02\from Jonathan\HJA Climate Work\HJA_ClimateModeling_Elevation.png" title="L:\Public\dphill02\from Jonathan\HJA Climate Work\HJA_ClimateModeling_Elevation.png" src="Image_190.jpg")
+    
+    img(width="579" height="2" alt="image" src="Image_191.png")
+    p Fig. 1 - Example maps of H.J. Andrew Experimental Forest PRISM climate and physiographic variables.
+    img(width="474" height="337" alt="image" src="Image_192.png")
+    
+    img(width="462" height="324" alt="M:\SASfiles\HJA\May ppt vs elev.jpg" title="M:\SASfiles\HJA\May ppt vs elev.jpg" src="Image_193.jpg")
+    p Fig. 2 - Plots of monthly mean precipitation (mm) versus elevation for H.J. Andrews Experimental Forest. (a)November data, showing more or less linear increase. (b) May data, showing a quadratic increase.
+    img(width="626" height="445" alt="image" src="Image_194.png")
+    p Fig. 3 - Plots of monthly mean temperature (C) for November versus elevation for H.J. Andrews ExperimentalForest. Note the piecewise linear relationship, with an inflection point at around 700 m elevation.
+    
+    img(width="628" height="463" alt="image" src="Image_195.png")
+    
+    p Fig. 4 - Plot of ΔAIC over all months for alternative precipitation regression models at H.J. AndrewsExperimental Forest. E = elevation, E2 = elevation2, H = heat load index, F = log10 of flowaccumulation.
+    img(width="611" height="433" alt="M:\SASfiles\HJA\November ppt residuals.jpg"    title="M:\SASfiles\HJA\November ppt residuals.jpg" src="Image_196.jpg")
+    p Fig. 5 - Graph of November precipitation regression residuals versus predicted precipitation at H.J. AndrewsExperimental Forest. Red bounding lines represent <u>+</u>20% of the monthly precipitation estimate.
+    
+    img(width="628" height="466" alt="image" src="Image_197.png")
+   
+    p Fig. 6 - Plot of ΔAIC over all months for alternative temperature regression models at H.J. Andrews ExperimentalForest. E = elevation, H = heat load index, F = flow accumulation.
+    img(width="626" height="445" alt="image" src="Image_198.png")
+    p Fig. 7 - Graph of November mean temperature regression residuals versus predicted precipitation at H.J. AndrewsExperimental Forest. Red bounding lines represent <u>+</u>1 °C.
+    img(width="605" height="450" alt="image" src="Image_199.jpg")
+    p Fig. 8 - Map of weather station locations at the H.J. Andrews Experimental Forest.
+    
+    img(width="628" height="358" alt="image" src="Image_200.png")
+    p Fig. 9 - Comparison of observed H.J. Andrews Experimental Forest PRIMET weather station daily mean temperaturefor 2007 and VELMA simulated data for the same location. The VELMA simulated data used the temperatureregression equation to estimate monthly normal temperature for the cell containing PRIMET, and then madeadjustments based on the observed PRIMET daily mean temperature. This is a check to make sure that theimplementation of the temperature regression and adjustment is working correctly, as indicated by thecoincidence of the blue and red lines (red is on top).
+    table
+        tr
+            td Month
+            td a
+            td b
+            td c
+            td d
+            td e
+        tr
+            td 1
+            td 259.751
+            td 0.011833
+            td 5.24E-05
+            td -3.94717
+            td -0.09685
+        tr
+            td 2
+            td 241.5404
+            td 0.006131
+            td 6.1E-05
+            td -5.15183
+            td 0.892817
+        tr
+            td 3
+            td 210.8037
+            td 0.037236
+            td 4.62E-05
+            td -4.20577
+            td 0.951439
+        tr
+            td 4
+            td 96.40946
+            td 0.080534
+            td 7.44E-06
+            td -1.44569
+            td 1.250961
+        tr
+            td 5
+            td 88.34944
+            td 0.014202
+            td 3.06E-05
+            td -0.20094
+            td 1.259266
+        tr
+            td 6
+            td 53.51838
+            td 0.048195
+            td 9.53E-06
+            td 0.873204
+            td 1.297879
+        tr
+            td 7
+            td 13.08702
+            td 0.023576
+            td 2.49E-06
+            td 0.686924
+            td 0.685529
+        tr
+            td 8
+            td 21.89397
+            td 7.78E-05
+            td 6.23E-06
+            td -0.00893
+            td 0.199088
+        tr
+            td 9
+            td 70.03036
+            td 0.007598
+            td 2.39E-05
+            td -0.00868
+            td 0.959202
+        tr
+            td 10
+            td 124.4332
+            td -0.00302
+            td 3.59E-05
+            td -1.16562
+            td 0.890761
+        tr
+            td 11
+            td 316.075
+            td 0.072349
+            td 4.32E-05
+            td -4.40543
+            td 1.247633
+        tr
+            td 12
+            td 290.7049
+            td 0.034712
+            td 4.62E-05
+            td -4.46288
+            td 0.495517
+    
+    
+    p Table 1. Monthly mean precipitation regression model coefficients based on PRISM data for 30-m cells in the H. J. Andrews Experimental Forest. The models are of the form:
+    p <i>P</i> = a + b*elev + c*elevsq + d*hli + e*logfacc
+    p <i>P </i>in mm/month, <i>elev </i>in m, <i>elevsq </i>in m2, <i>hli </i>is unitless, <i>logfacc </i>is
+        unitless
+    table
+        tr
+            td Month
+            td b
+            td c
+            td d
+            td e
+            td g
+            td h
+            td i
+            td j
+            td x
+        tr
+            td 1
+            td 0.007047
+            td 0.018444
+            td 2.75E-06
+            td -1.12696
+            td -0.00434
+            td 0.012177
+            td -1.6E-05
+            td 6.606466
+            td 679.15
+        tr
+            td 2
+            td 0.006148
+            td 0.065628
+            td 2.76E-06
+            td 1.024448
+            td -0.00545
+            td 0.037565
+            td -1.5E-05
+            td 8.958362
+            td 684.28
+        tr
+            td 3
+            td 0.001492
+            td 0.041412
+            td 1.47E-06
+            td 5.402304
+            td -0.00656
+            td 0.039723
+            td -5.7E-06
+            td 11.03547
+            td 699.67
+        tr
+            td 4
+            td -0.00239
+            td 0.053357
+            td 2.53E-07
+            td 10.24696
+            td -0.00697
+            td 0.043574
+            td 6.13E-06
+            td 13.99039
+            td 818.03
+        tr
+            td 5
+            td 0.004219
+            td 0.059169
+            td 1.86E-06
+            td 8.916032
+            td -0.00707
+            td 0.056038
+            td -1.2E-05
+            td 16.80074
+            td 698.66
+        tr
+            td 6
+            td -0.00222
+            td 0.046785
+            td -1.3E-06
+            td 16.98087
+            td -0.00684
+            td 0.078366
+            td 1.33E-05
+            td 20.81386
+            td 827.75
+        tr
+            td 7
+            td -0.00123
+            td 0.004955
+            td -2.5E-06
+            td 19.38073
+            td -0.00633
+            td 0.073345
+            td -1.9E-06
+            td 23.54351
+            td 814.57
+        tr
+            td 8
+            td -0.00023
+            td 0.00407
+            td -2.6E-06
+            td 18.81907
+            td -0.00585
+            td 0.007047
+            td 9.03E-06
+            td 23.53079
+            td 836.26
+        tr
+            td 9
+            td 0.001476
+            td -0.0342
+            td -2.3E-06
+            td 14.80655
+            td -0.00612
+            td 0.047614
+            td 7.6E-06
+            td 20.83291
+            td 791.89
+        tr
+            td 10
+            td -0.00023
+            td 0.018716
+            td -1.2E-06
+            td 11.70249
+            td -0.00641
+            td 0.112236
+            td -8.6E-06
+            td 16.77907
+            td 819.27
+        tr
+            td 11
+            td 0.002002
+            td 0.014029
+            td -2.6E-07
+            td 3.771477
+            td -0.00556
+            td 0.027117
+            td -1.4E-05
+            td 9.412401
+            td 745.95
+        tr
+            td 12
+            td 0.00697
+            td 0.047469
+            td 2.59E-06
+            td -1.28579
+            td -0.00399
+            td 0.007256
+            td -1.7E-05
+            td 6.096779
+            td 674.34
+    
+    
+    p Table 2. Monthly mean temperature regression model coefficients based on PRISM data for 30-m cells in the H. J. Andrews Experimental Forest. The models are of the form:
+    p For elev &lt; x: T = b*elev + c*hli + d*facc + e 
+    p For elev <u>&gt;</u> x: T = g*elev + h*hli + i*facc + j
+    p T is in °C, elev in m, hli is unitless, facc is unitless
+    h5 References
+    ol 
+        li Akaike H (1974) A new look at the statistical model identification. IEEE Transactions on Automatic Control 19:716-723
+        li Daly C, Bryant K (2013) The PRISM Climate and Weather System - An Introduction. In. PRISM Climate Group, Oregon State University, Corvallis, Oregon, <a href="http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf"> http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf </a>
+        li Daly C, Halbleib M, Smith JI et al. (2008) Physiographically sensitive mapping of climatological temperature and precipitation across the conterminous United States. International Journal of Climatology 28:2031-2064
+        li Daly C, Neilson RP, Phillips DL (1994) A statistical-topographic model for mapping climatological precipitation over mountainous terrain. Journal of Applied Meteorology 33:140-158
+        li McCune B, Keon D (2002) Equations for potential annual direct incident radiation and heat load. Journal of Vegetation Science 13:603-606
+        li PRISM Climate Group (2013) Descriptions of PRISM Spatial Climate Datasets for the Conterminous United States. In. PRISM Climate Group, Oregon State University, Corvallis, Oregon, <a href="http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf"> http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf</a>
+    
+    h2 Appendix 5.1 - Sample SAS code for generating and comparing monthly total precipitation regression models at H.J. Andrews Experimental Forest.
+    
+    code proc reg data=hja.hja outest=parmout; by month; model ppt = elev elevsq hli logfacc / selection=cp aic; output out=pptout p=phat r=presid;
+    h6 Notes:
+    ol 
+        li The input data are read in from the file 'hja' in the SAS library (folder) 'hja'.
+        li Separate models are fit for each month.
+        li With the 'selection' option, models are fit using all the various sets of independent variables listed.
+        li By using the 'aic' option, Akaike Information Criterion (AIC) values are given in the output for each model. This allows calculation of ΔAIC compared to the model with the lowest AIC value (Fig. 4).
+        li The parameter estimates for each model are written to the file 'parmout' (Table 1).
+        li Predicted estimates ('phat') and residuals ('presid') are written to the file 'pptout' for plotting residuals vs. predicted values (Fig. 5).
+    h2 Appendix 5.2 - Sample SAS code for generating and comparing monthly temperature regression models at H.J. Andrews Experimental Forest.
+    div#code
+        p * TEMP MODEL WITH ELEV, HLI, FACC. BEST MODEL - MIN AIC FOR MOST MONTHS, MINIMAL DELTA AIC FOR OTHER MONTHS;
+        p * Segmented model, linear with elev above and below a join point x;
+        p proc nlin data=hja.hja outest=parmout; by month;
+        p parms b=0.01 c=0 d=0 e=0 g=-0.005 h=0 i=0
+        p j=10; file print;
+        p x = ((h-c)*hli + (i-d)*facc + (j-e))/(b-g); if elev &lt; x then do;
+        p model temp = b*elev + c*hli + d*facc + e; der.b = elev;
+        p der.c = hli; der.d = facc; der.e = 1;
+        p der.g = 0;
+        p der.h = 0;
+        p der.i = 0;
+        p der.j = 0;
+        p end; else do;
+        p model temp = g*elev + h*hli + i*facc + j; der.b = 0;
+        p der.c = 0;
+        p der.d = 0;
+        p der.e = 0; der.g = elev; der.h = hli; der.i = facc; der.j = 1;
+        p end;
+        p if _obs_=1 then do; * PRINT X ESTIMATE TO TRACK CONVERGENCE;
+        p put x =; 
+        P end;
+        p output out=tempout predicted=that residual=tresid;
+    
+    p Notes:
+    
+    ol 
+        li The input data are read in from the file 'hja' in the SAS library (folder) 'hja'.
+        li Separate models are fit for each month.
+        li This is a spline model, fitting linear models above and below an inflection point at elevation <i>x</i>,which is also estimated. This requires use of an iterative non-linear procedure (PROC NLIN). Unlike PROC REG inAppendix 5.1, this does not have the capability to fit multiple alternative models at once and report the AICvalues for each. Instead, each alternative model must be specified. The above code specifies the full model with<i>elev</i>, <i>hli</i>, and <i>facc</i>. AIC values are not automatically printed and must be calculated fromthe sum of squares error (SSE), number of parameters (p; 4 in this case), and number of sample points (n; 73,331in this case), according to the formula: AIC = n * ln(SSE / n) + 2*p. ΔAIC values are then calculated bysubtracting the AIC for the model with the lowest AIC value (Fig. 6).
+        li The 'parms' statement specifies starting values for the parameters to begin the iterative search for bestfit.
+        li <i>x </i>represents the elevation at which the two piecewise linear models meet. To make the overallmodel continuous requires that the estimated temperature must be the same for both piecewise linear models atthat point. The expression for <i>x </i>is derived by setting the two models equal to each other and solving for<i>elev </i>at which they are equal:
+            div#math
+                p b*<i>elev </i>+ c*<i>hli </i>+ d*<i>facc </i>+ e = g*<i>elev </i>+ h*<i>hli </i>+ i*<i>facc </i>+ j 
+                p b*<i>elev</i>- g*<i>elev </i>= h*<i>hli </i>- c*<i>hli </i>+ i*<i>facc </i>- d*<i>facc </i>+ j - e
+                p x = elev = ((h - c)*hli + (I - d)*facc + (j - e))/(b - g)
+        
+        li The 'der' statements specify the first derivatives of each of the linear models with respect to each of theparameters.
+        li The parameter estimates for each model are written to the file 'parmout' (Table 2).
+        li Predicted estimates ('that') and residuals ('tresid') are written to the file 'tempout' for plotting residualsvs. predicted values (Fig. 7).

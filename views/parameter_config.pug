@@ -1,8 +1,7 @@
 extends layout.pug
 block content
     h1 VI. Steps for Configuring All Parameters TOC Sections 0.0 - 25.0
-    hr 
-    div
+    hr
     h2 1.0 All Configuration Parameters 
     Using the drop down button on the right side of the filter field select <i>All Configuration Parameters</i> from the <i>All Parameters </i>menu.
     img(width="626" height="389" alt="image" src="Image_033.jpg")
@@ -97,11 +96,9 @@ block content
         tr
             td yllcorner
             td cellOffsetY
-        
         tr
             td cellsize
             td cell
-        
         tr
             td nodata_value
             td 
@@ -414,15 +411,12 @@ block content
         tr
             td snowFormationTemperature
             td The air temperature (in degrees C) below which theday's precipitation is counted as snow. At and above this temperature, it is counted as rain.
-        
         tr
             td snowMeltTemperature
             td The temperature above which any available snow begins to melt.
-        
         tr
             td snowMeltRate
             td The rate at which melting snow becomes surface water.
-        
         tr
             td rainOnSnowEffect
             td Used in conjunction with the snowMeltRate to determine the amount of snow that melts into surface water.
@@ -515,15 +509,12 @@ block content
         tr
             td isc
             td Solar Constant.
-        
         tr
             td sr1
             td Constant parameter 1 of solar radiation uptake function.
-        
         tr
             td sr2
             td Constant parameter 2 of solar radiation uptake function.
-        
         tr
             td srth
             td Solar radiation threshold.
@@ -1013,19 +1004,16 @@ block content
             td 0.5
             td 0.65
             td 0.75
-        
         tr
             td nitrificationWfpsCoeff1
             td 0
             td 0
             td 0
-        
         tr
             td nitrificationWfpsCoeff2
             td 1.5
             td 1.2
             td 1.2
-        
         tr
             td nitrificationWfpsCoeff3
             td 4.5
@@ -1275,451 +1263,380 @@ block content
             th SpatialDataSource Keyword
             th MultiLayer?
             th Can Sum Column?
-        
         tr
             td Accessor
             td AirTemperature
             td 
             td N/A
-        
         tr
             td Accessor
             td CellWriter
             td 
             td N/A
-        
         tr
             td Accessor
             td CoverAge
             td 
             td N/A
-        
         tr
             td Accessor
             td CoverId
             td 
             td N/A
-        
         tr
             td Accessor
             td DenitrificationLayer
             td YES
             td No
-        
         tr
             td Accessor
             td FlowAccumulation
             td 
             td No
-        
         tr
             td Accessor
             td No3DenitrificationFactorLayer
             td YES
             td No
-        
         tr
             td Accessor
             td QetLayer
             td YES
             td No
-        
         tr
             td Accessor
             td Rain
             td 
             td N/A
-        
         tr
             td Accessor
             td Snow
             td 
             td N/A
-        
         tr
             td Accessor
             td SoilId
             td 
             td N/A
-        
         tr
             td Accessor
             td SurfaceElevation
             td 
             td N/A
-        
         tr
             td Accessor
             td TotalBiomassCarbon
             td 
             td Always
-        
         tr
             td Accessor
             td TotalBiomassNitrogen
             td 
             td Always
-        
         tr
             td Accessor
             td TotalDetritusCarbon
             td 
             td Always
-        
         tr
             td Accessor
             td TotalDetritusNitrogen
             td 
             td Always
-        
         tr
             td Accessor
             td TotalHumusCarbon
             td 
             td Always
-        
         tr
             td Accessor
             td TotalVolumetricSoilMoisture
             td 
             td Always
     
-    tabletr
+    table
+        tr
             td Accessor
             td VolumetricSoilMoistureLayer
             td YES
             td No
-        
         tr
             td Direct
             td ACCUMULATED_DEGREE_DAY
             td 
             td N/A
-        
         tr
             td Direct
             td ACCUMULATED_N_IN
             td 
             td N/A
-        
         tr
             td Direct
             td ASYMBIOTIC_NITROGEN_FIXED
             td 
             td N/A
-        
         tr
             td Direct
             td BIOMASS_AG_STEM_N
             td 
             td N/A
-        
         tr
             td Direct
             td BIOMASS_APEX_TOTAL_STEM_N
             td 
             td N/A
-        
         tr
             td Direct
             td BIOMASS_BG_STEM_N
             td 
             td N/A
-        
         tr
             td Direct
             td BIOMASS_DELTA_AG_STEM_N
             td 
             td N/A
-        
         tr
             td Direct
             td BIOMASS_DELTA_BG_STEM_N
             td 
             td N/A
-        
         tr
             td Direct
             td BIOMASS_DELTA_LEAF_N
             td 
             td N/A
-        
         tr
             td Direct
             td BIOMASS_DELTA_ROOT_N
             td YES
             td Optional
-        
         tr
             td Direct
             td BIOMASS_HARVESTED_TO_OFFSITE_C
             td 
             td N/A
-        
         tr
             td Direct
             td BIOMASS_LEAF_N
             td 
             td N/A
-        
         tr
             td Direct
             td BIOMASS_ROOT_N
             td YES
             td Optional
-        
         tr
             td Direct
             td CO2
             td YES
             td Optional
-        
         tr
             td Direct
             td DENITRIFICATION
             td YES
             td Optional
-        
         tr
             td Direct
             td DENITRIFICATION_CO2_SCALAR
             td YES
             td Optional
-        
         tr
             td Direct
             td DENITRIFICATION_NO3_SCALAR
             td YES
             td Optional
-        
         tr
             td Direct
             td DENITRIFICATION_WATER_SCALAR
             td YES
             td Optional
-        
         tr
             td Direct
             td DETRITUS_AG_STEM_N
             td 
             td N/A
-        
         tr
             td Direct
             td DETRITUS_BG_STEM_N
             td YES
             td Optional
-        
         tr
             td Direct
             td DETRITUS_BURNED_C
             td 
             td N/A
-        
         tr
             td Direct
             td DETRITUS_LEAF_N
             td 
             td N/A
-        
         tr
             td Direct
             td DETRITUS_ROOT_N
             td YES
             td Optional
-        
         tr
             td Direct
             td DOC
             td YES
             td Optional
-        
         tr
             td Direct
             td DON
             td YES
             td Optional
-        
         tr
             td Direct
             td GROUND_SURFACE_TEMPERATURE
             td 
             td N/A
-        
         tr
             td Direct
             td GROUND_TEMPERATURE_LAYERS
             td YES
             td Optional
-        
         tr
             td Direct
             td HUMUS
             td YES
             td Optional
-        
         tr
             td Direct
             td LATERAL_INFLOW
             td YES
             td Optional
-        
         tr
             td Direct
             td LATERAL_OUTFLOW
             td YES
             td Optional
-        
         tr
             td Direct
             td NH4
             td YES
             td Optional
-        
         tr
             td Direct
             td NITRIFICATION
             td YES
             td Optional
     
-    tabletr
+    table
+        tr
             td Direct
             td NO3
             td YES
             td Optional
-        
         tr
             td Direct
             td NPP_C
             td 
             td N/A
-        
         tr
             td Direct
             td NPP_N
             td 
             td N/A
-        
         tr
             td Direct
             td STANDING_WATER
             td 
             td N/A
-        
         tr
             td Direct
             td SURFACE_LATERAL_OUTFLOW
             td 
             td N/A
-        
         tr
             td Direct
             td SYMBIOTIC_NITROGEN_FIXED_HUMUS
             td 
             td N/A
-        
         tr
             td Direct
             td SYMBIOTIC_NITROGEN_FIXED_PLANT
             td 
             td N/A
-        
         tr
             td Direct
             td UPTAKE_N
             td YES
             td Optional
-        
         tr
             td Direct
             td WATER_STORED
             td YES
             td Optional
-        
         tr
             td Buffered
             td DOC_LATERAL_IN
             td YES
             td Optional
-        
         tr
             td Buffered
             td DOC_LATERAL_OUT
             td YES
             td Optional
-        
         tr
             td Buffered
             td DOC_LOSS
             td YES
             td Optional
-        
         tr
             td Buffered
             td DON_LATERAL_IN
             td YES
             td Optional
-        
         tr
             td Buffered
             td DON_LATERAL_OUT
             td YES
             td Optional
-        
         tr
             td Buffered
             td DON_LOSS
             td YES
             td Optional
-        
         tr
             td Buffered
             td FERTILIZATION_HUMUS_N_ADDED
             td 
             td N/A
-        
         tr
             td Buffered
             td FERTILIZATION_NH4_ADDED
             td 
             td N/A
-        
         tr
             td Buffered
             td FERTILIZATION_NO3_ADDED
             td 
             td N/A
-        
         tr
             td Buffered
             td NH4_LATERAL_IN
             td YES
             td Optional
-        
         tr
             td Buffered
             td NH4_LATERAL_OUT
             td YES
             td Optional
-        
         tr
             td Buffered
             td NH4_LOSS
             td YES
             td Optional
-        
         tr
             td Buffered
             td NO3_LATERAL_IN
             td YES
             td Optional
-        
         tr
             td Buffered
             td NO3_LATERAL_OUT
             td YES
             td Optional
-        
         tr
             td Buffered
             td NO3_LOSS
@@ -1772,68 +1689,53 @@ block content
     img(width="1" height="67" alt="image" src="Image_136.png")
     p The offsiteFraction parametersdetermine how much of eachharvested amount is removed off site,and how much istransferred toDetritus.
     img(width="149" height="54" alt="image" src="Image_137.jpg")
-    tabletr
+    table
+        tr
             td Leaf Biomass
-        
         tr
             td AG Stem Biomass
-        
         tr
             td BG Stem Biomass
-        
         tr
             td Layer 1 Root            Biomass
-        
         tr
             td Layer 2 Root Biomass        
-        
         tr
             td Layer 3 Root            Biomass
-        
         tr
             td Layer 4 Root            Biomass
     
-    p 
-    tabletr
+    br
+    table
+        tr
             td Leaf Harvested
-        
         tr
             td AG Stem Harvested
-        
         tr
             td BG Stem Harvested
-        
         tr
             td Root Harvested
     
     p 
-    tabletr
+    table
+        tr
             td Leaf            Detritus        
-        
         tr
             td AG Stem Detritus
-        
         tr
             td Layer 1 BG Stem            Detritus
-        
         tr
             td Layer 2 BG Stem            Detritus
-        
         tr
             td Layer 3 BG Stem            Detritus
-        
         tr
             td Layer 4 BG Stem            Detritus
-        
         tr
             td Layer 1 Root Debitus
-        
         tr
             td Layer 2 Root Debitus
-        
         tr
             td Layer 3 Root Debitus
-        
         tr
             td Layer 4 Root Debitus
     
@@ -1882,14 +1784,14 @@ block content
     img(width="119" height="73" alt="image" src="Image_145.jpg")
     p The disturbance usesthe specified cover Ids,plus the data in thecover id map specifiedby the coverSpeciesindexFi]<u> </u>eMapNameparameterto determinewhich cells shouldbe harvested.
     p 
-    tabletr
+    table
+        tr
             td Here is an example specification/or the spatial/cov:er parameters:
             td 1
             td 1
             td 1
             td 3
             td 3
-        
         tr
             td initia]lizeCoverids = 3, 4
             td 2
@@ -1897,7 +1799,6 @@ block content
             td 1
             td 3
             td 3
-        
         tr
             td coverSpeciesindexFi]leMapName            = examp]<u> </u>eCoverIDFile.asc
             td 2
@@ -1905,7 +1806,6 @@ block content
             td 2
             td 2
             td 1
-        
         tr
             td 
             td 4
@@ -1913,7 +1813,6 @@ block content
             td 2
             td 
             td 
-        
         tr
             td With the above            parameterization,            and the                exampleCoverlo:File.asc contents at            right, harvest will occur in the cells highliglnted in                green.
             td 4
@@ -1983,11 +1882,12 @@ block content
     p 
     p ooverSpecieslndexFileMapName
     
-    p =examplCoverlDFile.asc
+    p examplCoverlDFile.asc
     
-    p 
-    p The Map files to the rightshow the example:(1}Cells eligible forconsideration based    on the filter map andspecified filterIds are highlightedin reen.
-    p (2) That subset of    cells is then examined    via the cover Id map andspecified cover Ids.
+    p The Map files to the right show the example:
+    ol 
+        li Cells eligible forconsideration based    on the filter map andspecified filterIds are highlightedin reen.
+        li That subset of    cells is then examined    via the cover Id map andspecified cover Ids.
     p Cells eligible forharvest based onfiltering,foll<u>o</u>w<u>e</u>d <u>by </u>cov<u>e</u>r idselection are further hi hli htedi blue.
     p Note: Othercriteria (Le..age) might also applyafter filtering to thefiltered subset ofcells..
     p Note: Remember! Idnumbers in the filtermap are not related toId numbers in thecover map. (i.e. filterid 2 is not equal tocover id 2)
@@ -2070,446 +1970,349 @@ block content
             td Display Selector Name
             td MIN Display Setting
             td MAX Display Setting
-        
         tr
             td &lt;cover&gt; + Denitrification Daily-Linear
             td ( always zero )
             td maxDenitrificationDaySpatialDis play
-        
         tr
             td ( always zero )
             td maxNo3DenitDaySpatialDisplay
-        
         tr
             td ( always zero )
             td maxCo2DenitDaySpatialDisplay
-        
         tr
             td Annual Plot
             td ( always zero )
             td maxDonLossYearFinalDisplay
-        
         tr
             td ( always zero )
             td maxDocLossYearFinalDisplay
-        
         tr
             td ( always zero )
             td maxNppYearSumDisplay
-        
         tr
             td minBiomassYearFinalDisplay
             td maxBiomassYearFinalDisplay
-        
         tr
             td minHumusDayDisplay
             td maxHumusDayDisplay
-        
         tr
             td minLitterDayDisplay
             td maxLitterDayDisplay
-        
         tr
             td minNepYearSumDisplay
             td maxNepYearSumDisplay
-        
         tr
             td Burn Spatial Data
             td minBiomassAgStemDayDisplay
             td maxBiomassAgStemDayDisplay
-        
         tr
             td minBiomassLeafDayDisplay
             td maxBiomassLeafDayDisplay
-        
         tr
             td minDetritusAgStemDayDisplay
             td maxDetritusAgStemDayDisplay
-        
         tr
             td minDetritusLeafDayDisplay
             td maxDetritusLeafDayDisplay
-        
         tr
             td minHumusDayDisplay
             td maxHumusDayDisplay
-        
         tr
             td minLitterDayDisplay
             td maxLitterDayDisplay
     
-    tabletr
+    table
+        tr
             td Calibration Annual Nutrients
             td ( always zero )
             td maxNh4LossYearSumDisplay
-        
         tr
             td ( always zero )
             td maxNo3LossYearSumDisplay
-        
         tr
             td ( always zero )
             td maxDonLossYearSumDisplay
-        
         tr
             td minDocLossYearSumDisplay
             td maxDocLossYearSumDisplay
-        
         tr
             td Calibration Daily Nutrients
             td ( always zero )
             td maxNh4LossDayDisplay
-        
         tr
             td ( always zero )
             td maxNo3LossDayDisplay
-        
         tr
             td ( always zero )
             td maxDonLossDayDisplay
-        
         tr
             td ( always zero )
             td maxDocLossDayDisplay
-        
         tr
             td Calibration Hydrology
             td ( always zero )
             td maxRainDayDisplay
-        
         tr
             td ( always zero )
             td maxRunoffDayDisplay
-        
         tr
             td ( always zero )
             td maxSubRunoffDayDisplay
-        
         tr
             td ( always zero )
             td maxEtDayDisplay
-        
         tr
             td minHydroYearSumDisplay
             td maxHydroYearSumDisplay
-        
         tr
             td CO2 Pool Spatial
             td ( always zero )
             td maxCo2DaySpatialDisplay
-        
         tr
             td Daily Nitrogen Fixation
             td ( always zero )
             td maxNinDayDisplay
-        
         tr
             td ( always zero )
             td maxPlantUptakeSpatialDisplay
-        
         tr
             td ( always zero )
             td maxSymbioticNfixedDayDisplay
-        
         tr
             td ( always zero )
             td maxAsymbioticNfixedDayDisplay
-        
         tr
             td ( always zero )
             td maxDonLossDayDisplay
-        
         tr
             td ( always zero )
             td maxTotalNLossDayDisplay
-        
         tr
             td ( always zero )
             td maxNitrificationDaySpatialDispl ay
-        
         tr
             td ( always zero )
             td maxDenitrificationDaySpatialDisplay
-        
         tr
             td Default Layer 1 - 4
             td ( always zero )
             td maxDonLossDayDisplay
-        
         tr
             td ( always zero )
             td maxDocLossDayDisplay
-        
         tr
             td ( always zero )
             td maxRainDayDisplay
-        
         tr
             td ( always zero )
             td maxRunoffDayDisplay
-        
         tr
             td Denitrification Daily-Spatial
             td ( always zero )
             td maxDenitrificationDaySpatialDisplay
-        
         tr
             td Denitrification Daily-Spatial 1 - 4
             td ( always zero )
             td maxDenitrificationDaySpatialDis play
-        
         tr
             td ( always zero )
             td maxNo3DenitDaySpatialDisplay
-        
         tr
             td ( always zero )
             td maxCo2DaySpatialDisplay
-        
         tr
             td DOC Pool Spatial
             td ( always zero )
             td maxDocSpatialDisplay
-        
         tr
             td DON Pool Spatial
             td ( always zero )
             td maxDonSpatialDisplay
-        
         tr
             td Evapotranspiration
             td ( always zero )
             td maxEtDayDisplay
-        
         tr
             td Harvest Spatial Data
             td minBiomassDayDisplay
             td maxBiomassDayDisplay
-        
         tr
             td minHumusDayDisplay
             td maxHumusDayDisplay
     
-    tabletr
+    table
+        tr
             td 
             td minLitterDayDisplay
             td maxLitterDayDisplay
-        
         tr
             td Leaf Stem Root Daily Data
             td minBiomassAgStemDayDisplay
             td maxBiomassAgStemDayDisplay
-        
         tr
             td minBiomassBgStemDayDisplay
             td maxBiomassBgStemDayDisplay
-        
         tr
             td minBiomassLeafDayDisplay
             td maxBiomassLeafDayDisplay
-        
         tr
             td minBiomassRootDayDisplay
             td maxBiomassRootDayDisplay
-        
         tr
             td minDetritusAgStemDayDisplay
             td maxDetritusAgStemDayDisplay
-        
         tr
             td minDetritusBgStemDayDisplay
             td maxDetritusBgStemDayDisplay
-        
         tr
             td minDetritusLeafDayDisplay
             td maxDetritusLeafDayDisplay
-        
         tr
             td minDetritusRootDayDisplay
             td maxDetritusRootDayDisplay
-        
         tr
             td Leaf Stem Root Layer Details Daily Data
             td minBiomassRootLayersDayDisplay
             td maxBiomassRootLayersDayDisplay
-        
         tr
             td minDetritusBgStemLayersDayDisplay
             td maxDetritusBgStemLayersDayDispl ay
-        
         tr
             td minDetritusRootLayersDayDisplay
             td maxDetritusRootLayersDayDisplay
-        
         tr
             td minHumusLayersDayDisplay
             td maxHumusLayersDayDisplay
-        
         tr
             td LSR Summary Spatial
             td ( always zero )
             td maxNppDayDisplay
-        
         tr
             td minBiomassDayDisplay
             td maxBiomassDayDisplay
-        
         tr
             td minHumusDayDisplay
             td maxHumusDayDisplay
-        
         tr
             td minLitterDayDisplay
             td maxLitterDayDisplay
-        
         tr
             td NH4 Pool Spatial
             td ( always zero )
             td maxNh4SpatialDisplay
-        
         tr
             td Nitrification Daily-Spatial
             td ( always zero )
             td maxNitrificationDaySpatialDisplay
-        
         tr
             td Nitrogen Fixation Daily- Spatial
             td ( always zero )
             td maxSymbioticNfixedDayDisplay
-        
         tr
             td ( always zero )
             td maxAsymbioticNfixedDayDisplay
-        
         tr
             td NO3 Pool Spatial
             td ( always zero )
             td maxNo3SpatialDisplay
-        
         tr
             td Plant Uptake Spatial
             td minPlantUptakeSpatialDisplay
             td maxPlantUptakeSpatialDisplay
-        
         tr
             td Productivity Spatial
             td ( always zero )
             td maxNppDayDisplay
-        
         tr
             td ( always zero )
             td maxNh4SpatialDisplay
-        
         tr
             td ( always zero )
             td maxNo3SpatialDisplay
-        
         tr
             td minBiomassDayDisplay
             td maxBiomassDayDisplay
-        
         tr
             td Snow Dynamics Spatial
             td ( always zero )
             td maxRainSpatialDisplay
-        
         tr
             td ( always zero )
             td maxSnowSpatialDisplay
-        
         tr
             td ( always zero )
             td maxSnowDepthSpatialDisplay
-        
         tr
             td ( always zero )
             td maxSnowMeltSpatialDisplay
-        
         tr
             td minAirTSpatialDisplay
             td maxAirTSpatialDisplay
-        
         tr
             td Standing Water
             td ( always zero )
             td maxRainDayDisplay
-        
         tr
             td ( always zero )
             td maxRunoffDayDisplay
-        
         tr
             td ( always zero )
             td maxStandingWaterDayDisplay
-        
         tr
             td Temperature Data
             td minAirTDayDisplay
             td maxAirTDayDisplay
     
-    tabletr
+    table
+        tr
             td Time Series
             td ( always zero )
             td maxDonLossDayDisplay
-        
         tr
             td ( always zero )
             td maxDocLossDayDisplay
-        
         tr
             td ( always zero )
             td maxRainDayDisplay
-        
         tr
             td ( always zero )
             td maxRunoffDayDisplay
-        
         tr
             td minAirTDayDisplay
             td maxAirTDayDisplay
-        
         tr
             td minBiomassDayDisplay
             td maxBiomassDayDisplay
-        
         tr
             td minHumusDayDisplay
             td maxHumusDayDisplay
-        
         tr
             td minLitterDayDisplay
             td maxLitterDayDisplay
-        
         tr
             td VSA Spatial and Hydro Linear
             td ( always zero )
             td maxRainDayDisplay
-        
         tr
             td ( always zero )
             td maxRunoffDayDisplay
-        
         tr
             td Weather Summary Spatial
             td ( always zero )
             td maxRainDayDisplay
-        
         tr
             td ( always zero )
             td maxRainSpatialDisplay
-        
         tr
             td ( always zero )
             td maxSnowSpatialDisplay
-        
         tr
             td ( always zero )
             td maxSnowMeltSpatialDisplay
-        
         tr
             td minAirTDayDisplay
             td maxAirTDayDisplay
-        
         tr
             td minAirTSpatialDisplay
             td maxAirTSpatialDisplay
