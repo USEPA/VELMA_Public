@@ -347,7 +347,7 @@ block content
         li The parameter estimates for each model are written to the file 'parmout' (Table 1).
         li Predicted estimates ('phat') and residuals ('presid') are written to the file 'pptout' for plotting residuals vs. predicted values (Fig. 5).
     h2 Appendix 5.2 - Sample SAS code for generating and comparing monthly temperature regression models at H.J. Andrews Experimental Forest.
-    div#code
+    div.code
         p * TEMP MODEL WITH ELEV, HLI, FACC. BEST MODEL - MIN AIC FOR MOST MONTHS, MINIMAL DELTA AIC FOR OTHER MONTHS;
         p * Segmented model, linear with elev above and below a join point x;
         p proc nlin data=hja.hja outest=parmout; by month;
@@ -379,7 +379,7 @@ block content
         li This is a spline model, fitting linear models above and below an inflection point at elevation <i>x</i>,which is also estimated. This requires use of an iterative non-linear procedure (PROC NLIN). Unlike PROC REG inAppendix 5.1, this does not have the capability to fit multiple alternative models at once and report the AICvalues for each. Instead, each alternative model must be specified. The above code specifies the full model with<i>elev</i>, <i>hli</i>, and <i>facc</i>. AIC values are not automatically printed and must be calculated fromthe sum of squares error (SSE), number of parameters (p; 4 in this case), and number of sample points (n; 73,331in this case), according to the formula: AIC = n * ln(SSE / n) + 2*p. ΔAIC values are then calculated bysubtracting the AIC for the model with the lowest AIC value (Fig. 6).
         li The 'parms' statement specifies starting values for the parameters to begin the iterative search for bestfit.
         li <i>x </i>represents the elevation at which the two piecewise linear models meet. To make the overallmodel continuous requires that the estimated temperature must be the same for both piecewise linear models atthat point. The expression for <i>x </i>is derived by setting the two models equal to each other and solving for<i>elev </i>at which they are equal:
-            div#math
+            div.math
                 p b*<i>elev </i>+ c*<i>hli </i>+ d*<i>facc </i>+ e = g*<i>elev </i>+ h*<i>hli </i>+ i*<i>facc </i>+ j 
                 p b*<i>elev</i>- g*<i>elev </i>= h*<i>hli </i>- c*<i>hli </i>+ i*<i>facc </i>- d*<i>facc </i>+ j - e
                 p x = elev = ((h - c)*hli + (I - d)*facc + (j - e))/(b - g)

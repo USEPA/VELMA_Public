@@ -9,7 +9,7 @@ block content
         li Using the GUI to Specify Startup and Input Parameters
         li Overview of the All Parameters Table of Contents (TOC)
         li All Parameters Table of Contents
-    div#required_files
+    div.required_files
         h2 Required Input Files
         p The following simulation data input files must be available prior to creating a new VELMA application:
         ol
@@ -19,7 +19,7 @@ block content
             li Soil Parameters ID Grid ASCII map (.asc) file.
             li Daily Rainfall driver data file (.txt or .csv) file.
             li Daily Air Temperature data file (.txt or .csv) file.
-    div#config_steps 
+    div.config_steps 
         h2 Configuration Steps
         p With the above files available, perform the following steps:
         ol 
@@ -70,55 +70,56 @@ block content
     img(width="623" height="302" alt="image" src="Image_024.jpg")
     br 
     p The resulting display shows 13 "startups" parameters under the 3rd column. For now, we will focus on 2startup parameters that VELMA uses to locate simulation input files at the start of a simulation. You will needto specify a valid value in the 4th column for these:
-    div#param_def
-        h5#param_name inputDataLocationDirName:
-        p#param_desc The name of the directory containing your simulation input data files
-        h5#param_name inputDataLocationRootName 
-        p#param_desc The fully-qualified path above the directory name you specified for inputDataLocationDirName
+    div.param_def
+        h5.param_name inputDataLocationDirName:
+        p.param_desc The name of the directory containing your simulation input data files
+        h5.param_name inputDataLocationRootName 
+        p.param_desc The fully-qualified path above the directory name you specified for inputDataLocationDirName
+    
     h3 Specify Input Parameters
     p Under the All Parameters menu tab, in the 2nd filter field to the left of the "Clear Filters" button, type"VelmaInputs" (case sensitive, without the double-quotes):
     img(width="625" height="278" alt="image" src="Image_025.jpg")
     br 
     p In the displayed subset of configuration parameters, enter values for the following parameters:
-    div#param_def
-        h5#param_name input_dem
-        p#param_desc The name (plus extension, ".asc") of this simulation's DEM spatial data file. The simulator will lookfor the file in the directory specified by the inputDataLocationDirName + "/" + inputDataLocationRootName thatyou specified as Startups parameters.
-        h5#param_name cell
-        p#param_desc The width of a cell in the DEM grid (should match the "cellsize" header value in the DEM Grid ASCII file andwill be a value in meters).
-        h5#param_name ncol
-        p#param_desc The number of columns in the DEM grid (should match the DEM Grid ASCII file's ncols header value).
-        h5#param_name nrow
-        p#param_desc The number of rows in the DEM grid (should match the DEM Grid ASCII file's nrows header value).
-        h5#param_name cellOffsetX
-        p#param_desc Horizontal (column) offset of the DEM&#39;s zeroth pixel in meters.
-        h5#param_name cellOffsetY
-        p#param_desc Vertical (row) offset of the DEM&#39;s zeroth pixel in meters.
-        h5#param_name outx
-        p#param_desc The zero-based x-coordinate (column index) of the outlet cell for this simulation's watershed.
-        h5#param_name outy
-        p#param_desc The zero-based y-coordinate (row index) of the outlet cell for this simulation's watershed.
-        h5#param_name coverAgeMapFileName
-        p#param_desc The name (and ".asc" extension) of this simulation's cover species age spatial data map.
-        h5#param_name coverSpeciesIndexMapFileName
-        p#param_desc The name (and ".asc" extension) of this simulation's cover species ID spatial data map.
-        h5#param_name soilParametersIndexMapFileName
-        p#param_desc The name (and ".asc" extension) of this simulation's soil parameterizations ID spatial data map.
-        h5#param_name forcing_start
-        p#param_desc The first year (inclusive) of temporal data available for simulation runs.
-        h5#param_name forcing_end
-        p#param_desc The last year (inclusive) of temporal data available for simulation runs.
-        h5#param_name syear
-        p#param_desc The starting year of the simulation run.
-        h5#param_name eyear
-        p#param_desc The ending year of the simulation run.
-        h5#param_name input_runoff
-        p#param_desc The name of the observed runoff data for simulation runs. (Specifying this file is optional, buthighly recommended.)
-        h5#param_name input_stream_chem
-        p#param_desc The name of the observed stream chemistry data for simulation runs. (Specifying this file is optional, but highly recommended.)
-        h5#param_name run_index
-        p#param_desc The name of the directory where the VELMA simulation will save simulation results files.
-        h5#param_name initializeOutputDataLocationRoot
-        p#param_desc The fully-qualified path above the directory name you specifiedfor the run_index.
+    div.param_def
+        h5.param_name input_dem
+        p.param_desc The name (plus extension, ".asc") of this simulation's DEM spatial data file. The simulator will lookfor the file in the directory specified by the inputDataLocationDirName + "/" + inputDataLocationRootName thatyou specified as Startups parameters.
+        h5.param_name cell
+        p.param_desc The width of a cell in the DEM grid (should match the "cellsize" header value in the DEM Grid ASCII file andwill be a value in meters).
+        h5.param_name ncol
+        p.param_desc The number of columns in the DEM grid (should match the DEM Grid ASCII file's ncols header value).
+        h5.param_name nrow
+        p.param_desc The number of rows in the DEM grid (should match the DEM Grid ASCII file's nrows header value).
+        h5.param_name cellOffsetX
+        p.param_desc Horizontal (column) offset of the DEM&#39;s zeroth pixel in meters.
+        h5.param_name cellOffsetY
+        p.param_desc Vertical (row) offset of the DEM&#39;s zeroth pixel in meters.
+        h5.param_name outx
+        p.param_desc The zero-based x-coordinate (column index) of the outlet cell for this simulation's watershed.
+        h5.param_name outy
+        p.param_desc The zero-based y-coordinate (row index) of the outlet cell for this simulation's watershed.
+        h5.param_name coverAgeMapFileName
+        p.param_desc The name (and ".asc" extension) of this simulation's cover species age spatial data map.
+        h5.param_name coverSpeciesIndexMapFileName
+        p.param_desc The name (and ".asc" extension) of this simulation's cover species ID spatial data map.
+        h5.param_name soilParametersIndexMapFileName
+        p.param_desc The name (and ".asc" extension) of this simulation's soil parameterizations ID spatial data map.
+        h5.param_name forcing_start
+        p.param_desc The first year (inclusive) of temporal data available for simulation runs.
+        h5.param_name forcing_end
+        p.param_desc The last year (inclusive) of temporal data available for simulation runs.
+        h5.param_name syear
+        p.param_desc The starting year of the simulation run.
+        h5.param_name eyear
+        p.param_desc The ending year of the simulation run.
+        h5.param_name input_runoff
+        p.param_desc The name of the observed runoff data for simulation runs. (Specifying this file is optional, buthighly recommended.)
+        h5.param_name input_stream_chem
+        p.param_desc The name of the observed stream chemistry data for simulation runs. (Specifying this file is optional, but highly recommended.)
+        h5.param_name run_index
+        p.param_desc The name of the directory where the VELMA simulation will save simulation results files.
+        h5.param_name initializeOutputDataLocationRoot
+        p.param_desc The fully-qualified path above the directory name you specifiedfor the run_index.
     br 
     p The drop-down filter field menu above the "Group" column can also be used to add and specify parameters for theother parameter categories listed: cover, disturbance, cellDataWriter, spatialDataWriter, soil,and weather:
     img(width="627" height="164" alt="image" src="Image_026.jpg")

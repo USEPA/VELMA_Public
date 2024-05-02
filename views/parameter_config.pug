@@ -19,25 +19,25 @@ block content
         li Option 4 (recommended) - Although experienced users may find Options 1 - 3 handy for quickly locating specific Items, Parameters or Values, we recommend that all users stick with using sections 1.0 - 25.0 of the All Parameters TOC when configuring a new VELMA application. These sections collectively contain the same information listed under "All Configuration Parameters", but in asequence of steps organized to assist users in building new simulator configurations or editing existing ones. Details follow.
     img(width="624" height="121" alt="image" src="Image_037.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name inputDataLocationDirName:
-        p#param_desc The name of a subdirectory of the inputDataLocationRootName directory that contains the set of input data for a specific simulation run. When left unspecified or commented-out defaults to &quot;&quot;. (I.e. VELMA will look for input data in the inputDataLocationRootName directory itself)
-        h5#param_name inputDataLocationRootName 
-        p#param_desc Fully-qualified path to the directory containing input data directories. When left unspecified or commented-out defaults to the &quot;../data/&quot; subdirectory of VELMA&#39;s installation directory.
+    div.param_def
+        h5.param_name inputDataLocationDirName:
+        p.param_desc The name of a subdirectory of the inputDataLocationRootName directory that contains the set of input data for a specific simulation run. When left unspecified or commented-out defaults to &quot;&quot;. (I.e. VELMA will look for input data in the inputDataLocationRootName directory itself)
+        h5.param_name inputDataLocationRootName 
+        p.param_desc Fully-qualified path to the directory containing input data directories. When left unspecified or commented-out defaults to the &quot;../data/&quot; subdirectory of VELMA&#39;s installation directory.
     p For the inputDataLocationRootName parameter, specify a directory name for the folder that contains the set of input data for a given simulation configuration. The inputDataLocationRootName is the <u>path</u> tothat directory.
     h2 2.0 - Results Data Location
     p For the <i>initializeOutputDataLocationRoot </i>parameter, specify the root directory under which VELMA will place simulation output files for a particular model run.
     img(width="627" height="106" alt="image" src="Image_038.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name initializeOutputDataLocationRoot 
-        p#param_desc Root directory under which to place per-simulation-run directories. If this property is left unspecified per- simulation-run directories for output files will be placedunderneath a default root created in the ../data subdirectory of the VELMA simulator&#39;s installationdirectory. When specified this property must be a fully- qualified path name. Whitespace in the name does nothave to be escape-delimited or double-quoted and the &quot;/&quot; can (and should!) be used as the pathseparator for both Unix and Windows paths. EXAMPLE: initializeOutputDataLocationRoot = C:/MyVelmaResults/VelmaResultsRoot For the above example subdirectories for each VELMA simulator run are placed underneath the directory &quot;C:/My VelmaResults/VelmaResultsRoot/&quot;
+    div.param_def
+        h5.param_name initializeOutputDataLocationRoot 
+        p.param_desc Root directory under which to place per-simulation-run directories. If this property is left unspecified per- simulation-run directories for output files will be placedunderneath a default root created in the ../data subdirectory of the VELMA simulator&#39;s installationdirectory. When specified this property must be a fully- qualified path name. Whitespace in the name does nothave to be escape-delimited or double-quoted and the &quot;/&quot; can (and should!) be used as the pathseparator for both Unix and Windows paths. EXAMPLE: initializeOutputDataLocationRoot = C:/MyVelmaResults/VelmaResultsRoot For the above example subdirectories for each VELMA simulator run are placed underneath the directory &quot;C:/My VelmaResults/VelmaResultsRoot/&quot;
     h3 2.1 - Results Data Directory Name (Results data placed in directory with this name)
     p Specify a unique simulation filename in the value column for the <i>run_index </i>parameter.
     img(width="630" height="104" alt="image" src="Image_039.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name run_index 
+    div.param_def
+        h5.param_name run_index 
         p Watershed Name (used as core name for the simulation model run data files).
     p Use this parameter to specify a unique name for each simulation run that you do. For example, a useful run_indexname might include the watershed name, date and other identifiers that will make it easier to determine when asimulation configuration was built and how it differs from others. VELMA will use the run_index name to create:
     ul
@@ -49,26 +49,26 @@ block content
     p Specify a filename in the Value column for the globalStateLogFilename parameter.
     img(width="624" height="121" alt="image" src="Image_040.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name globalStateLogFilename 
-        p#param_desc The name of the global log file. The Global log file records console messages emitted during a simulation run. When left blank (&quot;&quot;) or commented-out no global logfile is created.
-        h5#param_name csvTraceLogFilename 
-        p#param_desc The name of the trace log file. The trace log file records any low-level debugging messages emitted during a simulation run. When left blank (&quot;&quot;) or commented-out notrace log file is created.
+    div.param_def
+        h5.param_name globalStateLogFilename 
+        p.param_desc The name of the global log file. The Global log file records console messages emitted during a simulation run. When left blank (&quot;&quot;) or commented-out no global logfile is created.
+        h5.param_name csvTraceLogFilename 
+        p.param_desc The name of the trace log file. The trace log file records any low-level debugging messages emitted during a simulation run. When left blank (&quot;&quot;) or commented-out notrace log file is created.
     p VELMA will use the globalStateLogFilename to record the stream of runtime console messages (see Consoletab) generated during a simulation run. This is optional, but we recommend creating a globalStateFileNameto help identify any problems with the simulator configuration file. For example, the console messagesrecorded in the globalStateLogFilename provide a complete, sequential log of runtime information aboutsuccessful or unsuccessful loading of input files, activation of disturbance events (harvest, fertilization,etc.), saving results to output directories/files, and so on.
     
     h6 ///// IMPORTANT NOTE /////
     p For important additional details on configuring, saving and understanding simulator results, please see Appendix 4: Overview of VELMA Simulator Output. 
     h2 3.0 - Spatial Dimensions and DEM File
     p The VELMA simulator requires a DEM file in order to run a simulation. The simulator also assumes that all otherspatial data files (discussed below) contain spatial data with the same overall (row and column) and cell(pixel) size dimensions as the DEM file. We highly recommend that the DEM used for VELMA simulations bepre-processed using the JPDEM software, rather than by other available "flat-processor" software (see Appendix7).The VELMA simulation configuration parameter that specifies the name of the DEM file is:
-    div#param_def
-        h5#param_name input_dem example: 
+    div.param_def
+        h5.param_name input_dem example: 
         p SmallWatershed_10m.asc
     p The VELMA simulation configuration parameters that define the DEM file's location are:
-    h5#param_name InputDataLocationRootName example: CoastalSite
+    h5.param_name InputDataLocationRootName example: CoastalSite
     p and
-    div#param_def
-        h5#param_name inputDataLocationDirName 
-        p#param_desc example: C:\VelmaInputData
+    div.param_def
+        h5.param_name inputDataLocationDirName 
+        p.param_desc example: C:\VelmaInputData
     h6 Note that:
     ul 
         li Input_dem and inputDataLocationRootName are single file or directory names, while inputDataLocationDirName specifies a complete directory path.
@@ -127,9 +127,9 @@ block content
     p The Soil ID Map File is specified by the <i>soilParametersIndexMapFileName </i>parameter. You can view and set itby selecting "4.1 Soil ID Map File" in the All Parameters outline drop-down selector:
     img(width="625" height="136" alt="image" src="Image_044.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name soilParametersIndexMapFileName
-        p#param_desc The file name of a spatial-explicit map of Soil Parameters uniqueIds. The data in this map file specifies the Soil Parameterization of a given pixel in the DEMmap.
+    div.param_def
+        h5.param_name soilParametersIndexMapFileName
+        p.param_desc The file name of a spatial-explicit map of Soil Parameters uniqueIds. The data in this map file specifies the Soil Parameterization of a given pixel in the DEMmap.
     p The file specified for the soilParametersIndexMapFileName is assumed to be a Grid ASCII (".asc") map filewith the same row and column dimensions as the simulation configuration's DEM file. Its contents should be integer values. Each cell's integer value should be the ID number of a soiltype.
     p Suppose the specified soil index map file contains three distinct integers for this map: 100, 105 and 110. TheVELMA simulation will expect the simulation configuration to include 3 soil parameterizations.
     h3 4.2 - Soil IDs and Names
@@ -154,9 +154,9 @@ block content
     p layers as being 500 mm, 500 mm 500 mm, and 1500 mm thick, from layer 1 to layer 4, respectively.
     img(width="629" height="118" alt="image" src="Image_048.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name setSoilLayerThicknesses
-        p#param_desc A comma-separated list of values specifying the thickness of each soil layer in millimeters. For example: &quot;500 750 1000 1500&quot; (without the quote-marks) specifiesthe soil&#39;s 4 layers as being 500 mm 750 mm 1000 mm and 1500 mm thick from layer 1 to layer 4 respectively.NOTE: This list of values may be left unspecified. When setSoilLayerThickness is unspecified thesoil&#39;s layer thicknesses are set by the combination of the soilColumnDepth and setSoilLayerWeightsparameters. When setSoilLayerThickness is specified the soilColumnDepth and setSoilLayerWeightsparameters are ignored.
+    div.param_def
+        h5.param_name setSoilLayerThicknesses
+        p.param_desc A comma-separated list of values specifying the thickness of each soil layer in millimeters. For example: &quot;500 750 1000 1500&quot; (without the quote-marks) specifiesthe soil&#39;s 4 layers as being 500 mm 750 mm 1000 mm and 1500 mm thick from layer 1 to layer 4 respectively.NOTE: This list of values may be left unspecified. When setSoilLayerThickness is unspecified thesoil&#39;s layer thicknesses are set by the combination of the soilColumnDepth and setSoilLayerWeightsparameters. When setSoilLayerThickness is specified the soilColumnDepth and setSoilLayerWeightsparameters are ignored.
     p Thus, for the direct method, VELMA internally calculates the value for the <i>soilColumnDepth </i>parameter fromthe setSoilLayerThicknesses values specified for layers 1, 2, 3 and 4. When setSoilLayerThicknessesis not specified (left blank), the indirect method must be used to specify the soil layer thicknesses andsoil column depth (see All Parameters 4.32).
     h3 4.32 - Soil Depth Indirect Specification
     p As an alternative to the direct method described under <i>All Parameters 4.31</i>, you can instead use theindirect method for specifying a soil type's total soil column depth (parameter = soilColumnDepth, inmillimeters) and soil layer depth (parameter = setSoilLayerWeights, which is equal to the fraction "soillayer thickness / soil column depth".
@@ -174,16 +174,16 @@ block content
     img(width="626" height="157" alt="image" src="Image_050.jpg")
     h4 Parameter Definitions
     dif#param_def
-        h5#param_name surfaceKs
-        p#param_desc saturated hydraulic conductivity (Ks, mm/day) at the soil surface. For    equations and parameterization information see </a>Appendix 6.1 (Abdelnour et al.2011).
-        h5#param_name ksVerticalExponentialDecayFactor
-        p#param_desc vertical Ks exponential decay factor (unitless)controlling the rate of decrease in vertical flow with depth. For equations and    parameterization information see </a>Appendix 6.1 (Abdelnour et al. 2011).
-        h5#param_name ksLateralExponentialDecayFactor
-        p#param_desc lateral Ks exponential decay factor (unitless) controlling the exponential rate of decrease in lateral flow with depth. . For    equations and parameterization information see </a>Appendix 6.1 (Abdelnour et al.    2011).
+        h5.param_name surfaceKs
+        p.param_desc saturated hydraulic conductivity (Ks, mm/day) at the soil surface. For    equations and parameterization information see </a>Appendix 6.1 (Abdelnour et al.2011).
+        h5.param_name ksVerticalExponentialDecayFactor
+        p.param_desc vertical Ks exponential decay factor (unitless)controlling the rate of decrease in vertical flow with depth. For equations and    parameterization information see </a>Appendix 6.1 (Abdelnour et al. 2011).
+        h5.param_name ksLateralExponentialDecayFactor
+        p.param_desc lateral Ks exponential decay factor (unitless) controlling the exponential rate of decrease in lateral flow with depth. . For    equations and parameterization information see </a>Appendix 6.1 (Abdelnour et al.    2011).
     h4 Calibration Notes
     p As a starting point, we recommend using the texture-specific values listed in</a>Table 1 for "Surface Ks" and other physical characteristics of soil. Note that all the    values in Table 1can vary significantly as a result of compaction, presence of hard pans, and other    factors.
     p Based on the parameter values specified, VELMA computes the Ks lateral and Ks vertical flows (mm/day) per eachsoil layer as
-    div#math_formula 
+    div.math_formula 
         p#math ksLateral[ilayer] = surfaceKs * e^{ ksLateralExponentialDecayFactor * \sum{layers[iLayer]*0.5} }
         p#math ksVertial[ilayer] = surfaceKs * e^{ ksVerticalExponentialDecayFactor * \sum{layers[iLayer]*0.5} }
     p Iterative calibration of the user-specified parameter values is generally required to obtain a good fit betweensimulated and observed stream discharge (mm/day) at the watershed outlet. At the end of each simulation, VELMAcalculates a Nash-Sutcliffe efficiency coefficient to assess the goodness-of-fit and reports the results in asimulation output file named "NashSutcliffeCoefficients.txt".
@@ -266,9 +266,9 @@ block content
     p Select section 5.6 from the All Parameters drop-down menu to specify Gale-Grigal root parameter values for eachcover type in your watershed:
     img(width="626" height="125" alt="image" src="Image_060.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name GaleGrigalBetaParam 
-        p#param_desc The Beta term for this cover type's root vertical distribution. For the root distributionfunction of Gale Grigal (1987): roots[D] = 1 - B^D, where B = GaleGrigalBetaParam value (assigned here) D =layer depth
+    div.param_def
+        h5.param_name GaleGrigalBetaParam 
+        p.param_desc The Beta term for this cover type's root vertical distribution. For the root distributionfunction of Gale Grigal (1987): roots[D] = 1 - B^D, where B = GaleGrigalBetaParam value (assigned here) D =layer depth
     p References
     p Gale, M. R., &amp; Grigal, D. F. (1987). Vertical root distributions of northern tree species in relation tosuccessional status. Canadian Journal of Forest Research, 17(8), 829-834.
     p Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E., &amp; Schulze, E. D. (1996). Aglobal analysis of root distributions for terrestrial biomes. Oecologia, 108(3), 389-411.
@@ -282,95 +282,95 @@ block content
     img(width="670" height="188" alt="image" src="Image_063.jpg")
     p Parameters in this section cover the Leaf, Stem and Root pool C/N ratios, initial values, mortalityparameterizations and uptake fractions. Because each biomass or detritus leaf, stem and root pool has its ownset of parameters for these subjects, this list of parameters is relatively extensive.
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name biomassLeafCtoN
-        p#param_desc The Carbon-to-Nitrogen ratio of the cover type's Leaf biomass pool.
-        h5#param_name biomassAgStemCtoN 
-        p#param_desc The Carbon-to-Nitrogen ratio of the cover type's AgStem biomass pool.
-        h5#param_name biomassBgStemCtoN 
-        p#param_desc The Carbon-to-Nitrogen ratio of the cover type's BgStem biomass pool.
-        h5#param_name biomassRootCtoN 
-        p#param_desc The Carbon-to-Nitrogen ratio of the cover type's Root biomass pool. (All layers ofthis pool use the same CtoN ratio value.)
-        h5#param_name detritusLeafCtoN 
-        p#param_desc The Carbon-to-Nitrogen ratio of the cover type's Leaf detritus pool.
-        h5#param_name detritusAgStemCtoN 
-        p#param_desc The Carbon-to-Nitrogen ratio of the cover type's AgStem detritus pool.
-        h5#param_name detritusBgStemCtoN 
-        p#param_desc The Carbon-to-Nitrogen ratio of the cover type's BgStem detritus pool. (Alllayers of this pool use the same CtoN ratio value.)
-        h5#param_name detritusRootCtoN 
-        p#param_desc The Carbon-to-Nitrogen ratio of the cover type's Root detritus pool. (All layersof this pool use the same CtoN ratio value.)
-        h5#param_name detritusLeafNmaxDecay 
-        p#param_desc Maximum decay rate for Potter decomposition of Leaf detritus pool's Nitrogen amount.
-        h5#param_name detritusAgStemNmaxDecay 
-        p#param_desc Maximum decay rate for Potter decomposition of AgStem detritus pool's Nitrogen amount.
-        h5#param_name detritusBgStemNmaxDecay 
-        p#param_desc Maximum decay rate for Potter decomposition of BgStem detritus pool's Nitrogen amount.
-        h5#param_name detritusRootNmaxDecay 
-        p#param_desc Maximum decay rate for Potter decomposition of Root detritus pool's Nitrogen amount.
-        h5#param_name initialBiomassLeafCarbon 
-        p#param_desc The amount of biomass (in grams of Carbon)placed in the Leaf biomass pool of each cell of this cover type at initialization start.
-        h5#param_name initialBiomassAgStemCarbon 
-        p#param_desc The amount of biomass (in grams of Carbon) placed in the AgStem biomass pool of each cell of this cover type at initialization start.
-        h5#param_name initialBiomassBgStemCarbon 
-        p#param_desc The amount of biomass (in grams of Carbon)placed in the BgStem biomass pool of each cell of this cover type at initialization start.
-        h5#param_name initialBiomassRootCarbon 
-        p#param_desc The amount of biomass (in grams of Carbon) placed in the Root biomass pool of each cell of this cover type at initialization start.
-        h5#param_name initialDetritusLeafCarbon 
-        p#param_desc The amount of detritus (in grams of Carbon) placed in the Leaf detritus pool of each cell of this cover type at initialization start.
-        h5#param_name initialDetritusAgStemCarbon 
-        p#param_desc The amount of detritus (in grams of Carbon) placed in the AgStem detritus pool of each cell of this cover type at initialization start.
-        h5#param_name initialDetritusBgStemCarbon 
-        p#param_desc The amount of detritus (in grams of Carbon) placed in the BgStem detritus pool of each cell of this cover type at initialization start.
-        h5#param_name initialDetritusRootCarbon 
-        p#param_desc The amount of detritus (in grams of Carbon) placed in the Root detritus pool of each cell of this cover type at initialization start.
-        h5#param_name etRecoveryFractionMinimumLeafBiomassC 
-        p#param_desc The minimum amount of leaf biomass (in gC/m^2) required to compute an ET recovery fraction. Whenever leaf biomass is less than this amount, the ET recoveryfraction is forced to the etRecoverFractionMinimumValue. See Section 10.2.1 ET Recovery Parameters.
-        h5#param_name mortalityLeafAnnualFraction 
-        p#param_desc The fraction of the Leaf biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.
-        h5#param_name mortalityLeafDenominatorCoefficient 
-        p#param_desc The mortality equation's denominator coefficient value for the biomass Leaf pool.
-        h5#param_name mortalityLeafExponentialCoefficient 
-        p#param_desc The mortality equation's exponential coefficient value for the biomass Leaf pool.
-        h5#param_name mortalityLeafNumeratorCoefficient 
-        p#param_desc The mortality equation's numerator coefficient value for biomass Leaf pool.
-        h5#param_name mortalityAgStemAnnualFraction 
-        p#param_desc The fraction of the AgStem biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.
-        h5#param_name mortalityAgStemDenominatorCoefficient 
-        p#param_desc The mortality equation's denominator coefficient value for the biomass AgStem pool.
-        h5#param_name mortalityAgStemExponentialCoefficient 
-        p#param_desc The mortality equation's exponential coefficient value for the biomass AgStem pool.
-        h5#param_name mortalityAgStemNumeratorCoefficient 
-        p#param_desc The mortality equation's numerator coefficient value for the biomass AgStem pool.
-        h5#param_name mortalityBgStemAnnualFraction 
-        p#param_desc The fraction of the BgStem biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.
-        h5#param_name mortalityBgStemDenominatorCoefficient 
-        p#param_desc The mortality equation's denominator coefficient value for the biomass BgStem pool.
-        h5#param_name mortalityBgStemExponentialCoefficient 
-        p#param_desc The mortality equation's exponential coefficient value for the biomass BgStem pool.
-        h5#param_name mortalityBgStemNumeratorCoefficient 
-        p#param_desc The mortality equation's numerator coefficient value for the biomass BgStem pool.
-        h5#param_name mortalityRootAnnualFraction 
-        p#param_desc The fraction of the Leaf biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.
-        h5#param_name mortalityRootDenominatorCoefficient 
-        p#param_desc The mortality equation's denominator coefficient value for the biomass Root pool.
-        h5#param_name mortalityRootExponentialCoefficient 
-        p#param_desc The mortality equation's exponential coefficient value for the biomass Root pool.
-        h5#param_name mortalityRootNumeratorCoefficient 
-        p#param_desc The mortality equation's numerator coefficient value for the biomass Root pool.
-        h5#param_name useLinearMortalityLeaf 
-        p#param_desc When true, leaf mortality is computed using a simple linear function. When false (default)mortality is computed via a logistic function.
-        h5#param_name useLinearMortalityAgStem 
-        p#param_desc When true, AgStem mortality is computed using a simple linear function. When false (default) mortality is computed via a logistic function.
-        h5#param_name useLinearMortalityBgStem 
-        p#param_desc When true, BgStem mortality is computed using a simple linear function. When false (default) mortality is computed via a logistic function.
-        h5#param_name useLinearMortalityRoot 
-        p#param_desc When true, Root mortality is computed using a simple linear function. When false (default)mortality is computed via a logistic function.
-        h5#param_name nppToBiomassLeafNfraction 
-        p#param_desc The fraction of total daily NPP for a cell of this cover type allotted to the biomass Leaf pool.
-        h5#param_name nppToBiomassRootNfraction 
-        p#param_desc The fraction of total daily NPP for a cell of this cover type allotted to the biomass Root pool.
-        h5#param_name nppToBiomassAgStemNfraction 
-        p#param_desc The fraction of daily NPP ALOTTED TO STEM POOLS for a cell of this cover type allotted to the biomass AgStem pool. The remaining NPP allotted to stem pools goes to the biomass BgStem pool. NOTE: Total dailyNPP is reduced by the fractions for leaf and root pools first. Any remainder is the daily NPP allotted to stempools.
+    div.param_def
+        h5.param_name biomassLeafCtoN
+        p.param_desc The Carbon-to-Nitrogen ratio of the cover type's Leaf biomass pool.
+        h5.param_name biomassAgStemCtoN 
+        p.param_desc The Carbon-to-Nitrogen ratio of the cover type's AgStem biomass pool.
+        h5.param_name biomassBgStemCtoN 
+        p.param_desc The Carbon-to-Nitrogen ratio of the cover type's BgStem biomass pool.
+        h5.param_name biomassRootCtoN 
+        p.param_desc The Carbon-to-Nitrogen ratio of the cover type's Root biomass pool. (All layers ofthis pool use the same CtoN ratio value.)
+        h5.param_name detritusLeafCtoN 
+        p.param_desc The Carbon-to-Nitrogen ratio of the cover type's Leaf detritus pool.
+        h5.param_name detritusAgStemCtoN 
+        p.param_desc The Carbon-to-Nitrogen ratio of the cover type's AgStem detritus pool.
+        h5.param_name detritusBgStemCtoN 
+        p.param_desc The Carbon-to-Nitrogen ratio of the cover type's BgStem detritus pool. (Alllayers of this pool use the same CtoN ratio value.)
+        h5.param_name detritusRootCtoN 
+        p.param_desc The Carbon-to-Nitrogen ratio of the cover type's Root detritus pool. (All layersof this pool use the same CtoN ratio value.)
+        h5.param_name detritusLeafNmaxDecay 
+        p.param_desc Maximum decay rate for Potter decomposition of Leaf detritus pool's Nitrogen amount.
+        h5.param_name detritusAgStemNmaxDecay 
+        p.param_desc Maximum decay rate for Potter decomposition of AgStem detritus pool's Nitrogen amount.
+        h5.param_name detritusBgStemNmaxDecay 
+        p.param_desc Maximum decay rate for Potter decomposition of BgStem detritus pool's Nitrogen amount.
+        h5.param_name detritusRootNmaxDecay 
+        p.param_desc Maximum decay rate for Potter decomposition of Root detritus pool's Nitrogen amount.
+        h5.param_name initialBiomassLeafCarbon 
+        p.param_desc The amount of biomass (in grams of Carbon)placed in the Leaf biomass pool of each cell of this cover type at initialization start.
+        h5.param_name initialBiomassAgStemCarbon 
+        p.param_desc The amount of biomass (in grams of Carbon) placed in the AgStem biomass pool of each cell of this cover type at initialization start.
+        h5.param_name initialBiomassBgStemCarbon 
+        p.param_desc The amount of biomass (in grams of Carbon)placed in the BgStem biomass pool of each cell of this cover type at initialization start.
+        h5.param_name initialBiomassRootCarbon 
+        p.param_desc The amount of biomass (in grams of Carbon) placed in the Root biomass pool of each cell of this cover type at initialization start.
+        h5.param_name initialDetritusLeafCarbon 
+        p.param_desc The amount of detritus (in grams of Carbon) placed in the Leaf detritus pool of each cell of this cover type at initialization start.
+        h5.param_name initialDetritusAgStemCarbon 
+        p.param_desc The amount of detritus (in grams of Carbon) placed in the AgStem detritus pool of each cell of this cover type at initialization start.
+        h5.param_name initialDetritusBgStemCarbon 
+        p.param_desc The amount of detritus (in grams of Carbon) placed in the BgStem detritus pool of each cell of this cover type at initialization start.
+        h5.param_name initialDetritusRootCarbon 
+        p.param_desc The amount of detritus (in grams of Carbon) placed in the Root detritus pool of each cell of this cover type at initialization start.
+        h5.param_name etRecoveryFractionMinimumLeafBiomassC 
+        p.param_desc The minimum amount of leaf biomass (in gC/m^2) required to compute an ET recovery fraction. Whenever leaf biomass is less than this amount, the ET recoveryfraction is forced to the etRecoverFractionMinimumValue. See Section 10.2.1 ET Recovery Parameters.
+        h5.param_name mortalityLeafAnnualFraction 
+        p.param_desc The fraction of the Leaf biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.
+        h5.param_name mortalityLeafDenominatorCoefficient 
+        p.param_desc The mortality equation's denominator coefficient value for the biomass Leaf pool.
+        h5.param_name mortalityLeafExponentialCoefficient 
+        p.param_desc The mortality equation's exponential coefficient value for the biomass Leaf pool.
+        h5.param_name mortalityLeafNumeratorCoefficient 
+        p.param_desc The mortality equation's numerator coefficient value for biomass Leaf pool.
+        h5.param_name mortalityAgStemAnnualFraction 
+        p.param_desc The fraction of the AgStem biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.
+        h5.param_name mortalityAgStemDenominatorCoefficient 
+        p.param_desc The mortality equation's denominator coefficient value for the biomass AgStem pool.
+        h5.param_name mortalityAgStemExponentialCoefficient 
+        p.param_desc The mortality equation's exponential coefficient value for the biomass AgStem pool.
+        h5.param_name mortalityAgStemNumeratorCoefficient 
+        p.param_desc The mortality equation's numerator coefficient value for the biomass AgStem pool.
+        h5.param_name mortalityBgStemAnnualFraction 
+        p.param_desc The fraction of the BgStem biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.
+        h5.param_name mortalityBgStemDenominatorCoefficient 
+        p.param_desc The mortality equation's denominator coefficient value for the biomass BgStem pool.
+        h5.param_name mortalityBgStemExponentialCoefficient 
+        p.param_desc The mortality equation's exponential coefficient value for the biomass BgStem pool.
+        h5.param_name mortalityBgStemNumeratorCoefficient 
+        p.param_desc The mortality equation's numerator coefficient value for the biomass BgStem pool.
+        h5.param_name mortalityRootAnnualFraction 
+        p.param_desc The fraction of the Leaf biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.
+        h5.param_name mortalityRootDenominatorCoefficient 
+        p.param_desc The mortality equation's denominator coefficient value for the biomass Root pool.
+        h5.param_name mortalityRootExponentialCoefficient 
+        p.param_desc The mortality equation's exponential coefficient value for the biomass Root pool.
+        h5.param_name mortalityRootNumeratorCoefficient 
+        p.param_desc The mortality equation's numerator coefficient value for the biomass Root pool.
+        h5.param_name useLinearMortalityLeaf 
+        p.param_desc When true, leaf mortality is computed using a simple linear function. When false (default)mortality is computed via a logistic function.
+        h5.param_name useLinearMortalityAgStem 
+        p.param_desc When true, AgStem mortality is computed using a simple linear function. When false (default) mortality is computed via a logistic function.
+        h5.param_name useLinearMortalityBgStem 
+        p.param_desc When true, BgStem mortality is computed using a simple linear function. When false (default) mortality is computed via a logistic function.
+        h5.param_name useLinearMortalityRoot 
+        p.param_desc When true, Root mortality is computed using a simple linear function. When false (default)mortality is computed via a logistic function.
+        h5.param_name nppToBiomassLeafNfraction 
+        p.param_desc The fraction of total daily NPP for a cell of this cover type allotted to the biomass Leaf pool.
+        h5.param_name nppToBiomassRootNfraction 
+        p.param_desc The fraction of total daily NPP for a cell of this cover type allotted to the biomass Root pool.
+        h5.param_name nppToBiomassAgStemNfraction 
+        p.param_desc The fraction of daily NPP ALOTTED TO STEM POOLS for a cell of this cover type allotted to the biomass AgStem pool. The remaining NPP allotted to stem pools goes to the biomass BgStem pool. NOTE: Total dailyNPP is reduced by the fractions for leaf and root pools first. Any remainder is the daily NPP allotted to stempools.
     h4 Calibration Notes
     p At this stage (section 5.7) of your simulation configuration, don't try to specify values for all the parameterslisted above. For now, just focus on the initial C and N pools for plant biomass anddetritus (highlighted in yellow, above). To specify initial C and N stocks(g/m2) for these pools, we recommend that you consult</a>Appendix 1 for an overview of VELMA's LSR submodel and it C and N pools and fluxes.Filling in C and N values for the various pools shown would be a good start. Remember to document data sourcesas you go.
     p Methods for specifying parameter values for NPP (plant uptake) allocation, plant biomass mortality, and detritusdecay (decomposition) rates, and NPP are discussed in subsequent sections:
@@ -424,7 +424,7 @@ block content
     h6 A Summary Description of the Snow Model's Behavior
     p For each day of a simulation run, the daily air temperature and precipitation values are taken together with theabove snow model parameters and daily values are calculated for the following: Rain, Snow, Snow Depth andSnow Melt.
     p When air temperature is at or above the snowFormationTemperature, all the day's precipitation is countedas rain and becomes the day's Rain value. If the air temperature is also greater than thesnowMeltTemperature, the amount of snow that melts is calculated using the following equation:
-    div#math_formula 
+    div.math_formula 
         p#math snowMeltRate * (airT - snowMeltTemperature) + rainOnSnowEffect * rain
     p where airT and rain are the day's air temperature and precipitation values respectively.
     p If there has been snow deposited into the Snow Depth value on previous simulation days (see below) the amount ofsnow melted is "deducted" from that value and becomes additional "rain" for the day. If the melted amount thatis computed exceeds the amount of snow depth, the entire amount (but no more) is "deducted".
@@ -433,7 +433,7 @@ block content
     h3 6.3.1 - Weather Model Coefficients Files (Only Spatial Weather)
     p VELMA's default weather model (described under section 6.0 - 6.2) does not address spatial variations intemperature and precipitation associated with topographic features - elevation, slope, aspect and cold airdrainages.
     p VELMA's optional Spatial Weather Model provides differing precipitation and air temperature values foreach cell of a simulation's delineated watershed for each day of a simulation run. It includes the same simplesnow model as the Default Weather Model.
-    div#caution_box
+    div.caution_box
         h4 CAUTION!
         p The Spatial Weather Model is still somewhat experimental and undergoing testing and refinement.p Also, it requires more effort to configure/parameterize than the Default Weather Model. For both of these    reasons, we currently recommend using only the Default Weather Model unless you <i>must </i>have the more    complex behavior that the Spatial Weather Model provides, e.g, for mountainous terrain.
     h6 You Must Explicitly Specify Activation of the Spatial Weather Model
@@ -453,7 +453,7 @@ block content
     h6 You Must Provide Files of Coefficients for Precipitation and Air Temperature Calculations The Spatial WeatherModel calculates the day's precipitation and air temperature values for a given cell location by applying aprecipitation or air temperature function to the day's driver precipitation or air temperature value. Thesefunctions map/modify the "seed" value at the Prime Cell to derive a value for the other cells. The functionstake into account the cell's
     p elevation, flow accumulation and heat index values, and the equations involved require per- month coefficientsfor each term of their equations.
     h6 You Must provide the file names (or optionally full path + names) of one file for rain (precipitation) equationcoefficients and one file of air temperature coefficients.
-    div#caution_box 
+    div.caution_box 
         h4 NOTE
         p Determining the values for precipitation and air temperature coefficients requires detailed knowledge of the    equations defining the Spatial Weather Model's behavior.p For additional information concerning theory and procedures for developing statistical coefficients for        VELMA's spatial climate model see <u>Appendix 5: Generating daily</u> <u>temperature and        precipitation grids for running VELMA: development of statistical</u> <u>models based on monthly PRISM        data.</u>
     h4 The Precipitation Coefficients File
@@ -463,7 +463,7 @@ block content
     img(width="486" height="280" alt="image" src="Image_069.gif")
     p and here are the lines from the corresponding .csv data file:
     p 
-    div#csv_textarea
+    div.csv_textarea
         p month,a,b,c,d,e
         p 1,259.751,0.011833,5.24E-05,-3.94717,-0.09685
         p 2,241.5404,0.006131,6.10E-05,-5.15183,0.892817
@@ -483,7 +483,7 @@ block content
     p Here is an example table of values:
     img(width="622" height="222" alt="image" src="Image_070.gif")
     p And here are the lines from the corresponding .csv data file:
-    div#csv_textarea 
+    div.csv_textarea 
         p month,b,c,d,e,g,h,i,j,x
         p 1,0.007047,0.018444,2.75E-06,-1.12696,-0.00434,0.012177,-1.60E-05,6.606466,679.15
         p 2,0.006148,0.065628,2.75E-06,1.024448,-0.00545,0.037565,-1.50E-05,8.958362,684.28
@@ -547,14 +547,14 @@ block content
     p Initial soil pools (g N / m2 or g C / m2) of NH4, NO3, DON and DOC can be viewed and specified byselecting "8.1 Chemistry Amounts for uniform cell-initialization" from the All Parameters drop-down menu. Thevalues specified should represent the sum of all 4 soil layers (total soil column) averaged across thewatershed.
     img(width="620" height="153" alt="image" src="Image_075.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name initial_doc
+    div.param_def
+        h5.param_name initial_doc
         p#param_def Initial DOC pool amount (per cell) in gC/m2.
-        h5#param_name initial_don
+        h5.param_name initial_don
         p#param_def Initial DON pool amount(per cell) in gN/m2.
-        h5#param_name initial_Nh4
+        h5.param_name initial_Nh4
         p#param_def Initial NH4 pool amount (per cell) in gN/m2.
-        h5#param_name initial_No3Initial
+        h5.param_name initial_No3Initial
         p#param_def NO3 pool amount (per cell) in gN/m2.
     h6 Calibration Notes
     p On day 1 of a simulation, VELMA will use the specified parameter values to calculate the fraction of eachnutrient's total pool to allocate to each of the four soil layers. This is done uniformly for all grid cells onday 1.
@@ -570,14 +570,14 @@ block content
     p The nutrient loss fraction parameters can be viewed and specified by selecting "8.2 Chemistry Water LossFractions" from the All Parameters drop-down menu.
     img(width="621" height="156" alt="image" src="Image_076.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name qf_din
+    div.param_def
+        h5.param_name qf_din
         p#param_def NH4 loss due to horizontal and vertical water flow range [0.0 1.0].
-        h5#param_name qf_doc 
+        h5.param_name qf_doc 
         p#param_name DOC loss due tohorizontal and vertical water flow range [0.0 1.0].
-        h5#param_name qf_don 
+        h5.param_name qf_don 
         p#param_name DON loss due to horizontal and vertical waterflow range [0.0 1.0]. 
-        h5#param_name qf_NO3 
+        h5.param_name qf_NO3 
         p#param_name NO3 loss due to horizontal and vertical water flow range [0.0 1.0].
     
     h6 Calibration Notes
@@ -597,18 +597,18 @@ block content
     p Parameters for the experimental (but preferred) nitrogen deposition subroutine can be viewed and specified byselecting "9.0 Nitrogen Deposition" from the All Parameters drop-down menu:
     img(width="627" height="187" alt="image" src="Image_077.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name wet_nin
+    div.param_def
+        h5.param_name wet_nin
         p#param_def Wet nitrogen deposition factor in gNm^2 per year
-        h5#param_name dry_nin 
+        h5.param_name dry_nin 
         p#param_def Dry nitrogen deposition factor in gNm^2 per year
-        h5#param_name ninBankInitialSpinUpValue 
+        h5.param_name ninBankInitialSpinUpValue 
         p#param_def N-deposition initialization value. When this initialization value is zero a simulation run's first year is used to "spin up" the Michaelis-Menten-based N-deposition model.The N-deposition values computed for that first year (and subsequent values calculated from them) are unlikely to be accurate. However if a correct value is known thisinitialization parameter may be set to it. The value should be the daily average N-deposition value for a singlecell of the current simulation. If the value is unknown or cannot be reliably deduced ahead of simulation startleave this value zero and incur the first-year spin-up (see Calibration notes, below)
-        h5#param_name ninHalfSaturationKnForLossFromNinBank 
+        h5.param_name ninHalfSaturationKnForLossFromNinBank 
         p#param_def N-deposition Michaelis-Menten kinetics Kn constant.
-        h5#param_name ninMaxLossFromNinBankPerDay 
+        h5.param_name ninMaxLossFromNinBankPerDay 
         p#param_def N-Deposition Michaelis-Menten kinetics maximum
-        h5#param_name useExperimentalNin 
+        h5.param_name useExperimentalNin 
         p#param_def When set to "true" N-deposition is computed using a banked Michaelis-Menten-based equation. When set to "false" N-deposition is computed using the VELMA version 1.0linear equation. Use of the older equation is deprecated. The default value for this parameter is "true".
     h6 Calibration Notes
     p For the reasons mentioned under assumption #3, above, we recommend using the experimental (VELMA version 2.0)nitrogen deposition subroutine rather than that used in VELMA version 1.0.
@@ -626,18 +626,18 @@ block content
     img(width="628" height="175" alt="image" src="Image_078.jpg")
     h4 Parameter Definitions
     p (see Abdelnour et al. 2011 for equations and additional explanation):
-    div#param_def
-        h5#param_name roair
+    div.param_def
+        h5.param_name roair
         p#param_def Air density in g/m^3
-        h5#param_name be 
+        h5.param_name be 
         p#param_def ET coefficient used in the logistic equation that computes ET from PET
-        h5#param_name temperaturePetOff 
+        h5.param_name temperaturePetOff 
         p#param_def PET is only active when air temperature is &gt; than this value (in degrees C)
-        h5#param_name petParam1 
+        h5.param_name petParam1 
         p#param_def First term of PET Hamon Equation: petParam1 * petParam2 * gS.roair * (esat / 1000.0f)
-        h5#param_name petParam2 
+        h5.param_name petParam2 
         p#param_def Second term of PET Hamon Equation: petParam1 * petParam2 * gS.roair * (esat / 1000.0f)
-        h5#param_name notranspirationPetFraction 
+        h5.param_name notranspirationPetFraction 
         p#param_def The fraction of PET available outside of this a cover species/type's growing season range [0.0 - 1.0].
     h3p 10.2 - ET Recovery On/Off ?
     p Select section 10.2 from the All Parameters drop-down menu to turn the ET recovery function on (true) or off(false):
@@ -646,14 +646,14 @@ block content
     p Select section 10.2.1 from the All Parameters drop-down menu to specify ET recovery parameter values for eachcover type in your watershed (just one cover shown below):
     img(width="623" height="146" alt="image" src="Image_080.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name etRecoverFractionSlope
+    div.param_def
+        h5.param_name etRecoverFractionSlope
         p#param_def The value of the ET recovery fraction&#39;s linear equation slope component.
-        h5#param_name etRecoverFractionMinimumValue 
+        h5.param_name etRecoverFractionMinimumValue 
         p#param_defThe ET recovery fraction is forced to this value when the current leaf biomass is less than the value specified for etRecoveryFractionLeafBiomassMinimum orwhen the calculated ET recovery fraction is less than zero.
-        h5#param_name etRecoverFractionMinimumLeafBiomassC 
+        h5.param_name etRecoverFractionMinimumLeafBiomassC 
         p#param_defThe minimum amount of leaf biomass (in gC/m^2) required to compute an ET recovery fraction. Whenever leaf biomass is less than this amount the ET recoveryfraction is forced to the etRecoverFractionMinimumValue.
-        h5#param_name etRecoverFractionIntercept 
+        h5.param_name etRecoverFractionIntercept 
         p#param_defThe value of the ET recovery fraction&#39;s linear equation intercept component.
     h6 Calibration Notes
     p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate ET <a    href="mailto:mckane.bob@epa.gov">recovery parameters for your site (please contact </a>mckane.bob@epa.govif you have questions):
@@ -664,8 +664,8 @@ block content
     p Select section 10.3 from the All Parameters drop-down menu to turn the Transpiration Limiter subroutine on (true)or off (false):
     img(width="626" height="100" alt="image" src="Image_081.jpg")
     h4 Parameter definition:
-    div#param_def
-        h5#param_name useTranspirationLimiter
+    div.param_def
+        h5.param_name useTranspirationLimiter
         p#param_def When set false (default value) the transpiration limiter fraction value is forced to 1.0 (Which effectively means &quot;No age-related limitation&quot; i.e. the limiter is OFF.)When set true the transpiration limiter fraction is computed based on its jday and coefficients settings.
     p See section 10.4 for parameters and calibration information. 
     h6 References
@@ -675,22 +675,22 @@ block content
     p Select section 10.3.1 from the All Parameters drop-down menu to specify parameter values for the TranspirationLimiter subroutine used to describe age-related declines in transpiration by forest vegetation:
     img(width="622" height="207" alt="image" src="Image_082.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name useTranspirationLimiter
+    div.param_def
+        h5.param_name useTranspirationLimiter
         p#param_def When set false (default value) the transpiration limiter fraction value is forced to 1.0 (Which effectively means &quot;No limiting at all&quot; i.e. the limiteris OFF.) When set true the transpiration limiter fraction is computed based on its jday and coefficientssettings.
-        h5#param_name transpirationLimiterMaxTotalBiomassC 
+        h5.param_name transpirationLimiterMaxTotalBiomassC 
         p#param_def Upper limit of total biomass amount (in gC/m^2) for transpiration limiter fraction computation. When total biomass amount in a cell exceeds this max value thetranspiration limiter faction value is forced to the transpirationLimiterCoeffD parameter&#39;s value.
-        h5#param_name transpirationLimiterJdayOn 
+        h5.param_name transpirationLimiterJdayOn 
         p#param_def Transpiration reduction occurs on the Julian day specified by this &quot;on&quot; parameter and continues on every day of the year up to and including the day specified by the paired &quot;off&quot; parameter. I.e. transpiration reduction occurs in the range[transpirationLimiterJdayOn transpirationLimiterJdayOff]
-        h5#param_name transpirationLimiterJdayOff 
+        h5.param_name transpirationLimiterJdayOff 
         p#param_def Transpiration reduction occurs on the Julian day specified by this &quot;off&quot; parameter and does not occur for any days of the year remaining after it. I.e. transpiration reduction occurs in the range [transpirationLimiterJdayOn transpirationLimiterJdayOff]
-        h5#param_name transpirationLimiterCoeffA 
+        h5.param_name transpirationLimiterCoeffA 
         p#param_def The A coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D
-        h5#param_name transpirationLimiterCoeffB 
+        h5.param_name transpirationLimiterCoeffB 
         p#param_def The B coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D
-        h5#param_name transpirationLimiterCoeffC 
+        h5.param_name transpirationLimiterCoeffC 
         p#param_def The C coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D
-        h5#param_name transpirationLimiterCoeffD 
+        h5.param_name transpirationLimiterCoeffD 
         p#param_def The D coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D
     h6 Calibration Notes
     p The transpiration limiter subroutine is experimental and we do not recommend using it at this time.
@@ -709,20 +709,20 @@ block content
     p Select "11.1 Plant Uptake NH4-specific" from the All Parameters drop-down menu to specify parameter valuescontrolling NH4 uptake per cover species/type. Note that two cover types (forest and corn) are shown hereto emphasize that parameters must be specified for each cover type within a watershed (true for all of section11).
     img(width="621" height="147" alt="image" src="Image_083.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name nh4MaximumUptakeRate
+    div.param_def
+        h5.param_name nh4MaximumUptakeRate
         p#param_def Cover-specific maximum rate of NH4 uptake for biomass uptake equation.
-        h5#param_name nh4Kn 
+        h5.param_name nh4Kn 
         p#param_def Half saturation constant kn for Michaelis Menton NH4 uptake in gN/m^2.
     p See calibration notes for section 11.2.
     p 11.2 - Plant Uptake NO3-specific
     p Select "11.2 Plant Uptake NO3-specific" from the All Parameters drop-down menu to specify parameter valuescontrolling NO3 uptake per cover species/type:
     img(width="622" height="148" alt="image" src="Image_084.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name no3MaximumUptakeRate
+    div.param_def
+        h5.param_name no3MaximumUptakeRate
         p#param_def Cover-specific maximum rate of NO3 uptake for biomass uptake equation.
-        h5#param_name no3Kn 
+        h5.param_name no3Kn 
         p#param_def Half saturation constant, kn, for Michaelis-Menten NO3 uptake in gN/m^2.
     h6 Calibration Notes
     p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate NH4 and <a    href="mailto:mckane.bob@epa.gov">NO3 plant uptake parameters for your site (please contact</a>mckane.bob@epa.gov if you have questions):
@@ -732,12 +732,12 @@ block content
     img(width="621" height="131" alt="image" src="Image_085.jpg")
     h4 Parameter Definitions
     p (see Rastetter et al. (1991) for a description of the General Ecosystem Model (GEM)temperature function and parameters for simulating plant nitrogen uptake):
-    div#param_def
-        h5#param_name uptakeOptimumT
+    div.param_def
+        h5.param_name uptakeOptimumT
         p#param_def Optimal temperature (oC) plant uptake of NH4 and NO3 
-        h5#param_name uptakeMaximumTMaximum 
+        h5.param_name uptakeMaximumTMaximum 
         p#param_def temperature (oC) plant uptake of NH4 and NO3 
-        h5#param_name uptakeCurvatureCurvature
+        h5.param_name uptakeCurvatureCurvature
         p#param_def parameter of GEM temperature function.
     p An example:
     img(width="502" height="260" alt="image" src="Image_086.png")
@@ -750,12 +750,12 @@ block content
     p Select "11.4 Plant Uptake NPP Distribution Fractions" from the All Parameters drop-down menu to specify parametervalues controlling how daily total N uptake (a.k.a, "NPP" in VELMA) is allocated to leaf, aboveground stem,belowground stem, and root biomass:
     img(width="622" height="130" alt="image" src="Image_087.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name nppToBiomassRootNfraction
+    div.param_def
+        h5.param_name nppToBiomassRootNfraction
         p#param_def The fraction (0.0 -1.0) of total plant uptake of nitrogen (NH4 + NO3) per day allocated to the root biomass N pool.
-        h5#param_name nppToBiomassLeafNfraction
+        h5.param_name nppToBiomassLeafNfraction
         p#param_def The fraction (0.0 -1.0) of total plant uptake of nitrogen (NH4 + NO3) per day allocated to the leaf biomass N pool.
-        h5#param_name nppToBiomassAgStemNfraction
+        h5.param_name nppToBiomassAgStemNfraction
         p#param_def The fraction (0.0 -1.0) of total plant uptake of nitrogen (NH4 + NO3) per day allocated to the AgStem biomass N pool.
     p Note that "nppToBiomassBgStemfraction" does not need to be specified because VELMA internally calculates it bydifference.
     h6 Calibration Notes
@@ -773,18 +773,18 @@ block content
     p Select "11.5 Plant Uptake Phenology" from the All Parameters drop-down menu to specify parameter values affectingwhen plant N uptake begins and ends during the year (per cover type):
     img(width="621" height="177" alt="image" src="Image_088.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name jDayUptakeFirstAllowed
+    div.param_def
+        h5.param_name jDayUptakeFirstAllowed
         p#param_def The first Julian day of the year on which uptake is possible for this Cover. Uptake will NEVER happen before the specified day. Use this parameter to delay uptake until the dailyphotoperiod is sufficient for the given Cover. This parameter specifies the first day of the year when uptakecan occur not necessarily the first day when uptake will occur. On and after the day specified by this parameteruptake will occur whenever the degree day parameterization allows it to begin.
-        h5#param_name jDaySenescenceOff 
+        h5.param_name jDaySenescenceOff 
         p#param_def The Julian Day of the year when this cover species biomass stops senescing (Note: any value &gt;= 367 results in biomass NOT senescing through the end of theyear.nppToBiomassAgStemNfraction The fraction (0.0 -1.0) of total plant uptake of nitrogen(NH4 + NO3) per day allocated to the AgStem biomass N pool.
-        h5#param_name insulationEfficiency 
+        h5.param_name insulationEfficiency 
         p#param_def Insulating efficiency of available litter range [0.0 1.0] (this affects soil temperature and, therefore, plant N uptake). NOTE: Set this value to zero to disable insulationeffects on degree- day calculation.
-        h5#param_name insulationCarbonUpperBound 
+        h5.param_name insulationCarbonUpperBound 
         p#param_def Quantity of above-ground litter beyond which there is no additional insulating effect in gC/m^2 (this affects soil temperature and, therefore, plant N uptake).
-        h5#param_name degreeDayThreshold 
+        h5.param_name degreeDayThreshold 
         p#param_def Allow biomass uptake only when accumulated degree day value &gt;= degreeDayThreshold.
-        h5#param_name allowUptakeAfterSenescence 
+        h5.param_name allowUptakeAfterSenescence 
         p#param_def When set true (default) uptake takes place before jDaySenescenceOn and resumes after jDaySenescenceOff. When set &quot;false&quot; uptake occurs ONLY beforejDaySenescenceOn
     h2 12.0 Plant Mortality 
     p VELMA v.2.0 has a new plant biomass mortality function, replacing the linear mortality function in v1.0(Abdelnour et al. 2011). The new mortality function was initially developed for forest vegetation but we havefound that it applies just as well to other cover types, including nonwoody species such as grasslands andagricultural crops.
@@ -805,7 +805,7 @@ block content
     h3 12.1.1 - Plant Mortality Logistic Parameters
     p Select "12.1.1 Plant Mortality Logistic Parameters" from the All Parameters drop-down menu to specify parametervalues affecting biomass mortality for each of VELMA's four plant tissue types. Parameter specifications arerequired for each cover type.
     img(width="622" height="331" alt="image" src="Image_091.jpg")
-    div#math_formula
+    div.math_formula
         p#math Reference to mortality coefficients in the parameter definitions, below, refer to the following plant mortalitylogistic function. Using AgStem as an example:
         p#math AgStem Mortality = AgStem NPP * C / (1 + A * exp^(-B * Tissue N)), where,
         p#math AgStem Mortality &amp; AgStem NPP are computed internally by VELMA in g N m-2 d-1
@@ -813,14 +813,14 @@ block content
         p#math B = mortalityAgStemExponentialCoefficient
         p#math C = mortalityAgStemNumeratorCoefficient
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name mortalityAgStemAnnualFraction
+    div.param_def
+        h5.param_name mortalityAgStemAnnualFraction
         p#param_def The fraction of a tissue's simulated annual mortality that gets subtracted from the corresponding biomass pool per day during the specified period ofsenescence. The default value for this fraction is 1.0 (i.e. the full per-day amount) and the valid range is[0.0 to 1.0] Warning! Users unfamiliar with this parameter&#39;s behavior should leave it set to the defaultvalue of 1.0.
-        h5#param_name mortalityAgStemDenominatorCoefficient 
+        h5.param_name mortalityAgStemDenominatorCoefficient 
         p#param_defParameter "A" in the equation above.
-        h5#param_name mortalityAgStemExponentialCoefficient 
+        h5.param_name mortalityAgStemExponentialCoefficient 
         p#param_defParameter "B" in the equation above.above.
-        h5#param_name mortalityAgStemNumeratorCoefficient 
+        h5.param_name mortalityAgStemNumeratorCoefficient 
         p#param_defParameter "C" in the equation above.
     p Note: the 4 preceding parameters repeat for the other tissues - i.e., "Leaf", "BgStem" or "Root" appear in placeof "AgStem" in the parameter names above. These
     h6 Calibration Notes
@@ -834,15 +834,15 @@ block content
     p Select "12.2 Plant Mortality Phenology" from the All Parameters drop-down menu to specify parameter values forthe beginning and end dates for plant biomass mortality.
     img(width="621" height="116" alt="image" src="Image_092.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name jDaySenescenceOn
+    div.param_def
+        h5.param_name jDaySenescenceOn
         p#param_def The Julian Day of the year when this cover species biomass begins senescing. (Note: Set &gt;= 367 to &quot;deactivate&quot; senescence for this cover species.)
-        h5#param_name jDaySenescenceOff 
+        h5.param_name jDaySenescenceOff 
         p#param_def The Julian Day of the year when this cover species biomass stops senescing (Note: any value &gt;= 367 results in biomass NOT senescing through the end of the year.
     h2 13.0 Decomposition 
     p Decomposition of soil organic matter is a key process in VELMA, controlling the rate at which dead organicC and N pools (detritus and humus) are converted to inorganic C and N pools (CO2, NH4, NO3,DON and DOC).
     p VELMA v2.0 has a new decomposition model based on Potter et al. (1993). In the Potter model,microbially-mediated decomposition of plant and soil organic residues produces CO2, such that
-    div#math_formula
+    div.math_formula
         p#math CO2i = Ci * ki * Ws * Ts * (1-Me), where
     ul
         li i = a specified soil organic matter pool (in VELMA, plant tissue detritus or humus)
@@ -860,8 +860,8 @@ block content
     p Select "13.1 Decomposition Nitrogen-To-DON fraction Plant Mortality Phenology" from the All Parameters drop-downmenu to specify a parameter value for controlling DON production:
     img(width="625" height="110" alt="image" src="Image_093.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name psm_q
+    div.param_def
+        h5.param_name psm_q
         p#param_def The fraction of decomposed nitrogen converted to DON range [0.0 - 1.0]
     h6 Calibration Notes
     p You will need to iteratively calibrate "psm_q" against observed stream DON concentrations (Abdelnour et al.2013). This is most easily accomplished using VELMA's runtime visualization option for "Calibration AnnualNutrients". After annual results are in the ballpark, switch to "Calibration Daily Nutrients".
@@ -871,8 +871,8 @@ block content
     p Select "13.2 Decomposition CO2 Respiration Fraction" from the All Parameters drop-down menu to specify aparameter value controlling CO2 production during decomposition:
     img(width="625" height="108" alt="image" src="Image_094.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name co2RespriationFraction
+    div.param_def
+        h5.param_name co2RespriationFraction
         p#param_def The fraction of humus decomposition (in Carbon) lost to the atmosphere as CO2.
     h6 Calibration Notes
     p You will need to iteratively calibrate "co2RespriationFraction" in order to obtain a good fit betweensimulated and observed stream DOC concentrations, since DOC produced during decomposition = 1 -co2RespriationFraction. This is most easily accomplished using VELMA's runtime visualization option for"Calibration Annual Nutrients". After annual results are in the ballpark, switch to "Calibration DailyNutrients".
@@ -880,8 +880,8 @@ block content
     p Select "13.3 Decomposition Microbe Efficiency" from the All Parameters drop-down menu to specify the microbialefficiency for carbon assimilation during decomposition:
     img(width="627" height="114" alt="image" src="Image_095.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name microbeCefficiency
+    div.param_def
+        h5.param_name microbeCefficiency
         p#param_def The carbon assimilation efficiency (0 - 1) of microbes. This is a globally-applicable term of the Potter equation.
     p As an example, an assimilation efficiency = 0.45 means that for every gram of carbon decomposed, 0.45 g isassimilated into the humus carbon pool (microbes are not explicitly modeled), and the remaining 0.55 g isrespired as CO2. However, a small fraction (1 - co2RespriationFraction) of this 0.55 g goes to the DOCpool.
     p Consult the references below for insight into typical values for microbeCefficiency. 
@@ -892,16 +892,16 @@ block content
     p Select "13.4 Decomposition Cover-Specific Parameters" from the All Parameters drop-down menu to specify themicrobial efficiency for carbon assimilation during decomposition. These parameters must be specified for eachcover type.
     img(width="629" height="188" alt="image" src="Image_096.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name humusNmaxDecay
+    div.param_def
+        h5.param_name humusNmaxDecay
         p#param_def The maximum rate of decay (0 - 1) for the humus N pool.
-        h5#param_name detritusBgStemNmaxDecay 
+        h5.param_name detritusBgStemNmaxDecay 
         p#param_def The maximum rate of decay (0 - 1) for the belowground stem (BgStem) N pool.
-        h5#param_name detritusRootNmaxDecay 
+        h5.param_name detritusRootNmaxDecay 
         p#param_def The maximum rate of decay (0 - 1) for the root N pool.
-        h5#param_name detritusLeafNmaxDecay 
+        h5.param_name detritusLeafNmaxDecay 
         p#param_def The maximum rate of decay (0 - 1) for the leaf N pool.
-        h5#param_name detritusAgStemNmaxDecay 
+        h5.param_name detritusAgStemNmaxDecay 
         p#param_def The maximum rate of decay (0 - 1) for the aboveground stem (AgStem) N pool.
     h6 Calibration Notes
     p You will need to iteratively calibrate these decay constants, for each cover type, in order to obtain a good fitbetween simulated and observed detritus pool data. It is almost always best to calibrate for steady state(equilibrium) conditions, e.g., for mature cover types.
@@ -916,26 +916,26 @@ block content
     p Select "14.0 Nitrogen-Fixation" from the All Parameters drop-down menu to specify parameter values for asymbioticand symbiotic N fixation.
     img(width="628" height="279" alt="image" src="Image_098.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name useNitrogenFixation
+    div.param_def
+        h5.param_name useNitrogenFixation
         p#param_def When using NitrogenFixation = false (default), no nitrogen fixation is computed for thiscells of this cover. When useNitrogenFixation = true, nitrogen fixation is computed using this cover&#39;s other nitrogen fixation parameters.
-        h5#param_name nitrogenFixerFraction 
+        h5.param_name nitrogenFixerFraction 
         p#param_def The fraction of a cell&#39;s plant matter (in the range [0.0 1.0]) that performs Nitrogenfixation.
-        h5#param_name nitrogenFixationUptakeFraction 
+        h5.param_name nitrogenFixationUptakeFraction 
         p#param_def The fraction (in the range [0.0 1.0]) of the symbiotic fixed Nitrogen that is available for plant NPP. Plant symbiotic fixed nitrogen is: Total symbiotic fixed Nitrogen* nitrogenFixationUptakeFraction The remainder of the total is allocated as Humus symbiotic fixed nitrogen.
-        h5#param_name nitrogenFixationTemperatureScalarOptimumT 
+        h5.param_name nitrogenFixationTemperatureScalarOptimumT 
         p#param_def Optimum temperature (in degrees C) parameter of GEM temperature scalar function for Nitrogen fixation.
-        h5#param_name nitrogenFixationTemperatureScalarMaximumT 
+        h5.param_name nitrogenFixationTemperatureScalarMaximumT 
         p#param_def Maximum temperature (in degrees C) parameter of GEM temperature scalar function for Nitrogen fixation.
-        h5#param_name nitrogenFixationTemperatureScalarCurvature 
+        h5.param_name nitrogenFixationTemperatureScalarCurvature 
         p#param_def Curvature parameter (&quot;qx&quot;) of GEM temperature scalar function for Nitrogen fixation
-        h5#param_name nitrogenFixationSymbioticMaximum 
+        h5.param_name nitrogenFixationSymbioticMaximum 
         p#param_def The maximum amount of Nitrogen converted from the atmosphere by symbiotic processes in gNfixed/gFixerFineRootBiomassN per m2 per day.
-        h5#param_name nitrogenFixationMoistureScalarLambda 
+        h5.param_name nitrogenFixationMoistureScalarLambda 
         p#param_def The Lambda value of the Weibull equation used to compute a water scalar for Nitrogen fixation.
-        h5#param_name nitrogenFixationMoistureScalarK 
+        h5.param_name nitrogenFixationMoistureScalarK 
         p#param_def K value of the Weibull equation used to compute a water scalar for Nitrogen fixation.
-        h5#param_name nitrogenFixationAsymbioticMaximum 
+        h5.param_name nitrogenFixationAsymbioticMaximum 
         p#param_def The maximum amount of Nitrogen converted from the atmosphere by asymbiotic processes in gN/m2/day.
     h6 Calibration Notes
     p For initial calibration of the N fixation subroutine's temperature and moisture functions, we recommend startingwith the values shown in the screenshot above. The cover-specific parameters will require iterative calibrationagainst published data.
@@ -952,15 +952,15 @@ block content
     p Select "15.1 Nitrification On/Off ?" from the All Parameters drop-down menu to specify whether to turn theNitrification subroutine on (true) or off (false).
     img(width="623" height="124" alt="image" src="Image_100.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name useNitrogenFixation
+    div.param_def
+        h5.param_name useNitrogenFixation
         p#param_def When set false daily nitrification amounts are ignored and the PSM model behaves as if the nitrification amount is zero When set true (default) nitrification occursnormally
     h3 15.1.1 - Nitrification Function Type
     p Select "15.1.1 Nitrification Function Type" from the All Parameters drop-down menu to specify the
     img(width="626" height="120" alt="image" src="Image_101.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name setNitrogenFunctionSelection
+    div.param_def
+        h5.param_name setNitrogenFunctionSelection
         p#param_def Specify &quot;PARTON_1996&quot; &quot;PARTON_2001&quot; or &quot;DEL_GROSSO_XLS_2013&quot; as the value of the setNitrificationFunctionSelection property. Warning: be sure to use UPPERCASE text! The simulator engine will compute nitrifcation amounts using the specified function.PARTON_1996 = Function based upon equation given in Figure 2 (d) in [Parton et al. 1996] from Global BiochemicalCycles v.10. PARTON_2001 = Function based upon equation (2) in [Parton et al. 2001] from Journal of GeophysicalResearch v.106. DEL_GROSSO_XLS_2013 = (Default / RECOMMENDED) function implementing the Excel 2013 spreadsheet model provided byDr. Stephen Del Grosso.
     
     h3 15.1.2 - Nitrification Soil-Specific Parameters
@@ -968,22 +968,22 @@ block content
     p Select "15.1.2 Nitrification Function Type" from the All Parameters drop-down menu to specify nitrificationsubroutine parameters. The parameters shown below must be specified for each soil type in your watershed (justone soil type shown in the screenshot below).
     img(width="623" height="255" alt="image" src="Image_102.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name nitrificationK1 
+    div.param_def
+        h5.param_name nitrificationK1 
         p#param_def Fraction of net Nitrogen mineralized that is nitrified per day range in [0.0 1.0]. [Parton et al.2001].
-        h5#param_name nitrificationKmax
+        h5.param_name nitrificationKmax
         p#param_def Maximum fraction of NH4 nitrified per day in units of gN/m2/day range in [0.0 1.0]. [Parton etal. 2001]
-        h5#param_name nitrificationToN2o
+        h5.param_name nitrificationToN2o
         p#param_def N2O flux associated with nitrification in units of gN/m2/day
-        h5#param_name nitrificationWfpsCoeff0
+        h5.param_name nitrificationWfpsCoeff0
         p#param_def Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.
-        h5#param_name nitrificationWfpsCoeff1
+        h5.param_name nitrificationWfpsCoeff1
         p#param_def Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.
-        h5#param_name nitrificationWfpsCoeff2
+        h5.param_name nitrificationWfpsCoeff2
         p#param_def Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.
-        h5#param_name nitrificationWfpsCoeff3
+        h5.param_name nitrificationWfpsCoeff3
         p#param_def Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.
-        h5#param_name pH
+        h5.param_name pH
         p#param_def This soil&#39;s pH value.
     h6 Calibration Notes
     p The nitrification model has been extensively applied to agricultural systems by the NGAS model developers (Partonet al. 2001; Del Grosso et al. 2001 and 2006). We recommend starting with the default parameter values providedby Stephen Del Grosso in his NGAS spreadsheet model.
@@ -1036,26 +1036,26 @@ block content
     p Select "16.1 Denitrification On/Off ?" from the All Parameters drop-down menu to specify whether to turn thedenitrification subroutine on (true) or off (false).
     img(width="618" height="98" alt="image" src="Image_104.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name setNitrogenFunctionSelection
+    div.param_def
+        h5.param_name setNitrogenFunctionSelection
         p#param_def When set "false" daily denitrification amounts are ignored and VELMA's biogeochemistry submodel behaves as if the denitrification amount is zero. When set "true"(default) denitrification occurs normally.
     h3 16.1.1 - Denitrification Core Parameters
     p Select "16.1.1 Denitrification Core Parameters" from the All Parameters drop-down menu to specify denitrificationsubroutine parameter values. These global parameters are applicable to all soil types.
     img(width="623" height="129" alt="image" src="Image_105.png")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name denitDiffusivity
+    div.param_def
+        h5.param_name denitDiffusivity
         p#param_def This is the value of the &quot;a&quot; parameter in Del >Grosso etal. (2000) fig.7(a). It controls the >shape of the logistic function that defines the>response of "relative denitrification" (0.0 - >1.0) to water filled pore space (WFPS%). See calibration notes at the end of section >16.0, below.
-        h5#param_name performDenitrificationAfterWaterTransport
+        h5.param_name performDenitrificationAfterWaterTransport
         p#param_def When set "true" daily denitrification amounts are calculated AFTER vertical and lateral transportation of chemicals by water occurs. When set "false"(default) daily denitrification occurs BEFORE water transport.
-        h5#param_name useDenitrification
+        h5.param_name useDenitrification
         p#param_def When set "false" daily denitrification amounts are ignored and the PSM model behaves as if thedenitrification amount is zero. When set "true" (default) denitrification occurs normally
     h3 16.1.2 - Denitrification Soil-Specific Parameters
     p Select "16.1.2 Denitrification Soil-Specific Parameters" from the All Parameters drop-down menu to specify thefollowing set of denitrification parameters for each soil type in your watershed. There is just one parameterper soil type (3 soil types are shown in the screenshot below).
     img(width="628" height="128" alt="image" src="Image_106.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name setDenitrificationSoilCondition
+    div.param_def
+        h5.param_name setDenitrificationSoilCondition
         p#param_def Defines soil condition with respect to denitrification calculations. Value must be one of the following: &quot;INTACT&quot; (the default value) or&quot;REPACKED_COARSE&quot; or &quot;REPACKED_MEDIUM&quot; or &quot;REPACKED_FINE&quot; The value is case-sensitive and must appear exactly as given here (but with the surrounding double-quotes). Inpractice, Del Grosso's NGAS spreadsheet uses "INTACT" = undisturbed soils, and &quot;REPACKED_MEDIUM" and&quot;REPACKED_FINE&quot; = medium or fine textured soil samples, respectively, that have been repacked in thelab after field collection.
     h6 Calibration Notes:
     p The denitrification subroutine has been extensively applied to agricultural systems by the NGAS model developers(Parton et al. 2001; Del Grosso et al. 2000 and 2006). The parameter values used in the model seem to be fairlyrobust across the wide range of conditions reported by the authors. When calibrating the denitrificationsubroutine for a new site, we recommend that you initially focus on just two parameters (assuming all thetrue/false options are set up correctly).
@@ -1070,16 +1070,16 @@ block content
     p Parton, W. J., Holland, E. A., Del Grosso, S. J., Hartman, M. D., Martin, R. E., Mosier, A. R., ... &amp;Schimel, D. S. (2001). Generalized model for NO x and N2O emissions from soils. Journal of Geophysical Research:Atmospheres (1984-2012), 106(D15), 17403-17419.
     h2 17.0 - Simulation Run Schedule 
     p To let VELMA know when to start and stop a simulation, you specify need to specify values for the followingparameters:
-    div#param_def
-        h5#param_name forcing_start 
+    div.param_def
+        h5.param_name forcing_start 
         p#param_def First year of driver (forcing) data available for the simulation model run
-        h5#param_name forcing_end
+        h5.param_name forcing_end
         p#param_def Last year of driver (forcing) data available for the simulation model run
-        h5#param_name syear
+        h5.param_name syear
         p#param_def Starting year of simulation model run
-        h5#param_name eyear
+        h5.param_name eyear
         p#param_def Ending year of simulation model run
-        h5#param_name numberOfLoops
+        h5.param_name numberOfLoops
         p#param_def The number of times (loops) to repeat a simulation (syear
     p to eyear will repeat for the specified number of loops)
     h6 The Forcing Start and End Years Specify When a Simulation CAN Run
@@ -1904,38 +1904,38 @@ block content
     p Select "24.0 - Disturbance Items" from the All Parameters drop-down menu to see a list of all parametersassociated with the HarvestLsrDisturbanceModel. In the screenshot below, we have specified parametervalues for the HarvestLsrDisturbanceModel disturbance we named "ForestClearcut":
     img(width="620" height="383" alt="image" src="Image_153.jpg")
     h4 Parameter Definitions
-    div#param_def
-        h5#param_name ageThreshold
+    div.param_def
+        h5.param_name ageThreshold
         p#param_def Applicable cover must be greater or equal to the specified ageThreshold (in integer years) to beharvested. Defaults to 0 -- i.e., any otherwise- applicable cell is harvested regardless of age.
-        h5#param_name biomassAgStemNharvestFraction
+        h5.param_name biomassAgStemNharvestFraction
         p#param_def The fraction [0.0 1.0] of available above-ground stem biomass harvested i.e. converted from biomass above-ground stem to above-ground stem detritus and/or removedfrom the simulation.
-        h5#param_name biomassAgStemNoffsiteFraction
+        h5.param_name biomassAgStemNoffsiteFraction
         p#param_def The fraction [0.0 1.0] of harvested above-ground stem biomass removed offsite, i.e., removed from the cell and the simulation.
-        h5#param_name biomassBgStemNharvestFraction
+        h5.param_name biomassBgStemNharvestFraction
         p#param_def The fraction [0.0 1.0] of available below-ground biomass harvested i.e. converted from biomass below-ground to below-ground detritus and/or removed from thesimulation.
-        h5#param_name biomassBgStemNoffsiteFraction
+        h5.param_name biomassBgStemNoffsiteFraction
         p#param_def The fraction [0.0 1.0] of harvested below-ground stem biomass removed offsite. i.e. removed from the cell and the simulation.
-        h5#param_name biomassLeafNharvestFraction
+        h5.param_name biomassLeafNharvestFraction
         p#param_def The fraction [0.0 1.0] of available leaf biomass harvested i.e. converted from biomass leaf to leaf detritus and/or removed from the simulation.
-        h5#param_name biomassLeafNoffsiteFraction
+        h5.param_name biomassLeafNoffsiteFraction
         p#param_def The fraction [0.0 1.0] of harvested leaf biomass removed offsite. i.e. removed from the cell and the simulation.
-        h5#param_name biomassRootNharvestFraction
+        h5.param_name biomassRootNharvestFraction
         p#param_def The fraction [0.0 1.0] of available root biomass harvested i.e. converted from biomass root to root detritus and/or removed from the simulation.
-        h5#param_name biomassRootNoffsiteFraction
+        h5.param_name biomassRootNoffsiteFraction
         p#param_def The fraction [0.0 1.0] of harvested root biomass removed offsite. i.e. removed from the cell and the simulation.
-        h5#param_name filterMapFullName
+        h5.param_name filterMapFullName
         p#param_def The fully-qualified (path/name.ext) name of a Grid ASCII (.asc) file containing (integer)filter Ids. When left unspecified (default) indicates that filtering will be turned off. Note: if the value forthis parameter is not a fully-qualified name the simulator engine will prefix the specified input data locationroot and name to this parameter&#39;s value to create a default fully- qualified name.
-        h5#param_name initializeActiveJdays
+        h5.param_name initializeActiveJdays
         p#param_def The comma-separated list of Julian days on which the disturbance occurs. Entries in thelist may be either single Julian days or start-end (dash-separated) ranges. A valid Julian day is any positivewhole number between 1 and 366 (however day 366 is ignored in non-leap years). For example this text triggersoutput on days 1 365 and between 30 and 90inclusive: 1 30-90 365
-        h5#param_name initializeActiveLoops
+        h5.param_name initializeActiveLoops
         p#param_def The comma-separated list of loop index numbers (range [1 nth-Loop]) in which thedisturbance occurs. Entries in the list may be either single loop numbers or start-end (dash-separated) ranges.A valid loop index number is any positive whole number between 1 and the number of loops specified for thesimulation run. For example in a simulation run for 10 loops this text triggers output in loops 1 3 through 5and 10 inclusive: 1 3-5 10
-        h5#param_name initializeActiveYears
+        h5.param_name initializeActiveYears
         p#param_def The comma-separated list of Years in which the disturbance occurs. Entries in the list maybe either single years or start-end (dash-separated) ranges. A valid year is any positive whole number (but the user isexpected to choose years within the simulation run!). For example in a simulation run between 1995 and 2010,this text triggers output in 2000 through 2005 inclusive: 2000-2005
-        h5#param_name initializeAgeModification
+        h5.param_name initializeAgeModification
         p#param_def (Optional) Specifies the number of years to subtract or add to the age of the cover in affected cells when the disturbance occurs. To add n years to a cell&#39;scover age prefix a plus (+) sign to the number n. To subtract n years to a cell&#39;s cover age prefix a minus(- ) sign to the number n. To set the cell&#39;s cover age to a specific number of years specify a number n withoutany sign prefix. Subtraction halts at zero (e.g. a cover age of 7 given -10 as the modifier will result in 0 not-3 as the modified age).
-        h5#param_name initializeCoverIds
+        h5.param_name initializeCoverIds
         p#param_def The Cover Species Id numbers that are affected by this disturbance model. Specify acomma-separated sequence of Cover Species uniqueId numbers.
-        h5#param_name modelClass
+        h5.param_name modelClass
         p#param_def The disturbance model&#39;s actual Java class name
     p Select "24.2 - Disturbance Items Core Scheduling" to focus the All Parameters table on the parameters forspecifying <u>when</u> disturbance events occur:
     img(width="622" height="162" alt="image" src="Image_154.jpg")

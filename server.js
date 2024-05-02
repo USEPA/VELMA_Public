@@ -70,6 +70,67 @@ app.get('/appendix-6', (req, res) => {
 app.get('/appendix-7', (req, res) => {
   res.render('appendix_7', { pageTitle: 'Appendix 7'})
 })
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
+// app.get('/supplement-a1', (req, res) => {
+//   res.render('supplement-a1', { pageTitle: 'Supplement A1'})
+// })
+
+
 // use this as an example https://github.com/expressjs/express/blob/master/examples/ejs/index.js
 // already have express and pug installed just need to go from there.
 app.listen(port, () => {

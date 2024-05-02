@@ -36,3 +36,44 @@ margin-left: 20pt
 {
 content: "• ";
 }
+
+.param_def {
+    border-style: double;
+}
+/* .param_name {
+    float: left;
+}
+.param_desc {
+    float: right;
+} */
+
+.info {
+    border-style: double;
+    background-color: aqua;
+}
+
+.code {
+    border-style: double;
+}
+
+.math {
+    border-style: double;
+    text-align: center;
+}
+
+.math_formula {
+    text-align: center;
+}
+
+.textbox {
+    border-style: double;
+}
+
+.csv_textarea {
+    border-style: double;
+}
+
+.caution_box {
+    border-style: double;
+    background-color: yellow;
+}

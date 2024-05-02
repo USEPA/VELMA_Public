@@ -1,0 +1,62 @@
+extends layout.pug
+block content
+    h1 B.2 | JPDEM Cell Highlighter
+
+    div.info
+        p Overview <i>(Tutorial B.2 - JPDEM Cell Highlighter)</i>
+        p This tutorial explains how to use JPDEM's Cell Highlighter functions to select one or more specific cells within the currently-loaded map (DEM or other spatial data) and display them in a distinct color. The highlighter makes those cell's locations easier to spot and keep track of.</p>
+    </div>
+
+    p Follow these steps to use JPDEM's Cell Highlighter functions to highlight the locations of selected cells:
+    p Load a flat-processed DEM into JPDEM (see Section 1.1). 
+    p The Cell Highlighter controls are items in the View Menu:
+    img(width="589" height="496" alt="screenshot" title="screenshot" src="Image_104.jpg")
+    p The "Clear All Highlighted Cells" item does exactly what it says, clearing the highlighting from any cells specifiedfor highlighting. It's only enabled when one or more cells <i>are </i>highlighted.
+    p The two "Specify Cells …" options allow you to specify which cells to highlight.
+    p "By Index" means either by listing the linear indices of the cells, or by their (x y) coordinate pairs.
+    p "By Value" means by specifying a range of cell values. All cells within the map whose values are within the specified range are highlighted.
+    h2 Highlighting Cells by Index
+    p Click the View -&gt; Highlight Specific Cells in Image -&gt; Specify Cells By Index menu item.
+    p The "Cells to Highlight" dialog box opens; note the instructions.
+    p Here is an example that specifies the 3 cells above the outlet location, using the (x y) coordinate pairs notation option. <i>Important! Notices that there is NO COMMA between the x and y values.</i>
+
+    img(width="586" height="493" alt="screenshot" title="screenshot" src="Image_105.jpg")
+    p After entering the (x y) coordinate pairs and clicking OK, JPDEM highlights the specified cell locations over thecurrent display/view option:
+
+    img(width="586" height="493" alt="screenshot" title="screenshot" src="Image_106.jpg")
+
+    h2 Highlighting Cells by Value
+    p Click the View -&gt; Highlight Specific Cells in Image -&gt; Specify Cells By Value Range menu item.
+    p The "Cell Ranges to Highlight" dialog box opens; note the instructions.
+    p Here is an example that specifies all cells with values between 10 and 20, and between 90 and 100:
+
+    img(width="586" height="493" alt="screenshot" title="screenshot" src="Image_107.jpg")
+    p Notice that the notation differs from the Cell By index dialog, but that whitespace, NOT COMMAS, is still thedelimiter in use.
+    p After entering the low:high coordinate pairs and clicking OK, JPDEM highlights the specified cell locations over thecurrent display/view option:
+
+    img(width="586" height="493" alt="screenshot" title="screenshot" src="Image_108.jpg")
+
+    h2 Notes and Limitations
+    p Cell Highlighting (when specified) is visible for all the rendering modes selectable in the View menu. However,depending upon the selected View mode, the highlight color may be "pepto-pink", cyan, or white:
+
+    table
+        tr
+            th View Rendering Mode
+            th Highlighter Color
+        tr
+            td Standard Image Rendering
+            td Pepto-Pink
+        tr
+            td Contour Image Rendering
+            td Pepto-Pink
+        tr
+            td Simple HSB Image Rendering
+            td White
+        tr
+            td DEM Difference Image Rendering
+            td Cyan
+        tr
+            td Five-Color Mapping Image Rendering
+            td Pepto-Pink
+            
+    p The Cell Highlighter does not permit specifying both cell index and cell values at the same time. You must choose oneor the other, and changing from one to the other clears the previous cell-highlighting.
