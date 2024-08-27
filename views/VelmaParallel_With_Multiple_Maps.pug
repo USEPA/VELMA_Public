@@ -1,0 +1,443 @@
+extends layout.pug
+block content
+  h1
+    | Running VelmaParallelCmdLine With Multiple Maps
+  h2
+    | Overview
+  p
+    em
+      | These instructions assume you are already familiar with running "single-map" VELMA simulations using the VelmaParallelCmdLine.
+  p
+    | VelmaParallelCmdLine allows some (or all) of a waterhshed's 
+    em
+      | independent
+    |  sub-reaches to be pre-computed by separate VelmaParallelCmdLine runs -- possibly using separate, smaller DEM sub-maps of the sub-reach areas.
+  p
+    | Applying this technique requires additional effort during simulation configuration, and there are constraints and limitations inherent in its use.
+  p
+    | If the constraints and limitations do not apply for your simulation goals, consider using this feature when you have a DEM map and watershed so large that flat-processing the entire DEM in JPDEM and running the full watershed in VELMA requires prohibitive amounts of computer time and memory.
+  p
+    | The following instructions describe how to break a map into two sections of two or more submaps: a single, "final" destination sub-map as one section, and one or more source sub-maps (that flow into the final sub-map) as the other section. These instructions can be applied recursively, using the results of a [destination, source(s)] pairing as the source for 
+    em
+      | another
+    |  downstream, destination sub-map. This allows any number of sub-map section pairs to be processed as a chain or tree of simulation runs, producing a final-final result.
+  h2
+    | Usage Details
+  h3
+    | Preparation
+  ol
+    li
+      | Start by creating sub-maps from your overall, full DEM map.
+    ul
+      li
+        | Each sub-map you create will be the DEM map for a VelmaParallelCmdLine run.
+      li
+        | Each sub-map must be completely contained within the full DEM map, although it can overlay some of the full DEM map's edges.
+      li
+        | One of the sub-maps must include the cell location of the full watershed's outlet. We'll refer to this sub-map as the "final" sub-map.
+      li
+        | The other sub-maps must overlap the final sub-map such that their terrain will flow water into the final sub-map in the overlaid area.
+  ol
+    li
+      | Flat-process each sub-map.
+    ul
+      li
+        | Unless your DEM topology explicitly requires a different choice, we recommend using JPDEM's "Flat-Process DEM Data (Experimental)" option.
+      li
+        | Use the same JPDEM flat-processing option for all your sub-maps.
+  ol
+    li
+      | Find "primary" outlet locations for each of your flat-processed sub-maps.
+    ul
+      li
+        | The primary outlet of each sub-map (
+        em
+          | except
+        |  the final sub-map) must completely delineate a portion of the full watershed.
+        br
+        |  In this context, "completely" means that within the sub-map, the delineation is at least 2 cells "inside" the edge rows and columns of the sub-map, and is 
+        em
+          | independent
+        | : no other delineations are required to "fill in" portions of its delineation area.
+      li
+        | Each sub-map's primary outlet must lie within the area of the sub-map that is common with (i.e. overlays) the final sub-map.
+  ol
+    li
+      | Determine the location coordinates (x, y, and i) for each sub-map's primary outlet in the coordinate system of the final sub-map.
+    ul
+      li
+        | The primary outlet of each sub-map is the transfer point between that sub-map and the final sub-map.
+      li
+        | Unlike the other sub-maps, the final sub-map's delineation is 
+        em
+          | dependent
+        | : it is allowed to be incomplete, and dependent upon the other sub-maps to "fill in" portions of its delineation area.
+  ol
+    li
+      | Find a sub-reach delineation for the final sub-map.
+    ul
+      li
+        | The final sub-map must, at a minimum, include each sub-map's primary outlet (in its own map coordinates) as sub-reaches of its own delineation.
+      li
+        | The final sub-map may include sub-reach outlets in addition to the sub-map outlets, if you determine the final sub-map is large enough to make them necessary or desirable.
+  ol
+    li
+      | Find sub-reach delineations for each (non-final) sub-map if/as necessary.
+    ul
+      li
+        | If some or all of your sub-maps are still large enough, you may use JPDEM to identify sub-reach outlets in addition to the primary outlets for any or every one of the sub-maps.
+      li
+        | These sub-reach outlets must be specified for the 
+        code
+          | initialReachOutlets
+        |  parameter in the simulation configuration .xml file used to process the specific sub-map.
+      li
+        | Unlike a sub-map's primary outlet, a sub-map's sub-reach outlets (if any) are local to that sub-map: knowledge of them is not required by any of the other sub-maps when those sub-maps are run.
+  h3
+    | Configuration
+  p
+    strong
+      | Create a VELMA Simulation Configuration .xml File for Each Sub-Map
+    br
+    |  Each sub-map will be processed via a separate VelmaParallelCmdLine run with a separate, specific, .xml configuration file.
+    br
+    |  Each file .xml file must have some parameters set to common values, along with some parameters set to values unique for that file and its sub-map.
+  p
+    strong
+      | The following parameter values must be the same across all of the configuration .xml files:
+  ul
+    li
+      | Simulation Driver data extent (the 
+      code
+        | forcing_start
+      |  and 
+      code
+        | forcing_end
+      |  parmeter values)
+    li
+      | Simulation Start and End year (the 
+      code
+        | syear
+      |  and 
+      code
+        | eyear
+      |  parameter values)
+    li
+      | Simulation Loop count (the 
+      code
+        | numberOfLoops
+      |  parameter value)
+    li
+      | Surface and Soil Temperature model
+    li
+      | Cover types
+    li
+      | Soil types
+    li
+      | Any OrganicContaminantModel configurations
+  p
+    | Any and all Cover and Soil parameterizations must be common (i.e., exist with exactly the same parameterization values) across all sub-map .xml files, this does 
+    em
+      | not
+    |  mean that a given sub-map must 
+    em
+      | use
+    |  all of them. Different sub-map .xml files may specify different Cover and Soil id maps that ignore some of the common Cover and Soil parameterizations.
+  p
+    | Any OrganicContaminantModel configurations must be common (with the exact same parameterization values) in all sub-map .xmls so that contaminant amounts introduced at one sub-map are not "ingored" by other sub-maps.
+  p
+    strong
+      | The following parameters are specific (and different) for each configuration .xml file:
+  ul
+    li
+      | The "DEM File" (the 
+      code
+        | input_dem
+      |  parameter) value must be the sub-map (.asc file) that the configuration .xml file will be used with.
+    li
+      | The "Outlet X" and "Outlet Y" (the 
+      code
+        | outx
+      |  and 
+      code
+        | outy
+      |  parameters) value must be set to the primary outlet specified for that configuration file's sub-map.
+    li
+      | If you have determined sub-reach outlets for a given sub-map, the associated configuration .xml file's "Sub-Reach Mapping Controls" (its 
+      code
+        | initialReachOutlets
+      |  parameter) value must include the cell index locations for those sub-reaches.
+    li
+      | Any CellDataWriters specified in a configuration .xml file 
+      em
+        | must
+      |  have coordinates that lie within that specific sub-map's overall grid dimensions.
+  p
+    strong
+      | The final sub-map's configuration .xml file has an additional requirement:
+  ul
+    li
+      | The list of sub-reaches specified for the "Sub-Reach Mapping Controls" (its 
+      code
+        | initialReachOutlets
+      |  parameter) value must include each of the other sub-map's primary outlets (in final sub-map location index-coodinate values), in addition to any "local" sub-reach outlets you may have specified for the final sub-map.
+  p
+    strong
+      | Weather Model Considerations
+    br
+    |  Different sub-maps 
+    em
+      | can
+    |  be run with different weather models, but unless you have compelling evidence that different sub-maps will benefit from different weather models, we recommend consistently using one type of weather model for all of the different sub-map configurations.
+  p
+    | You 
+    em
+      | can
+    |  set different parameterization values for each sub-map's weather (e.g. one sub-map's snow parameterization could very will differ from another's), and you can specify different driver files for different sub-map configurations. The driver files specified for given sub-map should be area-appropriate for that sub-map. The extent for all driver data files specified must be the 
+    code
+      | forcing_start
+    |  and 
+    code
+      | forcing_end
+    |  parmeter values that are common across all .xml files.
+  p
+    | If you are using the Spatial or Weighted-Spatial models, you 
+    em
+      | must
+    |  create separate weather station location files for each sub-map configuration file's 
+    code
+      | weatherLocationsDataFileName
+    |  parameter. The weather station location file for a given sub-map must specify only weather stations with locations within the sub-map, and location coordinates for the station must be provided in the sub-map's coordinate system.
+  p
+    strong
+      | Observed Data
+    br
+    |  Observed runoff and chemistry data for the 
+    code
+      | input_runoff
+    |  and 
+    code
+      | input_stream_chem
+    |  parameters of a given sub-map are unique to that sub-map and its .xml file. However, like all driver data files, the extent of 
+    em
+      | all
+    |  observed-data files specified for 
+    em
+      | any
+    |  sub-map must be the 
+    code
+      | forcing_start
+    |  and 
+    code
+      | forcing_end
+    |  parmeter values that are common across all .xml files.
+    br
+    |  Observed-data can be left blank for any sub-map's .xml where suitable observed data is unavailable.
+  p
+    strong
+      | Disturbances
+    br
+    |  Water Drain disturbances 
+    strong
+      | cannot
+    |  be used with multiple-map simulation runs.
+  p
+    | The other disturbances types 
+    strong
+      | can
+    |  be used with multiple-map simulations.
+  p
+    | Different sub-maps can specify different disturbances, but care must be exercised to ensure simulation consistency between the upstream sub-maps and the downstream, final sub-map. Any disturbance that applies across more than one sub-map must be specified in the configuration .xml for each sub-map where it applies, and with exactly the same parameterization, 
+    em
+      | except
+    |  for map-specific parameters like filter-maps or jagged-array data.
+  p
+    strong
+      | The Final Sub-Map's Relocation File
+    br
+    |  You must create a Relocation File to use with the VelmaParallelCmdLine run of the final sub-map. The Relocation File is not specified in a parameter of the final sub-map's configuration .xml file, it is passed directly to the VelmaParallelCmdLine via the 
+    code
+      | --relocationFile=
+    |  argument when the final sub-map simulation is run.
+  p
+    | Each row in the relocation file maps an "upstream" 
+    em
+      | source
+    |  sub-map outlet (
+    code
+      | iSource
+    | ) and its simulation results folder (
+    code
+      | sourceLocationData
+    | ) to an adjacent "downstream" 
+    em
+      | destination
+    |  sub-reach (
+    code
+      | iReach
+    | ) of the final sub-map, and a cell location within that sub-reach (
+    code
+      | iUseAt
+    | ).
+  p
+    | The Relocation File's format is rows of comma-separated values (.csv data).
+    br
+    |  Each row must contain the following fields:
+  pre
+    code
+      | iReach, iUseAs, iSource, sourceLocationData
+
+  p
+    | The 
+    code
+      | iReach
+    |  and 
+    code
+      | iUseAs
+    |  field values refer to the destination (i.e. final) sub-map.
+    br
+    |  The 
+    code
+      | iSource
+    |  and 
+    code
+      | sourceLocationData
+    |  field values refer to the source (i.e. the upstream, contributor) sub-map.
+    br
+    |  Here is the row format again, with annotation:
+  pre
+    code
+      | Destination Map | Source Map
+      | iReach, iUseAs, | iSource, sourceLocationData
+      | |       |         |        |
+      | |       |         |        Fully-qualified path to source sub-map simulation results directory.
+      | |       |         |        (Specifies the location of the source sub-map simulation run results.)
+      | |       |         |
+      | |       |         Cell location index of source sub-map outlet in source simulation map coordinates
+      | |       |         (Specifies the source sub-map outlet location that "pours into" the final sub-map.)
+      | |       |
+      | |       Cell location index of source outlet in destination simulation map coordinates
+      | |       (Translates iSource to final sub-map map coordinates.)
+      | |
+      | Cell location of outlet cell of sub-reach in destination simulation that iUseAs resides in.
+      | (Tells VelmaParallel which sub-reach in the final sub-map the iUseAs location is in.)
+      | 
+      | Notes: 
+      | * The "iUseAs" cell location lies within the final sub-map's sub-reach whose outlet cell location is "iReach".
+      | - Caution: regarding "iUseAs" and "iReach" cell locations: if at any time a catchment is added by adding an outlet location, if along the flow path the new outlet location is between the iReach location and iUseAs location, the iReach location is no longer valid in the relocation file. The original iReach location must be updated to be the newly added outlet location.
+      | * The source sub-map "iSource" (source-coordinates) location is the "isUseAs" (destination-coordinates) 
+      |   location in the destination final sub-map.
+
+  p
+    | The 
+    code
+      | sourceLocationData
+    |  field of each row specifies the directory paths of the (upstream contributor) sub-map results. It can be any directory containing the complete, appropriate, set of data files for a successful run of the sub-map with iSource as its outlet.
+  p
+    | If you begin creating your relocation file before running any of the upstream sub-map simulations, none of the directory paths you need to specify for 
+    code
+      | sourceLocationData
+    |  will exist.
+    br
+    |  If you are absolutely certain what the results directory path names will be, you can preemptively set the 
+    code
+      | sourceLocationData
+    |  field values.
+    br
+    |  However, since the relocation file is only required for the downstream, final sub-map, you can complete the relocation file after running the upstream sub-map simulations (see "Running the Simulatio" below).
+  h3
+    | Running the Simulation(s)
+  p
+    | Each sub-map's (except for the final sub-map) simulation configuration .xml file is run via a separate, standard VelmaParallelCmdLine invocation.
+  p
+    | Since all of the sub-maps (again, except for the final sub-map) are independent delineation areas, it may be possible to start all of them simultaneously.
+  p
+    | Exactly how many of the sub-maps can be started together depends upon your hardware: you'll need to have a good idea about how much memory each sub-map requires in order to complete, and how much disk space its results will occupy.
+  p
+    | Once all the other sub-maps have successfully run to completion, fill in the 
+    code
+      | sourceFileLocationData
+    |  fields of the relocation file, and run the final sub-map via VelmaParallelCmdLine, specifying the relocation file to VelmaParallelCmdLine via the 
+    code
+      | --relocationFile=
+    |  argument.
+  p
+    | Example:
+  pre
+    code
+      | C:\Users\Meep\> java -Xmx4g -cp C:\Users\Meep\VELMA\JVelma.jar gov.epa.velmasimulator.VelmaParallelCmdLine C:\Users\Meep\Final_SubMap.xml --relocationFile="C:\Users\Meep\My Input Data\Final_SubMap_Relocations.csv" --maxProcesses=6
+
+  p
+    | In the above example:
+  ul
+    li
+      | The values passed are only 
+      em
+        | example
+      |  values: your actual values for the 
+      code
+        | -Xmx
+      | , 
+      code
+        | --relocationFile
+      | , and 
+      code
+        | --maxProcesses
+      |  arguments must be specific and appropriate for your simulation configuration's needs.
+    li
+      | Path and file names that include whitespace 
+      em
+        | must
+      |  be enclosed with double-quotes. Path and file names that do not include whitespace do not require double-quotes, but it is OK to include them.
+    li
+      | There must be 
+      em
+        | no
+      |  whitespace between the 
+      code
+        | =
+      |  characters used to pair VelmaParallelCmdLine arguments and their values.
+      br
+      |  E.g. 
+      code
+        | --maxProcesses=6
+      |  
+      em
+        | NOT
+      |  
+      code
+        | --maxProcesses = 6
+  h2
+    | Appendices
+  h3
+    | General Limitations
+  ul
+    li
+      p
+        | This feature was first introduced in VELMA 2.1.0.25. Older versions do not support it.
+    li
+      p
+        | This feature is 
+        em
+          | only
+        |  available via the 
+        code
+          | --relocationFile
+        |  command line option of VelmaParallelCmdLine.
+        br
+        |  It is 
+        em
+          | not
+        |  available via JVelma or VelmaSimulatorCmdLine.
+    li
+      p
+        | Although it is theoretically possible to use JPDEM's custom border file feature when flat-processing and delineating the sub-maps for multiple-map simulation runs, doing so is 
+        em
+          | strongly
+        |  discouraged. Use-cases with custom borders have 
+        em
+          | not
+        |  been tested.
+    li
+      p
+        | Water Drain disturbances cannot be configured across multiple-map simulation runs.

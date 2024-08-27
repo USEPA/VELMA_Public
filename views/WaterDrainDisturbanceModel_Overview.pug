@@ -1,0 +1,555 @@
+extends layout.pug
+block content
+  h2
+    | Water Drain Disturbance Model Overview
+  p
+    | The Water Drain Disturbance Model provides a mechanism to perform arbitrary redistribution of water amounts within a watershed, and/or removal of water amounts from the watershed during the steps of a simulation run.
+  p
+    | Users specify one or more drain inlet cell locations for a given Water Drain Disturbance, along with parameters that determine when and under what conditions those drain inlet cells are drained. Users also specify whether the water drained from inlet cells is transferred to outlet cells in the same watershed, or is removed from the watershed.
+  h3
+    | Water Drain Disturbance Model Usage Restrictions
+  p
+    | When configuring a simulation with Water Drain Disturbances, keep the following restrictions and limitations in mind.
+  ol
+    li
+      p
+        | VELMA simulation configurations containing Water Drain Disturbances 
+        strong
+          | cannot
+        |  be used with VELMA’s Parallel, Multiscale, or Multimap modes.
+    li
+      p
+        | VELMA simulation configurations containing Water Drain Disturbances with drain "pipes" that specify an inlet-outlet pair in separate sub-reaches, may not report accurate sub-reach runoff values. If you need accurate sub-reach runoff information you must ensure that any given inlet "pipe" and its associated outlets are all located within a single reach.
+    li
+      p
+        | The Water Drain Disturbance Model currently does not interact with the VELMA Sediment Model. If your VELMA simulation configuration employs both, sediment transport amounts will be ignored by -- and 
+        em
+          | not
+        |  transported through -- the Water Drain Disturbance's configured "pipes". However, sediment lateral transport amounts 
+        em
+          | will
+        |  be affected by the change in water amounts at inlet cells.
+        br
+        |  We currently recommend 
+        strong
+          | not
+        |  employing the Water Distrubance Model and the VELMA Sediment Model within the same VELMA simulation configuration.
+  h3
+    | Configuring a Water Drain Disturbance
+  p
+    | Each Water Drain Disturbance parameterization added to a VELMA simulation configuration requires the following two steps:
+  ol
+    li
+      p
+        | Creating a drain configuration .csv data file that specifies each inlet cell and associated outlet cells that the Water Drain Disturbance will act upon.
+    li
+      p
+        | Adding a WaterDrainDisturbanceModel parameterization group to the simulation configuration, and setting it to reference the drain configuration file created in step 1.
+  h3
+    | Creating a Drain Configuration Data File
+  p
+    | A drain configuration data ("drain config") file consists of rows "drain records". Each drain record is a sequence of comma-separated fields. You can think of a drain record as a single "pipe". The drain record's fields specify an inlet, one or more outlets, and how much water can enter and travel through the "pipe".
+  p
+    | Each field is separated from its successor by a comma "," character.
+  p
+    | With one exception, each field specifies a single parameter value for the drain record.
+    br
+    |  The exception is the 
+    a
+      code
+        | inFraction:capThreshold
+    |  field, which can represent either one parameter value (
+    code
+      | inFraction
+    | ), or two parameter values (
+    code
+      | inFraction
+    |  and 
+    code
+      | capThreshold
+    | ) separated by a colon ":" character.
+  blockquote
+    p
+      em
+        | Caution
+      br
+      |  The Water Drain Disturbance Model's drain config parser is not tolerant of regional differences regarding separator characters. If your drain config file is generated with regional settings that use the comma (",") character as a decimal separator, the resulting .csv file will not load correctly in VELMA. Be sure your decimal separator character is written as the full stop (".") character.
+  p
+    strong
+      | Drain Record Field Descriptions
+    br
+    |  In order, from left to right across a row, the fields are:
+  pre
+    code
+      | iInlet, inFraction[:capThreshold], #ofOutlets, iOutlet1, outFraction1[, iOutlet<n>, outFraction<n>]
+
+  p
+    strong
+      code
+        | iInlet
+    br
+    |  The linear index of the cell location of this drain record's inlet.
+  ul
+    li
+      | The 
+      code
+        | iInlet
+      |  value 
+      em
+        | must
+      |  be an integer value (e.g. "927", 
+      em
+        | not
+      |  "927.0" or "927.").
+    li
+      | Only cells within a simulation's delineated watershed are valid inlets.
+  p
+    | <a name="inFraction_capThreshold">
+    strong
+      code
+        | inFraction[:capThreshold]
+    | </a>
+    br
+    |  The inlet fraction and (optional) capacity threshold of this drain record.
+  ul
+    li
+      | This field is special: it may contain either either a single value or a pair of values.
+      ul
+        li
+          | When it specifies a single value that value is 
+          em
+            | always
+          |  taken to be the inlet fraction.
+        li
+          | When it specifies a pair of values, the values must be separated by a colon ":" character.
+    li
+      | Both inlet fraction and capacity threshold (if present) must be floating-point numbers in the range [0.0, 1.0].
+    li
+      | The inlet fraction represents the amount of the water at the inlet cell that can actually enter the inlet (zero="none", 1="all") per simulation step.
+    li
+      | The capacity threshold is the maximum amount of water (in mm) that this drain record can transfer to its outlet(s) per simulation step.
+    li
+      | When the capacity threshold is left unspecified, the drain record is assumed capable of transferring an unlimited amount of water.
+  p
+    strong
+      code
+        | #ofOutlets
+    br
+    |  The number of outlets that receive water from this drain record's inlet.
+  ul
+    li
+      | The number of outlets 
+      em
+        | must
+      |  be an integer value (e.g. "2" 
+      em
+        | not
+      |  "2.0" or "2.").
+    li
+      | The value of the 
+      code
+        | #ofOutlets
+      |  field must match the number of outlets -- 
+      em
+        | not
+      |  the number fields -- that follow it.
+  p
+    | After the 
+    code
+      | #ofOutlets
+    |  field ... Multiple outlets can be specified following the 
+    code
+      | #ofOutlets
+    |  field, however the fields must be specified in pairs (
+    code
+      | iOutlet, outFraction
+    | ) -- i.e. there must be an even number of fields after the 
+    code
+      | #ofOutlets
+    |  field.
+  p
+    strong
+      code
+        | iOutlet
+    br
+    |  The linear index of a cell location that is an outlet for this drain record's inlet.
+  ul
+    li
+      | An 
+      code
+        | iOutlet
+      |  field's value may be left blank, indicating that water transferred to that particular outlet is removed from the simulation watershed (i.e. "transferred off-site").
+      br
+      |  When an 
+      code
+        | iOutlet
+      |  field value is 
+      em
+        | not
+      |  blank, it 
+      em
+        | must
+      |  be an integer value (e.g. "530", 
+      em
+        | not
+      |  "530.0" or "530.").
+    li
+      | Only cells within a simulation's delineated watershed are valid outlets.
+    li
+      | Outlet cells should 
+      em
+        | not
+      |  be specified at the same location as their inlet.
+  p
+    strong
+      code
+        | outFraction
+    br
+    |  The fraction of the water transferred from the inlet that this outlet receives.
+  ul
+    li
+      | The outlet fraction must be a floating-point number in the range [0.0, 1.0].
+    li
+      | The sum of all the outlet fractions specified for an inlet must sum to 1.0.
+  p
+    strong
+      | Example
+    br
+    |  The drain config data below configures a network of 2 inlets:
+  pre
+    code
+      | iInlet, inFraction[:capThreshold], #ofOutlets, iOutlet1, outFraction1, iOutlet2, outFraction2
+227,    0.90:1200.0,               2,          343,      0.50,         323,      0.50
+348,    0.75,                      2,             ,      0.75,         390,      0.25
+
+  ul
+    li
+      | Each inlet drains water to 2 separate outlets.
+      br
+      |  Inlet 227 specifies outlets at cell locations 343 and 323.
+      br
+      |  Inlet 348 specifies an outlet at cell location 390, but leaves the first outlet blank: this indicates "OFF-SITE", which means the fraction of water for that (offsite) outlet is removed from the simulation watershed when drainage occurs.
+    li
+      | Inlet 227 specifies a capacity threshold of 1200.0 (mm) of water.
+      br
+      |  Inlet 348 omits the capacity threshold, which means it can transport an "unlimited" amount of water (but after initial reduction by the specified inFraction).
+  p
+    | The example given above includes a header row, but a header row is not required. The drain config .csv data file could consist of only the 2 data rows and still be valid.
+  p
+    | The example configuration above result in the network of drain "pipes" illustrated below:
+  p
+    img
+  h3
+    | Adding a WaterDrainDisturbanceModel Parameterization to a VELMA Configuration
+  p
+    | Start with an appropriate VELMA simulation configuration .xml file.
+  p
+    | Load the file into JVelma and click the "Edit" -> "Disturbances" -> "Add a Disturbance" menu item:
+  p
+    img
+  p
+    | In the "Specify Disturbance Model Type and Name" pop-up dialog that opens, click the drop-down selector, scroll down, and click-select the "WaterDrainDisturbanceModel" type:
+  p
+    img
+  p
+    | After selecting WaterDrainDisturbanceModel as the type, enter a unique name for the disturbance in ihe “Disturbance Name’ field of the dialog. Finally, click the OK button, which adds a new parameterization group to the simulation configuration and changes JVelma’s display to the “All Parameters” tab, with the item-level filter set to only display the parameters for the newly-added Water Drain Disturbance:
+  p
+    img
+  p
+    | Nearly all of the (many) parameters required to configure a Water Drain Disturbance are for its drain "pipes", and reside in the 
+    a
+      | drain configuration
+    |  file. That file is one of the few things that you must specify in the Water Drain Disturbance's parameterization group.
+  p
+    | The goup's parameters initially have these default values:
+  table
+    thead
+      tr
+        th
+          | Group
+        th
+          | Item
+        th
+          | Parameter
+        th
+          | Value
+    tbody
+      tr
+        td
+          | disturbance
+        td
+          | My_Drains
+        td
+          | initializeActiveJdays
+        td
+      tr
+        td
+          | disturbance
+        td
+          | My_Drains
+        td
+          | initializeActiveLoops
+        td
+      tr
+        td
+          | disturbance
+        td
+          | My_Drains
+        td
+          | initializeActiveYears
+        td
+      tr
+        td
+          | disturbance
+        td
+          | My_Drains
+        td
+          | modelClass
+        td
+          code
+            | WaterDrainDisturbanceModel
+      tr
+        td
+          | disturbance
+        td
+          | My_Drains
+        td
+          | waterDrainDataFileName
+        td
+  ul
+    li
+      strong
+        | No parameters values may be left blank
+      |  (even though most of the parameters default as blank).
+    li
+      | The value in the 
+      code
+        | Item
+      |  column above is only an example. In actual use, the 
+      code
+        | Item
+      |  value will be whatever name you entered as the "Disturbance Name" for this parameter group.
+  p
+    strong
+      | Parameters That Can Be Left As-Is
+    br
+    |  The 
+    code
+      | modelClass
+    |  parameter is automatically set to a correct value by JVelma when you add the WaterDrainDisturbanceModel to the simualtion configuration. Do Not Change this parameter's value. Ever.
+  p
+    strong
+      | Parameterizing When Drainage Occurs
+    br
+    |  Specify values for the 
+    code
+      | initializeActiveLoops
+    | , 
+    code
+      | initializeActiveYears
+    | , and 
+    code
+      | initializeActiveJdays
+    |  parameters to determine the loops, years, and Julian days of the simulation when drainage will occur. These parameters accept single values, a comma-separated set of values, a hyphen-separated value range, or a combination of values and ranges.
+  p
+    | For example, to schedule drainage during the 3rd loop of a simulation, in years 2000 and 2002, for the first month of each active year, along with jdays 91 and 182 of each active year:
+  pre
+    code
+      | initializeActiveLoops = 3
+initializeActiveYears = 2000, 2002
+initializeActiveJdays = 1-31, 91, 182
+
+  p
+    | All of the water drain "pipes" specified for a Water Drain Disturbance are active on the schedule specified by the three 
+    code
+      | initializeActiveLoops
+    | , 
+    code
+      | initializeActiveYears
+    | , and 
+    code
+      | initializeActiveJdays
+    |  parameters.
+  p
+    | If you need some pipes to be active on one schedule, and others on another, you must configure your simulation to include two (or more) completely separate Water Drain Disturbances (i.e. parameterization groups), each referencing a separate drain configuration file.
+  p
+    strong
+      | Parameterizing Where and How Much Drainage Occurs
+    br
+    |  All the parameters required for drainage inlet, outlet, and quantity are contained within the 
+    a
+      | drain configuration
+    |  file. Set the 
+    code
+      | waterDrainDataFileName
+    |  parameter to point to that file.
+  p
+    | You may specify the file by a fully-qualified path and name, a partial path and name, or just the name of the file. When the 
+    code
+      | waterDrainDataFileName
+    |  parameter’s value isn’t fully-qualified, JVelma assumes the file’s location is relative to the input location specified for the simulation run by the 
+    code
+      | inputDataLocationRootName
+    |  and 
+    code
+      | inputDataLocationFileName
+    |  (startups group) parameters.
+  h3
+    | Water Drain Disturbance Results and Output
+  p
+    | The activity and effects of Water Drain Disturbances are reflected in the DailyResults and Cell_* .csv file's column values, most strongly in the columns that record surface water amounts and lateral water movement, however, no drain-specific data columns are added to these .csv files.
+  p
+    | Water Drain Disturbances do emit log messages with drain-specific details, but only when the following simulation configuration parameter is set 
+    code
+      | true
+    | :
+  table
+    thead
+      tr
+        th
+          | Group
+        th
+          | Item
+        th
+          | Parameter
+        th
+          | Value
+    tbody
+      tr
+        td
+          | startups
+        td
+          | VelmaStartups.properties
+        td
+          | collectCalibrationData
+        td
+          code
+            | true
+  p
+    | When 
+    code
+      | collectCalibrationData
+    |  is set 
+    code
+      | true
+    | , Water Drain Disturbances emit three types of csv records to 
+    em
+      | both
+    |  the Global State .txt and Trace .csv log files.
+  p
+    | The Global State and Trace files can contain messages and records from many different VELMA simulator sources, but the three drain record types may be identified by the value in the third (index position 2) field: that field's value will be 
+    code
+      | Water_Transfer
+    | , 
+    code
+      | Chem_Transfer
+    | , or 
+    code
+      | OVER_CAPACITY
+    | .
+  p
+    | Because Global State and Trace files contain a hetrogenous collection of records, no header records for the drain record types are emitted, but header records for each of the three record types are described here:
+  p
+    strong
+      | Water_Transfer
+  ul
+    li
+      | Occurrence: 1 record per inlet per simulation step, regardless of transferred amounts (i.e. records are emitted even when no water is transferred).
+    li
+      | Number of fields depends upon number of outlets specified for the inlet.
+    li
+      | Any off-watershed outlet returns the text “OFF_SIM” instead of a numeric integer location index for its iOutlet field value.
+    li
+      | Columns ending in "T1" contain values for data 
+      em
+        | prior
+      |  to the drain's effects, and columns ending in "T2" contain values for the same data 
+      em
+        | after
+      |  the drain's effects.
+  pre
+    code
+      | Log_Level,Method_Name,Water_Transfer,Loop,Step,Year,Jday,iInlet,inletWaterAmountT1,inletWaterAmountT2,[iOutlet,iOutletTransferredAmount, ...]
+
+  p
+    strong
+      | Chem_Transfer
+  ul
+    li
+      | Occurrence: 1 record 
+      em
+        | per inlet-outlet pair
+      |  (i.e. multiple records per inlet are possible) in a simulation step but only for NON-ZERO chemical transfer amounts.
+    li
+      | Number of fields is constant.
+    li
+      | An off-watershed outlet returns the value -1 instead of a valid outlet location within the delineated watershed.
+    li
+      | Columns ending in "T1" contain values for data 
+      em
+        | prior
+      |  to the drain's effects, and columns ending in "T2" contain values for the same data 
+      em
+        | after
+      |  the drain's effects.
+  pre
+    code
+      | Log_Level,Method_Name,Chem_Transfer,Loop,Step,Year,Jday,iInlet,iOutlet,surfacePoolKeyText,inletChemAmountT1,totalChemTransferAmount,actualChemReduction,inletChemAmountT2,outletChemAmountT2"
+
+  p
+    strong
+      | OVER_CAPACITY
+  ul
+    li
+      | Occurrence: 1 record per inlet per simulation step, 
+      em
+        | if
+      |  the inlet’s initial transfer amount is over the specified capacityThreshold.
+    li
+      | Number of fields is constant.
+    li
+      | Columns ending in "T1" contain values for data 
+      em
+        | prior
+      |  to the drain's effects, and columns ending in "T2" contain values for the same data 
+      em
+        | after
+      |  the drain's effects.
+  pre
+    code
+      | Log_Level,Method_Name,OVER_CAPACITY,Loop,Step,Year,Jday,iInlet,inletLateralWaterT1,inletFraction,capacityThreshold,overCapacity,waterRemoved,inletLateralWaterT2
+
+  p
+    | As previously mentioned, the above drain log records are emitted only when 
+    code
+      | collectCalibrationData
+    |  is set 
+    code
+      | true
+    | . For simulation configurations with even a modest number of configured drain "pipes", drain log records can significantly increase both the size of the Global State and Trace log files, and the time it takes to run the simulation. Setting 
+    code
+      | collectCalibrationData
+    |  to 
+    code
+      | false
+    |  provides a way to use Water Drain Disturbance without incurring simulation results size and running time costs.
+    br
+    |  However, be aware that 
+    code
+      | collectCalibrationData
+    |  toggles other data besides water drain records on or off as well. For example, the Calibration_DailyResults.csv file (different and distinct from DailyResults.csv) is not written when 
+    code
+      | collectCalibrationData
+    |  is set to 
+    code
+      | false
+    | . Be certain you do not need 
+    em
+      | any
+    |  of the data controlled by 
+    code
+      | collectCalibrationData
+    |  before setting it to 
+    code
+      | false
+    | .

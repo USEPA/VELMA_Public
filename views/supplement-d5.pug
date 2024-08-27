@@ -1,0 +1,46 @@
+extends layout.pug
+block content
+    h1 D.5 | Create Land-zoning Maps for a VELMA Application
+    div.info.blue-light-1
+        p Overview (Tutorial D.5 - Create Land-zoning VELMA Input Data)
+        p This document describes how to set up a land-zoning map, which includes the same integer code for all pixels in a particular zone. Once a land-zoning map is established, a VELMA user can apply a disturbance (harvest, fertilization, etc.) to a specified zone. Land-zoning maps can be used to define boundaries for land management units, land ownership, cover types, and so on.
+        p <a href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model-20">Note: Detailed instructions for setting up and applying disturbances to land-zoning maps are provided in section 24.0 in the VELMA 2.0 User Manual (</a>https://www.epa.gov/water-research/visualizing-<a href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model-20"> </a>ecosystem-land-management-assessments-velma-model-20).
+    p The DEM file is the "master" layer for a simulation run: all other spatially-explicit data is assumed to have the same row, column, cell size and x, y offset values as the DEM file. Spatial data is nearly always input from files in ESRI Grid ASCII format (.asc), therefor all spatial data inputs including the Land-zoning maps must match the DEM file (.asc.).
+    h2 Shapefile Conversions
+    p Forest practices, land ownership, and other land parcel maps are typical packaged as shapefiles in various State projections and need to be converted into VELAM compatible spatial inputs.
+    img(width="617" height="143" alt="screenshot" title="screenshot" src="public/suppImage_204.png")
+    p Figure 11 GIS Processing
+    p Using a common GIS package such as ArcMap the process flow would be as follows (figure 1):
+    ol 
+        li Initial data acquisition from a database -&gt; Shapefile
+        li Reproject the Shapefile to match the VELAM DEM projection."Project" Data Management
+        li Convert the Shapeflie to Raster.
+            ul 
+            li "Polygon to Raster" (.tif) Conversion
+            li While using the "Polygon to Raster" tool the user must define the "Environments settings" to ensure correct extent, cell size, and snapping to the DEM.
+            li "Processing Extent"
+                ol 
+                    li  "Extent" -&gt; to match DEM file
+                    li "Snap Raster" -&gt; to match DEM file
+            li "Raster Analysis"
+                ol 
+                    li "Cell Size" -&gt; to match DEM file
+                    li "Mask" -&gt; to match DEM file
+        li Convert Raster to ASCII: "ASCII to Raster" (.asc)
+    h3 GIS Examples
+    p JPDEM Delineation of the 209 km2 Mashel River Watershed, WA.
+    img(width="609" height="335" alt="image" src="public/suppImage_205.png")
+    
+    p Hill-shade view of 4 km2 Busy Wild Creek subwatershed (red) within Mashel River Watershed (209 km2)
+    img(width="620" height="315" alt="image" src="public/suppImage_206.png")
+    p Flow-path view of 4 km2 Busy Wild Creek subwatershed (blue) within Mashel River Watershed (209 km2)
+    img(width="619" height="321" alt="image" src="public/suppImage_207.png")
+    p Zoomed-in view of the 4 km2 Busy Wild Creek subwatershed shown on page 5. This view shows individual 30-meter pixels with coloration indicating flow path intensity (blue = highest flow; red = lowest flow).
+    img(width="600" height="482" alt="image" src="public/suppImage_208.png")
+    img(width="688" height="336" alt="image" src="public/suppImage_209.png")
+    img(width="612" height="358" alt="image" src="public/suppImage_210.png")
+    h4 To apply a forest harvest or other disturbance to these units: 
+    p the VELMA user will need to assign a single, unique value to each unit. For this example, all pixels falling within map unit 2 would need to be labeled 2, and all pixels in map unit 3 would need to be labeled 3. Separate disturbances could then be designed for each unit, for example, unit 2 = clearcut; unit 3 = 50% thinning.
+    h4 For details on how to set up and apply disturbances, see Section 24, page 102, of the VELMA Version 2.0 User Manual <a href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model-20">(McKane, R.; Brookes, A.; Djang, K.; Stieglitz, M.; Abdelnour, A.; Pan, F.; Halama, J.; Pettus, P.; Phillips, D. 2014. Velma User Manual and Technical Documentation. U.S. Environmental Protection Agency Office of Research and Development National Health and Environmental Effects Research Laboratory: Corvallis, OR, USA. Link: </a>
+    
+    img(width="437" height="574" alt="image" src="public/suppImage_211.png") 

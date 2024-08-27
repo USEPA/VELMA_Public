@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    meta(name='viewport', content='width=device-width')
+    meta(name='charset', content='utf-8')
+    link(rel='stylesheet', type='text/css', href='/style.css')
+    title= 'DeveloperInfo'
+
+    body.bg-primary 
+      div.header.blue-base
+        include partials/_nav
+      block main
+        .main_body
+          .container
+            != contentHtml
+
+    footer#footer
+        p VELMA 2.2 DOCUMENTATION

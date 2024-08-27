@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta name="charset" content="utf-8">
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <title>DeveloperInfo</title>
+
+<body class="bg-primary">
+  <div class="header blue-base">
+    <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="/index.html">VELMA 2.2 HOME</a>
+      <ul class="navbar-nav no-bullets">
+        <li class="nav-item"><a class="nav-link" href="/intro.html"><span>I. Intro</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="/changes.html"><span>II. Changes from 1.0</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="/about.html"><span>III. About</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="/input_files.html"><span>IV. Input Files </span></a></li>
+        <li class="nav-item"><a class="nav-link" href="/new_sim_config.html"><span>V. Sim Config</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="/parameter_config.html"><span>VI. Parameter Config</span></a></li>
+        <li class="nav-item dropdown">Appendicies
+          <ul class="nav-dropdown blue-light">
+            <li class="nav-item"><a class="nav-link" href="/appendix_1.html"><span>Appendix 1</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/appendix_2.html"><span>Appendix 2</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/appendix_3.html"><span>Appendix 3</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/appendix_4.html"><span>Appendix 4</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/appendix_5.html"><span>Appendix 5</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/appendix_6.html"><span>Appendix 6</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/appendix_7.html"><span>Appendix 7</span></a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">Supplemental
+          <ul class="nav-dropdown blue-light">
+            <li class="nav-item"><a class="nav-link" href="/supplement-a1.html"><span>Supplement A1</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-a2.html"><span>Supplement A2</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-a3.html"><span>Supplement A3</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-a4.html"><span>Supplement A4</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-b1.html"><span>Supplement B1</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-b2.html"><span>Supplement B2</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-b3.html"><span>Supplement B3</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-b4.html"><span>Supplement B4</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-b5.html"><span>Supplement B5</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-b6.html"><span>Supplement B6</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-b7.html"><span>Supplement B7</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-b8.html"><span>Supplement B8</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-b9.html"><span>Supplement B9</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-b10.html"><span>Supplement B10</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-c1.html"><span>Supplement C1</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-c2.html"><span>Supplement C2</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-c3.html"><span>Supplement C3</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-d1.html"><span>Supplement D1</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-d2.html"><span>Supplement D2</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-d3.html"><span>Supplement D3</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-d4.html"><span>Supplement D4</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-d5.html"><span>Supplement D5</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-d6.html"><span>Supplement D6</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-d7a.html"><span>Supplement D7a</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/supplement-d7b.html"><span>Supplement D7b</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-d8.html"><span>Supplement D8</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-d9.html"><span>Supplement D9</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/supplement-d10.html"><span>Supplement D10</span></a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown"> <a class="nav-link" href="/dev_info.html"><span>Developer Info</span></a>
+          <ul class="nav-dropdown blue-light">
+            <li class="nav-item"><a class="nav-link" href="/GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracter Config Guide</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown"> <a class="nav-link" href="/dev_utils.html"><span>Developer Utils</span></a>
+          <ul class="nav-dropdown blue-light">
+            <li class="nav-item"><a class="nav-link" href="/AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="main_body">
+    <div class="container">
+      <h1>AscRangeMask Guide</h1>
+      <h2>Overview</h2>
+      <p>VELMA users often need to create a raster .asc file of ID or category values, based on the actual values of a different, pre-existing raster .asc map, to use as filter .asc or &quot;jagged-array&quot; .csv data when configuring simulation disturbances.<br>
+        The best way to do this is with a GIS tool, but such tools and the training required to use them are not always readily avaiable.<br>
+        <code>AscRangeMask.py</code> is a Python script that can generate a raster .asc file of id or category values, given a &quot;source&quot; raster .asc map, and a sequence of value ranges for that map.<br>
+        It has significant limitations relative to using a GIS tool, but it can be useful as a quickly-available alternative.
+      </p>
+      <p><strong>Requirements</strong></p>
+      <ul>
+        <li>A Windows Powershell or Command Prompt.</li>
+        <li>Python 3 installed and avaiable.</li>
+        <li>The source .asc map to categorize.</li>
+        <li>The sequence of value ranges.</li>
+      </ul>
+      <p><strong>Limitations</strong></p>
+      <ul>
+        <li>The source .asc map file must be in completely-compliant, ESRII GRID Ascii raster format.<br>
+          (E.g. QGIS &quot;dx-for-cellsize&quot; alternates are <em>not</em> supported.)</li>
+        <li>The ouptut id/categories .asc file copies the source .asc map's header data.</li>
+        <li>The output id/categories values must be integer values.</li>
+      </ul>
+      <h2>Usage</h2>
+      <p>Open a Windows Powershell or Command Prompt and type the following command:</p>
+      <pre><code>py -3 AscRangeMask.py --help
+</code></pre>
+      <p>Depending upon where the <code>AscRangeMask.py</code> script is located, you may need to include full or partial path info as part of its name.<br>
+        The command above assumes it is being run in the directory where <code>AscRangeMask.py</code> is located.<br>
+        Running the command above echoes <code>AscRangeMask.py's</code> help message to your console:</p>
+      <pre><code>usage: AscRangeMask.py [-h] [--ranges RANGES [RANGES ...]] [--norangeValue NORANGEVALUE] [--outFilename OUTFILENAME]
+                       [--forceOverwrite] [--csvTargets CSVTARGETS [CSVTARGETS ...]] [--csvFilename CSVFILENAME]
+                       [--hideRanges] [--hideAsc] [--hideCsv]
+                       ascFilename
+
+positional arguments:
+  ascFilename           The .asc file to create a range mask for.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --ranges RANGES [RANGES ...]
+                        One or more range-triplets, format: id:minVal:maxVal.
+  --norangeValue NORANGEVALUE
+                        Assign this id to values outside any specified range.
+  --outFilename OUTFILENAME
+                        The .asc file to write the mask data to.
+  --forceOverwrite      Overwrite preexisting file(s).
+  --csvTargets CSVTARGETS [CSVTARGETS ...]
+                        One or more id values.
+  --csvFilename CSVFILENAME
+                        The .csv file to write cells identified by csvTargets to.
+  --hideRanges          Do NOT echo specified ranges to console.
+  --hideAsc             Do NOT echo mask data asc map header and grid to console.
+  --hideCsv             Do NOT echo target id and mask map locations to console.
+</code></pre>
+      <p>Per the help message above:</p>
+      <ol>
+        <li>
+          <p>You must specify the source file (containing your original data values) as the first argument of the command line.<br>
+            The source file name is <em>required</em>, and must include whatever path information is necessary to find the file.</p>
+        </li>
+        <li>
+          <p>You are <em>not required</em> to specify any value ranges, <strong>but</strong> if you do not, the output map will contain <code>norange_value</code> for every cell.<br>
+            To specify value ranges inlude the argument flag text <code>--ranges</code> on your command line, followed by whitespace-separated ranges.<br>
+            Each of the ranges is expressed as a colon-delmited triplet: <code>id_number:min_value:max_value</code><br>
+            where:</p>
+        </li>
+      </ol>
+      <ul>
+        <li><code>id_number</code> is the integer category IDdentifer for the range.</li>
+        <li><code>min_value</code> is the floating-point minimum value for the range.</li>
+        <li><code>max_value</code> is the floating-point maximum value for the range.<br>
+          <strong>No whitespace is allowed between the 3 elements of the range triplet.</strong><br>
+          Use colons (<code>:</code>) to separate a triplet's <em>elements</em>, and whitespace to separate the triplets from each other.
+        </li>
+      </ul>
+      <ol start="3">
+        <li>
+          <p>Values in the source map may fall outside any or all of the specified ranges.
+            When they do, they are assigned the <code>norange_value</code>.
+            You may specify what the <code>norange_value</code> by including the <code>--norangeValue</code> argument, followed by its (integer) value on the command line.<br>
+            If you do not specify a <code>norange_value</code>, it will be set to the integer (truncated) porition of the source map's <code>nodata_value</code> header value.<br>
+            Do <strong><em>not</em></strong> specify an integer for <code>--norangeValue</code> that is also specified as the <code>id_number</code> of one of the <code>--ranges</code> triplets.</p>
+        </li>
+        <li>
+          <p>You <em>may</em> use the <code>--outFilename</code> argument to specify the path + name of the output file to write the ID/category map values to.<br>
+            If you do not, the ID/category map data is echoed to the console.
+            This is convenient for checking behavior of the script against small source maps, but for &quot;real&quot; use, you will want to specify an output file.
+            Include the <code>--outFilename</code> argument on your command line, followed by the path and file name for the output file.<br>
+            Note that <code>AscRangeMask.py</code> does <strong><em>not</em></strong> automatically append the <code>.asc</code> file extension to the filename you specify.</p>
+        </li>
+        <li>
+          <p>If you specify an <code>--outFilename</code> file that already exists, <code>AscRangeMask.py</code> will echo a warning to the console and stop.<br>
+            You can force <code>AscRangeMask.py</code> to overwrite/replace the pre-existing file by adding the <code>--forceOverwrite</code> option to your command line.<br>
+            (Be sure you don't need the pre-existing file before you do this!)</p>
+        </li>
+        <li>
+          <p>If you specify <code>--csvTargets</code>, the cell locations and x,y coordinates corresponding to the range ID values you specify are echoed to the console, and/or written to the file specified by the <code>--csvFilename</code> argument.<br>
+            When a <code>--csvFilename</code> is specified that already exists, <code>AscRangeMask.py</code> will echo a warning to the console and stop, unless, the <code>--forceOverwrite</code> option is part of the command line: <em>both asc and csv file output forced-overwrite permission is detemined from this one command-line option.</em><br>
+            The <code>--csvTargets</code> argument expects to be followed by one or more integer range ID values.<br>
+            The target values must match range <code>id_number</code> values specified to the <code>--ranges</code> argument.<br>
+            For example:<br>
+            If a command line specifies <code>--ranges 0:0.0:500.0 1:500.0:600.0 2:600:700</code>, the <code>--csvTargets</code> argument may be followed by any combination of the integers <code>0</code>, <code>1</code>, <code>2</code>, and <em>only</em> those integer values.<br>
+            Here is one valid possibility: <code>--csvTargets 0 2</code><br>
+            The above possiblity would result in listing the cell locations and (x,y) coordinates for every cell in the original grid that falls into range 0 or 2, but not range 1.</p>
+        </li>
+        <li>
+          <p>By default, <code>AscRangeMask.py</code> echoes a table of ranges data, followed by the mask map, followed by the csv targets (if specified) to console output. When the mask map and/or csv targets data is large, this can be very &quot;noisy&quot;, as it will comprise many, many lines of closely-spaced numerical output to the console.<br>
+            The three <code>--hide...</code> command-line option switches suppress echoing the ranges table, asc, and csv data to console output.</p>
+        </li>
+      </ol>
+      <h2>How It Works</h2>
+      <p><code>AscRangeMask.py</code> loads the header and data of the .asc map file specified on the command line.<br>
+        It collects the range triplets into a list, ordering them from lowest to highest min value, so that
+        when the ranges of two IDs overlap, the ID of the lower min value is assigned.<br>
+        It creates a new data map of ID values by iterating through the source map.</p>
+      <p>For each cell in the source map, the ID value is determined as follows:</p>
+      <ol>
+        <li>If the source map value is <code>nodata_value</code>, assign the integer (truncated) portion of the <code>nodata_value</code> as the ID value.
+          (I.e. preseve <code>nodata_value</code> locations from the source map in the ID map.)</li>
+        <li>If no range triplets are specified, assign the cell the <code>norange_value</code>.<br>
+          (The <code>norange_value</code> equals the integer (truncated) portion of the source map's <code>nodata_value</code> value if <code>--norangeValue</code> was left unspecified.)</li>
+        <li>Iterate through the (sorted by min value) ranges, comparing the source map value with each range.<br>
+          Assign the cell the <code>id</code> of the first <code>id:min:max</code> triplet where (source map value /&gt;= <code>min</code>) and (source map value &lt; <code>max</code>).<br>
+          (I.e. the source map value is in the range [<code>min</code>, <code>max</code>).)</li>
+        <li>If the source map value falls within no range in the range sequence, assign it the <code>norange_value</code>.
+          (Again, the <code>norange_value</code> may equal the integer (truncated) portion of the source map's <code>nodata_value</code>, depending upon whether a <code>--norangeValue</code> was specified or not.)</li>
+      </ol>
+      <p>After creating a data array of ID values, <code>AscRangemask.py</code> writes the ID/catetory map (source header + mask ID data array) to the console,
+        or, when an output file is specified via the <code>--outFilename</code> parameter, to the specified file.</p>
+      <p>When <code>--csvTargets</code> are specified, it uses the ID mask map to determine the list of cell locations to report, and echoes them to the console and/or to the file specified by -csvFilename</p>
+      <h2>Examples</h2>
+      <p>The following examples all assume a source map file named <code>dem.asc</code>.<br>
+        Here are its contents:</p>
+      <pre><code>ncols 24
+nrows 24
+xllcorner 558832.11763088
+yllcorner 4896005.080683
+cellsize 30.0
+nodata_value -9999.0
+438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0
+438.0 438.0 462.0 491.0 499.0 505.0 507.0 530.0 534.0 536.0 562.0 563.0 564.0 569.0 588.0 584.0 589.0 611.0 611.0 614.0 623.0 648.0 661.0 438.0
+438.0 438.0 486.0 507.0 516.0 520.0 525.0 553.0 557.0 559.0 584.0 585.0 588.0 591.0 610.0 607.0 610.0 631.0 631.0 631.0 632.0 661.0 668.0 438.0
+438.0 438.0 499.0 521.0 530.0 539.0 547.0 571.0 577.0 582.0 604.0 606.0 606.0 607.0 631.0 632.0 629.0 629.0 652.0 653.0 657.0 676.0 679.0 438.0
+438.0 438.0 510.0 532.0 544.0 556.0 556.0 574.0 583.0 590.0 598.0 619.0 623.0 626.0 644.0 649.0 650.0 651.0 668.0 673.0 673.0 683.0 683.0 438.0
+438.0 438.0 506.0 518.0 537.0 553.0 566.0 579.0 589.0 599.0 610.0 626.0 634.0 639.0 649.0 659.0 663.0 665.0 669.0 676.0 680.0 686.0 686.0 438.0
+438.0 438.0 511.0 524.0 541.0 559.0 569.0 582.0 593.0 604.0 617.0 623.0 631.0 642.0 643.0 650.0 650.0 652.0 648.0 664.0 676.0 683.0 681.0 438.0
+438.0 438.0 513.0 525.0 543.0 561.0 571.0 583.0 593.0 593.0 603.0 605.0 613.0 625.0 636.0 626.0 628.0 637.0 653.0 669.0 678.0 683.0 665.0 438.0
+438.0 438.0 514.0 514.0 528.0 543.0 560.0 571.0 581.0 590.0 597.0 591.0 599.0 611.0 620.0 605.0 616.0 634.0 661.0 671.0 676.0 675.0 642.0 438.0
+438.0 438.0 502.0 515.0 528.0 542.0 558.0 569.0 573.0 581.0 586.0 578.0 585.0 591.0 598.0 601.0 620.0 643.0 663.0 663.0 668.0 667.0 635.0 438.0
+438.0 438.0 500.0 514.0 524.0 537.0 552.0 563.0 559.0 566.0 572.0 556.0 562.0 562.0 572.0 595.0 613.0 630.0 655.0 661.0 662.0 654.0 615.0 438.0
+438.0 438.0 498.0 512.0 519.0 528.0 528.0 539.0 532.0 539.0 546.0 533.0 539.0 555.0 575.0 605.0 622.0 640.0 655.0 657.0 653.0 634.0 598.0 438.0
+438.0 438.0 477.0 494.0 508.0 513.0 520.0 526.0 517.0 521.0 525.0 533.0 552.0 568.0 587.0 612.0 629.0 647.0 655.0 648.0 632.0 613.0 584.0 438.0
+438.0 438.0 475.0 489.0 503.0 507.0 512.0 514.0 503.0 506.0 521.0 535.0 567.0 580.0 597.0 617.0 617.0 636.0 650.0 644.0 631.0 611.0 578.0 438.0
+438.0 438.0 470.0 482.0 496.0 492.0 497.0 500.0 493.0 514.0 514.0 536.0 566.0 580.0 593.0 614.0 625.0 640.0 648.0 624.0 608.0 591.0 578.0 438.0
+438.0 438.0 464.0 464.0 473.0 468.0 475.0 484.0 501.0 516.0 533.0 550.0 578.0 594.0 604.0 614.0 630.0 635.0 635.0 600.0 583.0 571.0 560.0 438.0
+438.0 438.0 452.0 458.0 463.0 468.0 481.0 491.0 501.0 535.0 547.0 562.0 588.0 603.0 615.0 624.0 629.0 623.0 612.0 578.0 578.0 565.0 552.0 438.0
+438.0 438.0 449.0 454.0 461.0 483.0 495.0 507.0 520.0 548.0 560.0 574.0 600.0 600.0 614.0 626.0 628.0 618.0 606.0 577.0 566.0 550.0 536.0 438.0
+438.0 438.0 449.0 455.0 468.0 495.0 506.0 506.0 520.0 545.0 559.0 572.0 597.0 610.0 626.0 634.0 615.0 603.0 589.0 577.0 550.0 536.0 524.0 438.0
+438.0 438.0 446.0 452.0 462.0 488.0 501.0 513.0 527.0 551.0 567.0 583.0 597.0 618.0 633.0 630.0 601.0 587.0 573.0 562.0 534.0 524.0 514.0 438.0
+438.0 438.0 448.0 455.0 467.0 488.0 505.0 517.0 532.0 556.0 573.0 590.0 604.0 621.0 627.0 615.0 587.0 587.0 572.0 555.0 532.0 522.0 509.0 438.0
+438.0 438.0 450.0 459.0 472.0 491.0 509.0 521.0 537.0 563.0 563.0 582.0 598.0 612.0 618.0 614.0 588.0 575.0 558.0 541.0 526.0 515.0 501.0 438.0
+438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0
+438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0 438.0
+</code></pre>
+      <p>The values within <code>dem.asc</code> range from <code>438.0</code> to <code>686.0</code>.</p>
+      <p>The examples also assume that the <code>AscRangeMask.py</code> script file, the <code>dem.asc</code> source map file, and any output files all exist in the currently directory.<br>
+        In practice, this will not typically be the case, but the only adaptation is adding the appropriate paths to the appropriate file names.</p>
+      <h4>Typical Usage Example</h4>
+      <p>Divide <code>dem.asc</code> into 3 categories:</p>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left">Value Range</th>
+            <th style="text-align:left">Category ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:left">up to 500</td>
+            <td style="text-align:left">0</td>
+          </tr>
+          <tr>
+            <td style="text-align:left">500 to 600</td>
+            <td style="text-align:left">1</td>
+          </tr>
+          <tr>
+            <td style="text-align:left">600 or more</td>
+            <td style="text-align:left">2</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>We know that <code>dem.asc</code>'s minimum value is <code>438.0</code>, so we can set the min value of the lowest range to any at or below <code>438.0</code>.<br>
+        We'll use 0.0 for convenience.
+        Likewise, we know that <code>dem.asc</code>'s maximum value is <code>686.0</code>. Any value higher than that will fulfill the &quot;or more&quot; of the highest range.</p>
+      <p>The command line . . .</p>
+      <pre><code>py -3 AscRangeMask.py dem.asc --ranges 0:0.0:500.0 1:500.0:600.0 2:600:700
+</code></pre>
+      <p>produces the following output on the console . . .</p>
+      <pre><code># RANGE TABLE (Ordered: lowest to highest min value.)
+ID   |   Min |   Max | Occurences | Fraction
+---- | ----- | ----- | ---------- | --------
+0    |   0.0 | 500.0 |        184 |    0.319
+1    | 500.0 | 600.0 |        225 |    0.391
+2    | 600.0 | 700.0 |        167 |    0.290
+norange_value=-9999  occurs=0 fraction=0.000
+ nodata_value=-9999.0
+# ASC MASK MAP
+ncols 24
+nrows 24
+xllcorner 558832.11763088
+yllcorner 4896005.080683
+cellsize 30.0
+nodata_value -9999.0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 0
+0 0 0 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 0
+0 0 0 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 0
+0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 1 0
+0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 1 0
+0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 1 0
+0 0 0 0 0 0 0 1 0 1 1 1 1 1 1 2 2 2 2 2 2 1 1 0
+0 0 0 0 0 0 0 0 1 1 1 1 1 1 2 2 2 2 2 2 1 1 1 0
+0 0 0 0 0 0 0 0 1 1 1 1 1 2 2 2 2 2 2 1 1 1 1 0
+0 0 0 0 0 0 0 1 1 1 1 1 2 2 2 2 2 2 2 1 1 1 1 0
+0 0 0 0 0 0 1 1 1 1 1 1 1 2 2 2 2 2 1 1 1 1 1 0
+0 0 0 0 0 0 1 1 1 1 1 1 1 2 2 2 2 1 1 1 1 1 1 0
+0 0 0 0 0 0 1 1 1 1 1 1 2 2 2 2 1 1 1 1 1 1 1 0
+0 0 0 0 0 0 1 1 1 1 1 1 1 2 2 2 1 1 1 1 1 1 1 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+</code></pre>
+      <p>The &quot;# RANGE TABLE&quot; reports the <code>--ranges</code> specified on the command line,
+        along with the number of cells in the source asc file that fall within each range category (&quot;Occurences&quot;),
+        and what &quot;Fraction&quot; of the total cells in the asc grid that occurence count represents.<br>
+        The fractions in the table may not sum to 1.0, due to either floating-point rounding effects, or
+        a non-zero occurence count of norange cells (reported below the table, instead of within it).</p>
+      <h4>Omitting Cells Example</h4>
+      <p>Find cells with a specific value in <code>dem.asc</code>, ignoring all other cells:</p>
+      <p>The command line . . .</p>
+      <pre><code>py -3 AscRangeMask.py dem.asc --ranges 1:438.0:438.0
+</code></pre>
+      <p>produces the following output on the console . . .</p>
+      <pre><code># RANGE TABLE (Ordered: lowest to highest min value.)
+ID   |   Min |   Max | Occurences | Fraction
+---- | ----- | ----- | ---------- | --------
+1    | 438.0 | 438.0 |        135 |    0.234
+norange_value=-9999  occurs=441 fraction=0.766
+ nodata_value=-9999.0
+# ASC MASK MAP
+ncols 24
+nrows 24
+xllcorner 558832.11763088
+yllcorner 4896005.080683
+cellsize 30.0
+nodata_value -9999.0
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 -9999 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+</code></pre>
+      <p>Any cells != <code>428.0</code> in <code>dem.asc</code> are represented by the integer portion of the nodata_value.</p>
+      <p>As a variation of the above, let's set the <code>--norangeValue</code>.<br>
+        The command line . . .</p>
+      <pre><code>py -3 AscRangeMask.py dem.asc --ranges 1:438.0:438.0 --norangeValue 0
+</code></pre>
+      <p>produces the following output on the console . . .</p>
+      <pre><code># RANGE TABLE (Ordered: lowest to highest min value.)
+ID   |   Min |   Max | Occurences | Fraction
+---- | ----- | ----- | ---------- | --------
+1    | 438.0 | 438.0 |        135 |    0.234
+norange_value=0  occurs=441 fraction=0.766
+ nodata_value=-9999.0
+# ASC MASK MAP
+ncols 24
+nrows 24
+xllcorner 558832.11763088
+yllcorner 4896005.080683
+cellsize 30.0
+nodata_value -9999.0
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+</code></pre>
+      <p>The cells identified as in-range have not changed, but the cells that are not in-range (&quot;norange&quot; cells) now are identified by the specified norange_value of 0.</p>
+      <h4>Capturing Output In A File Example</h4>
+      <p>Re-running our Typical Usage Example with the <code>--outFilename</code> argument, and hiding console output of mask data.</p>
+      <pre><code>py -3 AscRangeMask.py dem.asc --ranges 0:0.0:500.0 1:500.0:600.0 2:600:700 --outFilename mask.asc --hideAsc
+</code></pre>
+      <p>produces the following output . . .</p>
+      <pre><code># RANGE TABLE (Ordered: lowest to highest min value.)
+ID   |   Min |   Max | Occurences | Fraction
+---- | ----- | ----- | ---------- | --------
+0    |   0.0 | 500.0 |        184 |    0.319
+1    | 500.0 | 600.0 |        225 |    0.391
+2    | 600.0 | 700.0 |        167 |    0.290
+norange_value=-9999  occurs=0 fraction=0.000
+ nodata_value=-9999.0
+DONE: wrote mask to file &quot;mask.asc&quot;
+</code></pre>
+      <p>Note:</p>
+      <ul>
+        <li>The &quot;RANGES&quot; table is NOT written to the <code>mask.asc</code> file, only the asc mask data is written to it.</li>
+        <li>We could have suppressed writing the ranges table to the console, via the <code>--hideRanges</code> option.</li>
+      </ul>
+      <p>Here are the contents of the <code>mask.asc</code> file:</p>
+      <pre><code>ncols 24
+nrows 24
+xllcorner 558832.11763088
+yllcorner 4896005.080683
+cellsize 30.0
+nodata_value -9999.0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 0
+0 0 0 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 0
+0 0 0 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 0
+0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 0
+0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 1 0
+0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 1 0
+0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 1 0
+0 0 0 0 0 0 0 1 0 1 1 1 1 1 1 2 2 2 2 2 2 1 1 0
+0 0 0 0 0 0 0 0 1 1 1 1 1 1 2 2 2 2 2 2 1 1 1 0
+0 0 0 0 0 0 0 0 1 1 1 1 1 2 2 2 2 2 2 1 1 1 1 0
+0 0 0 0 0 0 0 1 1 1 1 1 2 2 2 2 2 2 2 1 1 1 1 0
+0 0 0 0 0 0 1 1 1 1 1 1 1 2 2 2 2 2 1 1 1 1 1 0
+0 0 0 0 0 0 1 1 1 1 1 1 1 2 2 2 2 1 1 1 1 1 1 0
+0 0 0 0 0 0 1 1 1 1 1 1 2 2 2 2 1 1 1 1 1 1 1 0
+0 0 0 0 0 0 1 1 1 1 1 1 1 2 2 2 1 1 1 1 1 1 1 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+</code></pre>
+      <h4>Targeting Specific Cells by Their Range IDs Example</h4>
+      <p>First, let's see if we can identify a small group of cells at the upper end of the source file's values range.<br>
+        The following command line sets some ranges, and suppresses console output other than the range table report.</p>
+      <pre><code>py -3 AscRangeMask.py dem.asc --ranges 0:0:450 1:450:550 2:550:650 3:650:700 4:700:900 --hideAsc
+</code></pre>
+      <p>Here are the results:</p>
+      <pre><code># RANGE TABLE (Ordered: lowest to highest min value.)
+ID   |   Min |   Max | Occurences | Fraction
+---- | ----- | ----- | ---------- | --------
+0    |   0.0 | 450.0 |        139 |    0.241
+1    | 450.0 | 550.0 |        147 |    0.255
+2    | 550.0 | 650.0 |        238 |    0.413
+3    | 650.0 | 700.0 |         52 |    0.090
+4    | 700.0 | 900.0 |          0 |    0.000
+norange_value=-9999  occurs=0 fraction=0.000
+ nodata_value=-9999.0
+</code></pre>
+      <p>Based on the occurence numbers above, let's see if there are any cells between 675.0 and 700.0.</p>
+      <pre><code>py -3 AscRangeMask.py dem.asc --ranges 0:0:450 1:450:550 2:550:650 3:650:675 4:675:900 --hideAsc
+</code></pre>
+      <p>Here are the results with the slightly-modified upper range:</p>
+      <pre><code># RANGE TABLE (Ordered: lowest to highest min value.)
+ID   |   Min |   Max | Occurences | Fraction
+---- | ----- | ----- | ---------- | --------
+0    |   0.0 | 450.0 |        139 |    0.241
+1    | 450.0 | 550.0 |        147 |    0.255
+2    | 550.0 | 650.0 |        238 |    0.413
+3    | 650.0 | 675.0 |         37 |    0.064
+4    | 675.0 | 900.0 |         15 |    0.026
+norange_value=-9999  occurs=0 fraction=0.000
+ nodata_value=-9999.0
+</code></pre>
+      <p>To report the locations of the 15 cells whose source map values are &gt;= 657.0, we add the <code>--csvTargets</code> argument to the command line, and run again:</p>
+      <pre><code>py -3 AscRangeMask.py dem.asc --ranges 0:0:450 1:450:550 2:550:650 3:650:675 4:675:900 --csvTargets 4 --hideAsc
+</code></pre>
+      <p>A comma-separated list of the cells now follows the range table in the console output.</p>
+      <pre><code># RANGE TABLE (Ordered: lowest to highest min value.)
+ID   |   Min |   Max | Occurences | Fraction
+---- | ----- | ----- | ---------- | --------
+0    |   0.0 | 450.0 |        139 |    0.241
+1    | 450.0 | 550.0 |        147 |    0.255
+2    | 550.0 | 650.0 |        238 |    0.413
+3    | 650.0 | 675.0 |         37 |    0.064
+4    | 675.0 | 900.0 |         15 |    0.026
+norange_value=-9999  occurs=0 fraction=0.000
+ nodata_value=-9999.0
+# CSV TARGET IDs
+ID,icell,xcell,ycell
+4,93,21,3
+4,94,22,3
+4,117,21,4
+4,118,22,4
+4,139,19,5
+4,140,20,5
+4,141,21,5
+4,142,22,5
+4,164,20,6
+4,165,21,6
+4,166,22,6
+4,188,20,7
+4,189,21,7
+4,212,20,8
+4,213,21,8
+</code></pre>
+      <p>To save that list of cells to a file, we could add the <code>--csvFilename</code> argument, followed by the name of the file to write.<br>
+        (The first row of the file would be the <code>ID,icell,xcell,ycell</code> console text. The <code># CSV TARGET IDs</code> separator is console-only text that is never written to the .csv file.)</p>
+
+    </div>
+  </div>
+</body>
+<footer id="footer">
+  <p>VELMA 2.2 DOCUMENTATION</p>
+</footer>
+</head>
+
+</html>

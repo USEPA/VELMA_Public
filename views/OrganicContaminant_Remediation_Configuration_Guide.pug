@@ -1,0 +1,500 @@
+extends layout.pug
+block content
+  h1
+    | Configuring An Organic Contaminant to Include Remediation Effects
+  h2
+    | Overview
+  p
+    | VELMA simulation configurations may include parameterizations for Organic Contaminants. Simulation configurations that 
+    em
+      | do
+    |  include Organic Contaminants may also include additional parameterizations for Modify-by-Map disturbances that allow simulation of decay-based and/or humus-based remediation effects for of the parameterized Organic Contaminants by providing spatially-explicitly scaling factors to boost increased decay and/or increased humus-based binding.
+  h2
+    | Configuration Steps
+  p
+    | The overall process of adding remediation parameterization for an Organic Contaminant is as follows:
+  h3
+    | 1. Add and configure an OrganicContaminantModelto your VELMA simulation configuration.
+  p
+    | Follow the steps of the separate documentation for adding/configuring OrganicContaminantModel parameterizations to a simulation configuration.
+  h3
+    | 2. Set the Organic Contaminant's 
+    code
+      | setDecompositionFactorMode
+    |  value
+  p
+    | The value of the 
+    code
+      | setDecompositionFactorMode
+    |  parameter specifies the type or types of remediation factors (decay-based and/or humus-based) the Organic Contaminant will be affected by.
+  table
+    thead
+      tr
+        th
+          | Desired Remediation
+        th
+          | Value for 
+          code
+            | setDecompositionFactorMode
+        th
+          | Simulation Effect
+    tbody
+      tr
+        td
+          | None
+        td
+          | NONE
+        td
+          | Use actual humus and chemMaxDecay values, ignore scaling factor values if present.
+      tr
+        td
+          | Humus-based
+        td
+          | HUMUS_ONLY
+        td
+          | Multiply actual humus amounts by cell-specific humus scaling factor values.
+      tr
+        td
+          | Decay-based
+        td
+          | DECAY_ONLY
+        td
+          | Multiply specified chemMaxDecay value by cell-specific decay scaling factor values.
+      tr
+        td
+          | Both Humus and Decay
+        td
+          | BOTH
+        td
+          | Multiply both humus and chemMaxDecay values by their respective cell-specific factors.
+  h3
+    | 3. Create raster (.asc) map file(s) with cell-specific scaling factor values
+  p
+    | The raster (.asc) map files makes cell-specific scaling factor values possible. Generate them using whatever GIS tool or software you prefer. Regardless of the method you use to create them, they must abide by the following rules:
+  ul
+    li
+      | Each type of remediation must have a separate .asc map file, so if you specified 
+      code
+        | setDecompositionFactorMode
+      | =
+      code
+        | BOTH
+      | , you will need 2 files.
+    li
+      | Each .asc map file must have the same dimensions (header row values) as the simulation's DEM map, specified as the value of the 
+      code
+        | input_dem
+      |  configuration parameter.
+    li
+      | Each .asc map file must 
+      strong
+        em
+          | not
+      |  contain 
+      code
+        | nodata_value
+      |  for 
+      em
+        | any
+      |  location in the map.
+    li
+      | Set the value of cell loctions that are unaffected by remediation to 1.0 (
+      strong
+        em
+          | not
+      |  zero!).
+    li
+      | The file's encoding should be ASCII, or ISO-LATIN (UTF-8 is permitted, but not encouraged, UTF-16 and UTF-32 are not supported.)
+  h3
+    | 4. Add and configure a Modify-by-Map disturbance for each scaling factor map
+  p
+    | Modify-by-Map disturbances "connect" the maps of scaling factor values to a specific Organic Contaminant at a specific point in time during the simulation run.
+    br
+    |  You must provide a separate Modify-by-Map disturbance for each scaling factor map generated.
+    br
+    |  For example: if you specified 
+    code
+      | setDecompositionFactorMode
+    | =
+    code
+      | BOTH
+    | , and created the two separate .asc map files (one with decay scaling factor values, the other with humus factor values), then you will need to configure two separate Modify-by-Map disturbances to connect the two maps to the single Organin Contaminant.
+  p
+    | Adding and Configuring Modify-By-Map Disturbance(s) for Remediation Effects:
+  ol
+    li
+      | Click the 
+      code
+        | Edit
+      |  --> 
+      code
+        | Disturbances
+      |  --> 
+      code
+        | Add a Disturbance
+      |  menu item.
+      br
+      |  (This opens the "Specify Disturbance Model Type and Name" dialog window.)
+    li
+      | Select the 
+      code
+        | ModifySpatialDataByMapDisturbanceModel
+      |  item from the dialog window's "Disturbance Type" drop-down list.
+    li
+      | Type a name into the "Disturbance Name" text field.
+      br
+      |  The name will become the parameterization group's Item-level identifier.
+      br
+      |  It can be any name that 
+      a
+        | follows the rules
+      |  and that is meaningful to you.
+    li
+      | Click OK to accept your selections, close the dialog window, and add the parameterization group.
+  p
+    | When the parameterization group is added, JVelma shifts the GUI to display the "All Parameters" tab, with column filtering set to show only the newly-added group.
+  p
+    | Here is an example parameterization group:
+  table
+    thead
+      tr
+        th
+          | Group
+        th
+          | Item
+        th
+          | Parameter
+        th
+          | Value (examples)
+    tbody
+      tr
+        td
+          | disturbance
+        td
+          | DecayFactorMel
+        td
+          | modelClass
+        td
+          | ModifySpatialDataByMapDisturbanceModel
+      tr
+        td
+          | disturbance
+        td
+          | DecayFactorMel
+        td
+          | initializeActiveLoops
+        td
+          | 1
+      tr
+        td
+          | disturbance
+        td
+          | DecayFactorMel
+        td
+          | initializeActiveYears
+        td
+          | 2011
+      tr
+        td
+          | disturbance
+        td
+          | DecayFactorMel
+        td
+          | initializeActiveJdays
+        td
+          | 181
+      tr
+        td
+          | disturbance
+        td
+          | DecayFactorMel
+        td
+          | occursAtStepStart
+        td
+          | true
+      tr
+        td
+          | disturbance
+        td
+          | DecayFactorMel
+        td
+          | spatialDataFileFullName
+        td
+          | ./o_9_Disturbance/Remediation_Data.asc
+      tr
+        td
+          | disturbance
+        td
+          | DecayFactorMel
+        td
+          | setCellOutcome
+        td
+          | REPLACE
+      tr
+        td
+          | disturbance
+        td
+          | DecayFactorMel
+        td
+          | setMapValueMode
+        td
+          | FRACTION
+      tr
+        td
+          | disturbance
+        td
+          | DecayFactorMel
+        td
+          | spatialDataName
+        td
+          | CONTAMINANT_DECAY_FACTOR_MELAMINE
+      tr
+        td
+          | disturbance
+        td
+          | DecayFactorMel
+        td
+          | spatialDataLayer
+        td
+          | 1
+  p
+    | Each Modify-by-Map entry you add to your simulation is a 
+    code
+      | __disturbance__
+    |  Group member. The Disturbance Name" you provide becomes its' Item identifier within the Group. (In the above example, the Disturbance Name was set as 
+    code
+      | DecayFactorMel
+    | .)
+  p
+    | The above example connects the scaling factors specified in .asc map file 
+    code
+      | Remediation_Data.asc
+    |  to the OrganicContaminantModel with 
+    code
+      | uniqueName
+    | =
+    code
+      | Melamine
+    | .
+    br
+    |  The scaling factors will be applicable during the simulation run from year 2011, Julian day 181, onwards. The scaling factors in the .asc map file will be applied to decay calculations for the contaminant.
+  p
+    strong
+      | Parameter-Specific Notes
+  p
+    | Leave the 
+    code
+      | modelClass
+    |  parameter 
+    strong
+      em
+        | untouched and as-is
+    | . Its value is automatically set by JVelma when you add the ModifySpatialDataByMapDisturbanceModel parameter group to the configuration.
+  p
+    | Set the 
+    code
+      | initializeActiveLoops
+    | , 
+    code
+      | initializeActiveYears
+    | , and 
+    code
+      | initializeActiveJdays
+    |  parameter values to the loop, year, and Julian day (respectively) within the simulation run when the remediation effect should become active.
+  p
+    | Set 
+    code
+      | occursAtStepStart
+    |  to true, to ensure the remediation effect begins on the date you specified, not on the day after that.
+  p
+    | Set 
+    code
+      | spatialDataFileFullName
+    |  to the name of the raster .asc data file containing the cell-specific decay or humus modification factor values.
+    br
+    |  Unless the specified filename is a fully-specified path + name, it is assumed to be relative to the directory location specified by the simulation configuration's 
+    code
+      | inputDataLocationRootName
+    | /
+    code
+      | inputDataLocationDirName
+    |  pair of parameters.
+    br
+    |  Use forward slash “/” characters as path separators. Also, be very careful with whitespace; if there is any, it must exactly match whatever whitespace is present in the actual path and filename.
+  p
+    | Set 
+    code
+      | setCellOutcome
+    |  to 
+    code
+      | REPLACE
+    | : 
+    strong
+      em
+        | no
+    |  other value is appropriate for use as a remediation scaling factors source.
+  p
+    | Set 
+    code
+      | setMapValueMode
+    |  to 
+    code
+      | VALUE
+    | : this setting provides the 
+    em
+      | most straightforward
+    |  use-case for a remediation scaling factors source. Combined with 
+    code
+      | setCellOutcome
+    | =
+    code
+      | REPLACE
+    | , 
+    code
+      | setMapValueMode
+    | =
+    code
+      | VALUE
+    |  configures the disturbance to directly set the specified map's specified values into the spatial data pool specified by 
+    code
+      | spatialDataName
+    | .
+  p
+    | Set the 
+    code
+      | spatialDataName
+    |  to the name of the appropriate spatial data pool. That name is derived from a factor-specific prefix, and the value of the 
+    code
+      | uniqueName
+    |  parameter of the organic contaminant that it will affect.
+  table
+    thead
+      tr
+        th
+          | Factor-specific prefix
+        th
+          | Identifies the spatial pool for ...
+    tbody
+      tr
+        td
+          | CONTAMINANT_DECAY_FACTOR_
+        td
+          | cell-specific scaling values applied to decay
+      tr
+        td
+          | CONTAMINANT_HUMUS_FACTOR_
+        td
+          | cell-specific scaling factor values applied to humus
+  p
+    | In the example parameterization above, the specified 
+    code
+      | spatialDataFileFullName
+    |  map values will be the remediation factor for decay, and affect the contaminant with the 
+    code
+      | uniqueName
+    |  "Melamine".
+    br
+    |  Thus, the 
+    code
+      | spatialDataName
+    |  value is:
+    br
+    |  
+    code
+      | CONTAMINANT_DECAY_FACTOR_
+    |  + 
+    code
+      | MELAMINE
+    |  = 
+    code
+      | CONTAMINANT_DECAY_FACTOR_MELAMINE
+  p
+    | The 
+    code
+      | spatialDataLayer
+    |  parameter's value 
+    strong
+      em
+        | must
+    |  be set to 1.
+  p
+    | For additional information about Modify-by-Map disturbances, see the 
+    a
+      | Modifying a VELMA SpatialData Pool Using Grid ASCII Map Data
+    |  "HowTo" document.
+  h2
+    | How It Works
+  p
+    | During each VELMA simulation step, the amount of organic contaminant within a given cell of the delineated watershed is modified by the processes of:
+  ul
+    li
+      | Hydrologic lateral transport
+    li
+      | Hydrologic vertical transport
+    li
+      | Sorption
+    li
+      | Decay
+  p
+    | During the sorption calculation, if a given cell has had a HUMUS scaling factor set for it (via a Modify-by-Map), for the current simulation step, then the actual amount of humus carbon in the cell is multiplied by the scaling factor, effectively "boosting" the humus-based sorption.
+  p
+    | During the decay calculation, if a given cell has had a DECAY scaling factor set for it (via a Modify-by-Map), for the current simulation step, then the 
+    code
+      | setChemMaxDecay
+    |  value specified for the Organic Contaminant is multiplied by the scaling factor and the product of the two 
+    code
+      | (max-decay fraction * decay scaling factor)
+    |  is used as the maximum decay multiplier instead of the max-decay fraction alone.
+  p
+    | Be mindful of the similar, yet distinctly 
+    em
+      | different
+    |  behaviors of HUMUS and DECAY scaling factors. In both cases, the scaling factor is used as a multiplier, but for sorption/HUMUS, it is multiplying an 
+    em
+      | amount
+    | , while for DECAY it is multiplying a 
+    em
+      | fraction
+    | .
+  p
+    | For DECAY calculations, this means that a sufficiently large DECAY scaling fraction may result in calculating a decayed amount that is larger then the actual amount present in the cell. VELMA treats this situation as "all of the contaminant has decayed", and zeroes the amount of contaminant remaining in the cell. If this zeroing not the intent, careful pairing of the Organic Contaminant's 
+    code
+      | setChemMaxDecay
+    |  value with the cell-specific DECAY map's values is required.
+    br
+    |  Example:
+    br
+    |  Suppose an Organic Contaminant's 
+    code
+      | setChemMaxDecay
+    | =
+    code
+      | 0.75
+    | , the DECAY scaling factor at a given cell is 1.5, and the cell contains 100.0mg of contaminant.
+    br
+    |  The maximum decay amount will be calculated as: 
+    code
+      | (0.75 * 1.5) * 100.0 = 112.5
+    | .
+    br
+    |  The entire decay/decomposition process might result in an amount less than 112.5, but if that amount is still more than 100.0 at the end of the contaminant decay/decomposition process, the cell's contaminant result will be zeroed, and the full amount that the cell had available (100.0mg) will be reported as decayed -- 
+    em
+      | not
+    |  the amount greater than 100.0 that was calculated from the max-decay fraction and scaling factor.
+  h2
+    | Additional Information
+  h3
+    | Disturbance Name Rules
+  p
+    | The name you provide for a disturbance parameterization group must follow these rules:
+  ul
+    li
+      | Must begin with a letter
+    li
+      | After the first letter, must consist entirely of letter, digit, dash ("-"), and underscore characters ("_").
+      br
+      |  No other characters are allowed.
+      br
+      |  Do NOT include whitespace or other punctuation characters (e.g. ":") in Disturbance Names.
+    li
+      | Must be unique to a given disturbance parameterization group.

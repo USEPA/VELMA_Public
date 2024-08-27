@@ -1,0 +1,305 @@
+extends layout.pug
+block content
+  h1
+    | Spatially-Explicit Snow Depth Initialization
+    br
+    |  via a
+    br
+    |  ModifySpatialDataByMapDisturbanceModel Parameterization
+  h2
+    | Overview
+  p
+    | Spatially-explicit weather models may require spatially-explicit, varying amounts of "snow on the ground" (i.e. "SnowDepth") at simulation start up.
+    br
+    |  You can specify spatially-explicit snow depth amounts in a Grid ASCII (.asc) map file, and apply those amounts to a VELMA simulation via a Modify-By-Map (
+    code
+      | ModifySpatialDataByMapDisturbanceModel
+    | ) parameterization that references the .asc map.
+  h2
+    | Requirements
+  ul
+    li
+      | One Grid ASCII (.asc) map file containing snow depth amounts.
+    li
+      | One Modify-By-Map parameterization specifying the snow depth .asc map file as source, and the 
+      code
+        | SnowDepth
+      |  spatial data pool as target.
+    li
+      | The .asc map file must have the same dimensions as the simulation's specified DEM Grid file.
+    li
+      | The .asc map file's values should be zero or positive, and are assumed to match the 
+      code
+        | SnowDepth
+      |  target pool's units (i.e. mm).
+  p
+    | Add a 
+    code
+      | ModifySpatialDataByMapDisturbanceModel
+    |  parameterization to your VELMA simulation configuration.
+    br
+    |  Refer to the 
+    a
+      | Modifying a VELMA SpatialData Pool Using Grid ASCII Map Data
+    |  guide for details.
+    br
+    |  The 
+    code
+      | ModifySpatialDataByMapDisturbanceModel
+    |  is the 
+    em
+      | ONLY
+    |  item parameterization that can be used to initialize 
+    code
+      | SnowDepth
+    | . Other spatially-explicit data (e.g. 
+    code
+      | BIOMASS_LEAF_N
+    | ) can use either 
+    code
+      | ModifySpatialDataByMapDisturbanceModel
+    |  or 
+    code
+      | SetSpatialDataByMapDisturbanceModel
+    |  parameterizations for initialization purposes (although the latter is legacy and deprecated), but 
+    code
+      | SnowDepth
+    |  cannot.
+  p
+    | Once the parameterization is added, confirm that the following parameters are set to these values:
+    br
+    |  
+    em
+      | NOTE: The Item name "Initialize_SnowDepth" is suggested, and used below, but can actually be whatever you choose.
+  table
+    thead
+      tr
+        th
+          | Group
+        th
+          | Item
+        th
+          | Parameter
+        th
+          | Value
+    tbody
+      tr
+        td
+          | disturbance
+        td
+          | Initialize_SnowDepth
+        td
+          | modelClass
+        td
+          code
+            | ModifySpatialDataByMapDisturbanceModel
+      tr
+        td
+          | disturbance
+        td
+          | Initialize_SnowDepth
+        td
+          | occursAtStepStart
+        td
+          code
+            | true
+      tr
+        td
+          | disturbance
+        td
+          | Initialize_SnowDepth
+        td
+          | setCellOutcome
+        td
+          code
+            | REPLACE
+      tr
+        td
+          | disturbance
+        td
+          | Initialize_SnowDepth
+        td
+          | setMapValueMode
+        td
+          code
+            | VALUE
+      tr
+        td
+          | disturbance
+        td
+          | Initialize_SnowDepth
+        td
+          | spatialDataLayer
+        td
+          code
+            | 1
+      tr
+        td
+          | disturbance
+        td
+          | Initialize_SnowDepth
+        td
+          | spatialDataName
+        td
+          code
+            | SnowDepth
+  p
+    | Set the item's remaining parameters based on when you want the initialization to occur, and the name (possibly including path info) of the Grid ASCII (.asc) map file containing intial snow depth values.
+  table
+    thead
+      tr
+        th
+          | Group
+        th
+          | Item
+        th
+          | Parameter
+        th
+          | Value
+    tbody
+      tr
+        td
+          | disturbance
+        td
+          | Initialize_SnowDepth
+        td
+          | initializeActiveJdays
+        td
+          em
+            | Set to the Julian day when snow depth initialization should occur (typically the first day of the year, i.e. 1).
+      tr
+        td
+          | disturbance
+        td
+          | Initialize_SnowDepth
+        td
+          | initializeActiveLoops
+        td
+          em
+            | Set to the simulation loop when snow depth initialization should occur (typically the first simulation loop, i.e. 1).
+      tr
+        td
+          | disturbance
+        td
+          | Initialize_SnowDepth
+        td
+          | initializeActiveYears
+        td
+          em
+            | Set to the simulation year when snow depth initialization should occur (typically the first year of the simulation).
+      tr
+        td
+          | disturbance
+        td
+          | Initialize_SnowDepth
+        td
+          | spatialDataFileFullName
+        td
+          em
+            | Set to the name (possibly including path info) of the snow depth values .asc map file.
+  h2
+    | Weather Model Considerations
+  p
+    | Spatially-explicit snow depths only make sense for spatially-explicit weather models.
+    br
+    |  If your simulation configuration's weather model isn't fully spatially-explicit, the VELMA simulator tries to do something reasonable, but the results may be unintuitive.
+  table
+    thead
+      tr
+        th
+          | Weather Model
+        th
+          | Spatially-Explicit?
+        th
+          | What Happens for SnowDepth initialization
+    tbody
+      tr
+        td
+          | Default Weather Model
+        td
+          | NO
+        td
+          | The SnowDepth for 
+          em
+            | every
+          |  cell is set to the value specified at the outlet cell in the 
+          code
+            | spatialDataFileFullName
+          |  .asc map file.
+      tr
+        td
+          | Multiple-Location Weather Model
+        td
+          | Yes: partially
+        td
+          | All cell in the polygonal region of a given weather station location are set to the value specified at that weather station's location in the 
+          code
+            | spatialDataFileFullName
+          |  .asc map.
+      tr
+        td
+          | Multiple-Weighted-Location Weather Model
+        td
+          | Yes: fully
+        td
+          | All cells are set to the snow depth values in the 
+          code
+            | spatialDataFileFullName
+          |  .asc map.
+      tr
+        td
+          | Spatial Weather Model
+        td
+          | Yes: fully
+        td
+          | All cells are set to the snow depth values in the 
+          code
+            | spatialDataFileFullName
+          |  .asc map.
+  h3
+    | Special Considerations for the Spatial Weather Model
+  p
+    | The Spatial Weather Model (
+    code
+      | SpatialWeatherModel
+    | ) has a legacy parameter, 
+    code
+      | initialSnowDepthFileName
+    | , that allows spatially-explicit snow depth initialization.
+  p
+    | That legacy parameter still works, but it is distinct and separate from initializing snow depth via a Modify-By-Map parameterization. Setting a Spatial Weather Model's 
+    code
+      | initialSnowDepthFileName
+    |  
+    em
+      | and
+    |  configuring a Modify-By-Map parameterization to both initialize snow depth values should not be attempted, because the two separate mechanisms may interfere with each other.
+  p
+    | When you use a Modify-By-Map parameterization to initialize snow depth values for a Spatial Weather Model, set the Spatial Weather Model's 
+    code
+      | initialSnowDepthFileName
+    |  parameter to be blank.
+  p
+    | Although the Spatial Weather Model's 
+    code
+      | initialSnowDepthFileName
+    |  uses a different mechanism than Modify-By-Map parameterizations do, it uses the same Grid .asc map format. You can "update" a legacy VELMA configuration with a Spatial Weather Model that has 
+    code
+      | initialSnowDepthFileName
+    |  set by:
+  ol
+    li
+      | Adding a Modify-By-Map parameterization to your VELMA configuration, with parameters configured as listed above.
+    li
+      | Setting its 
+      code
+        | spatialDataFileFullName
+      |  value to the Spatial Weather Model's 
+      code
+        | initialSnowDepthFileName
+      |  value.
+    li
+      | Setting the Spatial Weather Model's 
+      code
+        | initialSnowDepthFileName
+      |  value to blank.

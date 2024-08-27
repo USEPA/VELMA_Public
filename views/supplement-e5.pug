@@ -1,0 +1,29 @@
+extends layout.pug
+block content
+    h1 E.5 | Irrigation Disturbance
+    div.info.blue-light-1
+        p Overview (Tutorial E.5 - Add Irrigation Disturbance)
+        p This document describes how to build an Irrigation Disturbance in VELMA. This provides a way to add specific amounts of water to specific categories of cells within the simulated watershed, at specific steps during the simulation run, and for specific precipitation conditions.
+    p Use the Irrigation Disturbance routine in VELMA to specify when (Julian days) and where (mapped cell locations) you want to add irrigation water. The irrigation water is added "as-if" it is a rain addition for the specified cell(s). This prevents irrigation water additions from perturbing VELMA's water balance mechanisms.
+    p Note that cell locations to be irrigated are limited to the Cover Types you specify. For example, suppose you wish to irrigate only a subset of grassland areas amongst all "Grassland" cover type areas within the simulated watershed. In that case, you will need to create a cover type named "IrrigatedGrassland" (or something similar), and assign a unique integer to all cells for that new cover type in the watershed's
+    p Cover Type map. Otherwise all cells designated in the Cover Type map as "Grassland" will be irrigated.
+    h3 Using the Irrigation Disturbance
+    p Add an Irrigation Disturbance to your simulation configuration in JVelma via the menu Edit -&gt; Disturbances -&gt; Add a Disturbance item.
+    img(width="506" height="284" alt="screenshot" title="screenshot" src="public/suppImage_292.jpg")
+    p Clicking the &quot;Add a Disturbance&quot; item opens the &quot;Specify Disturbance Model Type and Name&quot; dialog. Select &quot;IrrigationDisturbanceModel&quot; in the dropdown selector as the model type.
+    img(width="493" height="237" alt="screenshot" title="screenshot" src="public/suppImage_293.jpg")
+    p The Disturbance Name can be any meaningful text name, but it can only be composed of letters of the alphabet, the digits 0-9, and the underscore (&quot;_&quot;) character.
+    p It must also be unique from any other disturbances named in the same simulation configuration.
+    p After entering a name for the new Irrigation Disturbance, click the OK button, and JVelma will create a new parameterization group and filter the parameters table view to show only its parameters in the &quot;All Parameters&quot; tab.
+    p Here is an example of a new Irrigation Disturbance, created with the name &quot;Irrigation Test&quot;:
+    img(width="629" height="193" alt="screenshot" title="screenshot" src="public/suppImage_294.jpg")
+    p The example parameterization above schedules irrigation to occur for cells with Cover Type = 1 during the first simulation loop, on the first 3 days of year 1980.
+    p Even during the 3 days of 1980 when irrigation <i>can </i>occur, it will <i>only </i>occur for Cover Type 1 cells in which (irrigationThreshold - totalPrecipitation) &gt; 0.0.
+    p (Where totalPrecipitation is the total precipitation for a given cell on a given day - e.g. if irrigationThreshold = 10.0, but the totalPrecipitation = 5.0, no irrigation occurs even if the cell is otherwise-eligible.)
+    h3 Capturing Irrigation Details in VELMA Simulation Results
+    p To observe how much irrigation occurs (and when it occurs), add a SpatialDataWriter
+    p parameterization for the VERTICAL_WATER_ADDITION pool to your simulation configuration.
+    p Here is an example, configured to emit .asc maps on the same days as the example Irrigation Disturbance configuration given above.
+    img(width="624" height="222" alt="screenshot" title="screenshot" src="public/suppImage_295.jpg")
+    p Be aware that the VERTICAL_WATER_ADDITION pool is shared by other disturbances and simulator engine mechanisms.
+    p If you have Groundwater Storage, or Water Drain Disturbance configured and active in your simulation, the VERTICAL_WATER_ADDITION amounts represent the sum of the contributors than share the pool. (Currently, however, there are no other results reporting mechanisms for irrigation amounts.)

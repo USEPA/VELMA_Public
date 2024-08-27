@@ -1,0 +1,37 @@
+extends layout.pug
+block content
+    h1 II. Changes in VELMA Version 2.0
+    p The original version of VELMA (henceforth referred to as version 1.0 or v1.0) has been previously described (Abdelnour et al. 2011, 2013). VELMA version 2.0 (v2.0), described herein, includes a number of important changes that are designed to facilitate green infrastructure and ecosystem service applications of interest to communities, tribes, land managers and policy makers. In summary, this required:
+    ol
+        li Enhancements to the hydrological and biogeochemical submodels to better simulate effects of green infrastructure management practices on the fate and transport of water, nutrients and toxics across multiple spatial and temporal scales - plots to basins, days to centuries (details below).
+        li A new graphical-user-interface (GUI) to assist novice and experienced model users in scenario development, model calibration, and visualization and interpretation of results.
+        li Rewriting the program code in Java / Eclipse to facilitate debugging and open source (community) model development. The version 1.0 Processing code is no longer supported.
+        li A new user manual (this document) that provides a step-by-step guide to setting up and applying VELMA v2.0.</p>
+    p Details follow on changes to the hydrological and biogeochemical submodels in VELMA v2.0:</p>
+    ol 
+        li Hydrological submodel Evapotranspiration (ET) submodel revised to include
+        ul 
+            li The effect of leaf biomass (surrogate for leaf area); which replaces the submodel for simulating effect of stand age on ET (Abdelnour et al. 2011)
+            li effect of stand age on ET in forest systems</p>
+            li Biogeochemical submodel
+            li Single land cover simulator revised to include multiple land cover types within watersheds</p>
+            li Plant Soil Model (PSM) approach for simulating plant biomass in aggregate (Stieglitz et al. 2006; Abdelnour et al. 2013) replaced by a Leaf-Stem-Root (LSR) submodel that simulates carbon (C) and nitrogen (N) dynamics for leaves, aboveground stems belowground stems, and fine roots (&lt;2 mm diameter).
+            li Decomposition submodel replaced by Potter et al. (1993) submodel and further adapted to work with LSR submodel.</p>
+            li New plant biomass mortality submodel based on changes in NPP/mortality ratio during succession
+            li Plant nitrogen uptake submodel modified to include fine root biomass dynamics
+            li Nitrification and denitrification submodels revised based on unpublished corrections to Del Grosso et al. (2001)</p>
+            li New nitrogen fixation submodel
+            li New atmospheric nitrogen deposition submodel that accounts for time lag between dry deposition on leaf surfaces and subsequent precipitation-driven transfer to plant-available soil nitrogen pools</p>
+            li Improved disturbance submodel and GUI for scheduling and simulating effects of fertilization, harvest, grazing and fire on ecohydrological processes
+        li New spatial climate simulator that includes effects of elevation, slope and aspect on pixel-specific temperature and precipitation</p>
+        li Supporting submodels</p>
+            ol 
+            li DEM processor (PDEM) rewritten in Java with new GUI
+            li New Python software (VELMA Raster Rally GIS toolbox) for preparing spatial data files (DEM, land cover, plant biomass, nutrient pools and soil type maps) for VELMA initialization</p>
+    
+    h4 References
+    ul 
+        li Abdelnour, A., Stieglitz, M., Pan,F., &amp; McKane, R. 2011. Catchment hydrological responses to forest harvest amount and spatial pattern. <i>Water Resources Research </i>47(9).
+        li Abdelnour, A., B McKane, R., Stieglitz, M., Pan, F., &amp; Cheng, Y. (2013). Effects of harvest on carbon and nitrogen dynamics in a Pacific Northwest forest catchment. Water Resources Research 49:1292-1313.
+        li McKane, R.B., A. Abdelnour, A. F. Brookes, C. A. Burdick, K. Djang, T. Jordan, B. Kwiatkowski, F. Pan, W. Peterjohn, M. Stieglitz, and D. Weller. 2012. Identifying green infrastructure BMPs for reducing nitrogen export to a Chesapeake Bay agricultural stream: model synthesis and extension of experimental data. Presented at Ecological Society of America, Portland, OR, August 05 - 10, 2012.
+        li McKane, R.B. 2014. Using VELMA to Quantify and Visualize the Effectiveness of Green Infrastructure Options for Protecting Water Quality. Seminar slide presentation for EPA-ORD Green Infrastructure Seminar Series, July 30, 2014.</p>

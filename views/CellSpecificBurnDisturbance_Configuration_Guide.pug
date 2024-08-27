@@ -1,0 +1,982 @@
+extends layout.pug
+block content
+  h1
+    | Configuring a Cell-Specific Burn Disturbance
+  h2
+    | Overview
+  p
+    | In VELMA, burn disturbances provide a way to mimic the effects of burning biomass and detritus at specific times and locations during a simulation run.
+    br
+    |  VELMA has several different burn disturbance models: this document focuses on the 
+    strong
+      | Cell-Specific
+    |  Burn Disturbance Model, which provides a high degree of specificity for where, when, and how individual cells are affected by burn effects during a simulation run. It is the most configurable burn disturbance available in VELMA, but it can also require the most detailed effort to parameterize.
+  p
+    | The Cell-Specific Burn Disturbance Model allows you to select the burn, volatilized, and below-ground-damage fraction 
+    em
+      | modes
+    |  it will use. These fraction modes are the same for each and every cell the disturbance burns, but their parameterization values may be specified on a per-cell, per-date basis. For example, if you chose 
+    code
+      | DIRECT_VALUE
+    |  for the burn fraction mode, the burn fraction is "calculated" to be simply whatever fractional value you specify (within the range [0.0, 1.0]), but you may specify distinct values for every cell, and for every year,jday that cell will burn. You may also specify a default value, used when there is no cell- or date- specific value.
+    br
+    |  
+    em
+      | (Since specifying specific values significantly complicates the driver data you must provide, try and set the your default value(s) for whatever configuration applies to the majority of cells and dates your burn applies to.)
+  h2
+    | Requirements
+  ul
+    li
+      | One comma-separated values (.csv) driver data file containing location, date, and (optionally) cell-specific bg-damage, burn, and volatilized parameters for the cells when burns will occur during the simulation run. The formatting details of the .csv file are 
+      a
+        | described later
+      |  in this document.
+  h2
+    | Adding and Configuring the Disturbance
+  p
+    | In JVelma add a 
+    code
+      | CellSpecificBurnDisturbanceModel
+    |  parameterization group to your VELMA simulation configuration:
+  ol
+    li
+      | Click the 
+      code
+        | Edit
+      |  --> 
+      code
+        | Disturbances
+      |  --> 
+      code
+        | Add a Disturbance
+      |  menu item.
+      br
+      |  (This opens the "Specify Disturbance Model Type and Name" dialog window.)
+    li
+      | Select the 
+      code
+        | CellSpecificBurnDisturbanceModel
+      |  item from the dialog window's "Disturbance Type" drop-down list.
+    li
+      | Type a name into the "Disturbance Name" text field.
+      br
+      |  The name will become the parameterization group's Item-level identifier.
+      br
+      |  It can be any name that 
+      a
+        | follows the rules
+      |  and that is meaningful to you.
+    li
+      | Click OK to accept your selections, close the dialog window, and add the parameterization group.
+  p
+    | When the parameterization group is added, JVelma shifts the GUI to display the "All Parameters" tab, with column filtering set to show only the newly added group.
+    br
+    |  The group's parameters initially have these default values:
+  table
+    thead
+      tr
+        th
+          | Group
+        th
+          | Item
+        th
+          | Parameter
+        th
+          | Value
+    tbody
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | cellDataFileName
+        td
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | enableAutomaticSpatialReporting
+        td
+          code
+            | false
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | enableFullDataBuffer
+        td
+          code
+            | true
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | initializeActiveLoops
+        td
+          code
+            | 1
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | initializeAgeModification
+        td
+          code
+            | +0
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | modelClass
+        td
+          code
+            | CellSpecificBurnDisturbanceModel
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | setBgDamageFractionMode
+        td
+          code
+            | DIRECT_VALUE
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | setBurnFractionMode
+        td
+          code
+            | DIRECT_VALUE
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | setDefaultBgDamageFractionParameters
+        td
+          code
+            | 0.0
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | setDefaultBurnFractionParameters
+        td
+          code
+            | 0.0
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | setDefaultVolatilizedFractionParameters
+        td
+          code
+            | 0.0
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | setVolatilizedFractionMode
+        td
+          code
+            | DIRECT_VALUE
+      tr
+        td
+          | disturbance
+        td
+          | csb_disturbance
+        td
+          | trimToWatershedBoundary
+        td
+          code
+            | false
+  p
+    | Notes:
+  ul
+    li
+      | The 
+      code
+        | initializeActiveLoops
+      |  parameter's value 
+      em
+        | may
+      |  initially be empty (blank).
+      br
+      |  
+      strong
+        | If it is blank, set it to 
+        code
+          | 1
+        | .
+      |  (unless you have a different, valid value planned).
+      br
+      |  The blank value is an artifact of support for a legacy disturbance parameterization that should not be propagated to new simulation configurations.
+    li
+      | The 
+      code
+        | cellDataFileName
+      |  parameter's value 
+      em
+        | will
+      |  initially be empty (blank).
+      br
+      |  You 
+      em
+        | must
+      |  provide the name of a valid driver data file for this parameter: it is an error to leave it blank.
+    li
+      | In the table above, the rows are ordered by Parameter name.
+      br
+      |  In JVelma's "All Parameters Tab", clicking the "Parameter" column in the GUI's table orders the rows by that column.
+    li
+      | The Item name "csb_disturbance" below is merely an example name.
+  h3
+    | Parameter Details
+  p
+    em
+      | (Parameters appear in a different order here than they do in the table above.)
+  p
+    strong
+      | cellDataFileName
+    br
+    |  The name of the comma-separated value (.csv) driver data file for this burn disturbance. If the name is not a fully-qualified path + name, its location is assumed to be relative to 
+    code
+      | inputDataLocationRootName
+    | /
+    code
+      | inputDataLocationDirName
+    |  location specified in the simulation configuration. Content and formatting details for this file are 
+    a
+      | described later
+    |  in this document.
+  p
+    strong
+      | enableFullDataBuffer
+    br
+    |  When this parameter is set 
+    code
+      | true
+    |  the burn disturbance loads the entire cell driver data file into memory at the start of the simulation. When it is set 
+    code
+      | false
+    | , the burn disturbance loads one year's worth of driver data at the start of each simulation year. Loading all the at once is a bit faster, but if your driver data file is large, it can cause the simulation to run out of memory. For large simulations with large driver data files, set this parameter 
+    code
+      | false
+    | .
+  p
+    strong
+      | initializeActiveLoops
+    br
+    |  The comma-separated list of loop index numbers (range [1, nth-Loop]) in which the disturbance occurs. Entries in the list may be either single loop numbers or start-end (dash-separated) ranges. A valid loop index number is any positive whole number between 1 and the number of loops specified for the simulation run. For example, in a simulation run for 10 loops, the parameter value 
+    code
+      | 1, 3-5, 10
+    |  would trigger the disturbance in loops 1, 3-through-5 (inclusive) and 10.
+  p
+    strong
+      | initializeAgeModification
+    br
+    |  Specifies the number of years to subtract or add to the age of the cover in affected cells when the disturbance occurs.
+  ul
+    li
+      | To set the cell's cover age to a specific number of years, specify a number, n, without any sign prefix.
+    li
+      | To add 
+      em
+        | n
+      |  years to a cell's cover age, prefix a plus (
+      code
+        | +
+      | ) sign to the number 
+      em
+        | n
+      | .
+    li
+      | To subtract 
+      em
+        | n
+      |  years to a cell's cover age, prefix a minus (
+      code
+        | -
+      | ) sign to the number 
+      em
+        | n
+      | .
+      br
+      |  Subtraction halts at zero (e.g. a cover age of 7, given 
+      code
+        | -10
+      |  as the modifier will result in 0, not -3 as the modified age).
+  p
+    | This parameter's default value is 
+    code
+      | +0
+    |  (current cover age + 0), i.e. the distubance makes no change to the cover's age.
+    br
+    |  Be careful of the difference between 
+    code
+      | +0
+    |  ("add zero to current cover age") and 
+    code
+      | 0
+    |  (set the current cover age to zero).
+  p
+    strong
+      | enableAutomaticSpatialReporting
+    br
+    |  Burn disturbances can write serveral spatial data map (.asc) files each time a burn occurs. Set this parameter 
+    code
+      | false
+    |  to prevent writing the maps (to improve running time and reduce disk space required for results), or 
+    code
+      | true
+    |  to write the maps.
+  p
+    strong
+      | trimToWatershedBoundary
+    br
+    |  When set 
+    code
+      | true
+    | , dimensions of any .asc output files are set to the bounding box of the current watershed.
+    br
+    |  When set 
+    code
+      | false
+    | , dimensions of any .asc output files match the dimensions of the original DEM grid.
+    br
+    |  This parameter's default value is 
+    code
+      | false
+    |  (i.e. output to the full DEM grid dimensions).
+    br
+    |  When the enableAutomaticSpatialReporting parameter is set 
+    code
+      | false
+    | , this parameter is ignored.
+    br
+    |  If you are running your simulation configuration under VelmaParalellCmdLine with a large number of sub reaches, or a very large DEM file, either set enableAutomaticSpatialReporting to 
+    code
+      | false
+    | , or set this parameter's value to 
+    code
+      | true
+    | , in order to reduce the amount of disk space used by .asc files output by this disturbance.
+  p
+    strong
+      | setBurnFractionMode
+    br
+    |  Specifies how the value of the burn fraction for this disturbance is calculated, and (implicitly) how many values must be provided for the calculation.
+    br
+    |  This parameter must be set to one of the following "Mode Name" values:
+  table
+    thead
+      tr
+        th
+          | Mode Name
+        th
+          | How the Burn Fraction is computed ...
+    tbody
+      tr
+        td
+          code
+            | DIRECT_VALUE
+        td
+          | As the (single) burn fraction parameter specified by the user.
+      tr
+        td
+          code
+            | SATURATION_BASED
+        td
+          | As an exponential function of the (single) burn fraction parameter and cell first-layer saturation value.
+      tr
+        td
+          code
+            | FUEL_DYNAMIC
+        td
+          | As an exponential function of the (three) burn parameters and cell AgFuel value.
+  p
+    | Default behavior is 
+    code
+      | DIRECT_VALUE
+    | .
+    br
+    |  This parameter MUST be specified completely, exactly and is case-sensitive.
+    br
+    |  (e.g. do NOT set the value to "DIRECT", "DIRECT-VALUE", or "Direct-Value" when you mean "DIRECT_VALUE").
+    br
+    |  Do NOT leave this parameter blank.
+  p
+    strong
+      | setDefaultBurnFractionParameters
+    br
+    |  Specifies the default parameter values used to compute the burn fraction.
+    br
+    |  The burn fraction itself determines how much above-ground biomass and detritus is removed due to burning.
+    br
+    |  
+    strong
+      em
+        | This parameter
+    |  specifies the (one or more) parameter values used to compute that burn fraction.
+    br
+    |  Exactly how many values, and how they are used depends on what the setBurnFractionMode parameter's value is:
+  table
+    thead
+      tr
+        th
+          | Mode Name
+        th
+          | Required<br>Parameters<br>(in order)
+        th
+          | Fraction Equation
+    tbody
+      tr
+        td
+          code
+            | DIRECT_VALUE
+        td
+          code
+            | F
+        td
+          code
+            | F
+      tr
+        td
+          code
+            | SATURATION_BASED
+        td
+          code
+            | K
+        td
+          code
+            | exp(-K * saturationFraction)
+      tr
+        td
+          code
+            | FUEL_DYNAMIC
+        td
+          code
+            | N
+          | , 
+          code
+            | D
+          | , 
+          code
+            | E
+        td
+          code
+            | N / 1 + D * exp(-E * agFuel)
+  p
+    | Values for setDefaultBurnFractionParameters corresponding to a specific setBurnFractionMode value MUST appear in the order specified above.
+    br
+    |  This parameter's value(s) are used only when no cell-specific values are specified for an applicable cell.
+    br
+    |  Do NOT leave this parameter blank.
+  p
+    strong
+      | setVolatilizedFractionMode
+    br
+    |  Specifies how the value of the volatilized fraction for this disturbance is calculated, and (implicitly) how many values must be provided for the calculation.
+    br
+    |  This parameter must be set to one of the following "Mode Name" values:
+  table
+    thead
+      tr
+        th
+          | Mode Name
+        th
+          | How the Volatilization Fraction is computed ...
+    tbody
+      tr
+        td
+          code
+            | DIRECT_VALUE
+        td
+          | As the (single) volitilized fraction parameter specified by the user.
+      tr
+        td
+          code
+            | FUEL_DYNAMIC
+        td
+          | As an exponential function of the (three) burn parameters and cell AgFuel value.
+  p
+    | Default behavior is 
+    code
+      | DIRECT_VALUE
+    | .
+    br
+    |  This parameter MUST be specified completely, exactly and is case-sensitive.
+    br
+    |  (e.g. do NOT set the value to "DIRECT", "DIRECT-VALUE", or "Direct-Value" when you mean "DIRECT_VALUE").
+    br
+    |  Do NOT leave this parameter blank.
+  p
+    strong
+      | setDefaultVolatilizedFractionParameters
+    br
+    |  Specifies the default parameter values used to compute the volatilized fraction.
+    br
+    |  The volatilized fraction itself determines how much of a cell's burned matter is "lost" via volatilization, and how much becomes detritus.
+    br
+    |  
+    strong
+      em
+        | This parameter
+    |  specifies the (one or more) parameter values used to compute that volatilized fraction.
+    br
+    |  Exactly how many values, and how they are used depends on what the setVolatilizedFractionMode parameter's value is:
+  table
+    thead
+      tr
+        th
+          | Mode Name
+        th
+          | Required<br>Parameters<br>(in order)
+        th
+          | Fraction Equation
+    tbody
+      tr
+        td
+          code
+            | DIRECT_VALUE
+        td
+          code
+            | F
+        td
+          code
+            | F
+      tr
+        td
+          code
+            | FUEL_DYNAMIC
+        td
+          code
+            | N
+          | , 
+          code
+            | D
+          | , 
+          code
+            | E
+        td
+          code
+            | N / 1 + D * exp(-E * agFuel)
+  p
+    | Values for setDefaultVolatilizedFractionParameters corresponding to a specific setVolatilizedFractionMode value MUST appear in the order specified above.
+    br
+    |  This parameter's value(s) are used only when no cell-specific values are specified for an applicable cell.
+    br
+    |  Do NOT leave this parameter blank.
+  p
+    strong
+      | setBgDamageFractionMode
+    br
+    |  Specifies how the value of the below-ground ("bg") damage fraction is calculated, and (implicitly) how many values must be provided for the calculation.
+    br
+    |  This parameter must be set to one of the following "Mode Name" values:
+  table
+    thead
+      tr
+        th
+          | Mode Name
+        th
+          | The bg Damage Fraction is computed ...
+    tbody
+      tr
+        td
+          code
+            | DIRECT_VALUE
+        td
+          | The (single) bg damage fraction parameter is directly used as the bg damage fraction.
+      tr
+        td
+          code
+            | FUEL_DYNAMIC
+        td
+          | As an exponential function of the (three) burn parameters and cell AgFuel value.
+  p
+    | Default behavior is 
+    code
+      | DIRECT_VALUE
+    | .
+    br
+    |  This parameter MUST be specified completely, exactly and is case-sensitive.
+    br
+    |  (e.g. do NOT set the value to "DIRECT", "DIRECT-VALUE", or "Direct-Value" when you mean "DIRECT_VALUE").
+    br
+    |  Do NOT leave this parameter blank.
+  p
+    strong
+      | setDefaultBgDamageFractionParameters
+    br
+    |  Specifies the default parameter values used to compute the below-ground ("bg") damage fraction.
+    br
+    |  The bg damage fraction itself determines how much of a cells bg biomass is transferred to bg detritus.
+    br
+    |  
+    strong
+      em
+        | This parameter
+    |  specifies the (one or more) parameter values used to compute that bg fraction. Exactly how many values, and how they are used depends on what the setBgDamageFractionMode parameter's value is:
+  table
+    thead
+      tr
+        th
+          | Mode Name
+        th
+          | Required<br>Parameters<br>(in order)
+        th
+          | Fraction Equation
+    tbody
+      tr
+        td
+          code
+            | DIRECT_VALUE
+        td
+          code
+            | F
+        td
+          code
+            | F
+      tr
+        td
+          code
+            | FUEL_DYNAMIC
+        td
+          code
+            | N
+          | , 
+          code
+            | D
+          | , 
+          code
+            | E
+        td
+          code
+            | N / 1 + D * exp(-E * agFuel)
+  p
+    | Default behavior is 
+    code
+      | DIRECT_VALUE
+    | .
+    br
+    |  This parameter MUST be specified completely, exactly and is case-sensitive.
+    br
+    |  (e.g. do NOT set the value to "DIRECT", "DIRECT-VALUE", or "Direct-Value" when you mean "DIRECT_VALUE").
+    br
+    |  Do NOT leave this parameter blank.
+  p
+    strong
+      | modelClass
+    br
+    |  This parameter's value is the actual Java class name of this disturbance model.
+    br
+    |  It should be set to the correct value by default -- leave this parameter alone.
+  h2
+    | Driver Data File Format
+  h4
+    | Format Summary
+  p
+    | A Cell-Specific Burn Disturbance Model's driver data file specifies which cells are affected, when those cells are affected, and (optionally) specific details of how a cell is affected at a given simulation step.
+  p
+    | The file must contain rows of comma-separated values.
+    br
+    |  Unlike some VELMA input files, a Cell-Specific Burn Disturbance driver data file 
+    strong
+      em
+        | CANNOT
+    |  contain a header text row.
+    br
+    |  
+    em
+      | All
+    |  rows in the file must have the following format:
+  pre
+    code
+      | iCell [year jDayRange gCount [p0ID p0Count p0_0 .. p0_n] .. [pnID pnCount pn_0 .. pn_n]] .. [year ..] 
+  p
+    | Where:
+  table
+    thead
+      tr
+        th
+          | Field
+        th
+          | Parses to ..
+        th
+          | Description / Notes
+    tbody
+      tr
+        td
+          | iCell
+        td
+          | Integer
+        td
+          | The linear index of a cell in the current simulation's watershed delineation.
+      tr
+        td
+          | year
+        td
+          | Integer
+        td
+          | A "full" year value (e.g. for year 1998 specify, 
+          code
+            | 1998
+          |  NOT 
+          code
+            | 98
+          | ).
+      tr
+        td
+          | jDayRange
+        td
+          | IntegerRange
+        td
+          | An Julian Day value (e.g. 
+          code
+            | 31
+          | ) or range-pair (e.g. 
+          code
+            | 90-180
+          | ).
+      tr
+        td
+          | gCount
+        td
+          | Integer
+        td
+          | The number of parameter groups associated with the prior iCell, year, jDayRange triplet.
+      tr
+        td
+          | pID
+        td
+          | String
+        td
+          | parameter group ID
+      tr
+        td
+          | pCount
+        td
+          | Integer
+        td
+          | The number of parameter fields
+      tr
+        td
+          | p_0 .. p_n
+        td
+          | Double
+        td
+          | Exactly pCount number of fields, each of which must parse to a Double value.
+      tr
+        td
+          | [ .. etc ]
+        td
+        td
+  p
+    | Notes:
+  ul
+    li
+      | Each row 
+      strong
+        | MUST
+      |  start with a valid iCell value.
+    li
+      | Each row 
+      strong
+        | MUST
+      |  contain at least one sequence of [year, jDayRange, gCount] values.
+    li
+      | Each [year, jDayRange, gCount] sequence 
+      strong
+        em
+          | can
+      |  contain one or move "parameter groups" (as specified by a gCount value > 0).
+    li
+      | Fields that parse to Integer must be numeric, integer values (e.g. 1 is OK, but 1.0 is NOT ok).
+    li
+      | Fields that parse to Double must be numeric, floating point values.
+    li
+      | An IntegerRange can either be a single positive Integer value, or a pair of positive Integer values separated by a dash. No whitespace is allowed between the dash and the numbers.
+    li
+      | Julian Day values must be within the Integer range of [1, 366]. Specifying the jdayRange as 
+      code
+        | 1-366
+      |  (i.e. "every day of the year") is acceptable even for years that are 
+      em
+        | not
+      |  leap years.
+  p
+    | A "parameter group" (
+    em
+      | not the same thing as a disturbance "parameterization group" -- the naming similarity is unfortunate
+    | ) consists of 2 or more fields that provide the parameter values for one of the following aspect's of the disturbance.
+    br
+    |  A parameter group's first field is always its group identifier ("pID").
+  table
+    thead
+      tr
+        th
+          | pID
+        th
+          | pCount is Tied to Mode ...
+        th
+          | Parameters Affect ...
+    tbody
+      tr
+        td
+          | 1
+        td
+          | setBurnFractionMode
+        td
+          | How the burn fraction is computed, and thus, how much above-ground biomass and detritus are burned.
+      tr
+        td
+          | 2
+        td
+          | setVolatilizedFractionMode
+        td
+          | How the volatilized fraction is computed, and thus, the distribution of the burned amount between volatilized and ash components.
+      tr
+        td
+          | 3
+        td
+          | setBgDamageFractionMode
+        td
+          | How the below-ground damage fraction is computed, and thus, how much below-ground biomass is damaged (i.e. transferred to detritus).
+  p
+    | Its second field is always the number of parameter fields in the group ("pCount"), 
+    em
+      | not
+    |  including the pID and pCount fields.
+    br
+    |  The number of parameter fields a parameter group must have (i.e. its pCount field's value) depends upon the value of the Mode disturbance parameter it is tied to (as listed in the table above).
+  h4
+    | Example Formats
+  p
+    strong
+      | All Cells Default
+    br
+    |  If your simulation can use the same burn, volatilized, and bgDamage fractions at every cell, the contents of the driver data file are greatly simplified. Suppose your simulation needs to burn 3 cell locations (
+    code
+      | 1001
+    | , 
+    code
+      | 1010
+    | , 
+    code
+      | 1011
+    | ) in 2 different years: (
+    code
+      | 1989
+    | , 
+    code
+      | 1993
+    | ), during the first week of November (
+    code
+      | 305-311
+    | ) in each year. The disturbance's setDefault[...]FractionParameters allow you set burn, volatilized, and bgDamage fraction equation parameters that are appliable whenever cell-specific values aren't provided in the driver data file. Since all your cells need the same parameter values, you can rely on the Default(s) and skip including any of these parameter values in the file.
+    br
+    |  For this example, your file format would look like this:
+  pre
+    |                 
+    code
+      | 
+                    1001,1989,305-311,0,1993,305-311,0
+                    1010,1989,305-311,0,1993,305-311,0
+                    1011,1989,305-311,0,1993,305-311,0
+                
+    | 
+            
+  p
+    | The ",0" values above are the gCount values, and they indicate that there are no parameterization groups associated with the cells and dates where and when burning occurs. Instead, the burn disturbance will use the setDefault[...]FractionParameters for parameter values to compute the burn, volatilized, and bgDamage fractions.
+  p
+    strong
+      | All Cells Need Specific Parameters for All Fractions
+    br
+    |  This is the opposite of the "All Default" example. Suppose your simulation must burn the same 3 cell locations (
+    code
+      | 1001
+    | , 
+    code
+      | 1010
+    | , 
+    code
+      | 1011
+    | ) at the same dates, but now every cell has its own distinct parameter values for its burn, volatilized, and bgDamage fraction equation parameters. Also suppose that your disturbance has its mode parameter values set as: setBurnFractionMode=
+    code
+      | SATURATION_BASED
+    | , setBgDamageFractionMode=
+    code
+      | FUEL_DYNAMIC
+    | , and setBgDamageFractionMode=
+    code
+      | DIRECT_VALUE
+    | . For this example your file format might look like this:
+  pre
+    code
+      | 1001, 1989,305-311, 1,1,0.50, 2,3,0.10,0.25,1.20, 3,1,0.63, 1993,305-311, 1,1,0.33, 2,3,0.15,0.30,1.11, 3,1,0.24
+1010, 1989,305-311, 1,1,0.33, 2,3,0.08,0.35,1.15, 3,1,0.45, 1993,305-311, 1,1,0.40, 2,3,0.27,0.30,1.50, 3,1,0.30
+1011, 1989,305-311, 1,1,0.70, 2,3,0.20,0.15,1.00, 3,1,0.60, 1993,305-311, 1,1,0.42, 2,3,0.08,0.30,0.85, 3,1,0.55
+
+  p
+    em
+      | (Note: the extra whitespace in the example text above is only for readability in this example: do not include extra whitespace in actual driver data files.)
+    br
+    |  Here is the first line of the driver data above, with explicit labeling applied to the parameterization groups' fields of the first year,day entry:
+  pre
+    code
+      | 1001, 1989,305-311, 1,1,0.50, 2,3,0.10,0.25,1.20, 3,1,0.63, (... etc ...)
+                    | | |     | | |    |    |     | | |
+                    | | |     | | |    |    |     | | bgDamageFractionParemeter value F (for DIRECT_VALUE mode)
+                    | | |     | | |    |    |     | bgDamageFractionParameter pCount
+                    | | |     | | |    |    |     bgDamageFractionParameter pID
+                    | | |     | | |    |    |
+                    | | |     | | |    |    volatilizationFractionParameter value E (for FUEL_DYNAMIC mode)
+                    | | |     | | |    volatilizationFractionParameter value D (for FUEL_DYNAMIC mode))
+                    | | |     | | volatilizationFractionParameter value N (for FUEL_DYNAMIC mode))
+                    | | |     | volatilizationFractionParameter pCount 
+                    | | |     volatilizationFractionParameter pID
+                    | | |
+                    | | burnFractionParameter value K (for SATURATION_BASED mode)
+                    | burnFractionParameter pCount
+                    burnFractionParameter pID
+
+  h2
+    | Additional Information
+  h3
+    | Disturbance Name Rules
+  p
+    | The name you provide for a disturbance parameterization group must follow these rules:
+  ul
+    li
+      | Must begin with a letter
+    li
+      | After the first letter, must consist entirely of letter, digit, dash ("-"), and underscore characters ("_").
+      br
+      |  No other characters are allowed.
+      br
+      |  Do NOT include whitespace or other punctuation characters (e.g. ":") in Disturbance Names.
+    li
+      | Must be unique to a given disturbance parameterization group.

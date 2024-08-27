@@ -1,0 +1,196 @@
+extends layout.pug
+block content
+    h1 E.1 | Mapping Surface Layer Permeabilities
+    div.info.blue-light-1
+        p Overview (Tutorial E.1 - Mapping Surface Layer Permeabilities)
+        p Permeability of surface layers is an important property affecting infiltration of rainfall and surface runoff and accompanying dissolved contaminants and nutrients.
+        p This document describes how to parameterize VELMA's non-soil surface layer to represent the degree of permeability of overlying human structures (roads, roofs, compacted soils, etc.) and natural features (surficial bedrock, etc.) to water and dissolved chemicals.
+    h2 1.0. Permeability Basics
+    p The VELMA simulator engine allows specification of a spatial data map (grid) with permeability fractions as its cell values. When specified, the grid's permeability fractions are included in determining how much of a cell's total water inflow (from rain, snow melt, lateral surface movement, etc.) penetrates into the first layer of its layered soil column.
+    p Permeability fraction values must be in the range [0.0, 1.0], where 0.0 is completely impermeable (no water penetrates from surface to soil layer 1) and 1.0 is completely permeable (all water penetrates from surface to soil layer 1).
+    h3 1.1. Permeability Values Are Not Required by the VELMA Simulator
+    p Permeability is <i>not </i>the sole factor determining how much water penetrates from surface into the first soil layer. The soil layer's saturation, porosity and other parameters determine the primary amount of water transferred from surface to the layer. A cells permeability fraction is a secondary factor that may further reduce the primary amount.
+    p When a VELMA simulation configuration does not specify a permeability grid, the VELMA simulator engine behaves as if every cell has a permeability of 1.0 - i.e. no secondary reduction of the penetration water amount occurs.
+    h3 1.2. Specify Permeability Values for Each Simulation Grid Cell in a Permeability Map File
+    p The permeability grid map must be a Grid ASCII (.asc) file with the same header data as the DEM .asc file specified for the simulation configuration. The permeability grid file's data values must be floating point numbers, each one within the range [0.0, 1.0].
+    h3 1.3. Specify the Simulation's Permeability Map File via a Configuration Parameter
+    p Set the permeability fractions for the cells of the grid by providing the name of the permeability .asc map file as the value of the permeabilityFractionsFileName Calibration parameter.
+    
+    p You can find this parameter by entering "^perm" (without the double-quote marks) into the middle
+    p filter text box on JVelma's "All Parameters" panel, like so:
+    img(width="625" height="137" alt="screenshot" title="screenshot" src="public/suppImage_266.jpg")
+    p The Value for the permeabilityFractionsFileName parameter must be the name of an existing, accessible, valid Grid ASCII (.asc) file containing permeability fractions. If the Value provided is a fully- qualified path, the simulator will look for the .asc file at that location, with that filename. If the Value provided is a partial path or only a file name, the simulator will look for a file with specified name relative to the location specified by the inputDataLocationRootName/inputDataLocationDirName parameters.
+    h2 2.0. How to Establish Pervious Surfaces for a VELMA Application
+    h3 2.1. Data Sources
+    p <a href="https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdata-wadnr.opendata.arcgis.com%2Fdocuments%2Fwadnr-active-roads-download%2Fabout&amp;data=04%7C01%7CBrookes.Allen%40epa.gov%7C3809701a66f54535fa1f08da142522c7%7C88b378b367484867acf976aacbeca6a7%7C0%7C0%7C637844447436937706%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0&amp;sdata=Bo9nkUMgVDXVrHLle2dxo%2Bi959WXAF2gSItOAauEbJk%3D&amp;reserved=0">Washington Transportation, Proprietary Roads (Statewide) - </a>https://data-<a href="https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdata-wadnr.opendata.arcgis.com%2Fdocuments%2Fwadnr-active-roads-download%2Fabout&amp;data=04%7C01%7CBrookes.Allen%40epa.gov%7C3809701a66f54535fa1f08da142522c7%7C88b378b367484867acf976aacbeca6a7%7C0%7C0%7C637844447436937706%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0&amp;sdata=Bo9nkUMgVDXVrHLle2dxo%2Bi959WXAF2gSItOAauEbJk%3D&amp;reserved=0"> </a><a href="https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdata-wadnr.opendata.arcgis.com%2Fdocuments%2Fwadnr-active-roads-download%2Fabout&amp;data=04%7C01%7CBrookes.Allen%40epa.gov%7C3809701a66f54535fa1f08da142522c7%7C88b378b367484867acf976aacbeca6a7%7C0%7C0%7C637844447436937706%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0&amp;sdata=Bo9nkUMgVDXVrHLle2dxo%2Bi959WXAF2gSItOAauEbJk%3D&amp;reserved=0">wadnr.opendata.arcgis.com/documents/wadnr-active-roads-download/about</a>
+    ul 
+        li Washington State Department of Natural Resources (WA DNR)
+        li National Elevation Dataset (30m) (DEM) - Flat processed by JPDEM
+        li U.S. Geological Survey, The National Map, 2015, 3DEP products and services
+    h3 2.2. Data Processing
+    p A fractional pervious surface map is created by using a combination of impervious layer map(s) and an area of interest (AOI) DEM. The pervious surface maps permeability percent values will range from 0 to 1, where 0 completely impervious and 1 being completely pervious. Layers such as road polylines or raster green infrastructures are converted to a user resolution that is finer or equal to the resolution of the AOI raster, and must have the exact same extent of the AOI raster<b>. </b>For instance, a user would determine the appropriate road or impervious surface width (10m, 5m, 3m, 2.5m, or 1m etc.), all of which would evenly divide into a 30m processed DEM / AOI ASCII. The AOI raster may be of any resolution, as long as the impervious surface raster evenly divides into it. To illustrate, a 30m AOI that is 50 rows by 100 columns could be evenly divided by a 10m impervious surface ASCII that was 150 rows by 300 columns. When converting polylines, polygons, or rasters, as with all VELMA layers, they must be locked (snap) to the AOI to ensure proper overlap and alignment of higher resolution cells with the AOI.
+    p The perviousness of finer resolution maps will be weighted by their cell size ratio to the AOI DEM when data is aggregated to the AOI map resolution. For example, to derive a 30m cell's fraction perviousness, the number of higher resolution cells that are analyzed as road are summed together and then divided by the total number of cells. That percentage is then subtracted from 1. 1 being completely pervious and 0 entirely impervious. With the scenario drawn in Figure 1, this single 30m cell would evaluate to 1 -
+    p (15 / 36) = 58% or 1 - (8/9) = 11 % perviousness depending on whether a 10m or 5m road grid were used. An example of a processed permeability fraction map can be seen in Figure 2.
+    p Multiple impervious map layers can be aggregated and weighted together to create the permeability map (Figure 3). When calculating the permeability value for a particular cell with multiple overlapping impervious cell values, the layers must be ordered or ranked by precedence of the layer's influence. In figure 3 the "Roads" layer is ranked first and the "Green I." layer ranked last. The "Roads" layer's imperviousness value is 100% and the "Green I." layer's impervious cells values are 50%, and if any cells overlap each other the 100% value from the "Roads" layer will be used to calculate the partial influence of the 10m area that it represents in the permeability map's 30m cell (Figure 3).
+    img(width="605" height="283" alt="figure 1" title="figure 1" src="public/suppImage_267.png")
+    p Figure 25. 30m cell overlap of 10m and 5m road grid.
+    img(width="619" height="460" alt="image" src="public/suppImage_268.png")
+    p Figure 26. Processed permeability fraction map.
+    img(width="562" height="438" alt="image" src="public/suppImage_269.png")
+    p Figure 27 Aggregating multiple impervious surface maps into the permeability layers.
+    
+    h3 2.3. Software Requirements and Processing
+    p To run and produce the processed permeability fraction map (ASCII) from the "roads" or impervious surface layer (ASCII), you will need the following:
+    ol 
+        li Python version 2.x: Current release is 2.7.11 <a href="https://www.python.org/download/releases/2.7/">1. Python comes pre-packaged within ArcGIS, so it is likely you already have it installed on your computer. For example, a default install is currently here: C:\Python27\ArcGIS10.2\python.exe. Check to see if you have Python installed before installing a new version. If Python is not installed, you can obtain a copy here: </a>https://www.python.org/download/releases/2.7/ Note that Python 2.7 is currently considered safe for use on U.S. EPA network and non-network computers.
+        li  ASCII Map requirements:
+            ol 
+                li AOI or processed DEM ASCII raster that matches the VELMA modeling resolution.
+                li Pervious/impervious surface rasters in ASCII format (.asc).Impervious surface cell values set equal to 1 or greater, all other non-pervious and no-data cells values set to -9999, which is the default ERSI ASCII nodata value.These map(s) should match the exact extent of the AOI / DEM ASCII regardless if they are higher resolution.
+                li For each impervious surface map, the user will have to determine how permeable that surface is. Permeability fraction values must be in the range [0.0, 1.0], where 0.0 is completely impermeable (no water penetrates from surface to soil layer 1) and 1.0 is completely permeable (all water penetrates from surface to soil layer 1).
+                li Output filename to be determined by the user.
+        li The permeability fraction algorithm: "Permeability_algorithm.py" and can be run on the Command Prompt line with Python. This script requires, at minimum, one impervious surface map with a corresponding percent permeability, one AOI map, and one output file name. The script is designed to allow the user to input multiple impervious surface maps and their corresponding percent permeability.
+    h4 <u><i>NOTE - The order of the input impervious maps determines their cell value assignment rank when</i></u><i> </i><u><i>creating the pervious surface output map.</i></u><i> </i>The fist map argument takes precedence over the following maps, and so on for the next map listed. In the example below, if the "roads_5m.asc" has cell values that overlap "green_infrastructure_10m.asc" values, the "roads_5m.asc" pervious percentage will therefor win over the "green_infrastructure_10m.asc" values.
+    p Command prompt input example:
+    p "python .\Permeability_algorithm.py -IMP C:\Temp\roads_5m.asc -PERC 0 -IMP C:\Temp\green_roof_3m.asc -PERC .5
+    p -IMP C:\Temp\green_infrastructure_10m.asc -PERC .25
+    p -AOI C:\Temp\ws1_30m_larger_flatalt.asc -OUT C:\Temp\perm.asc"
+    p "python C:\Path\To\Permeability_algorithm.py -help" for exact arguments (Figure 4).
+    img(width="594" height="152" alt="figure 4" title="figure 4" src="public/suppImage_270.jpg")
+    p Figure 28. Command line example of running the pervious surface map algorithm
+    p L. The permeability fraction algorithm also can be run from a Python development environment such as IDLE, by editing the default arguments paths of the inputs and outputs in the python code (Figure 4).
+    img(width="624" height="203" alt="figure 5" title="figure 5" src="public/suppImage_271.jpg")
+    p Figure 29. Default arguments paths.
+    h2 Scripts
+    p # Pervious_Fraction_Algorithm.py # Author: Paul Pettus, Kevin Djang # Date: 10-11-2016
+    p # Description: To create a percentage / fraction permeable surface #
+    p # Output is a cell size ascii grid that matches the resolution of the AOI # with percentage values that range from 1 to 0.
+    p #
+    p # Example, either a 5m and 10m imperv map grids are overlaid and divide evenly into # a 30m grid, and cells that evaluate as imperv are counted up and divided
+    p # by the total overlaid cells under the 30m grid cell. From which that
+    p # percentage imperv cover is subtract from 1, 1 being completely permeable # and 0 being completely impermeable.
+    p # #
+    p # Note: Cells classified as &quot;Roads&quot; or &quot;Impermeable&quot; must have a value &gt;= 1, # while permeable cells must have a classified value of -9999
+    p #
+    p # Last updated: 6-8-2017
+    p import os, sys, numpy, re, argparse
+    p # Error message class class Usage(Exception):
+    p def init (self, msg):
+    p self.msg = msg
+    p # Import an ascii file with header and array class myASCIIFile:
+    p def init (self,asciiFile):
+    p if not os.path.exists(asciiFile):
+    p raise Usage(&#39;Cannot find ASCII &quot;&#39; + asciiFile + &#39;&quot;&#39;)
+    p # Open file and read in header info readFile = open(asciiFile)
+    p self.header = readFile.readline() #ncols self.header += readFile.readline() #nrows
+    p self.header += readFile.readline() #xllcorner self.header += readFile.readline() #yllcorner self.header += readFile.readline() #cellsize self.header += readFile.readline() #NODATA_value readFile.close()
+    p self.headerList = self.header.rsplit() self.ncols = int(self.headerList[1]) #ncols self.nrows = int(self.headerList[3]) #nrows
+    p self.xllcorner = float(self.headerList[5]) #xllcorner self.yllcorner = float(self.headerList[7]) #yllcorner self.cellsize = float(self.headerList[9]) #cellsize self.NODATA = float(self.headerList[11]) #NODATA_value
+    p self.array = numpy.loadtxt(asciiFile, skiprows=6, dtype= numpy.float64) # ASCII data to numpy array def main(argv=None):
+    p if argv is None:
+    p argv = sys.argv
+    p try:
+    p parser = argparse.ArgumentParser(description=&#39;Outputs a percent permeability surface map&#39;+ &#39; from one to many impermeable file layer inputs and&#39; +
+    p &#39; percentage arguments.&#39;)
+    p parser.add_argument(&#39;-IMP&#39;, action=&#39;append&#39;, dest=&#39;impermFILE&#39;,default=[], help=&#39;Fully-qualified path + name of &quot;.asc&quot; impermeable cover file.&#39; + &#39; Add repeated values to a list.&#39;)
+    p parser.add_argument(&#39;-PERC&#39;, action=&#39;append&#39;, dest=&#39;impermPERC&#39;,default=[], help=&#39;Percent permeability of the impermeable surface raster (0-1).&#39; + &#39; Add repeated values to a list.&#39;)
+    p parser.add_argument(&#39;-AOI&#39;, action=&#39;store&#39;, dest=&#39;aoiFILE&#39;,default=&#39;D:/Temp/ArgTest/dem_30m_aoi_flat.asc&#39;, help=&#39;Fully-qualified path + name of &quot;.asc&quot; AOI / DEM.&#39;)
+    p parser.add_argument(&#39;-OUT&#39;, action=&#39;store&#39;, dest=&#39;outFILE&#39;,default=&#39;D:/Temp/ArgTest/Output/output.asc&#39;, help=&#39;Fully-qualified path + name of &quot;.asc&quot; output file.&#39;)
+    p args = parser.parse_args() # args parsing
+    p impermFileList = args.impermFILE
+    p percentList = args.impermPERC aoiFile = os.path.abspath(args.aoiFILE)
+    p outFile = os.path.abspath(args.outFILE)
+    p # do the work
+    p percentPervious(impermFileList, percentList, aoiFile, outFile)
+    p except Usage as e:
+    p print(e.msg) return 2
+    p except Exception as e:
+    p # STUB exception handler
+    p # Warning: poor programming style.
+    p # Catches almost any exception (but not KeyboardInterrupt -- which is a Good Thing) raise e
+    p def percentPervious(impermFiles, percentPerm, aoiFile = None, outFile = None): # <img width="342" height="1" alt="image" src="public/suppImage_273.png" )p # Modify default or single run input and output files, impervs ascii, AOI raster, and output file.
+    p if len(impermFiles) == 0:
+    p impermFiles = [&#39;D:/Temp/ArgTest/ASCII/roads_5m.asc&#39;, &#39;D:/Temp/ArgTest/ASCII/green_roof_3m.asc&#39;,
+    p &#39;D:/Temp/ArgTest/ASCII/green_infrastructure_10m.asc&#39;] if len(percentPerm) == 0:
+    p percentPerm = [&#39;0&#39;,&#39;.5&#39;,&#39;.25&#39;]
+    p if aoiFile is None:
+    p aoiFile = &quot;D:/Temp/ArgTest/ASCII/ws1_30m_larger_flatalt.asc&quot;
+    p if outFile is None:
+    p outFile = &quot;D:/Temp/ArgTest/Output/output_9.asc&quot;
+    p # Check that AOI file exists if not os.path.exists(aoiFile):
+    p raise Usage(&#39;Cannot find AOI file &quot;&#39; + aoiFile + &#39;&quot;&#39;)
+    p # Check that all impermeable rasters exist for item in impermFiles:
+    p if not os.path.exists(item):
+    p raise Usage(&#39;Cannot find impermeable file &quot;&#39; + item + &#39;&quot;&#39;)
+    p # Check that the number of permeable layer match the percentage input. if len(impermFiles) != len(percentPerm):
+    p raise Usage(&#39;Number of permeable layers do not match percentage inputs!&#39;) print (&quot;Starting pervious calculations.&quot;)
+    p # read in AOI header and retrive cell size aoiAscii = myASCIIFile(aoiFile)
+    p # Empty list to hold all of the impervious layers cell sizes impervCellSizes = []
+    p for itemAscii in impermFiles:
+    p # Read in each impervious file impermAscii = myASCIIFile(itemAscii)
+    p # Verify that the columns are evenly divisible into the AOI if int(impermAscii.ncols) % int(aoiAscii.ncols) != 0:
+    p raise Usage(&quot;Columns don&#39;t divide evenly. &quot; + itemAscii)
+    p # Verify that the rows are evenly divisible into the AOI if int(impermAscii.nrows) % int(aoiAscii.nrows) != 0:
+    p raise Usage(&quot;Rows don&#39;t divide evenly. &quot; + itemAscii)
+    p # Verify that the cell sizes are evenly divisible into the AOI if float(aoiAscii.cellsize) % float(impermAscii.cellsize) != 0:
+    p raise Usage(&quot;Cells sizes do not divide evenly. &quot; + itemAscii)
+    p # read in imperv file header and retrive cell size impervCellSizes.append(int(impermAscii.cellsize))
+    p # Find the finest resolution cell size minCellSize = min(impervCellSizes)
+    p # Get the greatest common divisor of cell sizes def gcd(*numbers):
+    p &quot;&quot;&quot;Return the greatest common divisor of the given integers&quot;&quot;&quot; from fractions import gcd
+    p return reduce(gcd, numbers)
+    p # Get the greatest common divisor of cell sizes greatCommonD = apply(gcd,impervCellSizes)
+    p print(&quot;Greatest Common Divisor cell size: &quot;, greatCommonD)
+    p # Calculate number or rows and cols for the finest resolution array / raster maxIpermRow = int(int(aoiAscii.nrows) * (float(aoiAscii.cellsize) / greatCommonD)) maxIpermCol = int(int(aoiAscii.ncols) * (float(aoiAscii.cellsize) / greatCommonD))
+    p # Create the highest resolution array
+    p # This array will hold all the imperious values for all layers impermOverlapArray = numpy.zeros((maxIpermRow, maxIpermCol))
+    p # Load input files as arrays aoiArray = aoiAscii.array impervArray = impermAscii.array
+    p # create empty output array row, col = aoiArray.shape
+    p outArray = numpy.zeros((row,col)) percentPosition = 0
+    p # Loop through all the impervious files for itemAscii in impermFiles:
+    p print(&quot;Starting imperv layer :&quot;, itemAscii)
+    p # flip percentPerm to percentage impermeable so that empty or zero values in # impermOverlapArray Array values can be evaluated as processed or empty
+    p # impermeable values will be converted to permeable values after all # layers have been processed
+    p percentImperm = 1 - float(percentPerm[percentPosition])
+    p # Read in impervious surface file impermAscii = myASCIIFile(itemAscii)
+    p # Calculate the ratio of imperv cells to finest resolution imperv raster cell size cellRatio = int(float(impermAscii.cellsize)/float(greatCommonD))
+    p # Calculate number of imperv cells per current imperv raster cell impervCellsToSmall = cellRatio * cellRatio
+    p # For each imperm layer cell assign a percent impervios value to the impermOverlapArray if cellRatio != 1:
+    p for i in xrange(int(impermAscii.nrows)):
+    p for j in xrange(int(impermAscii.ncols)):
+    p cellValue = impermAscii.array[i,j]
+    p # Check that the cell has a value that is not NODATA if cellValue != -9999:
+    p # Loop through the over lapped impermOverlapArray cells, e.g. 30m / 5m = 6x6 overlap for r in xrange(cellRatio):
+    p for c in xrange(cellRatio):
+    p impervRow = (i*cellRatio) + (r) impervCol = (j*cellRatio) + (c)
+    p # imperm cell has a value of &gt; 0, completely permeable cells have a value of 0 # if a impermeable cell values over lap, the first layer argument will take
+    p # priority and assign its value first. Poor Programing :( if impermOverlapArray[impervRow,impervCol] == 0:
+    p # Assign value to master array impermOverlapArray[impervRow,impervCol] = percentImperm
+    p # else: Ratio is equal to 1 else:
+    p for i in xrange(int(impermAscii.nrows)):
+    p for j in xrange(int(impermAscii.ncols)):
+    p cellValue = impermAscii.array[i,j]
+    p # imperm cell has a value of &gt; 0, completely permeable cells have a value of 0
+    p # if a impermeable cell values over lap, the first layer argument will take # priority and assign its value first. Poor Programing :(
+    p # Check that the cell has a value that is not NODATA if cellValue != -9999:
+    p # Assign value to master array impermOverlapArray[i,j] = percentImperv
+    p # increment the position of the percent list percentPosition = percentPosition + 1 print(&quot;Completed imperv layer :&quot;, itemAscii)
+    p # Get the ratio of the impermOverlapArray cells to AOI raster cells aoiOverlapRatio = int(float(aoiAscii.cellsize)/float(greatCommonD))
+    p print(&quot;Creating pervious map :&quot;, outFile)
+    p # For each aoi cell calculate the percentage permeable for i in xrange(row):
+    p for j in xrange(col):
+    p # impermSum holds the total of all imperm cell values set to zero each loop impermSum = 0
+    p # Loop through the over lapped impervious cells, e.g. 30m / 5m = 6x6 overlap for r in xrange(aoiOverlapRatio):
+    p for c in xrange(aoiOverlapRatio):
+    p impervRow = (i*aoiOverlapRatio) + (r) impervCol = (j*aoiOverlapRatio) + (c) # retrieve cell value
+    p cellValue = impermOverlapArray[impervRow,impervCol] # add cell value to impermSum
+    p impermSum = impermSum + cellValue
+    p # Calculate pervious percentage from impervious values, converted back to pervious
+    p permeableValue = 1 - (impermSum / (aoiOverlapRatio * aoiOverlapRatio)) # Calculate pervious percentage # Assign pervious value to output array
+    p outArray[i,j] = permeableValue
+    p # Open output file
+    p f = open(outFile, &quot;w&quot;)
+    p # Write AOI header to output file f.write(aoiAscii.header)
+    p # Save values array to output file numpy.savetxt(f, outArray, fmt=&quot;%f&quot;) f.close()
+    p print(&quot;Done!&quot;)
+    p if __name__ == "__main__": sys.exit(main())

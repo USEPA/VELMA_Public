@@ -1,0 +1,479 @@
+extends layout.pug
+block content
+    h1 D.7b | Statistical Climate Addendum: Development of Statistical Models Based on Monthly PRISM / Daymet Data
+    div.info.blue-light-1
+        p Overview <i>(Tutorial D.7b - Addendum to Spatial Climate Statistics)</i>
+        p VELMA requires daily temperature and precipitation climate data to accurately simulate hydrologic processes in watersheds, such as runoff and soil moisture dynamics. Therefore, the accuracy of hydrologic predictions will largely depend upon the proximity of climate a station(s) to the simulated watershed or portions therein. Especially for large watersheds having steep climatic gradients - mountains and coastal areas, for example - climate data need to be at relatively fine spatial resolution (e.g., 1 km2) to accurately capture snow dynamics, runoff and other processes.
+        p This document describes methods for dealing with sparse climate station data. New methods are introduced for improving the estimation of statistical parameters for the VELMA Spatial Weather Model previously described in Appendix 5 of McKane et al. (2014). These new methods include generating daily pseudo weather station driver data for areas of interest that lack ground-based weather stations.
+        p Reference:
+        p McKane, R.; Brookes, A.; Djang, K.; Stieglitz, M.; Abdelnour, A.; Pan, F.; Halama, J.; Pettus, P.; Phillips, D. (2014) Velma User Manual and Technical Documentation, 2nd ed.; U.S. Environmental Protection Agency Office of Research and Development National Health and Environmental Effects Research Laboratory: Corvallis, OR.
+    h2 Procedure 1 - Generate statistical parameters
+    p Following the Spatial Weather Model methodology, correlation coefficients were generated from 800m resolution PRISM 30-year monthly temperature and precipitation normals for 1981- 2010 (PRISM, 2013). Correlation models were build based on a single independent variable, elevation. Gridded PRISM data were downscaled to match the 30m digital elevation modeled data. Relational models were then generated for each 30 year normal month cell to its corresponding elevation cell of the AOI. Monthly models were developed for both mean air temperature and precipitation, for each AOI. Revised intercept and slope values were used to complete both the "Air Temperature Coefficients File" and the "Precipitation Coefficients File", which are needed for the VELMA Spatial Weather Configuration. Unfitted parameters such as heat index and flow accumulation were set to zero, since they were unmodeled. The results are summarized in Table 1 and Table 2. All regression equations were created using R statistics package (Appendix 1).
+    
+    h4 Table 1. Mashel River Basin, WA
+    table
+        thead
+            th Parameter
+            th Intercept
+            th Slope
+            th R^2
+        tr
+            td X01_ppt
+            td 131.1239
+            td 0.165175
+            td 0.626577
+        tr
+            td X02_ppt
+            td 86.67763
+            td 0.086708
+            td 0.61712
+        tr
+            td X03_ppt
+            td 115.3467
+            td 0.08018
+            td 0.531575
+        tr
+            td X04_ppt
+            td 87.67271
+            td 0.069019
+            td 0.714808
+        tr
+            td X05_ppt
+            td 64.68459
+            td 0.077026
+            td 0.848851
+        tr
+            td X06_ppt
+            td 42.64319
+            td 0.077571
+            td 0.881703
+        tr
+            td X07_ppt
+            td 17.00757
+            td 0.036384
+            td 0.874514
+        tr
+            td X08_ppt
+            td 25.5493
+            td 0.017223
+            td 0.763215
+        tr
+            td X09_ppt
+            td 33.77266
+            td 0.050396
+            td 0.850796
+        tr
+            td X11_ppt
+            td 151.339
+            td 0.157905
+            td 0.62436
+        tr
+            td X12_ppt
+            td 128.1081
+            td 0.110864
+            td 0.534228
+        tr
+            td X01_mt
+            td 5.306282
+            td -0.00422
+            td 0.87001
+        tr
+            td X02_mt
+            td 5.815265
+            td -0.00429
+            td 0.889654
+        tr
+            td X03_mt
+            td 7.904366
+            td -0.0051
+            td 0.919949
+        tr
+            td X04_mt
+            td 10.30037
+            td -0.00507
+            td 0.9252
+        tr
+            td X05_mt
+            td 13.6444
+            td -0.00504
+            td 0.924011
+        tr
+            td X06_mt
+            td 16.35791
+            td -0.00495
+            td 0.925487
+        tr
+            td X07_mt
+            td 18.90406
+            td -0.004
+            td 0.907101
+        tr
+            td X08_mt
+            td 19.22824
+            td -0.00397
+            td 0.893755
+        tr
+            td X09_mt
+            td 16.23177
+            td -0.00365
+            td 0.870096
+        tr
+            td X10_mt
+            td 11.42558
+            td -0.00365
+            td 0.872491
+        tr
+            td X11_mt
+            td 7.16671
+            td -0.00427
+            td 0.88421
+        tr
+            td X12_mt
+            td 4.495029
+            td -0.00412
+            td 0.866289
+
+
+    table 
+        tr 
+            td Parameter
+            td Intercept
+            td Slope
+            td R^2
+        tr
+            td X01_ppt
+            td 156.8465
+            td 0.340983
+            td 0.873725
+        
+        tr
+            td X02_ppt
+            td 104.9198
+            td 0.209417
+            td 0.867981
+        
+        tr
+            td X03_ppt
+            td 118.9242
+            td 0.241798
+            td 0.878695
+        
+        tr
+            td X04_ppt
+            td 101.0095
+            td 0.174351
+            td 0.876515
+        
+        tr
+            td X05_ppt
+            td 91.96905
+            td 0.123868
+            td 0.854035
+        
+        tr
+            td X06_ppt
+            td 70.32923
+            td 0.10755
+            td 0.854376
+        
+        tr
+            td X07_ppt
+            td 32.10464
+            td 0.059888
+            td 0.86893
+        
+        tr
+            td X08_ppt
+            td 28.56578
+            td 0.062882
+            td 0.872201
+        
+        tr
+            td X09_ppt
+            td 59.68145
+            td 0.114886
+            td 0.865976
+        
+        tr
+            td X10_ppt
+            td 115.1068
+            td 0.198013
+            td 0.87521
+        
+        tr
+            td X11_ppt
+            td 194.4334
+            td 0.356659
+            td 0.874651
+        
+        tr
+            td X12_ppt
+            td 152.0708
+            td 0.273897
+            td 0.868276
+        
+        tr
+            td X01_mt
+            td 4.973876
+            td -0.00426
+            td 0.889799
+        
+        tr
+            td X02_mt
+            td 5.770962
+            td -0.00439
+            td 0.900742
+        
+        tr
+            td X03_mt
+            td 7.638908
+            td -0.00501
+            td 0.918905
+        
+        tr
+            td X04_mt
+            td 9.851594
+            td -0.00459
+            td 0.907267
+        
+        tr
+            td X05_mt
+            td 13.03208
+            td -0.00482
+            td 0.921168
+                
+        tr
+            td X06_mt
+            td 15.6836
+            td -0.00476
+            td 0.920645
+        
+        tr
+            td X07_mt
+            td 18.31654
+            td -0.00379
+            td 0.912681
+        
+        tr
+            td X08_mt
+            td 18.68841
+            td -0.00389
+            td 0.916803
+        
+        tr
+            td X09_mt
+            td 15.68156
+            td -0.00357
+            td 0.896509
+        
+        
+        tr
+            td X10_mt
+            td 11.23656
+            td -0.00382
+            td 0.911043
+        
+        tr
+            td X11_mt
+            td 6.95446
+            td -0.00444
+            td 0.89201
+        
+        tr
+            td X12_mt
+            td 4.201191
+            td -0.00419
+            td 0.884903
+        
+    
+    h2 Procedure 2 - Daily weather drivers
+    p Pseudo weather stations were created to solve the problem of when there is no ground observational climate data within AOI. These data are also need to properly parametrize the regression driver data of the VELMA spatial weather model. Daily Gridded Weather Data (Daymet) is a national climate data set that was developed in part from NASA funding, for the years of 1980 - 2014, and is widely used in the scientific community (Thorton et al., 2014). It models daily air temperature and precipitation at a higher 1 km x 1 km spatial resolution, compared to the 4 km x 4 km spatial resolution climate data that is publicly available from the PRISM group (PRISM, 2013).
+    p Pseudo weather stations were created by choosing a semi homogenous elevation area within the AOI that was overlaid by one 1 km Daymet cell. Using the latitude and longitude of the cell, daily precipitation and air temperature data was downloaded for the temporal period of interest. This daily Daymet modeled data was then used as an observed "weather station" within the AOI. This cell location would be used as the "Prime Cell" by its center DEM cell x- and-y coordinates as part of the Spatial Weather Model's parameterization.
+    img(width="625" height="391" alt="image" src="public/suppImage_225.png")
+    p As an example, the Mowich SNOTEL weather station that is several KM north and east of the Mashel river basin in Washington was used to explore the effectiveness of this process. 1998 - 2014 SNOTEL from this station along with Daymet modeled climate for these days was plotted to explore fit ground observations vs modeled climate. Results are summarized in Figure 1 and Figure 2.
+    p Figure 17 Daymet modeled air temperature vs overserved Mowich, WA SNOTEL data.
+    img(width="625" height="448" alt="image" src="public/suppImage_226.png")
+    p Figure 18. Daymet modeled precipitation vs overserved Mowich, WA SNOTEL data.
+    h2 Addendum - Procedure 2 - Daily weather drivers
+    p Pseudo station Daymet climate data for water years 1995 and 1999 were compared to two observed SNOTEL climate sites in the Tolt river basin, Alpine Meadows and Skookum. Daily observations of precipitation (mm / day) were accumulated over the water year starting at October 1st and plotted out against Daymet model data at Longitude and Latitudes 1km cells at the location each SNOTEL site. 10 day moving average lines were added to daily comparisons of mean air temperature observations and Daymet models temperatures at those locations.
+    p The same mean daily average temperature and precipitation comparison were made between the two SNOTEL sites.
+    img(width="621" height="240" alt="Figure 3" title="Figure 3" src="public/suppImage_227.jpg")
+    p Figure 19 Accumulated precipitation, Daymet vs Alpine Meadows SNOTEL.
+    img(width="621" height="240" alt="figure 4" title="figure 4" src="public/suppImage_228.jpg")
+    p Figure 20 Accumulated precipitation, Daymet vs Skookum SNOTEL.
+    img(width="620" height="240" alt="figure 5" title="figure 5" src="public/suppImage_229.jpg")
+    p Figure 21 Accumulated precipitation, Alpine Meadows vs Skookum SNOTEL
+    img(width="624" height="240" alt="figure 6" title="figure 6" src="public/suppImage_230.jpg")
+    p Figure 22 Daily air temperature, Daymet vs Alpine Meadows
+    img(width="624" height="240" alt="figure 7" title="figure 7" src="public/suppImage_231.jpg")
+    p Figure 23 Daily air temperature, Daymet vs Skookum
+    img(width="624" height="240" alt="figure 8" title="figure 8" src="public/suppImage_232.jpg")
+    p Figure 24 Daily air temperature, Skookum vs Alpine Meadows SNOTEL
+    h4 References
+    p <a href="http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf">PRISM Climate Group (2013) Descriptions of PRISM Spatial Climate Datasets for the Conterminous United States. In. PRISM Climate Group, Oregon State University, Corvallis, Oregon, http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf</a>
+    p Thornton, P.E., M.M. Thornton, B.W. Mayer, N. Wilhelmi, Y. Wei, R. Devarakonda, and R.B. Cook. 2014. Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 2. Data set. Available on-line [https://daac.ornl.gov] from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, USA.
+    p <a href="http://www.wcc.nrcs.usda.gov/snow/snotel-precip-reports.html">United States Department of Agriculture, National Water and Climate Center. SNOTEL Precipitation Products. http://www.wcc.nrcs.usda.gov/snow/snotel-precip-reports.html</a>
+    h2 Appendix
+    p # Regression model between the weather variables (temperature and precipitation) and the # physiographic variables
+    p climate&lt;-read.csv(&quot;D:/Temp/Tolt/ToltClimate.csv&quot;,header=TRUE) climVar&lt;-names(climate)
+    p # Retrieve the site names
+    p for (i in climVar) { print(i)
+    p }
+    p ln&lt;-length(names(climate))
+    p # Simple plotting of each site, temp vs date
+    p # Modify output/create output directory for plots m &lt;- list()
+    p for (i in 1:ln) {
+    p fit &lt;- lm(climate[,i] ~ climate[,25])
+    p fit &lt;- lm(X01_ppt~ele, data = climate) fitAtt&lt;-summary(fit) models$climVar[i]&lt;-fitAtt
+    p directory=&quot;D:/Temp/Tolt/&quot;
+    p r2&lt;- = round(fitAtt$adj.r.squared)
+    p outname&lt;-paste(directory,climVar[i],&quot;.jpg&quot;,sep=&quot;&quot;)
+    p jpeg(filename=outname,width=675,height=675,quality=100) #newdata&lt;-subset(wqdata, Site==i)
+    p ylabel &lt;- paste(climVar[i],&quot; (mm)&quot;, sep=&quot;&quot;)
+    p plot(climate[,i] ~ climate[,25],ylab=ylabel,xlab=&quot;Elevation (m)&quot;) abline(coef(fit)[1:2],col=&quot;red&quot;)
+    p ## rounded coefficients for better output cf &lt;- round(coef(fit), 3)
+    p ## sign check to avoid having plus followed by minus for negative coefficients eq &lt;- paste0(climVar[i], &quot; = &quot;, cf[1],
+    p ifelse(sign(cf[2])==1, &quot; + &quot;, &quot; - &quot;), abs(cf[2]), &quot; ele R^2: &quot;, round(r2,3) mtext(eq, 3, line=1)
+    p dev.off()
+    p }
+    p # SNOTEL_Daymet_Climate_Comparison.r # Author: Paul Pettus
+    p # Purpose:
+    p # Compare Daymet modeled and SNOTEL ground station # observations of precipitation and mean air temperature #
+    p ################################################################ # Plots 1995 1999
+    p # Skookum
+    p inFile&lt;-&quot;E:/SNOTEL/NRCS_Daymet_Daily_Skookum_Alpine_1995_1999.csv&quot;
+    p dfdmNRCS = read.csv(inFile,header=TRUE,sep=&quot;,&quot;)
+    p dfdmNRCS$Date &lt;- as.Date(dfdmNRCS$Date, format=&quot;%m/%d/%Y&quot;)
+    p jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Daymet_Daily_TAVG_1995_1999.jpg&quot;
+    p jpeg(filename=jpegFile,width=2000,height=800,quality=100) yLab &lt;- &quot;Mean Temperature (c)&quot;
+    p xLab &lt;- &quot;Date&quot; mainTitle &lt;- &quot;Skookum&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)
+    p f21 &lt;- rep(1/11,11)
+    p y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_DM, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)
+    p y_sym &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)
+    p legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()
+    p jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Skookum_PPT_Accumulation_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)
+    p yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;
+    p mainTitle &lt;- &quot;Skookum&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)
+    p legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()
+    p # Alpine Meadows
+    p jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Alpine_Daymet_Daily_TAVG_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)
+    p yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;
+    p mainTitle &lt;- &quot;Alpine Meadows&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)
+    p f21 &lt;- rep(1/11,11)
+    p y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Alp_DM, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)
+    p y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)
+    p legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()
+    p jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Alpine_PPT_Accumulation_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)
+    p yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;
+    p mainTitle &lt;- &quot;Alpine Meadows&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle)
+    p lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2) legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()
+    p # Apline Meadows vs Skookum
+    p jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_Daily_TAVG_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)
+    p yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;
+    p mainTitle &lt;- &quot;SNOTEL Sites&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)
+    p f21 &lt;- rep(1/11,11)
+    p y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)
+    p y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)
+    p legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()
+    p jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_PPT_Accumulation_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)
+    p yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;
+    p mainTitle &lt;- &quot;SNOTEL Sites&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)
+    p legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()
+    p #######################################################3
+    p # Plots 1994 2015
+    p inFile&lt;-&quot;E:/SNOTEL/NRCS_Daymet_Daily_Skookum_Alpine_1995_2015.csv&quot; dfdmNRCS = read.csv(inFile,header=TRUE,sep=&quot;,&quot;)
+    p dfdmNRCS$Date &lt;- as.Date(dfdmNRCS$Date, format=&quot;%m/%d/%Y&quot;)
+    p jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Daymet_Daily_TAVG_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)
+    p yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;
+    p mainTitle &lt;- &quot;Skookum&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)
+    p f21 &lt;- rep(1/11,11)
+    p y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_DM, f21, sides=2)
+    p lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)
+    p y_sym &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)
+    p legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()
+    p jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Skookum_PPT_Accumulation_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)
+    p yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;
+    p mainTitle &lt;- &quot;Skookum&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)
+    p legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()
+    p # Alpine Meadows
+    p jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Alpine_Daymet_Daily_TAVG_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)
+    p yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;
+    p mainTitle &lt;- &quot;Alpine Meadows&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)
+    p f21 &lt;- rep(1/11,11)
+    p y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Alp_DM, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)
+    p y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)
+    p legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()
+    p jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Alpine_PPT_Accumulation_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)
+    p yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;
+    p mainTitle &lt;- &quot;Alpine Meadows&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)
+    p legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()
+    p # Apline Meadows vs Skookum
+    p jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_Daily_TAVG_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)
+    p yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;
+    p mainTitle &lt;- &quot;SNOTEL Sites&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)
+    p f21 &lt;- rep(1/11,11)
+    p y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)
+    p y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)
+    p legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()
+    p jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_PPT_Accumulation_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)
+    p yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;
+    p mainTitle &lt;- &quot;SNOTEL Sites&quot;
+    p plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)
+    p legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()
+    p # tolt_plot_8-11-2016.r # Author: Paul Pettus
+    p # Purpose:
+    p # Create Daymet 30 year normal regressions of Mean air temperature # and precipitaion in the Greater Tolt river basin, WA
+    p #
+    p #climate&lt;-read.csv(&quot;D:/Temp/Mashel/MashelClimate.csv&quot;,header=TRUE)
+    p climate&lt;-read.csv(&quot;C:/Temp/Daymet_Tolt/Tolt_Beyond_Climate.csv&quot;,header=TRUE)
+    p #climate&lt;-read.csv(&quot;C:/Temp/Daymet_Tolt/Tolt_Beyond_Climate_Mean_Elevation.csv&quot;,header=TRUE)
+    p #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Over_1000m/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Under_1000m/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Over_500m/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Under_500m/&quot;
+    p directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean/&quot;
+    p climVar&lt;-names(climate) head(climate)
+    p ##################################################################
+    p # Climate subsets
+    p #climate &lt;- subset(climate, ele &gt;= 1000) #climate &lt;- subset(climate, ele &lt; 1000) #climate2 &lt;- subset(climate, ele &gt;= 500) #climate2 &lt;- subset(climate, ele &lt; 500)
+    p head(climate)
+    p # Calapooia site temperature date times # Retrieve the site names
+    p for (i in climVar) {
+    p print(i)
+    p }
+    p ln&lt;-length(names(climate))
+    p # Simple plotting of each site, temp vs date
+    p # Modify output/create output directory for plots
+    p #################################################
+    p models &lt;- list() for (i in 1:ln) {
+    p fit &lt;- lm(climate[,i] ~ climate[,25])
+    p #fit &lt;- lm(X01_ppt~ele, data = climate) val&lt;-climVar[i]
+    p models[[val]]&lt;-fit fitAtt&lt;-summary(fit)
+    p #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions/&quot; r2&lt;- round(fitAtt$adj.r.squared,3)
+    p #print(r2) #
+    p outname&lt;-paste(directory,climVar[i],&quot;.jpg&quot;,sep=&quot;&quot;)
+    p jpeg(filename=outname,width=675,height=675,quality=100) #newdata&lt;-subset(wqdata, Site==i)
+    p ylabel &lt;- paste(climVar[i],&quot; (mm)&quot;, sep=&quot;&quot;) xlabel&lt;- &quot;Elevation (m)&quot;
+    p plot(climate[,i] ~ climate[,25],ylab=ylabel,xlab=xlabel) abline(coef(fit)[1:2],col=&quot;red&quot;)
+    p ## rounded coefficients for better output cf &lt;- round(coef(fit), 3)
+    p # r2 &lt;- round(r2, 2)
+    p ## sign check to avoid having plus followed by minus for negative coefficients eq &lt;- paste0(climate[i], &quot; = &quot;, cf[1],
+    p ifelse(sign(cf[2])==1, &quot; + &quot;, &quot; - &quot;), abs(cf[2]), &quot; ele R^2: &quot;, r2)
+    p eq
+    p mtext(eq, 3, line=1) dev.off()
+    p }
+    p #outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Over_1000m/Tolt_Model_Summary_Beyond_Over_1000m.csv&quot; #outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Under_1000m/Tolt_Model_Summary_Beyond_Under_1000m.csv&quot; #outFile2&lt;- &quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Over_500m/Tolt_Model_Summary_Elevation_Mean_Over_500m.csv&quot; #outFile2&lt;- &quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Under_500m/Tolt_Model_Summary_Elevation_Mean_Under_500m.csv&quot;
+    p outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond/Tolt_Model_Summary_Beyond.csv&quot;
+    p #outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean/Tolt_Model_Summary_Beyond_Elevation_Mean.csv&quot;
+    p for (i in 1:length(models)) { modname &lt;-names(models[i]) cf&lt;-coef(models[[i]])
+    p rsq&lt;-summary(models[[i]])$adj.r.squared cat( paste(modname,cf[1],cf[2],rsq,sep=&#39;,&#39;)
+    p ,&#39;\n&#39;,file=outFile2,append=TRUE)
+    p }

@@ -1,0 +1,73 @@
+extends layout.pug
+block content
+    h1 B.8 | JPDEM for Viewing Map Differences
+
+    div.info.blue-light-1
+        p Overview <span>(B.8 - JPDEM Viewing Map Differences)</span>
+        p This tutorial explains how to use JPDEM to compare elevation differences within a DEM before and after it is flat-processed. This quality assurance (QA) step allows users to assess the veracity of
+        p <a href="https://www.usgs.gov/core-science-systems/ngp/national-hydrography/nhdplus-high-resolution">JPDEM's flat-processing procedure. That is, where and to what extent did JPDEM alter the elevations of cells within the DEM? Note that this procedure is but a first step in a QA process that may include comparisons of a flat-processed DEM to other types of data not included in this tutorial. For example, does the flat-processed DEM provide flow routing (Facc values - see Tutorial B.3) consistent with mapped stream locations represented by the National Hydrography Dataset (NHD; </a><span>https://www.usgs.gov/core-science-systems/ngp/national-hydrography/nhdplus-high-resolution</span>)?
+    
+    p The JPDEM application's File menu contains a "Load Map Data For DIFF" item that provides a way to compare two DEM files across all cells (the maps must have the same dimensions). Although its' abilities are rudimentary relative to comparisons you could perform with true GIS systems (e.g. ESRI's tools) JPDEM's DIFFerencing function is a quick way to - for instance - compare a flat-processed map against the original, raw DEM map. (This is, in fact, precisely the use-case for which the DIFF function was added.)
+    p The DIFF function allows you to load a second DEM .asc file after loading a first .asc file.
+    p The DIFF function replaces the first DEM file's cell data with the difference between the second and the first file's cell data, at every cell. After the DIFF function is completed, JPDEM's cell data contains the
+    p difference values, and the display automatically shifts to the "DEM Difference Image Rendering Mode" -
+    p cells that differ should be relatively easy to spot in this mode.
+    h3 A DIFF Example
+    p Starting Assumption: e=we have both an original, raw DEM map .asc file, <i>and </i>have already flat- processed that DEM map in JPDEM and saved the results into a second .asc file that is also available.
+    p The DIFF function calculates per cell differences as New Value - Current Value, where "New Value" refers to the file loaded for DIFF. To express the differences between an original .asc DEM file and a flat- processed .asc version of that DEM file such that a positive change in the processed .asc is expressed as a positive value, we should load the original DEM file first, then load the processed DEM file as the DIFF file.
+
+    
+    h4 Step 1
+    p Load the original DEM file, using File -&gt; "Load Map File Data" -&gt; "Load as Raw Map File".
+
+    img(width="590" height="161" alt="screenshot" title="screenshot" src="public/suppImage_130.jpg" )
+    p It <i>is </i>possible to use "Load as DEM File", but when possible, load the original and the diff file as "raw"
+    p data.
+    p In the "Select DEM File to Load" dialog that opens, find the original raw DEM .asc file, select it, and click "Load File" to load it into JPDEM as the current map data.
+    h4 Step 2
+    p Load the flat-processed DEM file, using File -&gt; "Load Map Data for DIFF" -&gt; "Load as Raw Map File".
+
+    img(width="594" height="161" alt="screenshot" title="screenshot" src="public/suppImage_131.jpg" )
+    p The flat-processed .asc file takes on the role as the "diff" map, the original .asc file is the current map.
+    p Because the DIFF function replaces JPDEM's current map data with difference values, a warning dialog opens before the difference map file finder dialog:
+
+    
+
+    img(width="589" height="300" alt="screenshot" title="screenshot" src="public/suppImage_132.jpg" )
+    p Click OK to proceed to the "Select Raw File to Load for DIFF" dialog and "Load File" load the diff file.
+    p After the cell differences are calculated, JPDEM will contain (and display) the differences for each cell in the grid. The DEM Difference Image Rendering view is active:
+    <span>diff file cell value &lt; map cell value = RED (darker -&gt; more negative)</span>
+    <span>diff file cell value = map cell value = WHITE</span>
+    <span>diff file cell value &gt; map cell value = GREEN (darker -&gt; more positive)</span>
+    <span>The current Outlet cell = GRAY</span>
+    <span>Highlighted cells = CYAN</span>
+
+    
+    p Here is a comparison of our original raw DEM, the flat-processed DEM, and the difference display:
+    p Original DEM (raw loaded) Flat-Processed DEM (raw loaded)
+
+    img(width="258" height="334" alt="screenshot" title="screenshot" src="public/suppImage_133.jpg")
+    img(width="257" height="333" alt="screenshot" title="screenshot" src="public/suppImage_134.jpg" )
+    p Difference (Flat - Raw) Display
+    img(width="259" height="335" alt="screenshot" title="screenshot" src="public/suppImage_135.jpg" )
+
+    p The DIFF display clearly indicates the areas of the map that have been altered by flat processing.
+    h4 Step 3
+    p After the DIFF function has completed, JPDEM's current map data is the set of cell difference values. You can view an individual cell's values by clicking on a cell with the mouse right-button. The Facc and fdir values, if nonzero, are invalid, but the difference value is listed as the cell's "dem=" value:
+
+    img(width="586" height="431" alt="screenshot" title="screenshot" src="public/suppImage_136.jpg" )
+
+    p Use the View -&gt; "Highlight Specific Cells in Image" -&gt; "Specify Cells by Value Range" function to find
+    p differences within a specific range of difference.
+    p Here we want to find all cells raised between 1.0 and 7.5 meters relative to the original DEM:
+
+    
+
+    img(width="586" height="305" alt="screenshot" title="screenshot" src="public/suppImage_137.jpg" )
+
+    
+    p The result highlights the specified cells in cyan, rather than the usual "pepto-pink":
+
+    img(width="586" height="431" alt="screenshot" title="screenshot" src="public/suppImage_138.jpg" )
+
+    p <a href="https://www.usgs.gov/core-science-systems/ngp/national-hydrography/nhdplus-high-resolution">As noted in the Overview (page 1), this difference mapping procedure is but a first step in a QA process that may include comparisons of a flat-processed DEM to other types of data not included in this tutorial. For example, does the flat-processed DEM provide flow routing (Facc values - see Tutorial B.3) consistent with mapped stream locations represented by the National Hydrography Dataset (NHD; </a><span>https://www.usgs.gov/core-science-systems/ngp/national-hydrography/nhdplus-high-resolution</span>)?

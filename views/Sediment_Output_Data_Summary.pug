@@ -1,0 +1,259 @@
+extends layout.pug
+block content
+  h1
+    | VELMA Sediment Prototype Output Data Summary
+  h2
+    | Overview
+  p
+    | The VELMA sediment prototype model simulates transfer of detritus leaf and top-layer humus via lateral movement of surface water.
+  p
+    | When a VELMA simulation includes the sediment model parameterization, sediment-specific data columns are automatically added in the DailyResults.csv and AnnualResults.csv output files.
+  p
+    | Sediment-specific data columns are also automatically added in any CellDataWriter .csv output files specified by CellDataWriter parameterization in the configuration.
+  p
+    | No SpatialDataWriter .asc map files are automatically generated, but users may add SpatialDataWriter parameterizations that specify sediment-specific data to their simulation configurations.
+  h2
+    | Details
+  h3
+    | Spatially-Explicit Data
+  p
+    | The sediment model computes and maintains per-simulation-step ("per-day"), spatially-explicit data for detritus leaf and top-layer humus sediment transportation amounts, as well as the delta (flux) of detritus leaf and humus at each cell.
+  table
+    thead
+      tr
+        th
+          | Type of Value
+        th
+          | Meaning
+    tbody
+      tr
+        td
+          | "Lateral In"
+        td
+          | The total amount added to the cell, transported (in millimeters) from uphill-adjacent cells during the simulation step.
+      tr
+        td
+          | "Lateral Out"
+        td
+          | The total amount removed from the cell and transported (in millimeters) to downhill-adjacent cells during the simulation step.
+      tr
+        td
+          | "Delta"
+        td
+          | The cell's ("Lateral In" - "Lateral Out") amount (in milligrams per square meter) for the day.
+  p
+    | The spatially-explicit per-step data may be identified with the following keynames:
+  pre
+    code
+      | DETRITUS_LEAF_SEDIMENT_LATERAL_IN
+      | DETRITUS_LEAF_SEDIMENT_LATERAL_OUT
+      | DETRITUS_LEAF_SEDIMENT_DELTA
+      | HUMUS_SEDIMENT_LATERAL_IN
+      | HUMUS_SEDIMENT_LATERAL_OUT
+      | HUMUS_SEDIMENT_DELTA
+
+  p
+    | Users can generate maps of sediment spatial data values by adding SpatialDataWriter parameterizations to their simulation configuration, and using the keynames above as values for the 
+    code
+      | initializeSpatialDataSources
+    |  parameter.
+  p
+    | In CellDataWriter .csv files, cell-specific sediment data values for each simulation step are reported in the following columns:
+  pre
+    code
+      | Detritus_Leaf_Sediment_Lateral_In(mm/day)
+      | Detritus_Leaf_Sediment_Lateral_Out(mm/day)
+      | Detritus_Leaf_Sediment_Delta(mgN/m2/day)
+      | Humus_Sediment_Lateral_In(mm/day)
+      | Humus_Sediment_Lateral_Out(mm/day)
+      | Humus_Sediment_Delta(mgN/m2/day)
+      | Sediment_Humus_T1(gN/m2)
+
+  p
+    em
+      | Note: the
+    |  
+    code
+      | Sediment_Humus_T1
+    |  *data column is only available in CellDataWriter output. It cannot be specified as output data for SpatialDataWriter map output. Its 
+    em
+      | value is the amount of top-layer Humus available in a cell prior to sediment transfer. This value is necessary for VELMA parallel mode runs (and is used by VELMA in that mode), but may otherwise be ignored.
+  h3
+    | Temporal Data
+  p
+    | The sediment model computes per-simulation-step ("per-day") "VSA" and "Loss" values for detritus leaf and humus. These values are computed for the entire watershed and are solely applicable for the watershed's outlet location (i.e. the cell coordinates specified by the simulation configuration's 
+    code
+      | outx
+    |  and 
+    code
+      | outy
+    |  coordinates).
+  p
+    | Their calculation involves distinquishing between "channel" and "NONchannel" cells. To VELMA, a "channel" cell is any cell whose log(flow accumulation value) meets or exceeds a specified threshold.
+  p
+    strong
+      | VSA
+    |  is computed as: the sum of all channel-cell Lateral Out amounts, divided by the number of cells in the watershed.
+  p
+    strong
+      | Loss
+    |  is computed as: the sum of all NONchannel-to-channel Lateral Out amounts, 
+    em
+      | plus
+    |  VSA, divided by the number of cells in the watershed.
+  p
+    | The VSA and Loss values are reported in the DailyResults.csv and AnnualResults.csv files in the following data columns:
+  pre
+    code
+      | Detritus_Leaf_Sediment_VSA(gN/m2/day)_Delineated_Average
+      | Detritus_Leaf_Sediment_Loss(gN/m2/day)_Delineated_Average
+      | Humus_Sediment_VSA(gN/m2/day)_Delineated_Average
+      | Humus_Sediment_Loss(gN/m2/day)_Delineated_Average
+
+  p
+    | VSA and Loss values are 
+    em
+      | only
+    |  computed for the "final" (
+    code
+      | outx
+    | , 
+    code
+      | outy
+    | ) outlet cell of a simulation configuration 
+    em
+      | unless
+    |  the simulation configuration is run using VelmaSimulatorParallelCmdLine.
+    br
+    |  A simulation configuration run using JVelma or VelmaSimulatorCmdLine will 
+    em
+      | not
+    |  compute or report sediment VSA and Loss values for sub-reach outlets specified for 
+    code
+      | initialReachOutlets
+    | .
+  h3
+    | Additional Detailed Temporal Data
+  p
+    | When the sediment model's 
+    code
+      | enableCategorizedLossTransfersReport
+    |  parameter is set to 
+    code
+      | true
+    | , VELMA reports additional VSA-and-Loss-related values in the results folder's global trace log file (default name "GlobalTraceLog.csv", but user-renamable via the 
+    code
+      | csvTraceLogFileName
+    |  parameter). The addtional values provide details about how the final detritus leaf and humus VSA and Loss values were calculated. This can be useful for understanding how much of a watershed's overal Loss amounts are due to channel-cell transfers versus NONchannel-cell transfers.
+  p
+    | Be aware that this additional data generates one additional row of output per simulation step in the global trace log .csv file 
+    em
+      | and
+    |  in the global state log .txt file, and that these additional rows are echoed to the simulation's console (whether in JVelma or a command line via 
+    code
+      | stdout
+    | ). For simulations configured to run for many years (i.e. many steps), this may mean the simulation takes appreciably longer to run, as that additional data is written its console, global state, and global trace. It also means that the global state and global trace log files will be larger.
+  p
+    | The column headers for the data reported (from left-to-right) are:
+  pre
+    code
+      | FINEST
+      | doSurfaceStepEnd
+      | iStep
+      | LOSS_TRANSFER_REPORT
+      | Transfer_Count_DetritusLeaf(gN/m2/day)_NONchannel_to_NONchannel
+      | Transfer_Count_DetritusLeaf(gN/m2/day)_NONchannel_to_Channel
+      | Transfer_Count_DetritusLeaf(gN/m2/day)_Channel_to_NONchannel
+      | Transfer_Count_DetritusLeaf(gN/m2/day)_Channel_to_Channel
+      | Transfer_Amount_DetritusLeaf(gN/m2/day)_NONchannel_to_NONchannel
+      | Transfer_Amount_DetritusLeaf(gN/m2/day)_NONchannel_to_Channel
+      | Transfer_Amount_DetritusLeaf(gN/m2/day)_Channel_to_NONchannel
+      | Transfer_Amount_DetritusLeaf(gN/m2/day)_Channel_to_Channel
+      | DetritusLeaf(gN/m2/day)_VSA_TOTAL
+      | DetritusLeaf(gN/m2/day)_LOSS_TOTAL
+      | Transfer_Amount_Humus(gN/m2/day)_NONchannel_to_NONchannel
+      | Transfer_Amount_Humus(gN/m2/day)_NONchannel_to_Channel
+      | Transfer_Amount_Humus(gN/m2/day)_Channel_to_NONchannel
+      | Transfer_Amount_Humus(gN/m2/day)_Channel_to_Channel
+      | Humus(gN/m2/day)_VSA_TOTAL
+      | Humus(gN/m2/day)_LOSS_TOTAL
+
+  ul
+    li
+      p
+        | The 
+        code
+          | iStep
+        |  column value is the simulation step value, and matches the 
+        code
+          | Step
+        |  column value in DailyResults.csv file. Use it to synchronize between records from these two files.
+    li
+      p
+        | The 
+        code
+          | FINEST
+        | , 
+        code
+          | doSurfaceStepEnd
+        | , and 
+        code
+          | LOSS_TRANSFER_REPORT
+        |  columns are constants that identify the logging level, simulator method, and logging data respectively. The global trace log file may contain many different types of data rows: use these columns to identify and isolate the loss transfer rows.
+        br
+        |  Example for a Window Powershell command-line:
+        br
+        |  
+        code
+          | C:\Users\me\VELMA\my_run_results> (Select-String -Pattern ",LOSS_TRANSFER_REPORT," .\GlobalTraceLog.csv).Line
+    li
+      p
+        code
+          | Transfer_Count_...
+        |  columns report the number of times that a cell-to-cell transfer of specific category occurred. 
+        em
+          | (Although "Count" columns include units text, but their values are purely integer counts: inluding the units simply reinforces the correspondence with the matching "Amount" columns.)
+    li
+      p
+        code
+          | Transfer_Amount_...
+        |  columns report the actual amount transferred for that simulation step for the specific category of cell-to-cell transfer.
+    li
+      p
+        | The 
+        code
+          | ..._VSA_TOTAL
+        |  columns report the row's (
+        code
+          | ..._Channel_to_NONchannel
+        |  + 
+        code
+          | ..._Channel_to_Channel
+        | ) amounts.
+    li
+      p
+        | The 
+        code
+          | ..._LOSS_TOTAL
+        |  columns report the row's (
+        code
+          | NONchanne_to_Channel
+        |  + 
+        code
+          | ...VSA_TOTAL
+        | ) amounts.
+    li
+      p
+        | The 
+        code
+          | ..._VSA_TOTAL
+        |  and 
+        code
+          | ..._LOSS_TOTAL
+        |  column values provide the "standard" 
+        code
+          | ..._Sediment_VSA(gN/m2/day)_Delineated_Average
+        |  and 
+        code
+          | ..._Sediment_Loss(gN/m2/day)_Delineated_Average
+        |  values prior to division by the number of cells in the watershed.

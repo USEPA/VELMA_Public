@@ -1,0 +1,69 @@
+extends layout.pug
+block content
+    h1 C.1 | VELMA Reach Mapping
+    div.info.blue-light-1
+        p Overview (Tutorial C.1 - VELMA Reach Mapping)
+        p Tutorial "<i>B.9_HowTo_JPDEM Sub-Reach Delineations</i>" described how to use JPDEM to establish a set of x, y coordinates for user-delineated sub-watershed (sub-reach) outlets, in preparation for running VELMA in parallel mode to simulate daily streamflow for those sub-reach outlets.
+        p The present tutorial, "Tutorial C.1 - VELMA Reach Mapping", describes how to incorporate the x, y sub-reach coordinates developed with JPDEM into VELMA.
+        p Tutorial "Tutorial C.2 - How To Run VELMA Parallel Mode" describes how to run VELMA in parallel mode for generating daily streamflow results for the specified sub-watershed (sub-reach) outlets.
+        p Aside from potential gains in computational efficiency, sub-reach delineations for running VELMA in parallel mode can help watershed managers tease apart streamflow responses to local and more distant upstream changes in land cover and land use.
+    
+    p The VELMA simulator engine can be configured to subdivide the watershed specified by the primary outlet (via the outx and outy configuration parameters) into several sub-reaches. Ordinarily, this feature is unnecessary, but it is useful and/or required for certain simulation situations. For example, sub-reaches must be specified when running a simulation via the VelmaParallelCmdLine. For additional details see "How to: Run VELMA in Parallel Mode. [Note: Sub-reaches must also be specified in simulation configuration .xml files that will be used for multi-scale simulation runs via the VelmaSimulatorAltCmdLine. Multi-scale simulations are still under development].
+    p The simulation configuration's sub-reach behavior and the locations of the sub-reaches are specified by two, separate, but interrelated parameters:
+    ul 
+        li The enableReachMapping parameter specifies the mode (i.e. behavior) of the VELMA simulator with regard to sub-reach maps. Its value must be the <i>exact </i>text representation of one of the four valid modes: AUTO_MODE, LEGACY_MODE, MULTI_MODE or SOLO_MODE.
+        li The initialReachOutlets parameter specifies the linear cell indices of all of the sub-reaches. When specified, its value must be a whitespace-separated sequence of (The initialReachOutlets parameter value is ignored for some enableReachMapping modes.)
+    p Specify the enableReachMapping mode first, then (depending upon whether the specified mode requires it or not) specify the initialReachOutlets parameter's list of sub-reach outlets.
+    table
+        thead  
+            th enableReachMapping value is …
+            th initialReachOutlets value is …
+            th VELNA Simulator behavior is …
+            th Notes
+        tr 
+            td AUTO_MODE
+            td Ignored
+            td Auto-generated sub- reaches.
+            td Seldom required; may generate many sub- reaches
+        tr 
+            td LEGACY_MODE
+            td Ignored
+            td No sub-outlets, single watershed.
+            td This mode is deprecated.
+        tr 
+            td MULTI_MODE
+            td Required
+            td Sub-outlets specified by initialReachOutlets
+            td Use for Velma Parallel or Alt cmdline runs.
+        tr 
+            td SOLO_MODE
+            td Ignored
+            td No sub-outlets, single watershed.
+            td Most common mode for JVelma runs.
+
+    h2 Setting the Reach Mapping Parameters in JVelma GUI
+    p You can set both of the reach mapping parameters in either JVelma's "Run Parameters" or from the "All Parameters" tab.
+    p In the "Run Parameters" tab, underneath the label "Sub-Reach Mapping Controls" there is a drop-down selector for the enableReachMapping mode value, and a text field for the initialReachOutlets:
+    img(width="596" height="218" alt="screenshot" title="screenshot" src="public/suppImage_168.jpg")
+    p In the image above the enableReachMapping parameter is set to MULTI_MODE, and the
+    p initialReachOutlets value is a 3-index sequence of cell indices: 27694 91744 92401.
+    p In the "All Parameters" tab, you can quickly filter-limit the table to the reach mapping parameters by
+    p selecting the "Sub-Reach Mapping" topic from the drop-down outline menu as show below:
+    img(width="606" height="245" alt="screenshot" title="screenshot" src="public/suppImage_169.jpg")
+    p Click-select topic "4.0 Sub-Reach Mapping", as shown by the blue circle and arrow above, to set the filter for reach mapping, and limit the All Parameters table rows to only reach mapping parameters (as shown in the following image):
+    img(width="606" height="141" alt="screenshot" title="screenshot" src="public/suppImage_170.jpg")
+    p Notice the reachOutletsFileName parameter and blank (yellow) value in the above image. The reachOutletsFileName parameter is a legacy setting that is ignored. If you run JVelma's Edit -&gt; Remove Unused Parameters function, it will be deleted from the configuration.
+    h2 Legacy Configurations Will (Mostly) Work Correctly
+    p Earlier VELMA configurations specified Reach Mapping behavior differently.
+    ul
+        li enableReachMapping was a boolean value (i.e. either true or false and nothing else).
+        li The reachOutletsFileName contents were combined with the initialReachOutlets value to form the final list of reach outlets.
+    p When a legacy configuration .xml is loaded into JVelma or one of the VELMA command-line tools, the following updates occur:
+    ul
+        li The enableReachMapping value is changed: true = MULTI_MODE, false = LEGACY_MODE.
+        li The reachOutletsFileName value is ignored.
+        li The initialReachOutlets value is untouched, and is used as-is if enableReachMapping's new mode value is MULTI_MODE.
+    p This set of update rules means that most legacy simulations' Reach Mapping behavior will remain unchanged. The exceptions are configurations that contained reachOutletsFileName parameter values, and configurations that had enableReachMapping == true and initialReachOutlets == "".
+    p The legacy VELMA simulator engine used enableReachMapping == true and initialReachOutlets == "" as an implicit indication of what is called AUTO_MODE. One of the goals of the new Reach Mapping parameters is making running in AUTO_MODE a very deliberate intention.
+    p Legacy configurations with enableReachMapping == true and initialReachOutlets == "" now map to MULTI_MODE, but the empty initialReachOutlets value is forced to = the primary (outx, outy) outlet.
+    p This means that the run will effectively be the same as manually setting SOLO_MODE.

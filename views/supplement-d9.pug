@@ -1,0 +1,271 @@
+extends layout.pug
+block content
+    h1 D.9 | Set Up VELMA biomass Outputs as Inputs to BlueSky
+    div.info.blue-light-1
+        p Overview <i>(Tutorial </i>D.9 - Set Up VELMA biomass Outputs as Inputs to Bluesky)
+        p Bluesky is a smoke emissions simulator that is designed to predict the direction and chemistry of smoke produced by forest and rangeland fires. To do this, Bluesky requires spatially-explicit inputs describing the quantity and quality of fuel loads. VELMA is designed to provide this information.
+        p This document describes how to convert VELMA spatial fuel load output to input for BlueSky.
+    h2 Software Requirements
+    p To run the algorithm that converts VELMA output to input for the Bluesky smoke emissions simulator, you will need the following:
+    ol 
+        li <b>Python version 2.x: Current release is 2.7.11</b>
+        li <b>Python package 'ArcPy' (Requires ArcGIS license)</b>
+        li <b>Velma2Bluesky Python Algorithm</b>
+    ol 
+        li  <a href="https://www.python.org/download/releases/2.7/">Python</a> comes pre-packaged within ArcGIS, so it is likely you already have it installed on your computer. For example, mine is installed currently here: C:\Python27\ArcGIS10.2\python.exe. Check to see if you have Python installed before installing a new version. If Python is not installed, you can obtain a copy here: https://www.python.org/download/releases/2.7/ Note that Python 2.7 is currently considered safe for use on U.S. EPA network and non-network computers.
+        li ArcPy is a python package that comes pre-installed with ArcGIS. You can test that you have access to ArcPy by opening your Python executable and typing 'import arcpy' into the command line. If you receive no error, then you have ArcPy installed appropriately.
+            img(width="469" height="239" alt="screenshot" title="screenshot" src="public/suppImage_236.jpg")
+            span 
+                <a href="http://pro.arcgis.com/en/pro-app/arcpy/get-started/importing-arcpy.htm">If you have problems importing ArcPy, visit </a>http://pro.arcgis.com/en/pro-app/arcpy/get-<a href="http://pro.arcgis.com/en/pro-app/arcpy/get-started/importing-arcpy.htm"> </a><a href="http://pro.arcgis.com/en/pro-app/arcpy/get-started/importing-arcpy.htm">started/importing-arcpy.htm</a>
+        li <b>Velma2Bluesky Python Algorithm: </b>This file is called VELMA2BLUESKY.py and can be run using a command line command: "python C:\Path\To\VELMA2BLUESKY.py". It can also be edited directly with any text editor (e.g., Notepad, EMACS)
+    h2 Steps for running the VELMA2BLUESKY.py script
+    ol 
+        li First, navigate to the directory that contains the Bluesky script. In this example, the script is called VELMA2BLUESKY_2016-10-11.py, but you can rename it if you would like.
+            img(width="607" height="234" alt="screenshot" title="screenshot" src="public/suppImage_237.jpg")
+        li You can open the file with any text editor, as shown here:
+            img(width="558" height="373" alt="image" src="public/suppImage_238.png")
+        li You will need to change the paths within the script to make it work on your system.
+            ul 
+                li dataLoc = This should be the path to your data directory that contains VELMA output files.
+                li asciiaoi = This path points to any single .asc file in the output data directory. The script uses the header of this file to geo-locate the positions of burns.
+                li tempFilesDir = This directory must be created to store temporary processing files.
+                li finalOutputDir = This directory will hold the Bluesky inputs after the script is run.
+            span
+                h5 NOTE: The tempFilesDir and finalOutputDir must exist and they must be empty for the script to work properly. If you receive an error, make sure that these paths are correct and that there are no files in the tempFilesDir or finalOutputDir.
+                p Below is an example of a proper specification of paths:
+                img(width="605" height="85" alt="screenshot" title="screenshot" src="public/suppImage_239.jpg")
+        li You will also need to set the cellArea in the script. You obtain the cellArea variable by squaring the original size of your VELMA cell. That is, if you have a 30m grid, you will input a cellArea = 30x30 = 900.
+            img(width="599" height="87" alt="screenshot" title="screenshot" src="public/suppImage_240.jpg")
+        li To run the script, start by opening a command window. You can also open the script file in IDLE or another Python user environment if you know how to do this. For the command line method, on Windows, click Start -&gt; Search for Programs or Files -&gt; type in "cmd" and click on cmd.exe. Then, navigate to the directory where you have your VELMA files using the 'cd' command.
+            img(width="556" height="159" alt="screenshot" title="screenshot" src="public/suppImage_241.jpg")
+        li Finally, use your python.exe file to run the script using the following command: C:\path\to\python.exe D:\Path\to\VELMA2BLUESKY_2016_10-11.py An example is shown below. Note that my python.exe program is located at C:\Python27\ArcGIS10.2\python.exe
+            img(width="605" height="141" alt="image" src="public/suppImage_242.jpg")
+            p The program will begin and will display the following output. If you receive an error, check the error carefully and determine whether or not you have properly configured your paths and made sure that you have the proper software configuration (ArcGIS with Spatial Analyst, ArcPy, etc.)
+            img(width="616" height="306" alt="screenshot" title="screenshot" src="public/suppImage_243.jpg")
+        li Check your output directory for output files.
+            img(width="563" height="129" alt="screenshot" title="screenshot" src="public/suppImage_244.jpg")
+        li You can view the output files using a text or spreadsheet editor.
+    h3 Scripts
+    img(width="480" height="1" alt="image" src="public/suppImage_245.png" )
+    p # velmaToBluesky.py
+    p # Author: Paul Pettus, Brad Barnhart # Date: 2-18-2015
+    p # Description: VELMA ASCII to csv with value data and x(long) &amp; y(lat)
+    p # Description Cont.: Then, csv&#39;s are converted to Bluesky fire_locations.csv file format. # Description Cont.: Remember to specify paths below and verify cell size (square meters) #
+    p # Note: This script uses ArcGIS 10.2 ArcPy module in Python and Spatial Analyst. # Some upgrades i.e. 10.+
+    p # use different python function named calls. Example in 10.0 the function # &quot;arcpy.ASCIIToRaster_conversion&quot; might have a slightly different name
+    p # in arc 10.2 or future versions, ArcGIS Help online will give the correct version names. #
+    p # Last updated: 01-31-2017 #
+    img(width="480" height="1" alt="image" src="public/suppImage_246.png" )
+    p # Import modules
+    p print &quot;Importing modules...&quot;
+    p import os, sys, datetime, csv, time, numpy, arcpy, arcinfo
+    p scriptStartClock = time.clock() ##arcpy.env.overwriteOutput = True
+    p # Checks for Spatial analyst extension arcpy.CheckExtension(&quot;Spatial&quot;) arcpy.CheckOutExtension(&quot;Spatial&quot;)
+    p # <img width="480" height="1" alt="image" src="public/suppImage_247.png" ) # Edit these paths, they use a unix slash and require one at the end.
+    p #### asciiaoi contains header information dataLoc =
+    p &quot;L:/Priv/CORFiles/Projects/Velma/Kansas_Project/VELMA_SETUPS_WORKSHOP/Velma_Outputs/KS_Flint_Cent ral_Small_125m_wbFixup_AST2_2017-01-30_historicBurnPlusGraze/&quot;
+    p asciiaoi = &quot;L:/Priv/CORFiles/Projects/Velma/Kansas_Project/VELMA_SETUPS_WORKSHOP/Velma_Outputs/KS_Flint_Cent ral_Small_125m_wbFixup_AST2_2017-01- 30_historicBurnPlusGraze/Spatial_BURNED_BIOMASS_AG_STEM_C_ALL_1_2000_88.asc&quot;
+    p tempFilesDir = &quot;L:/Priv/CORFiles/Projects/Velma/Kansas_Project/VELMA_SETUPS_WORKSHOP/Velma_Outputs/temp/&quot; finalOutputDir = &quot;L:/Priv/CORFiles/Projects/Velma/Kansas_Project/VELMA_SETUPS_WORKSHOP/Velma_Outputs/toolOutput/&quot; ####
+    p # <img width="480" height="1" alt="image" src="public/suppImage_248.png" ) # Edit the Cell size
+    p ##cellSize = 900 #width x length for square meters (30m x 30m) cellSize = 15625 #width x length for square meters (125m x 125m)img(width="499" height="1" alt="image" src="public/suppImage_249.png")
+    p #
+    p print &quot;Starting data clean up...&quot;
+    p outDirStep1 = tempFilesDir + &quot;temp-HeaderFixed/&quot;
+    p # <img width="480" height="1" alt="image" src="public/suppImage_250.png" )p # Read in DEM file, and pull out header
+    p # <img width="480" height="1" alt="image" src="public/suppImage_251.png" )p readFile = open(asciiaoi)
+    p header = readFile.readline() #ncols header += readFile.readline() #nrows header += readFile.readline() #xllcorner header += readFile.readline() #yllcorner header += readFile.readline() #cellsize
+    p header += readFile.readline() #NODATA_value readFile.close()
+    p # <img width="480" height="1" alt="image" src="public/suppImage_252.png" )p # <img width="480" height="1" alt="image" src="public/suppImage_253.png" )p # Create temporary directory in tempFilesDir to store fixed headers.
+    p # <img width="480" height="1" alt="image" src="public/suppImage_254.png" )p startClock = time.clock()
+    p ## Create a list of all input files asciiList = []
+    p for files in os.listdir(dataLoc): if files.endswith(&quot;.asc&quot;):
+    p testBit = files in asciiList if testBit == False:
+    p asciiList.append(files) for files in asciiList:
+    p filename = dataLoc + files filesLower = files.lower()
+    p ## Load in all four above ground biomass files if &quot;biomass_ag&quot; in filesLower:
+    p fileName, fileExtension = os.path.splitext(files)
+    p Next_poolName, Next_yearID, Next_julianID = fileName.rsplit(&#39;_&#39;,2) stemAgArray = numpy.loadtxt(filename, skiprows=6, dtype= numpy.float64)
+    p leafAgName = dataLoc+&quot;Spatial_BURNED_BIOMASS_LEAF_C_ALL_1_&quot; + Next_yearID + &quot;_&quot; + Next_julianID +&quot;.asc&quot;
+    p leafAgArray = numpy.loadtxt(leafAgName, skiprows=6, dtype= numpy.float64)
+    p stemDetName = dataLoc+&quot;Spatial_BURNED_DETRITUS_AG_STEM_C_ALL_1_&quot; + Next_yearID + &quot;_&quot; + Next_julianID +&quot;.asc&quot;
+    p stemDetArray = numpy.loadtxt(stemDetName, skiprows=6, dtype= numpy.float64) leafDetName = dataLoc+&quot;Spatial_BURNED_DETRITUS_LEAF_C_ALL_1_&quot; + Next_yearID + &quot;_&quot; +
+    p Next_julianID +&quot;.asc&quot;
+    p leafDetArray = numpy.loadtxt(leafDetName, skiprows=6, dtype= numpy.float64)
+    p row, col = stemAgArray.shape sumAgArray = numpy.zeros((row,col)) sumDetArray = numpy.zeros((row,col))
+    p ## Data clean-up: This section ensures that near-zero VELMA output is ## properly accounted for.
+    p for i in xrange(row):
+    p for j in xrange(col):
+    p cellStem = stemAgArray[i,j] cellLeaf = leafAgArray[i,j] cellDetStem = stemDetArray[i,j] cellDetLeaf = leafDetArray[i,j]
+    p # Check for negative values -&gt; to 0 if cellStem &lt; 0 and cellStem != -9999:
+    p cellStem = 0
+    p if cellLeaf &lt; 0 and cellLeaf != -9999: cellLeaf = 0
+    p if cellDetStem &lt; 0 and cellDetStem != -9999: cellDetStem = 0
+    p if cellDetLeaf &lt; 0 and cellDetLeaf != -9999: cellDetLeaf = 0
+    p # Check for values less than 0.001 -&gt; to 0.001
+    p if cellStem &lt;= 0.001 and cellStem != 0 and cellStem != -9999: cellStem = 0.001
+    p if cellLeaf &lt;= 0.001 and cellLeaf != 0 and cellLeaf != -9999: cellLeaf = 0.001
+    p if cellDetStem &lt;= 0.001 and cellDetStem != 0 and cellDetStem != -9999: cellDetStem = 0.001
+    p if cellDetLeaf &lt;= 0.001 and cellDetLeaf != 0 and cellDetLeaf != -9999: cellDetLeaf = 0.001
+    p &gt;= 0.001:
+    p # Check if one cell has a value then all cells must have a value
+    p if cellStem &gt;= 0.001 or cellLeaf &gt;= 0.001 or cellDetStem &gt;= 0.001 or cellDetLeaf
+    p if cellStem &lt; 0.001: cellStem = 0.001
+    p if cellLeaf &lt; 0.001: cellLeaf = 0.001
+    p if cellDetStem &lt; 0.001: cellDetStem = 0.001
+    p if cellDetLeaf &lt; 0.001:
+    p cellDetLeaf = 0.001
+    p float
+    p if cellStem == -9999: sumAgArray[i,j] = -9999.0
+    p sumDetArray[i,j] = -9999.0 else:
+    p # Multiply by 1000 because ArcGIS converts raster to shapefile as int not
+    p sumAgArray[i,j] = (1000*(cellStem + cellLeaf)) sumDetArray[i,j] = (1000*(cellDetStem + cellDetLeaf))
+    p # Writes out live and dead biomass files
+    p asciiOutAgfn = outDirStep1 + &quot;Ag_C_&quot; + Next_yearID + &quot;_&quot; + Next_julianID +&quot;.asc&quot; asciiOutDetfn = outDirStep1 + &quot;Det_C_&quot; + Next_yearID + &quot;_&quot; + Next_julianID +&quot;.asc&quot; if not os.path.exists(os.path.dirname(asciiOutAgfn)):
+    p os.makedirs(os.path.dirname(asciiOutAgfn)) f = open(asciiOutAgfn, &quot;w&quot;)
+    p f.write(header)
+    p numpy.savetxt(f, sumAgArray, fmt=&quot;%f&quot;) f.close()
+    p f2 = open(asciiOutDetfn, &quot;w&quot;) f2.write(header)
+    p numpy.savetxt(f2, sumDetArray, fmt=&quot;%f&quot;) f2.close()
+    p endClock = time.clock()
+    p totalTime = round(((endClock - startClock)/60),3)
+    p print(&quot;Done with fixing headers and zero biomass, completed in &quot; + str(totalTime) + &quot; minutes.&quot;)
+    p # <img width="480" height="1" alt="image" src="public/suppImage_255.png" )p # Done with fixing headers.
+    p # <img width="480" height="1" alt="image" src="public/suppImage_256.png" )p # <img width="480" height="1" alt="image" src="public/suppImage_257.png" )p # Do not edit these paths. These are temporary directories that # will be created within the tempFilesDir specified above.
+    p # <img width="480" height="1" alt="image" src="public/suppImage_258.png" )p inDirStep2 = outDirStep1
+    p filesDir = tempFilesDir + &quot;temp-GisFiles/&quot; outDirStep2 = tempFilesDir + &quot;temp-Modelbuild_Out/&quot;
+    p # <img width="480" height="1" alt="image" src="public/suppImage_259.png" )p print &quot;Starting ascii&#39;s to point burn conversions...&quot;
+    p # Process ascii&#39;s into point burn data needed for BlueSky input ## Create a list of all input files
+    p asciiList = []
+    p for files in os.listdir(inDirStep2): if files.endswith(&quot;.asc&quot;):
+    p testBit = files in asciiList if testBit == False:
+    p asciiList.append(files)
+    p count = 0
+    p for files in asciiList:
+    p ## Create output file names startClock = time.clock()
+    p fileName, fileExtension = os.path.splitext(files) asciifn = inDirStep2 + files
+    p tiffn = filesDir + fileName + &quot;.tif&quot;
+    p reclassfn = filesDir + fileName + &quot;_reclass.tif&quot; reclassShape = filesDir + fileName + &quot;_reclass.shp&quot; zonalfn = filesDir + fileName + &quot;_zonal.tif&quot; rastercalc = filesDir + fileName + &quot;_int.tif&quot; zonalShape = filesDir + fileName + &quot;_zonal.shp&quot; pointfn = filesDir + fileName + &quot;.shp&quot;
+    p pointGeofn = filesDir + fileName + &quot;_nad83.shp&quot; csvfn = outDirStep2 + fileName + &quot;.csv&quot;
+    p ## Create/check for output dirs
+    p if not os.path.exists(os.path.dirname(tiffn)): os.makedirs(os.path.dirname(tiffn))
+    p if not os.path.exists(os.path.dirname(csvfn)): os.makedirs(os.path.dirname(csvfn))
+    p # Process: ASCII to Raster arcpy.ASCIIToRaster_conversion(asciifn, tiffn, &quot;FLOAT&quot;)
+    p # Process: Define Projection arcpy.DefineProjection_management(tiffn,
+    p &quot;PROJCS[&#39;NAD_1983_UTM_Zone_14N&#39;,GEOGCS[&#39;GCS_North_American_1983&#39;,DATUM[&#39;D_North_American_1983&#39;,SP HEROID[&#39;GRS_1980&#39;,6378137.0,298.257222101]],PRIMEM[&#39;Greenwich&#39;,0.0],UNIT[&#39;Degree&#39;,0.0174532925199
+    p 433]],PROJECTION[&#39;Transverse_Mercator&#39;],PARAMETER[&#39;False_Easting&#39;,500000.0],PARAMETER[&#39;False_Nort hing&#39;,0.0],PARAMETER[&#39;Central_Meridian&#39;,- 99.0],PARAMETER[&#39;Scale_Factor&#39;,0.9996],PARAMETER[&#39;Latitude_Of_Origin&#39;,0.0],UNIT[&#39;Meter&#39;,1.0]]&quot;)
+    p # Process: Reclassify
+    p arcpy.gp.Reclassify_sa(tiffn, &quot;Value&quot;, &quot;0 0;0 100000000 1&quot;, reclassfn, &quot;DATA&quot;)
+    p # Process: Raster to Polygon
+    p arcpy.RasterToPolygon_conversion(reclassfn, reclassShape, &quot;NO_SIMPLIFY&quot;, &quot;VALUE&quot;)
+    p # Process: Zonal Statistics
+    p arcpy.gp.ZonalStatistics_sa(reclassShape, &quot;ID&quot;, tiffn, zonalfn, &quot;SUM&quot;, &quot;DATA&quot;)
+    p # Process: Raster math convert to int myZonalRaster = arcpy.Raster(zonalfn)
+    p ## intRaster = arcpy.sa.Int(myZonalRaster*100000) ## moved to data clean up section intRaster = arcpy.sa.Int(myZonalRaster)
+    p intRaster.save(rastercalc)
+    p # Process: Raster to Polygon
+    p arcpy.RasterToPolygon_conversion(rastercalc, zonalShape, &quot;NO_SIMPLIFY&quot;, &quot;VALUE&quot;)
+    p # Process: Add Geometry Attributes arcpy.AddGeometryAttributes_management(zonalShape, &quot;AREA&quot;, &quot;&quot;, &quot;SQUARE_METERS&quot;, &quot;&quot;)
+    p # Process: Feature To Point arcpy.FeatureToPoint_management(zonalShape, pointfn, &quot;INSIDE&quot;)
+    p # Process: Project arcpy.Project_management(pointfn, pointGeofn,
+    p &quot;GEOGCS[&#39;GCS_North_American_1983&#39;,DATUM[&#39;D_North_American_1983&#39;,SPHEROID[&#39;GRS_1980&#39;,6378137.0,298
+    p .257222101]],PRIMEM[&#39;Greenwich&#39;,0.0],UNIT[&#39;Degree&#39;,0.0174532925199433]]&quot;, &quot;&quot;, &quot;&quot;)
+    p # Process: Export Feature Attribute to ASCII Process: Add XY Coordinates arcpy.ExportXYv_stats(pointGeofn, &quot;FID;ID;GRIDCODE;POLY_AREA&quot;, &quot;COMMA&quot;, csvfn,
+    p &quot;ADD_FIELD_NAMES&quot;) # fix this?
+    p endClock = time.clock()
+    p totalTime = round(((endClock - startClock)/60),2) count = count + 1
+    p print(&quot;Processed VELMA Burn day layer &quot; + str(count) + &quot; completed in &quot; + str(totalTime) + &quot; minutes.&quot;)
+    p print &quot;Done with converting VELMA BURN ASCII OUTPUT TO CSV FILES!&quot;
+    p # <img width="480" height="1" alt="image" src="public/suppImage_260.png" )p # Done with making csv&#39;s. Now convert csv to BlueSky format.
+    p # <img width="480" height="1" alt="image" src="public/suppImage_261.png" )p inDirStep3 = outDirStep2 outDir = finalOutputDir
+    p # <img width="480" height="1" alt="image" src="public/suppImage_262.png" )p print &quot;Starting conversion to Bluesky intputs...&quot; ##BLB PROPOSED CHANGE TO GET CSV FILES
+    p asciiList = []
+    p for files in os.listdir(inDirStep3): print files
+    p if files.endswith(&quot;.csv&quot;): testBit = files in asciiList if testBit == False:
+    p asciiList.append(files)
+    p #for files in os.listdir(inDirStep3):
+    p # if files.endswith(&quot;.csv&quot;):
+    p # asciiList.append(files)
+    p ##BLB proposed CHANGED TO GET CSV FILES ########################################
+    p ## Bluesky header format
+    p header = [&quot;date_time&quot;,&quot;id&quot;,&quot;type&quot;,&quot;latitude&quot;,&quot;longitude&quot;,&quot;area&quot;,&quot;fuel_1hr&quot;,&quot;fuel_10hr&quot;, &quot;fuel_100hr&quot;,&quot;fuel_1khr&quot;,&quot;fuel_10khr&quot;,&quot;fuel_gt10khr&quot;,&quot;shrub&quot;,&quot;grass&quot;,&quot;rot&quot;, &quot;duff&quot;,&quot;litter&quot;,&quot;canopy&quot;]
+    p colNumber = 8
+    p # id VELMA + unique id # File name
+    p idNumber = 0
+    p count = 0
+    p for files in asciiList: startClock = time.clock() filesLower = files.lower()
+    p fileName, fileExtension = os.path.splitext(files)
+    p Next_poolName, Next_yearID, Next_julianID = fileName.rsplit(&#39;_&#39;,2)
+    p date = datetime.datetime(int(Next_yearID),1,1) + datetime.timedelta((int(Next_julianID)-1)) outDate = date.strftime(&#39;%Y%m%d&#39;) + &quot;0000Z&quot;
+    p fileList = []
+    p if &quot;ag_c_&quot; in filesLower: dateList = []
+    p idList = [] typeList = [] areaList = [] fuel_1hrList = [] fuel_10hrList = [] fuel_100hrList = [] fuel_1khrList = [] fuel_10khrList = []
+    p fuel_gt10khrList = [] shrubList = [] rotList = [] litterList = [] canopyList = []
+    p typeBurn = &quot;RX&quot; idNumber = 0
+    p fuel_1hr = 0
+    p fuel_10hr = 0
+    p fuel_100hr = 0
+    p fuel_1khr = 0
+    p fuel_10khr = 0
+    p fuel_gt10khr = 0
+    p shrub = 0
+    p rot = 0
+    p litter = 0
+    p canopy = 0
+    p agArray = numpy.loadtxt(inDirStep3+files, dtype=&#39;float&#39;, skiprows=1,delimiter=&#39;,&#39;) agFilePathName = inDirStep3+files
+    p detFilePathName = agFilePathName.replace(&quot;Ag_C&quot;,&quot;Det_C&quot;)
+    p detArray = numpy.loadtxt(detFilePathName, dtype=&#39;float&#39;, skiprows=1,delimiter=&#39;,&#39;)
+    p selectAgArray = agArray[agArray[:,4] &gt; 0] outAgArray = numpy.multiply(selectAgArray[:,4],1)
+    p divAgArray = numpy.divide(outAgArray,1000) # Adjustment from int(ArcGIS) back to float row = divAgArray.shape
+    p for i in xrange(row[0]): # Values below 1g/m^2 are returned to zero from pre- process VELMA-ascii
+    p cellValue = divAgArray[i]
+    p if cellValue &lt; 1: divAgArray[i] = 0
+    p sumAgArray = numpy.multiply(2,divAgArray) sumAgArray = numpy.multiply(0.00446089,sumAgArray)
+    p cellCount = numpy.divide(selectAgArray[:,5],cellSize) sumAgArray = numpy.divide(sumAgArray,cellCount) dataAgList = list(sumAgArray)
+    p #Notes on conversions. Multiply by 2 to go from Carbon to Biomass #Then, divide by m2 area in a single cell.
+    p #Then, convert g/m2 to tons/acre
+    p selectDetArray = detArray[detArray[:,4] &gt; 0] outDetArray = numpy.multiply(selectDetArray[:,4],1)
+    p divDetArray = numpy.divide(outDetArray,1000) # Adjustment from int(ArcGIS) back to float row = divDetArray.shape
+    p for i in xrange(row[0]): # Values below 1g/m^2 are returned to zero from pre- process VELMA-ascii
+    p cellValue = divDetArray[i] if cellValue &lt; 1:
+    p divDetArray[i] = 0
+    p sumDetArray = numpy.multiply(2,divDetArray) sumDetArray = numpy.multiply(0.00446089,sumDetArray) cellCount = numpy.divide(selectAgArray[:,5],cellSize) sumDetArray = numpy.divide(sumDetArray,cellCount) dataDetList = list(sumDetArray)
+    p #Notes on conversions. Multiply by 2 to go from Carbon to Biomass #Then, divide by m2 area in a single cell.
+    p #Then, convert g/m2 to tons/acre
+    p inRow2,inCol = selectAgArray.shape for i in range(inRow2):
+    p idName = &quot;VELMA_&quot;+str(idNumber)+&quot;_&quot;+outDate idList.append(idName) dateList.append(outDate) typeList.append(typeBurn)
+    p ## areaList.append(area) fuel_1hrList.append(fuel_1hr) fuel_10hrList.append(fuel_10hr) fuel_100hrList.append(fuel_100hr) fuel_1khrList.append(fuel_1khr) fuel_10khrList.append(fuel_10khr) fuel_gt10khrList.append(fuel_gt10khr) shrubList.append(shrub) rotList.append(rot) litterList.append(litter) canopyList.append(canopy)
+    p idNumber = idNumber + 1
+    p ##date_time,id,type,latitude,longitude,area,fuel_1hr,fuel_10hr,fuel_100hr,fuel_1khr,fuel_10khr,fu el_gt10khr,shrub,grass,rot,duff,litter,canopy
+    p fileList.append(dateList) fileList.append(idList) fileList.append(typeList) fileList.append(list(selectDetArray[:,1])) fileList.append(list(selectDetArray[:,0]))
+    p areaList = numpy.divide(selectDetArray[:,5],4046.863) # Converts Square meters to acre fileList.append(list(areaList))
+    p fileList.append(fuel_1hrList) fileList.append(fuel_10hrList) fileList.append(fuel_100hrList) fileList.append(fuel_1khrList) fileList.append(fuel_10khrList) fileList.append(fuel_gt10khrList) fileList.append(shrubList) fileList.append(dataAgList) fileList.append(rotList) fileList.append(dataDetList)
+    p fileList.append(litterList) fileList.append(canopyList)
+    p flippedList = zip(*fileList)
+    p ############################################################
+    p ## Add two leading zero(&quot;00&quot;) digits to julian days 1-9 ## Add one leading zero(&quot;0&quot;) digits to julian days 10-99
+    p if len(Next_julianID) == 1:
+    p Next_julianID = &quot;00&quot; + Next_julianID
+    p if len(Next_julianID) == 2:
+    p Next_julianID = &quot;0&quot; + Next_julianID ############################################################
+    p outfn = outDir + &quot;Burned_&quot; + Next_yearID + &quot;_&quot; + Next_julianID + &quot;.csv&quot; if not os.path.exists(os.path.dirname(outfn)):
+    p os.makedirs(os.path.dirname(outfn))
+    p ## Write out Bluesky input file for burn day outfile = open(outfn,&#39;w&#39;)
+    p out = csv.writer(outfile, delimiter=&#39;,&#39;, lineterminator=&#39;\n&#39;) out.writerow(header)
+    p for i in flippedList: out.writerow(i)
+    p outfile.close() endClock = time.clock()
+    p totalTime = round(((endClock - startClock)/60),3)
+    p print(&quot;ASCII BlueSky Burn day&quot; + str(count) + &quot; completed in &quot; + str(totalTime) + &quot; minutes.&quot;)
+    p count = count + 1
+    p ############################################################
+    p ## Create a master list merged burn csv if count == 1:
+    p outfnMerge = outDir + &quot;Burned_Merge_Complete.csv&quot; outfileMerge = open(outfnMerge,&#39;w&#39;)
+    p out2 = csv.writer(outfileMerge, delimiter=&#39;,&#39;, lineterminator=&#39;\n&#39;) out2.writerow(header)
+    p for i in flippedList: out2.writerow(i)
+    p elif count &gt; 1 and count &lt; (len(asciiList)/2): for i in flippedList:
+    p out2.writerow(i)
+    p else:
+    p for i in flippedList: out2.writerow(i)
+    p outfileMerge.close() ############################################################
+    p sciptEndClock = time.clock()
+    p totalTime = round(((sciptEndClock - scriptStartClock)/60),2)
+    p print(&quot;Total script completed in &quot; + str(totalTime) + &quot; minutes. Total burn days: &quot; + str(count))

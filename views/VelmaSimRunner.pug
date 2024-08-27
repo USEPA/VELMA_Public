@@ -1,0 +1,343 @@
+extends layout.pug
+block content
+  h1
+    | VelmaSimRunner
+  h2
+    | Overview
+  p
+    code
+      | VelmaSimRunner
+    |  is a utility tool that helps automate running one or more VELMA simulations via VELMA's command line interface.
+    br
+    |  This guide explains its capabilities and how to use it.
+    br
+    |  (A separate 
+    a
+      | quick-reference
+    |  is available for experienced users.)
+  h2
+    | Background
+  p
+    | The VELMA simulator is most often run via 
+    code
+      | JVelma
+    | , an interactive GUI. However, a command line interface (
+    code
+      | VelmaSimulatorCmdLine
+    | ) exists, and is useful when:
+  ul
+    li
+      | You do not need to review or edit the simulation configuration .xml you intend to run.
+    li
+      | You do not need to view the runtime display charts that 
+      code
+        | JVelma
+      |  provides.
+    li
+      | You need the simulation to run as efficiently as possible: 
+      code
+        | VelmaSimulatorCmdLine
+      |  can usually run a VELMA simulation in a bit less time than 
+      code
+        | JVelma
+      | , because 
+      code
+        | VelmaSimulatorCmdLine
+      |  does produce the afor-mentioned runtime display charts.
+    li
+      | You need to automate the process of running several VELMA simulations in sequence.
+    li
+      | You'd like to let a (perhaps fairly long) sequence of VELMA simulations run unattended, but later, you'd like know which runs succeeded and which failed without examining each and every simulation run's results directory's contents.
+  p
+    | Regarding the final two points above: you can automate starting a sequence of VELMA simulations just by putting the complete, individual command lines into a .bat or .ps batch file (depending upon whether you are using Windows' Command Prompt or PowerShell.) However, as a developer, working with the VELMA .class files in a workspace, running 
+    code
+      | VelmaSimulatorCmdLine
+    |  can involve a fair amount of typing per command line.
+    br
+    |  Here is an PowerShell example command line that runs a VELMA scenario whose simulation configuration is named OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml:
+  pre
+    code
+      | PS C:\Users\kdjang\> java -Xmx4g -cp '.\Velma_GitHub\VelmaUtils\bin;.\Velma_GitHub\VelmaSimulator\bin' gov.epa.velmasimluator.VelmaSimulatorCmdLine F:\Users\kdjang\Velma_SiteData\OR_BlueRiver_Xml\OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+
+  p
+    | Confronted with the need to run, say, 25 or more simulations (one after the other), each using the same basic pattern as the example above, but with some more or less memory ('-Xmx') allocated, and each with a unique .xml file name, most developers would copy the original example command line as many times as needed into a .bat or .ps file, then edit differences for each line in the file.
+    br
+    |  Doing exactly this sort of batch file creation caused VELMA developers to write 
+    code
+      | VelmaSimRunner
+    | .
+    br
+    |  
+    code
+      | VelmaSimRunner
+    |  provides you with 'shorthand' you can use to simplify batch files. It also provides a way to start and run a batch of VELMA simulations, tracking which runs succeed and fail in a .log file.
+  h2
+    | Platform Requirements
+  p
+    | You'll need the following to run (and make use of) 
+    code
+      | VelmaSimRunner
+    | .
+  ul
+    li
+      | Windows 10 -- no other operating systems have been tested.
+    li
+      | Windows 10 PowerShell -- should be available on any Windows 10 system.
+    li
+      | Python 3.7 -- version 2 will not work, and no earlier versions of version 3 have been tested.
+    li
+      | Java 8 -- for running VELMA. Newer versions (e.g. Java 9) should be fine, but older versions (e.g. Java 7) will not do.
+    li
+      | Either a current, valid VELMA workspace with all the .class files built, or a current, valid JVelma.jar file.
+      br
+      |  Note that the 
+      code
+        | VelmaSimRunner.py
+      |  utility tool is itself part of the fileset in a valid VELMA workspace, so you'll need that workspace even if you plan to invoke 
+      code
+        | VelmaSimulatorCmdLine
+      |  from a JVelma.jar file.
+  h2
+    | Tutorial: How 
+    code
+      | VelmaSimRunner
+    |  Works
+  p
+    | You start 
+    code
+      | VelmaSimRunner
+    |  from a PowerShell window with the following command:
+  pre
+    code
+      | PS C:\Users\auser>py -3 C:\Users\asuer\Velma_Git\DeveloperUtils\VelmaSimRunner.py
+
+  p
+    | The above command drops you into 
+    code
+      | VelmaSimRunner
+    | 's interpreter. ("C:\Users\auser\Velma_Git" is an example path to ) The interpreter has a set of commands that allow you to create a list of "CONFIGS". Each config item corresponds to one actual PowerShell command line that will start a VELMA simulation.
+  p
+    | The interpretor's "ready" prompt is the '=' character.
+    br
+    |  Type the 
+    code
+      | list
+    |  
+    em
+      | command
+    |  at the prompt and then press the Enter (i.e. Return) key:
+  pre
+    code
+      | = list
+      | DEFAULTS:
+      |     vm_name : ['java']
+      |     vm_args : []
+      |     vm_classpath : []
+      |     tool_name : ['gov.epa.velmasimulator.VelmaSimulatorCmdLine']
+      |     tool_before_args : []
+      |     config_location : []
+      |     config_item : []
+      |     tool_after_args : []
+      |     results_prefix : []
+      | CONFIGS:
+      | =
+
+  p
+    | The 
+    code
+      | list
+    |  command lists the intepreter's current state.
+    br
+    |  The above output tells you what the current DEFAULTS are, and how many CONFIGS you have: (i.e. none, as yet).
+  p
+    | To create a CONFIG item (i.e. a simulation command line to run) type the 
+    code
+      | add
+    |  command, followed by the 
+    code
+      | config_item
+    |  
+    em
+      | keyword
+      | , and follow that with the name of the VELMA simulation configuration .xml file you want to run:
+  pre
+    code
+      | = add config_item OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+
+
+  p
+    | When you "add config_item somefile.xml", the interpreter builds a new config and adds it to its configs list:
+  pre
+    code
+      | = list
+      | DEFAULTS:
+      |     vm_name : ['java']
+      |     vm_args : []
+      |     vm_classpath : []
+      |     tool_name : ['gov.epa.velmasimulator.VelmaSimulatorCmdLine']
+      |     tool_before_args : []
+      |     config_location : []
+      |     config_item : []
+      |     tool_after_args : []
+      |     results_prefix : []
+      | CONFIGS:
+      | 0 : ['java', 'gov.epa.velmasimulator.VelmaSimulatorCmdLine', 'OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml']
+      | =
+
+  p
+    | The interpreter builds the config entry by putting together all of the current DEFAULTS values in the order they're listed, before and after the config_item.
+    br
+    |  (Note: config_item is not a default -- you specified it in your add command -- but is listed as a placeholder amongst the defaults to remind you where it will occur in the config's sequence.)
+  p
+    | The results of the 
+    code
+      | list
+    |  command above show that, apart from the config_item you 
+    code
+      | add
+    | ed, only the vm_name and tool_name weren't blank, so your newly-added config entry consists of [vm_name, tool_name, config_item].
+  p
+    | The 
+    code
+      | run
+    |  command runs each item in your CONFIGS list by passing each config item's list of values to the Windows PowerShell.
+    br
+    |  However, your single, current config might not run, because the command passed to PowerShell would literally be this:
+  pre
+    code
+      | java gov.epa.velmasimulator.VelmaSimulatorCmdLine OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+
+  p
+    | If your PowerShell has a Java CLASSPATH set that covers all the necessary VELMA .jar and/or .class files, 
+    em
+      | and
+    |  the file OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml is located in the directory you are invoking 
+    code
+      | VelmaSimRunner
+    |  from, then the above command might run correctly.
+    br
+    |  However, a more common case for no CLASSPATH to be set and for the VELMA .xml file's location somewhere else. Here's an example of trying to run the above config without a proper CLASSPATH:
+  pre
+    code
+      | = run
+      | Error: Could not find or load main class gov.epa.velmasimulator.VelmaSimulatorCmdLine
+
+  p
+    | Whenever 
+    code
+      | VelmaSimRunner
+    |  trys to run one or more CONFIGS items, it logs the attempt in a file named VelmaSimRunner_Log.txt. The file is created in your Users Home directory, and new log messages are appended to it whenever you use 
+    code
+      | VelmaSimRunner
+    |  to run CONFIG items. You can delete the VelmaSimRunner_log.txt file 
+    em
+      | if VelmaSimRunner is not currently running
+    | , and it will be re-created the next time it is needed. Here's what gets written to the log file for the (failed) 
+    code
+      | run
+    |  command we tried:
+  pre
+    code
+      | 2019-02-27 09:03:03 INFO     Starting run: OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+      | 2019-02-27 09:03:03 ERROR    FAILED run: OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+      | Traceback (most recent call last):
+      |   File ".\DeveloperUtils\VelmaSimRunner.py", line 211, in run_simulation
+      |     subprocess.run(cmd_args, shell=True, check=True)
+      |   File "C:\Users\auser\AppData\Local\Programs\Python\Python37\lib\subprocess.py", line 487, in run
+      |     output=stdout, stderr=stderr)
+      | subprocess.CalledProcessError: Command '['java', 'gov.epa.velmasimulator.VelmaSimulatorCmdLine', OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml']' returned non-zero exit status 1.
+      | 2019-02-27 09:03:03 INFO     Elapsed Time=0.26074910163879395 seconds for OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+
+  p
+    | Unfortunately, once you add a config_item to the CONFIGS list, you can't modify its sequence of values.
+    br
+    |  Fortunately, it's easy to delete a CONFIGS item and re-add a modified version:
+  pre
+    code
+      | = delete config_item 0
+      | = list
+      | DEFAULTS:
+      |     vm_name : ['java']
+      |     vm_args : []
+      |     vm_classpath : []
+      |     tool_name : ['gov.epa.velmasimulator.VelmaSimulatorCmdLine']
+      |     tool_before_args : []
+      |     config_location : []
+      |     config_item : []
+      |     tool_after_args : []
+      |     results_prefix : []
+      | CONFIGS:
+      | =
+
+  p
+    | The "
+    code
+      | delete
+    |  
+    em
+      | config_item
+    |  <n>" command removes the 
+    em
+      | n
+    | th item (zero-base) from the CONFIGS list.
+  p
+    | To re-
+    code
+      | add
+    |  the config we want to run, including classpath and .xml file location values, we need to set the appropriate DEFAULTS:
+  pre
+    code
+      | = set vm_classpath "C:\Users\auser\My Projects\Velma_Git\VelmaUtils\bin;C:\Users\auser\My Projects\Velma_Git\VelmaSimulator\bin"
+      | = set config_location "C:\users\auser\My Data\Blue River Xml"
+      | = list
+      | DEFAULTS:
+      |     vm_name : ['java']
+      |     vm_args : []
+      |     vm_classpath : ['C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaUtils\\bin;C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaSimulator\\bin']
+      |     tool_name : ['gov.epa.velmasimulator.VelmaSimulatorCmdLine']
+      |     tool_before_args : []
+      |     config_location : ['C:\\users\\auser\\My Data\\Blue River Xml']
+      |     config_item : []
+      |     tool_after_args : []
+      |     results_prefix : []
+      | CONFIGS:
+
+  p
+    | The "
+    code
+      | set
+    |  
+    em
+      | keytext
+    |  value" command sets the value of the specified DEFAULTS 
+    em
+      | keytext
+    |  to the specified value. Notice that we bounded the values we set with double-quote (") characters. This tells the interpreter to treat the text as a single value, even though the text includes whitespace.
+  p
+    | Now, we re-
+    code
+      | add
+    |  the config item with the same command we used previously.
+  pre
+    code
+      | = add config_item OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+      | = list
+      | DEFAULTS:
+      |     vm_name : ['java']
+      |     vm_args : []
+      |     vm_classpath : ['C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaUtils\\bin;C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaSimulator\\bin']
+      |     tool_name : ['gov.epa.velmasimulator.VelmaSimulatorCmdLine']
+      |     tool_before_args : []
+      |     config_location : ['C:\\users\\auser\\My Data\\Blue River Xml']
+      |     config_item : []
+      |     tool_after_args : []
+      |     results_prefix : []
+      | CONFIGS:
+      | 0 : ['java', 'C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaUtils\\bin;C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaSimulator\\bin', 'gov.epa.velmasimulator.VelmaSimulatorCmdLine', 'C:\\users\\auser\\My Data\\Blue River Xml\\OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml']
+      | =
+
+  p
+    | However, notice how different the 
+    code
+      | list
+    |  command results are from the first time we added it. The vm_classpath and config_location have been included in the config's collection of command line values.

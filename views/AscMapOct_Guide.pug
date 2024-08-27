@@ -1,0 +1,428 @@
+
+extends layout.pug
+block content
+  h1
+    | AscMapOct Guide
+  h2
+    | Overview
+  p
+    | The 
+    code
+      | AscMapOct.py
+    |  utility script combines the values of two Grid ASCII (.asc) map files, a source map and a destination map, to produce a new map with the dimensions and values of the destination map, but with the values of the source map for any cell locations that overlap between the two maps.
+  p
+    code
+      | AscMapOct.py
+    |  was written to assist JPDEM flat-processing of large DEM maps. JDPEM may require very long running times to flat-process DEM maps with large dimensions. An experimental method for dealing with that issue is to create multiple, smaller sub-maps from the single, original large map. If the sub-maps are created with due regard for the overall topography, and all of them satisfy the 
+    code
+      | AscMapOct.py
+    |  
+    a
+      | limitations
+    |  listed below, then they may be flat-processed individually. However, to use them to replicate the original, full map, they must be flat-processed in order, from lowest (by elevation) to highest sub-map, and the overlapping cell values for adjacent maps must be transferred from flat-processed to un-processed maps during the overall flat-processing sequence. 
+    code
+      | AscMapOct.py
+    |  provides a way to perform this transfer step.
+  blockquote
+    p
+      | Note: 
+      code
+        | AscMapOct.py
+      |  has many 
+      a
+        | limitations
+      | , and is not the only way transfer overlapping cell values.
+      br
+      |  JPDEM users with sufficient GIS experience may wish to employ a GIS tool of their choice instead.
+  h4
+    strong
+      | Requirements
+  ul
+    li
+      | A Windows Powershell or Command Prompt.
+    li
+      | Python 3 installed and available.
+    li
+      | A source ASCII Grid (.asc) map file.
+    li
+      | A destination ASCII Grid (.asc) map file.
+  h4
+    strong
+      | Limitations
+  p
+    | The source and destination files must ...
+  ul
+    li
+      | overlap by a region of at least 3x3 cells.
+    li
+      | be cell-aligned and from the same UTM zone.
+    li
+      | have the same header cellsize value (and, implicity the same unit for that value).
+    li
+      | must use 
+      code
+        | xllcorner
+      |  and 
+      code
+        | yllcorner
+      | , 
+      em
+        | not
+      |  
+      code
+        | xllcenter
+      |  and 
+      code
+        | yllcenter
+      | .
+    li
+      | Custom border overlays are 
+      em
+        | not
+      |  permitted.
+  blockquote
+    p
+      | Note: "cell-aligned" means that the file's grids are cell-boundary aligned: i.e. the values of:
+      br
+      |  
+      code
+        | (abs(source_xll - destination_xll) / cellsize)
+      br
+      |  and
+      br
+      |  
+      code
+        | (abs(source_yll - destination_yll) / cellsize)
+      br
+      |  are both integers.
+  h2
+    | Usage
+  p
+    | Open a Windows Powershell or Command Prompt and type the following command:
+  pre
+    code
+      | py -3 AscMapOct.py --help
+
+  p
+    | Depending upon where the 
+    code
+      | AscMapOct.py
+    |  script is located, you may need to include full or partial path info as part of its name.
+    br
+    |  The command above assumes it is being run in the directory where 
+    code
+      | AscMapOct.py
+    |  is located.
+    br
+    |  Running the command above echoes 
+    code
+      | AscMapOct.py's
+    |  help message to your console:
+  pre
+    code
+      | usage: AscMapOct.py [-h] [--lint] [--output_asc_file OUTPUT_ASC_FILE] source_asc_file destination_asc_file
+      | Transfers overlapping cell values from source_asc_file to destination_asc_file.
+
+      | positional arguments:
+      |   source_asc_file       Grid .asc file to copy values from.
+      |   destination_asc_file  Grid .asc file to merge source values with.
+
+      | optional arguments:
+      |   -h, --help            show this help message and exit
+      |   --lint                Checks if source can transfer to destination; doesn't actually transfer values.
+      |   --output_asc_file OUTPUT_ASC_FILE
+      |                         Grid .asc file to write merged values to.
+
+  p
+    | Per the help message above:
+  ol
+    li
+      p
+        | You must specify source ASCII Grid (.asc) file. The file is assumed to have already been flat-processed by JPDEM, and to have standard (outermost rows and columns) cell border, but 
+        code
+          | AscMapOct.py
+        |  does not verify either of these assumptions.
+    li
+      p
+        | You must specify a destination ASCII Grid (.asc) file. The file is assumed to be "raw" data -- i.e. 
+        em
+          | not
+        |  already flat-processed by JPDEM, and to have no border, but again, 
+        code
+          | AscMapOct.py
+        |  does not verify either of these assumptions.
+  p
+    code
+      | AscMapOct.py
+    |  doesn't modify either the source or destination files in either way. Instead it outputs a combination of the two files to the console. The output will have the header values of the destination file, but overlapping cells will have the values from the source file.
+  h2
+    | Example Usage
+  blockquote
+    p
+      | Remember: you will typically need to include paths in the file names. Paths have been omitted in this example to keep the command line compact, but typically, the AscMapOct.py file will not be co-located with the data you are processing.
+  p
+    | The following example transfers overlapping values from source file all_ones_border-zero_9x7.asc:
+  pre
+    code
+      | PS C:\Users\Me\Velma\My_Results> Get-Content .\all_ones_border-zero_9x7.asc
+      | ncols 9
+      | nrows 7
+      | cellsize 3.0
+      | xllcorner 0.0
+      | yllcorner 0.0
+      | nodata_value -9999.0
+      | 0 0 0 0 0 0 0 0 0
+      | 0 1 1 1 1 1 1 1 0
+      | 0 1 1 1 1 1 1 1 0
+      | 0 1 1 1 1 1 1 1 0
+      | 0 1 1 1 1 1 1 1 0
+      | 0 1 1 1 1 1 1 1 0
+      | 0 0 0 0 0 0 0 0 0
+
+  p
+    | to the destination file all_twos_9x7.asc:
+  pre
+    code
+      | PS C:\Users\Me\Velma\My_Results> Get-Content .\all_twos_9x7.asc
+      | ncols 9
+      | nrows 7
+      | cellsize 3.0
+      | xllcorner 12.0
+      | yllcorner 6.0
+      | nodata_value -9999.0
+      | 2 2 2 2 2 2 2 2 2
+      | 2 2 2 2 2 2 2 2 2
+      | 2 2 2 2 2 2 2 2 2
+      | 2 2 2 2 2 2 2 2 2
+      | 2 2 2 2 2 2 2 2 2
+      | 2 2 2 2 2 2 2 2 2
+      | 2 2 2 2 2 2 2 2 2
+
+  blockquote
+    p
+      | Note: 
+      a
+        code
+          | Get-Content
+      |  is a Powershell command that echoes the contents of a file to the Powershell console.
+  p
+    | The destination file's 
+    code
+      | xllcorner
+    |  and 
+    code
+      | yllcorner
+    |  values indicate that it is offset above and to the right of the source file. When we run 
+    code
+      | AscMapOct.py
+    |  on this pair of files, we should see section of "1.0" values in the lower-left corner of the output, and the output should retain the destination file's header values.
+  pre
+    code
+      | PS C:\Users\Me\Velma\My_Results> py -3 AscMapOct.py .\all_ones_border-zero_9x7.asc .\all_twos_9x7.asc
+      | ncols 9
+      | nrows 7
+      | cellsize 3.0
+      | xllcorner 12.0
+      | yllcorner 6.0
+      | nodata_value -9999.0
+      | 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0
+      | 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0
+      | 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0
+      | 1.0 1.0 1.0 1.0 2.0 2.0 2.0 2.0 2.0
+      | 1.0 1.0 1.0 1.0 2.0 2.0 2.0 2.0 2.0
+      | 1.0 1.0 1.0 1.0 2.0 2.0 2.0 2.0 2.0
+      | 1.0 1.0 1.0 1.0 2.0 2.0 2.0 2.0 2.0
+
+  p
+    | The above output is what we expected. Notice that the border cells (all set to zero) of the source map were not transferred. This is by design: the outermost rows and columns of the source map (whatever their values) are not transferred.
+  h2
+    | Command Line Options
+  h3
+    | --lint
+  p
+    | When invoked, the first thing 
+    code
+      | AscMapOct.py
+    |  does is verify the specified .asc files.
+    br
+    |  The verification steps performed are:
+  ol
+    li
+      | source and destination cellsize values are the same.
+    li
+      | source and destination maps are cell-aligned.
+    li
+      | source and destination have overlapping cell area.
+    li
+      | source map header dimensions match and data length.
+    li
+      | destination map header dimensions match and data length.
+    li
+      | when 
+      code
+        | --output_asc_file
+      |  is present, whether the output file it specifies already exists.
+  p
+    | Including 
+    code
+      | --lint
+    |  on the command line tells 
+    code
+      | AscMapOct.py
+    |  to stop immediately after performing these verification steps, and report the first verification step that failed. If no problems are detected, a 
+    code
+      | --lint
+    | -optioned command line returns without any output at all.
+  p
+    | Some problems are not dectected during the verification steps, and are thus not part of what 
+    code
+      | --lint
+    |  can check:
+  ul
+    li
+      | Map files whose headers employ 
+      code
+        | xllcenter
+      |  and 
+      code
+        | yllcenter
+      |  instead of 
+      code
+        | xllcorner
+      |  and 
+      code
+        | yllcorner
+      |  cause a failure as their contents are loaded -- i.e. before 
+      code
+        | AscMapOct.py
+      |  runs its verification tests.
+    li
+      | The overlap test is for 
+      em
+        | any
+      |  overlap, not the minimum adequate overlap area specified by the script's 
+      a
+        | limitations
+      | .
+    li
+      | If the bounding-box overlap area for the source map does not equal the bounding-box overlap area for the destination map, the script fails with an error message. The portion of the script that computes the overlap bounding boxes runs after the verification steps, and so is not included when 
+      code
+        | --lint
+      |  is run. (Note: maps with proper cell-alignment are unlikely to fail for this reason.)
+  h3
+    | --output_asc_file
+  p
+    | Specifies the file that 
+    code
+      | AscMapOct.py
+    |  writes its results to.
+    br
+    |  If the 
+    code
+      | --output_asc_file
+    |  option is not specified, 
+    code
+      | AscMapOct.py
+    |  outputs results directly to your console. Writing to the console is useful for checking what the results look like before running the script "for real", but when running the script "for real", specifying the 
+    code
+      | --output_asc_file
+    |  option is the simplest way to save the results.
+  blockquote
+    p
+      | Note: 
+      code
+        | AscMapOct.py
+      |  does not permit you to overwrite an existing file.
+      br
+      |  If you specify a file that already exists as the argument for the 
+      code
+        | --output_asc_file
+      |  option, the script fails with an error message.
+      br
+      |  If you want to "reuse" that output file, you must delete it before running 
+      code
+        | AscMapOct.py
+      |  and specfiying it again.
+  p
+    | Here is the Usage example, plus the 
+    code
+      | --output_asc_file
+    |  option:console itself:
+  pre
+    code
+      | PS C:\Users\Me\Velma\My_Results> py -3 AscMapOct.py .\all_ones_border-zero_9x7.asc .\all_twos_9x7.asc --output_asc_file overlap_map.asc
+
+  blockquote
+    p
+      | Note: You can "pair" the file to the option with either a whitespace (" ") or and equals ("=") character.
+      br
+      |  Either 
+      code
+        | --output_asc_file overlap_map.asc
+      |  or 
+      code
+        | --output_asc_file=overlap_map.asc
+      |  is acceptable for the above example.
+  p
+    | Running the example command line above writes the script's results to the file "overlap_map.asc".
+  p
+    | It is possible ignore the the 
+    code
+      | --output_asc_file
+    |  option and capture 
+    code
+      | AscMapOct.py
+    |  results into a file using only console commands, but it requires a longer command line and more knowledge of the console command language. In compensation, it also allows you specify the file's character encoding, and to easily overwrite a pre-existing output file (an unsafe "benefit").
+  p
+    | As an example: for Windows PowerShell, we recommend capturing the output via a 
+    a
+      | pipeline
+    |  combined with the PowerShell 
+    a
+      | Out-File
+    |  cmdlet.
+    br
+    |  Here is the Usage example, plus the additional command line syntax to capture the output to a file named "overlap_map.asc" instead of to the console itself:
+  pre
+    code
+      | PS C:\Users\Me\Velma\My_Results> py -3 AscMapOct.py .\all_ones_border-zero_9x7.asc .\all_twos_9x7.asc | Out-File -Encoding ASCII -FilePath overlap_map.asc
+
+  p
+    | The pipe ("
+    code
+      | |
+    | ") symbol tells PowerShell to take the output of command on its left (the 
+    code
+      | AscMapOct.py
+    |  command) and pass it to the command its right (the 
+    code
+      | Out-File
+    |  cmdlet).
+  p
+    | The 
+    code
+      | Out-File
+    |  cmdlet can be used in various ways and for various situations, but what we want it to do here is:
+  ol
+    li
+      | Force the output to be ASCII-encoded.
+    li
+      | Save the output to the file "overlap_map.asc" specified by the 
+      code
+        | -FilePath
+      |  argument.
+  p
+    | We force the output to be ASCII because 
+    a
+      | PowerShell's default encoding is Unicode
+    | .
+    br
+    |  If you omit the 
+    code
+      | -Encoding ASCII
+    |  argument, the output is written to the file as Unicode characters.
+    br
+    |  If you find you don't need the 
+    code
+      | -Encoding ASCII
+    |  option, feel free to omit it.

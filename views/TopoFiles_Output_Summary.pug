@@ -1,0 +1,308 @@
+extends layout.pug
+block content
+  h1
+    | VELMA Topography Output Data Summary
+  h2
+    | Overview
+  p
+    | VELMA configurations include a boolean-valued parameter named 
+    code
+      | enableTopographySpatialDataOutput
+    |  that defaults to 
+    code
+      | false
+    | .
+    br
+    |  Setting it to 
+    code
+      | true
+    |  causes the VELMA simulator to write several 
+    code
+      | .asc
+    |  map files as part of its simulation results.
+  p
+    | Each file written contains a specific topographic or watershed-related type of data, and each file name starts with a mnemonic indicating the data it contains.
+  table
+    thead
+      tr
+        th
+          | File Prefix
+        th
+          | File Data Description
+    tbody
+      tr
+        td
+          code
+            | CHANNEL_
+        td
+          | delineated cell channel identification mask
+      tr
+        td
+          code
+            | DEM_
+        td
+          | cell elevation (in meters)
+      tr
+        td
+          code
+            | FACC_
+        td
+          | cell flow accumulation value
+      tr
+        td
+          code
+            | FDIR_
+        td
+          | cell primary flow direction indicator
+      tr
+        td
+          code
+            | FID_
+        td
+          | delineated cell identification mask
+      tr
+        td
+          code
+            | SID_
+        td
+          | delineated cell simulation sequence number
+  p
+    | Each file's name also contains the name provided as the configuration's 
+    code
+      | input_dem
+    |  parameter value, e.g. if 
+    code
+      | input_dem == my_dem_30m.asc
+    | , then the 
+    code
+      | FID_
+    |  files full name would be 
+    code
+      | FID_my_dem_30m.asc
+    | .
+  p
+    | Collectively these files provide additional context about the results of the simulation run. In turn, that context may prove useful for changing the configuration's parameterization for subsequent runs ...
+  ul
+    li
+      | as part of site calibration refinement.
+    li
+      | for adapting the configuration to include additional simulation features (e.g. contaminant or sediment simulation)
+    li
+      | as information for other models that may use the VELMA results as part of their own input.
+  p
+    | Although you must successfully start a VELMA simulation run in order to generate the topography output files, you do not need to wait until the simulation has completed in order to view their contents. When enabled, the topography output files are written as part of the first simulation step, and are available by the time the second simulation step has completed.
+  p
+    | A common practice when calibrating a new simulation site is to create a simplified configuration file with 
+    code
+      | enableTopographySpatialDataOutput == true
+    | , then stop the run after the 2nd simulation step. The topography files from this run can be used to further refine and revise the simplified configuration file's parameter values. (E.g. the 
+    code
+      | CHANNEL_
+    |  and/or 
+    code
+      | FACC_
+    |  map data can be used to determine placement of sub-reach outlets or cell data writers.)
+  h2
+    | File Formats and Data Details
+  p
+    | All the files written will have the same grid dimensions and header information as the DEM file specified for the configuration's 
+    code
+      | input_dem
+    |  parameter 
+    em
+      | unless
+    |  the 
+    code
+      | trimTopographyOutputToWatershedBoundary
+    |  parameter has also been set 
+    code
+      | true
+    | . In that case, the grid dimensions and x and y offsets of the topography file headers will be set to the bounding box of the delineated watershed.
+    br
+    |  Setting 
+    code
+      | trimTopographyOutputToWatershedBoundary == true
+    |  can be useful if your 
+    code
+      | input_dem
+    |  map is very large and your delineated area in that map is very small, however trimming is optional: 
+    code
+      | .asc
+    |  maps can be post-processed with GIS tools to trim them as-needed.
+  h3
+    | The CHANNEL_ Map
+  p
+    | The 
+    code
+      | CHANNEL_
+    |  map contains ternary mask data that categorizes cells as follows:
+  table
+    thead
+      tr
+        th
+          | Cell Value
+        th
+          | Meaning
+    tbody
+      tr
+        td
+          | -1
+        td
+          | The cell is not part of the watershed delineation.
+      tr
+        td
+          | 0
+        td
+          | The cell is part of the delineation but not a channel cell.
+      tr
+        td
+          | 1
+        td
+          | The cell is part of the delineation and is a channel cell.
+  p
+    | A cell within the delineation is a channel cell IFF the log10 of its flow accumulation (
+    code
+      | FACC_
+    | ) value is >= the configuration's 
+    code
+      | setChannelThreshold
+    |  value. (In the results directory, the 
+    code
+      | setChannelThreshold
+    |  value is stored in the 
+    code
+      | SimulationConfiguration[.csv,.xml]
+    |  files.)
+  blockquote
+    p
+      | Note: typically, 
+      code
+        | setChannelThreshold == 2.5
+      | , and it is considered unwise to change this default value without a deep understanding of how VELMA evaluates and computes runoff and loss amounts. Astute readers will note that the 
+      code
+        | CHANNEL_
+      |  map can be computed by overlaying the 
+      code
+        | FACC_
+      |  and 
+      code
+        | FID_
+      |  maps, and assigning values based on a cells log10(
+      code
+        | FACC_
+      | ) and 
+      code
+        | FID_
+      |  map values.
+  h3
+    | The DEM_ Map
+  p
+    | The 
+    code
+      | DEM_
+    |  map is a copy of the map file specified for the configuration's 
+    code
+      | input_dem
+    |  parameter.
+    br
+    |  It is included in the results directory as a convenience, and for reference should the results directory become "separated" by time and location from the input data directory used by the VELMA simulator to generate the results.
+  h3
+    | The FACC_ Map
+  p
+    | The 
+    code
+      | FACC_
+    |  map contains each cell's VELMA-computed flow accumulation value.
+    br
+    |  VELMA-computed flow accumulation values are related to, but are also distinct and different from JPDEM-computed flow accumulation values.
+  table
+    thead
+      tr
+        th
+          | FACC value
+        th
+          | Description
+    tbody
+      tr
+        td
+          | JPDEM-computed
+        td
+          | relative elevation based, accumulation of primary flow direction counts, integer values.
+      tr
+        td
+          | VELMA-computed
+        td
+          | relative elevation based, accumulation of multiple-flow direction scores, floating-point values.
+  p
+    | VELMA flow accumulation is based on multiple flow directions. Each cell contributes 1 to its flow accumulation and each upstream cell that flows directly to it contributes an amount of its flow accumulation that is proportional to its water flow to the cell. The waterflow is the ratio of its slope to the sum of slopes of all cells that flow to the cell. This is distinct from the JPDEM flow accumulation calculation which simply sums the number of cells in a path of primary flow direction to the final headwater cell.
+  blockquote
+    p
+      | Note: FACC_ map cells outside of the delineated watershed have the facc value "1.0", however some cells 
+      em
+        | within
+      |  the delineated watershed may also have a facc value of "1.0". Do not infer delineation status from a cell's facc value. Determine a cell's delineation status from the 
+      code
+        | FID_
+      |  map.
+  h3
+    | The FDIR_ Map
+  p
+    | The 
+    code
+      | FDIR_
+    |  map contains each cell's primary flow direction, as a integer-value direction identifier in the range [1, 8]. In VELMA a cell's primary flow direction is defined as the direction identifier of the downhill-adjacent cell with the largest slope, where slope is calculated as:
+  pre
+    code
+      | (cell_elevation - downhill_adjacent_cell_elevation) / centroid_to_centroid_distance
+
+  p
+    | The following ascii-diagram inidicates which cell adjacent to cell "c" corresponds which direction code:
+  pre
+    code
+      | +---+---+---+     The direction codes "start" 
+      | | 6 | 7 | 8 |     at the cell east (to the right) of cell "c"
+      | +---+---+---+     and continue clockwise around the eight
+      | | 5 | c | 1 |     adjacent cells.
+      | +---+---+---+  
+      | | 4 | 3 | 2 |
+      | +---+---+---+
+
+  p
+    | Any value outside the range [1, 8] indicates a cell without a valid flow direction, and is an indication that there were basic problems processing the original DEM grid map. If you find such values, re-evaluate your original DEM grid map: check that it is properly flat-processed, and passes JPDEM's flow test function.
+  h3
+    | The FID_ Map
+  p
+    | The 
+    code
+      | FID_
+    |  map is a binary mask that distinguishes delineated and non-delineated cells.
+  table
+    thead
+      tr
+        th
+          | Cell Value
+        th
+          | Meaning
+    tbody
+      tr
+        td
+          | -1
+        td
+          | The cell is not part of the watershed delineation.
+      tr
+        td
+          | 1
+        td
+          | The cell is part of the delineation.
+  p
+    | The 
+    code
+      | FID_
+    |  map is primarily useful as an overlay mask when combining other VELMA data maps using either a GIS tool, or utility scripts like Python + GDAL or Numpy.
+  h3
+    | The SID_ Map
+  p
+    | In the 
+    code
+      | SID_
+    |  map, each cell's value indicates its evaluation order within the VELMA simulation. The cell with value == "0" is the first cell processed, and the cell with the highest value is the last cell processed (and is also the outlet cell of the delineated watershed). Cells outside of the watershed are set to the value "-1". In each simulation step VELMA must process the delineated cells of the watershed in an order that ensures no cell's results (e.g. per-step water balance) are determined before any uphill-adjacent cells (whose results might affect its own) are processed. The sid ordering is how VELMA enforces this rule.

@@ -1,0 +1,180 @@
+extends layout.pug
+block content
+    h1 B.10 | Flow Path Modification with the JPDEM Channel Cutter
+    div.info.blue-light-1
+        p Overview <i>(Tutorial B.10 - JPDEM Channel Cutter)</i>
+        p Digital elevation models (DEMs) need to be flat-processed using the JPDEM tool before VELMA can accurately simulate flow paths within a watershed. However, JPDEM's flat-processing procedure cannot account for obscuring landscape features such as bridges or buried streams, leading to potentially large errors in estimating actual flow paths.
+        p Therefore, JPDEM includes a procedure that allows users to make elevation adjustments (a.k.a. "dredging" or "cutting") to reroute specified channels within a DEM. Performing channel cutting prior to flat-processing a DEM can improve the fidelity of flow paths in the subsequent flat- processed map relative to the actual terrain it represents.
+        p JPDEM's "channel cutter" can also be used to re-engineer existing DEM flow paths, for example, to support "what if" green infrastructure (GI) and low impact development (LID) simulations. Or, VELMA users might want to explore how rerouting stormwater from established gray infrastructure flow paths (e.g., streets equipped with storm drains) to proposed rain gardens, detention ponds, engineered wetlands, etc.
+        p This document describes the basics of using JPDEM's channel cutter to accomplish such objectives.
+    
+    p The Channel Cutter mechanism reduces the elevations of specified sequences of cells ("channel cells") relative to their adjacent cells ("bank cells"). The elevation reduction is performed so that the channel cells guaranty a continuous "step down" from the upper most channel cell ("headwater cell") to the edge of the DEM map grid.
+    p The Channel Cutter mechanism requires a channel guide map that defines the channel cells it should adjust, including a built-in coded sequence representing the order of adjustment to be made on the DEM map data. Producing the channel guide map comprises most of the effort for the overall task of modifying ("dredging") a map's channels (flow paths). Appendix A????? provides instructions for using ArcMap and associated utility tools for establishing a channel guide map and performing the dredging process.
+    p <b>Important Note: </b>JPDEM's "Standard" and "Alternate" flat-processing methods should <u>NOT</u> be used for flat-processing DEMs when the Channel Cutter mechanism is being used. Reason is these two methods both raise and lower cells during flat-processing. The other methods ("Experimental" and "Enhanced Experimental") only raise cell elevations during flat-processing adjustments. Since the Channel Cutter mechanism enforces flow to the edge of the map, these cells are guaranteed correct, therefore are not modified when using the "Experimental" and "Enhanced Experimental"
+    p methods. That behavior cannot be guaranteed when using the "Standard" and "Alternate" flat-processing methods.
+    h2 Using the Channel Cutter
+    p This document assumes that you already have a raw DEM (i.e. a DEM that has <i>not </i>been flat-processed) that you wish to dredge (i.e. adjust channel cell elevations for) and a correctly-formatted stream channel sequential map to guide the channel cutter.
+    h3 Step 1: Load the DEM Map
+    p Start JPDEM and load the un-flat-processed DEM file, via the File -&gt; "Load Map File Data" -&gt; "Load as DEM File" menu item:
+    
+    img(width="590" height="160" alt="screenshot" title="screenshot" src="public/suppImage_156.jpg")
+    h3 Step 2: Load the Channel/Stream Guide Map
+    p Load the sequential guide map via the File -&gt; "Load Stream File Data"
+    img(width="588" height="180" alt="screenshot" title="screenshot" src="public/suppImage_157.jpg")
+    p After the sequential guide (a.k.a. Stream File Data) map has been loaded, JPDEM will display the cell from the guide map in green:
+    img(width="591" height="553" alt="screenshot" title="screenshot" src="public/suppImage_158.jpg")
+    p If you find that you have loaded the wrong channel/stream guide data, click the File -&gt; "Clear Stream File Data", and then "File -&gt; "Load Stream File Data" to load the correct file.
+    h3 Step 3: Run the Channel Cutter
+    p Perform the actual channel cutting by clicking the Tools -&gt; "Adjust DEM via Sequential Stream Guide Data" menu item.
+    img(width="590" height="137" alt="screenshot" title="screenshot" src="public/suppImage_159.jpg")
+    p (The Tools -&gt; "Adjust DEM via Binary Stream Guide Data" - is a different, mechanism that is still under development. If you click it by mistake, close JPDEM, then restart it and begin again with Step 1.)
+    p When you click "Adjust DEM via Sequential Stream Guide Data", the following dialog opens:
+    img(width="626" height="371" alt="screenshot" title="screenshot" src="public/suppImage_160.jpg")
+    p The "WARNING" section provides a condensed overview of the guide map format specified in Appendix A of this document.
+    p The "Decrement Amount" mentioned at the top of the dialog is the amount that channel cells are lowered relative to their adjacent bank cells. The value is in meters, and is automatically calculated unless you click the "Fixed Decrement Amount" and specify a value.
+    p Unless you need a very large difference between channel and bank elevations, leave the Fixed Decrement option unchecked, and simply click the OK button at the bottom of the dialog.
+    p Doing so will start the channel cutter mechanism.
+    p The following message indicates that the channel cutter has completed its work:
+    img(width="589" height="345" alt="screenshot" title="screenshot" src="public/suppImage_161.jpg")
+    p Click the OK button to dismiss it.
+    p When the channel cutter encounters an error, it terminates with the following type of message dialog:
+    img(width="625" height="129" alt="screenshot" title="screenshot" src="public/suppImage_162.jpg")
+    h3 Step 4: Check the Channel Cutter Runtime Messages
+    p As it processes the channels, the cutter echoes a status report for each channel ID it encounters to stdout of the console JPDEM was started from. (Note, if you started JDPEM by double-clicking its application icon, the status report messages are suppressed.)
+    p Here is an extract from channel cutter output for a single channel's status (the <span>[...] </span>indicate long text lines that were truncated for this document.)
+    pre 
+        code Sequenced Channel #14 : 10024 9849 9674 9675 9500 9501 9326 9151 9152 8977 8802 <span>[...]</span>
+        code minDecrement=2.000000000066393E-4 bankDecrement=1.026900000000012 maxDecrement=<span>[...] </span>Channel Cells: 10024 9849 9674 9675 9500 9501 9326 9151 9152 8977 <span>[...]</span>
+        code Channel Cell Elevations: 369.2801 368.8617 368.44329999999997 368.0249 <span>[...]</span>
+        code Problem Channel Cells: -none-
+        code Bank Cells: 10025 10200 10199 10198 10023 9848 9850 9850 10025 10023 <span>[...]</span>
+        code Bank Cell Elevations: 372.6165 376.9927 373.6152 375.6302 375.5685 375.7058 <span>[...]</span>
+        code Problem Bank Cells: -none-
+    p Note that the above channel processed cleanly: the "Problem Channel" and "Problem Bank" lines report "-none-". If either of the "Problem" report lines listed cell indices, that would indicate the channel cutter encountered some ambiguity at those cells. Careful review of the guide map data must then be performed: it may be that the sequencing of the channel is incorrect.
+    p The cutter will fail - and lists to the stdout console - when it encounters one or more duplicate sequence.channel ID values in a single guide map. Here is short example of what the duplicate error message looks like:
+    pre 
+        code At 2018-10-05 14:59:02: Starting Sequential Stream Guide Processor ... Cutter depth: Automatic Detection
+        code Duplicate: iSequence=15 iChannel=9
+        code Duplicate: iSequence=2 iChannel=2 
+        code Duplicate: iSequence=141 iChannel=1 
+        code Duplicate: iSequence=197 iChannel=1
+        code FAILED: ChanngerCutterEngine.cutChannel HAS EXITED WITH EXCEPTION 
+        code java.lang.RuntimeException: FAIL: There are 4 duplicate sequence-channel values in the stream guide file.
+        code Reload the DEM file to clear any incomplete channel cutter modifications.
+    
+    h3 Step 5: Flat-Process the Channel-Cut Map
+    p You can save the flat-processed channel-cut DEM map immediately after running the cutter, and we recommend you do this, but we also recommend you flat-process the DEM immediately after successfully channel-cutting it. The results of the channel-cutter mechanism are most compatible with the 3 "Experimental …" flat-processing algorithms; choose one of those and run it on the just-cut DEM. After the flat-processor is done, save the resulting map to a file (File -&gt; "Save DEM Data As" -&gt; "ASCII Grid"). You may also use the "Facc Threshold" rendering feature to evaluate how well the guide map's cells correspond to high-flow cells of the flat-processed DEM (see Appendix B for details).
+    
+    h2 Appendix A:
+    h3 Channel Cutter Sequential Guide Map Format
+    p For some watersheds, a VELMA user may desire to increase the processing time required to flat process their area of interest or may need to control the representation of the VELMA simulation flow path.
+    p Both goals can be met using JPDEM's advanced feature, the Dredger.
+    p The current state of the dredging tool is beyond "Beta". Though, currently this method is not as user friendly as JPDEM itself. As of VELMA 2.1, the user must use GIS software to prepare spatial data for an intermediate Java-based tool referred to as the Channel Cutter method (a.k.a Dredger), or by Java file referred to as "JpdemStreamDredgePrepper.jar".
+    p A channel cutter sequential guide map is an ESRI Grid ASCII (.asc) map file with the same dimensions as the DEM file it is intended to overlay. The contents of the file specify a collection of one or more channels, and the sequence of cells within each channel.
+    p The following cell value details are generated for the user by the JpdemStreamDredgePrepper.jar tool. Understanding the end goal assists with trouble shooting the final stream dredge map provided to JPDEM. Each cell data value within the file must be either:
+    ol
+        li The DEM file's nodata_value (usually -9999).
+            ul 
+                li Cells with the nodata_value are ignored by the channel cutter mechanism.
+        li A decimal number signifying that cell's stream flow sequence and channel ID numbers.
+            ul 
+                li The whole number portion (left side of decimal) of the number is the cell's stream flow sequence number within the channel. First stream cell (stream mouth) is always 1 and each flowing cell is a greater number than touching downstream number. Numbers in the sequence can be skipped.
+                li The mantissa or cents portion (right side of decimal) of the number is the stream ID value for each channel that cell is a member. The ranking of each stream channel value dictates the hierarchy of dredging. A stream value of 1 has highest priority. Any stream cell of lower priority is dredged first with a higher priority being dredged later. This allows for proper dredging at stream confluences. The stream that terminates at the confluence should be of lower stream value priority, meaning a larger stream number.
+    p The channel cutter mechanism is inelastic and cannot recover from map data errors. In addition to the above, the following requirements must be met:
+    ul 
+        li It is an error for the same sequenceID.channelID number value to occur more than once in a single map file.
+        li A channel's sequence ID values must increase (lowest to highest) from its outlet to its "headwater" cell.
+        li A channel's outlet cell must either terminate at the edge of the DEM grid, or adjacent to a cell of a different channel.
+        li A channel (and all connecting channels) may touch the edge of the DEM grid at only one cell location - that is, a channel or network of channels must terminate at a single DEM grid edge cell. A sequential guide map <i>may </i>contain more than one channel that terminates at a DEM grid edge, but every channel or network of channels that terminates at a DEM grid edge cell must be independent (i.e. not connect) to any other channel or network of channels that terminate at a grid edge cell.
+    
+    h3 Preparing the channel cutter sequential guide map using the JPDEM Dredger Prepper Tool
+    h4 Part 1: Preparation of stream data
+    ol 
+        li Load into ArcMap your raw DEM in the format VELMA will receive, meaning the extent and final cell resolution are already resolved. Note: the extent is an important here, if you change the DEM extent, you must create a new Dredge map matching the new DEM.
+        li Load the polyline shapefile representing your desired dredging pattern.
+            ol 
+                li These data can be existing NHD data or other prepared stream data representations, created from scratch when data does not exist, such as when proposed future flow paths are part of the research.
+                li Two key points on this polyline shapefile.
+                    ol 
+                        li Each "stream" polyline must be represented as one, meaning in the attribute table an entire stream must contain the same number.
+                        li A "stream" in this polyline shapefile is all the line segments together, and these line segments must all be connected to one network.
+                        li Each "stream" polyline must have its own unique number. Again, a "stream" can be made up of many line segments, but all the segments representing one "stream" must all have the same number, and that number must be unique to only that "stream".
+                        li The "stream" network must have one, and only one, unique "stream" touching the edge of the map.
+                        li The numbers themselves DO NOT have to be in sequence. That is one of several tasks the "JpdemStreamDredgePrepper" accomplishes during initiation.
+                li Clip the "stream" polyline network to match the extent of the raw DEM file.
+                li Check the attribute table to ensure all line segments have the unique ID matching the "stream" that line segment belongs to.
+                    ol 
+                        li Edit the attribute table as needed to meet this tool requirement. Line segments with missing data will become the terminal end of that "stream" due to the discontinuity. Therefore, the JpdemStreamDredgePrepper tool will stop processing that stream at any point of discontinuity.
+    p Convert the "stream" polyline to a raster with matching extent and matching cell resolution. If using ArcMaps Polyline to Raster conversion tool, be sure the attribute field used is the field representing your "streams" unique stream numbers.
+    
+    h3 Running the JpdemStreamDredgePrepper
+    p JpdemStreamDredgePrepper is a tool that can be used to simplify the creation of the JPDEM Stream Guide input map. The tool is ran from command line as of 23<span>rd</span> May, 2017. On-going work is being done to streamline this process even further.
+    p Part 2: Running JpdemStreamDredgePrepper Java Tool
+    p Steps for preparing to run the JpdemStreamDredgePrepper tool
+    ol 
+        li Fill out the properties file using the JpdemStreamDredgePrepper_DefaultProperties.properties file provided.
+            span Directory and Burn Modification keys.
+            ol 
+                li Provide a project name. The ProjectName must be filled in when the runForModifiedBurns is set to true. The output modified burn file will be named using this key.
+                li Provide the full file path directory to the location the properties file and input data will be located at.
+                    span *** The directory file path can contain double backlashes or a single forward slash to separate folders.
+                li stream key is the array generated from the Polyline to Raster conversion. Must be an ASCII. Use ArcMap Raster to ASCII tool to accomplish file conversion.
+                li startPtX key is the row dimension of the main stream within the &quot;stream&quot; file, where the dredging would begin against the edge of the area of interest.
+                li startPtY key is the column dimension of the main stream within the &quot;stream&quot; file, where the dredging would begin against the edge of the area of interest.
+                li writeOutData key is used to control the writing out of intermediate files that are not needed by JPDEM, but could be useful for trouble-shooting when the output &quot;&quot;project&quot;_watershedDredgeMap.asc&quot; file is not as expected.
+                    img(width="624" height="263" alt="screenshot" title="screenshot" src="public/suppImage_163.jpg")
+        li Save the Properties file within an accessible folder.
+        li Launch PowerShell. Other command line methods will work, but PowerShell has the invaluable feature of drag-n-dropping full filepaths.
+        li Type in PowerShell the following: java -jar
+        li There is a space between "java" and "-jar", as well as a space after -jar
+        li Drag-n-drop the "JpdemStreamDredgePrepper.jar" from its full file path location.
+        li Add a space by clicking the spacebar.
+        li Drag-n-drop the "JpdemStreamDredgePrepper_DefaultProperties.properties" from its full file path location.
+            ol 
+                li Properties file filename can vary, if you renamed it after modifying the variables to fit your study area.
+                li PowerShell should look something like this now:
+                    img(width="624" height="87" alt="screenshot" title="screenshot" src="public/suppImage_164.jpg")
+        li Hit enter! If successful, you will see something like this when the tool is complete:
+            img(width="556" height="110" alt="screenshot" title="screenshot" src="public/suppImage_165.jpg")
+    h4 Outputs:
+    ol 
+        li The tool generates several output files. This is partly due to the tool not being 100% complete, so some files are used during development. The other reason is these files can be useful for trouble shooting problems when the final map does not match what you expected.
+            img(width="443" height="131" alt="screenshot" title="screenshot" src="public/suppImage_166.jpg")
+        li In the above file structure example:
+            ol 
+                li <i>projectName</i>_watershedDredgeMap.asc: 
+                    span This is the file one provides to JPDEM. This file is a sorted stream network with the file structure of "sequentialCell.uniqueStream". Example: "1.1" "2.1" "3.1"
+                li <i>projectName</i>_cleared_up_streams.asc: 
+                    span The results of an intermediate processing step. Normally only used for code debugging.
+                li <i>projectName</i>_streamOrder.asc: 
+                    span The results from the tool sorting the "streams" per cell for the numbers to the right of the decimal.
+                li <i>projectName</i>_streamCellSequence.asc: 
+    p The results from the tool sorting the values per cell for the numbers to the left of the decimal.
+    h2 Appendix B:
+    h3 Viewing Channel Information After Flat-Processing
+    p Assuming you have loaded a valid DEM and associated guide map, successfully run the channel cutter, and flat-process the channel-cut map, you can view how well the channel guide cells correspond to the DEM's high-flow cells.
+    p Click the "Facc Threshold" checkbox in JPDEM's toolbar, and enter an appropriate threshold value.
+    p The threshold image rendering is "guide-map aware", and when guide map information is available, the Facc Threshold colors the DEM map's cells as follows:
+    table
+        tr 
+            td Cell Color
+            td &gt;= Facc Threshold ?
+            td Channel Guide Cell ?
+        tr 
+            td Grayscale
+            td NO
+            td NO
+        tr 
+            td Red
+            td YES
+            td NO
+        tr 
+            td Dark Green
+            td NO
+            td YES
+        tr 
+            td Yellow/Orange
+            td YES
+            td YES
+    
+    img(width="565" height="530" alt="screenshot" title="screenshot" src="public/suppImage_167.jpg")

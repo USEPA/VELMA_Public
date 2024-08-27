@@ -1,0 +1,114 @@
+extends layout.pug
+block content
+    h1 B.1 | Creating Flat-Processed DEM Data for the VELMA Simulator
+    div.info.blue-light-1 
+        p Overview <i>(Tutorial B.1 – Create Flat-Processed DEM Data for VELMA)</i>
+        p The VELMA Simulator requires elevation data in the form of a georeferenced Digital Elevation Model (DEM) for any simulation it runs.
+        p This DEM contains elevation data in the form of a grid for the area simulated.
+        p The area specified must contain no &quot;sinks&quot; or &quot;flat spots&quot;, so that when VELMA simulates runoff, it must be able to flow &quot;off&quot; the map area in some way. Water is not allowed to pool anywhere within the simulation area.
+        p In order to ensure this &quot;no flat spots rule&quot;, DEM data used by the VELMA Simulator first needs to be &quot;flat-processed&quot; to remove any sinks or flat spots.
+        p This document explains how to use JPDEM - an enhanced Java version of the "PDEM" program (Pan et al. 2012) - to (1) flat-process raw DEM data files, and (2) determine the location of a watershed outlet and delineate the boundary the watershed area contributing to that outlet.
+
+    h3 How to Acquire Digital Elevation Model Data
+    p Elevation and other common GIS data can be retrieved from many local, state, and federal GIS repository libraries. The USDA's "Geospatial Data Gateway" provides easy access to multi resolution USGS National elevation data along with many other types of natural resource data. Higher resolution data, like LiDAR can many times be found from alternative public and private stakeholders such as the "Puget Sound Lidar Consortium". Other popular data, such as STATSGO and newer 10m gridded
+    p SSURGO soils GIS layers can also be acquired from the "Geospatial Data Gateway"
+    h5 References
+    p <a href="https://datagateway.nrcs.usda.gov/"target="_blank">Geospatial Data Gateway - </a><a href="https://datagateway.nrcs.usda.gov/"target="_blank">https://datagateway.nrcs.usda.gov/</a>
+    p <a href="http://pugetsoundlidar.ess.washington.edu/"target="_blank">Puget Sound Lidar Consortium - </a><a href="http://pugetsoundlidar.ess.washington.edu/"target="_blank">http://pugetsoundlidar.ess.washington.edu/</a>
+    h2 How to Use the JPDEM Tool to Process DEM data for Use with VELMA
+    p To ensure the &quot;no flat spots rule&quot;, DEM data used by the VELMA Simulator is first &quot;flat-processed&quot; to remove any sinks or flat spots.
+    p Use JPDEM to prepare DEM data for use by the VELMA Simulator.
+    h5 Note
+    p You must have a current version of Java (version 1.8 at this writing) installed on your computer to run JPDEM.
+    h2 How to Create a Flat-Processed DEM 
+    h3 Start JPDEM
+    p Open a Windows Command Line and enter the command:
+    code C:\&gt; java -Xmx1024m -jar C:\full\path\to\JPDEM.jar
+    p The "-Xmx1024m" tells the Java Runtime Environment (JRE) to let JPDEM have 1024 megabytes (1 gigabyte) of working memory.
+    p If your machine doesn't have that much memory, substitute a smaller value (e.g. "512" instead of "1024"). Alternately, if the .asc file of DEM data you intend to load is very large (and your machine has the memory) you may substitute a larger value (e.g. "2048" instead of "1024").
+    p If the full path to the JPDEM.jar file contains whitespace characters, place double-quotes around the path.
+    p Example:
+    code C:\full\path\with white space\to\JPDEM.jar
+    h3 Load the DEM Data into the JPDEM Tool
+    p Load a &quot;raw&quot; DEM file into JPDEM (the file must be in standard ESRI Grid .asc format).
+    p The easiest way to do this is to drag and drop a raw (unprocessed) DEM file into the open JPDEM window.
+    p Alternatively, you can click the &quot;File&quot; menu, then select and click &quot;Load DEM File&quot;. The &quot;Select DEM File to Load&quot; dialog window opens.
+    p Browse to the location of your DEM file, and click the name of the DEM file. The DEM file&#39;s name appears in the &quot;File Name:&quot; text box.
+    p Click &quot;Load File&quot; to load that file&#39;s data into JPDEM.
+    p The file is loaded, and an image of the file appears in JPDEM&#39;s map display.
+    p If the file is too small (has few rows and columns), click the Image Scale up-arrow button to &quot;zoom in&quot;.
+    
+    h3 Flat Process the DEM Data Using JPDEM
+    p Click the &quot;Tools&quot; menu, then select and click &quot;Flat-Process DEM Data (Standard)&quot;. The drop-down menu currently provides a selection of methods to flat-process a DEM grid. There are currently four different JPDEM delineation algorithm implementations to choose from. We believe they all produce the same results (except possibly for cells on the edge of the DEM area -- which is an acceptable difference).
+    p However, they vary greatly in how long they take to run. We recommend using the &quot;Experimental&quot; algorithm for delineation because our experience is that it provides accurate results in a comparatively short amount of time.
+    p The following is a quick summary of the alternate flat processing methods, including the strengths and weaknesses of each.
+    
+    h3 Standard
+    p Feifei Pan&#39;s original PDEM algorithm and code, translated to Java. Raises and lowers cell elevations.
+    p May NOT completely process map -- has a &quot;time-out&quot; to keep it from running indefinitely.
+    p UNSAFE for use with maps that have had border-mask and/or channel dredge applied beforehand.
+    
+    h3 Alternate
+    p Feifei Pan&#39;s original algorithm, implemented to with some simple Java optimizations. Raises and lowers cell elevations.
+    p May NOT completely process map -- has a &quot;time-out&quot; to keep it from running indefinitely. Is usually a bit faster than the Standard engine, but in a few cases has proven to run slower.
+    p UNSAFE for use with maps that have had border-mask and/or channel dredge applied beforehand.
+    
+    h3 Experimental (recommended)
+    p Allen Brookes&#39; complete re-implementation of Feifei Pan's original algorithm.
+    p Only raises cell elevations.
+    p Will always completely process map (not proven formally).
+    p Is almost always much faster than either the Standard or Alternate engines.
+    p Can be disproportionately slowed down by large, contiguous flat areas adjacent to edges of the map. Can be safely used with maps that have had border-mask and/or channel dredge applied beforehand.
+    
+    h3 Enhanced Experimental
+    p Allen Brookes&#39; refinement of the Experimental algorithm. Primarily raises cell elevations (but may lower them as well).
+    p May NOT completely process map, but has a high likelihood of doing so. Is almost always faster than the Experimental engine.
+    p Can be disproportionately slowed down by large, contiguous flat areas adjacent to edges of the map. Can be safely used with maps that have had border-mask and/or channel dredge applied beforehand.
+    
+    h3 Enhanced + Divide-and-Conquer Experimental
+    p Allen Brookes&#39; additional refinement of the Experimental algorithm Primarily raises cell elevations (but may lower them as well).
+    p May NOT completely process map, but has a high likelihood of doing so. Is almost always faster than the Experimental Enhanced engine.
+    p Can be disproportionately slowed down by large, contiguous flat areas adjacent to edges of the map. Can be safely used with maps that have had border-mask and/or channel dredge applied beforehand.
+    p After selecting (clicking) one of the preceding options, JPDEM will process the DEM, adjusting elevation data to remove flat spots or sinks within the DEM data&#39;s area.
+    p If the processing takes more than a second or two, the display will periodically update, showing remaining flat spots in blue.
+    p When the flat-processing algorithm finishes, the display shifts to a grey-scale representation, with darker-colored pixels representing cells with higher flow-accumulation values.
+    
+    h3 Save the Flat-Processed DEM Data from JPDEM To a File
+    p After JPDEM finishes flat-processes DEM data, click the &quot;File&quot; menu, then click the &quot;Save DEM As ...&quot; submenu, and finally select and click the &quot;Ascii Grid&quot; menu item.
+    p The &quot;Save DEM Grid to File&quot; dialog window opens.
+    p Browse to the location you wish to save the data in, then type a name for the file in the &quot;File Name:&quot; text box.
+    p Finally, click the &quot;Save File&quot; button to save the DEM data to the specified file name and location.
+    h5 Notes:
+    p Flat-processed DEM data may be loaded into JDPEM just like &quot;raw&quot; DEM data.
+    p Flat-processed DEM date does not need to be flat-processed again after it is loaded into JPDEM.
+    p However, to view the flow-accumulation grey-scale visualization of that flat-processed data, you must determine the flow data information for the flat-processed DEM values.
+    
+    h2 Watershed Delineation
+    h3 Determining Flow Data for a Flat-Processed DEM
+    p Load a flat-processed DEM .asc file into JPDEM, in the same way you would load a &quot;raw&quot; DEM file.
+    p After loading the DEM data, click the &quot;Tools&quot; menu, then select and click the &quot;Determine DEM Flow Data (Standard)&quot; menu item.
+    p JPDEM will then compute flow data (flow direction and accumulation values) for each cell in the DEM area.
+    p Once the flow data is computed, JPDEM will shift the display to the flow-accumulation grey-scale visualization.
+    h5 Note
+    p Loading a &quot;raw&quot; DEM file and then immediately trying to determine DEM flow data should not crash JPDEM, but it won&#39;t result in any meaningful information either.
+    h5 Note
+    p The difference in results between the &quot;(Standard)&quot; and &quot;(Alternate)&quot; flow data algorithms should be zero or very small.
+    p You may use either algorithm. The Alternate algorithm is somewhat faster, but often not much faster than the Standard algorithm.
+    h3 Determining Watershed Delineation
+    p Flat-processed, flow-accumulated DEM data in JDEM may be used to determine the delineation relative to a specified outlet cell (i.e. the set of cells that flow &quot;to&quot; a specified &quot;outlet&quot; cell).
+    p In order to compute the delineation for an outlet cell, you must first specify the coordinates of the outlet cell.
+    p You can do this either by entering the zero-based x (column) and y (row) coordinates of the outlet cell in the &quot;Outlet X=&quot; and &quot;Y =&quot; number boxes, above JPDEM&#39;s map display, or by using the mouse.
+    p To select an outlet cell using the mouse, do the following:
+    p Move the mouse pointer over the cell you wish to select. Press down on either the right or left mouse button.
+    p A context menu should pop-up, containing information about the cell you are pointing at.
+    p Holding the mouse button down, drag the mouse pointer onto the menu item containing cell info (the info should highlight), then release the mouse button.
+    p The menu goes away, and the x and y coordinates for the cell you selected appear in the &quot;Outlet X = &quot; and &quot;Y = &quot; number boxes above the map display.
+    h5 Note
+    p &quot;Zoom in&quot; on the map display by clicking the up-arrow button of the &quot;Image Scale&quot; to make selecting a specific cell easier. For example, at &quot;Image Scale 3&quot;, for example, every cell is displayed by 3x3 pixels. However, on very large maps zooming too far in can crash the display, because it may run out of memory.
+    p Once the coordinates of an outlet cell are specified, click the &quot;Tools&quot; menu, then select and click the &quot;Delineate DEM Data (Experimental)&quot; menu item.
+    p JPDEM will then compute the delineation (i.e. the area of cells) for the currently specified &quot;Outlet X =&quot; and &quot;Y =&quot; values.
+    p The resulting area is displayed in a logarithmic-coloring blue-red scale, superimposed over the grey-scale of the flow-accumulation display.
+    p If the delineation looks incorrect, change the outlet cell coordinates and re-run the delineation.
+    p When the delineation looks correct, record the &quot;Outlet X =&quot; and &quot;Y =&quot; values for future reference and use with JVELMA. (JPDEM does not &quot;record&quot; outlet values anywhere.)
+    h2 References
+    p Pan, F., Stieglitz, M., &amp; McKane, R. B. (2012). An algorithm for treating flat areas and depressions in digital elevation models using linear interpolation. <i>Water Resources Research</i>, <i>48</i>(6).

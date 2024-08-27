@@ -1,0 +1,245 @@
+extends layout.pug
+block content
+  h1
+    | MoeVelGenerator: the MOEA-to-VELMA Configuration Generator
+  h2
+    | Overview
+  p
+    | This guide explains what the 
+    code
+      | MoeVelGenerator
+    |  utility tool is for, and how to use it.
+  h2
+    | Background
+  p
+    | Running the MOEA Framework for VELMA produces a MOEA outputs .csv file with multiple rows of results, one row per VELMA simulation run. Via the values in its columns, a given row reports the objective scores and VELMA parameters settings (categorized into "variables", "followers", and "exclusives") unique to a particular VELMA run.
+  p
+    | As an example, here is a screen-capture of part of the contents of a MOEA outputs.csv file: 
+    img
+  p
+    | With the contents of the MOEA output .csv file available, the next step in the user's workflow is usually an analysis of which VELMA simulation runs (i.e. rows of MOEA output) are the "best" -- based on the objectives columns scores. For one or more of these best runs, the user typically wishes to re-run VELMA outside of MOEA, to generate full VELMA results and analyze them in detail. But, in order to run VELMA with the same simulation configuration parameters that produced the "best" row of objectives scores the user must recreate the specific .xml configuration file that MOEA ran VELMA with, because MOEA does not report/save that .xml file anywhere.
+  p
+    | The .xml file for a particular row can be created by duplicating the original ("source") VELMA simulation configuration .xml file (specified for use when MOEA ran), and then subsituting each value in the row from a column representing a VELMA parameter inot the duplcate .xml. When this process in completed, the duplicate .xml 
+    em
+      | is
+    |  the .xml file that MOEA ran to produce the results for the given output row.
+    br
+    |  (Although perhaps not 
+    em
+      | exactly
+    |  the same: the user will likely set VELMA's 
+    code
+      | suppressAllOutputFiles
+    |  false instead of true, and change the 
+    code
+      | run_index
+    |  and .xml file's name to make it and its full results directory easy to identify.)
+  p
+    | Performing the above work manually can be a slow and mistake-prone process, and it is exactly this process that the 
+    code
+      | MoeVelGenerator
+    |  tool automates: generating a VELMA .xml configuration file from a row of a MOEA outputs .csv file, using a VELMA source .xml as a starting template.
+  h2
+    | Platform Requirements and Runtime Notes
+  p
+    | Running 
+    code
+      | MoeVelGenerator
+    |  requires the following:
+  ul
+    li
+      | Python 3.4 or later
+    li
+      | Windows 10 (although the tool is not Windows-specific, Windows it the only platform it has been tested on).
+    li
+      | Windows Powershell (other shells should work, but PowerShell is the command shell it has been tested on).
+  p
+    | The Step-by-Step Instructions assume a Windows 10 and Powershell environment.
+  h2
+    | Step-by-Step Instructions
+  p
+    | These instructions start assuming you have already run MOEA for VELMA, and the MOEA configuration and outputs .csv files are available and accessible.
+  h4
+    | 1. Determine the VELMA simulation configuration .xml file used as the source for the MOEA output results.
+  p
+    | The original ("source") VELMA simulation configuration .xml file that MOEA used to build the .xml files for each row of its output results is specified in MOEA's own configuration .csv file. Open that file and find the configuration record (row) containing the keyword "VELMA_SOURCE". The third column in the row should contain the fully-qualified path + name of the VELMA source .xml file. Make a note of this path + file name for use as the 
+    code
+      | velma_xml_source
+    |  command line argument in Step 3 below.
+  p
+    | You can look for VELMA_SOURCE either by opening the MOEA configuration .csv file in Excel, or by using PowerShell's 
+    code
+      | Select-String
+    |  cmdlet. Here are examples of each:
+    br
+    |  In Excel:
+    br
+    |  
+    img
+    |  Via 
+    code
+      | Select-String
+    | :
+    br
+    |  
+    img
+  h4
+    | 2. Open a PowerShell command window
+  p
+    em
+      | (Note: there are many ways of opening PowerShell -- this guide details only one of them.)
+  ol
+    li
+      | Click the Windows Start icon to open the start menu. Note: do not click into the menu, just open it.
+    li
+      | Type "powershell": Windows will replace the start menu with its search results menu.
+    li
+      | Click the "Windows PowerShell" desktop app: it should be the "Best match", at the top of the list of search results.
+  p
+    img
+  h4
+    | 3. Run MoeVelGenerator
+  p
+    | As mentioned, you must have Python 3 installed and available via the Powershell command window to run 
+    code
+      | MoeVelmGenerator
+    | .
+  p
+    | To run MoeVelGenerator, start Python 3 and pass it the fully-qualified location and name of the MoeVelGenerator .py file, followed by command line arguments for MoeVelGenerator.
+    br
+    |  (Typically, Python 3 is started from a PowerShell as 
+    code
+      | py -3
+    | , however this may differ on your system; 
+    code
+      | python
+    |  and 
+    code
+      | python3
+    |  are other possibilities.)
+  p
+    | But wait -- what 
+    em
+      | are
+    |  the command line arguments for MoeVelGenerator?
+    br
+    |  You can pass MoeVelGenerator the single argument "-h" or "--help" to ask it list its required and optional arguments.
+    br
+    |  Here is an example, run immediately after starting a Windows Powershell as detailed above in Step 2:
+  p
+    img
+  p
+    | As the help message indicates, there are 3 required and 1 optional command line arguments that must must appear in the order shown by the message. (The help message refers to these 4 arguments as 
+    em
+      | positional
+    |  because they must appear on the command line in the order specified)
+  ol
+    li
+      code
+        | moea_csv_filename
+      br
+      |  (required) the path and filename of the MOEA outputs .csv file to extract parameterization data from.
+    li
+      code
+        | moea_csv_row_index
+      br
+      |  (required) the (integer) row number of the data row to extract parameter values from. As the message indicates, the index number is 1-based, and 
+      em
+        | includes
+      |  the header row -- so, the index of the first row of the file that contains parameters is "2".
+      br
+      |  (Backstory note: the index numbering scheme was chosen to correspond to the row numbers of the .csv file when viewed in Excel.)
+    li
+      code
+        | velma_xml_source
+      br
+      |  (required) the path and filename of the VELMA simulation configuration .xml file used as the source for the MOEA/VELMA run that generated the MOEA outputs .csv file specified as argument #1 (and that you determined and noted in Step 1 of this guide).
+    li
+      code
+        | velma_xml_target
+      br
+      |  (optional -- but 
+      em
+        | highly
+      |  recommended) the name of the VELMA simulation configuration file that 
+      code
+        | MoeVelGenerator
+      |  will create.
+  h4
+    | What about when the VELMA target .xml file already exists?
+  p
+    code
+      | MoeVelGenerator
+    |  won't automatically overwrite a pre-existing file specified by 
+    code
+      | velma_xml_target
+    | , however, you can force it to do so by adding the optional 
+    code
+      | --overwrite
+    |  argument to the end of the command line.
+    br
+    |  The following example illustrates how this works, by first generating a new .xml file, then attempting (and not) overwriting it, then successfully overwriting it by including the prescribed argument:
+    br
+    |  
+    img
+  h4
+    | What happens when the VELMA target .xml file is 
+    em
+      | not
+    |  specified?
+  p
+    | As noted, the 
+    code
+      | velma_xml_target
+    |  argument is not required, but it is highly recommended.
+    br
+    |  When it is left off the command line, 
+    code
+      | MoeVelGenerator
+    |  echoes the .xml file that it would have written to stdout (i.e. the PowerShell command window itself) instead. It is possible to still capture the xml by redirecting stdout to a file, but we recommend against this. For one thing, there is no check for whether the file you redirect stdout to exists or not, so capturing the output in this way circumvents the "file already exists?" check that 
+    code
+      | MoeVelGenerator
+    |  would have performed for you. For another, the automatic equating of the VELMA 
+    code
+      | run_index
+    |  parameter and the 
+    code
+      | velma_xml_target
+    |  file name doesn't happen.
+  h4
+    | What about the 
+    code
+      | run_index
+    |  and 
+    code
+      | suppressAllOutputFiles
+    |  parameters?
+  p
+    code
+      | MoeVelGenerator
+    |  sets the value of the VELMA 
+    code
+      | run_index
+    |  parameter to the file name specified by the 
+    code
+      | velma_xml_target
+    |  argument's values. Only the file name portion is used; the path and dot-extension portions are ignored. As noted above, if no value is specified for 
+    code
+      | velma_xml_target
+    | , the value of 
+    code
+      | run_index
+    |  is left untouched.
+  p
+    code
+      | MoeVelGenerator
+    |  does 
+    em
+      | not
+    |  set suppressAllOutputFiles to 
+    code
+      | true
+    | , even if (as is usually the case) it is a parameter in the specified MOEA outputs data row. This is because 
+    code
+      | MoeVelGenerator
+    |  is usually used to create a simuator configuration for a full-results run.

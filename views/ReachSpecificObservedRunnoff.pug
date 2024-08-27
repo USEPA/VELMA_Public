@@ -1,0 +1,209 @@
+extends layout.pug
+block content
+  h1
+    | Reach-Specific Observed Runoff Data for VelmaParallelCmdLine
+  h2
+    | Overview
+  p
+    | As of VELMA version 2.1.0.20, VelmaParallelCmdLine supports the optional 
+    code
+      | --obsRunoff=\<file.csv\>
+    |  argument.
+    br
+    |  Use this argument to specify a table of outlet locations and associated observed runoff data files. When VelmaParallelCmdLine launches the VELMA simulator for a sub-reach, if that sub-reach's outlet in in the table, the observed runoff data file is used as the sub-reach's 
+    code
+      | input_runoff
+    | , instead of the file specified (or not specfied) in the simulation configuration .xml file passed into VelmaParallelCmdLine.
+  p
+    | Reach-Specific observed runoff data allows VelmaParallelCmdLine to compute accurate Nash-Sutcliffe Coefficients for the runoff of reach outlets other than the final reach outlet.
+  h2
+    | File Format and Requirements
+  p
+    | If the file name specified by the 
+    code
+      | --obsRunoff
+    |  argument is not a fully-qualified path + name, then its location is assumed relative to the location where VelmaParallelCmdLine was invoked.
+  p
+    | The specified file must have the following characteristics:
+  ul
+    li
+      em
+        | NO
+      |  header row.
+    li
+      | Exactly two columns per row, comma-separated.
+    li
+      | The first column must contain an integer value representing an outlet listed in the 
+      code
+        | initialReachOutlets
+      |  parameter of the Simulation Configuration 
+      code
+        | .xml
+      |  file passed to VelmaParallelCmdLine.
+    li
+      | The second column must contain a String value representing the name of a valid VELMA Observed Runoff data file. The specified file name will replace the 
+      code
+        | input_runoff
+      |  parameter when VelmaParallelCmdLine runs the reach outlet specified in the first column. The 
+      code
+        | input_runoff
+      |  parameter's naming rules apply:
+      ol
+        li
+          | Fully-qualified path + name files are accepted as-is.
+        li
+          | Partial path or filename-only files are assumed relative to the 
+          code
+            | inputDataLocationRootName/inputDataLocationDirName
+          |  parameter pair from the Simulation Configuration 
+          code
+            | .xml
+          |  file passed to VelmaParallelCmdLine.
+        li
+          | Use the forward-slash 
+          code
+            | /
+          |  as a path separator.
+  h2
+    | Example
+  p
+    | Here is an example 
+    code
+      | .csv
+    |  file, "CustomObsRunnoff.csv":
+  pre
+    code
+      | 388,C:/Users/Meep/obsQ_1969-2008.csv
+      | 346,./m_7_Observed/ReachObs/obsRunoff_i346_TestB_perfect.csv
+      | 254,Some_Other_obsRunoff.csv
+      | 987,C:/Users/Meep/obsQ_1969-2008.csv
+
+  p
+    | Suppose we invoke VelmaParallelCmdLine as follows:
+  pre
+    code
+      | C:\Users\Meep> java -Xmx1g -cp C:\Users\Meep\JVelma.jar gov.epa.velmasimulator.VelmaParallelCmdLine C:\Users\Meep\XML\OR_BR_ws10.xml --obsRunoff="D:\Data Repository\CustomObsRunnoff.csv" --maxProcesses=3
+
+  p
+    | As the command line above indicates the 
+    code
+      | .xml
+    |  file is "OR_BR_ws10.xml".
+    br
+    |  Its 
+    code
+      | initialReachOutlets
+    |  parameter has this value:
+  pre
+    code
+      | 388 321 346 251 254
+
+  p
+    | and that the input data parameter values are:
+  pre
+    code
+      | inputDataLocationRootName = D:/My_VELMA_Data/OR_BlueRiver_ws10
+      | inputDataLocationDirName  = DataInputs
+
+  p
+    | and that the 
+    code
+      | input_runoff
+    |  value is unspecified (i.e. 
+    em
+      | blank
+    | ).
+  p
+    | When VelmaParallelCmdLine runs, it combines the data from the 
+    code
+      | .xml
+    |  and 
+    code
+      | .csv
+    |  files above, leading to the following as each reach is run:
+  table
+    thead
+      tr
+        th
+          | Reach Outlet
+        th
+          | initial 
+          code
+            | input_runoff
+        th
+          | runtime 
+          code
+            | input_runoff
+    tbody
+      tr
+        td
+          | 388
+        td
+          em
+            | blank
+        td
+          | C:/Users/Meep/obsQ_1969-2008.csv
+      tr
+        td
+          | 321
+        td
+          em
+            | blank
+        td
+          em
+            | blank
+      tr
+        td
+          | 346
+        td
+          em
+            | blank
+        td
+          | D:/My_VELMA_Data/OR_BlueRiver_ws10/m_7_Observed/ReachObs/obsRunoff_i346_TestB_perfect.csv
+      tr
+        td
+          | 251
+        td
+          em
+            | blank
+        td
+          em
+            | blank
+      tr
+        td
+          | 254
+        td
+          em
+            | blank
+        td
+          | D:/My_VELMA_Data/OR_BlueRiver_ws10/Some_Other_obsRunoff.csv
+  p
+    | Outlet 987 is not in 
+    code
+      | initialReachOutlets
+    | , and will be ignored at runtime.
+    br
+    |  
+    em
+      | (That being said, it's better to exclude outlets that aren't in the 
+      code
+        | initialReachOutlets
+      |  list, simply to keep the contents as concise and clear as possible.)
+  p
+    | An observed runoff data file name specified in the 
+    code
+      | --obsRunoff
+    |  argument that does not exist, or cannot be opened will cause that reach's simulation run to crash.
+    br
+    |  
+    em
+      | (i.e. just what happens for the same circumstances for the 
+      code
+        | input_runoff
+      |  value -- because it 
+      em
+        | is
+      |  the 
+      code
+        | input_runoff
+      |  value.)

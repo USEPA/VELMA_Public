@@ -1,0 +1,267 @@
+extends layout.pug
+block content
+    h1    D.7a | Create Multiple-Location Weather Drivers - Alternate Methods Using Pseudo Weather Stations
+    div.info.blue-light-1
+        p Overview <i>(Tutorial </i>D.7a - Create Multiple-Location Weather Drivers)
+        p Daily temperature and precipitation data for multiple weather stations can help VELMA to more accurately simulate climatic effects on streamflow and ecosystem dynamics. However, weather stations are often not optimally located or in sufficient density to support accurate model predictions.
+        p This document describes how to add and locate pseudo-climate stations to a VELMA simulation, based upon daily climate data grids produced by sophisticated national climate models such as PRISM and Daymet. The added pseudo-stations can greatly improve VELMA's interpolation of climate drivers across the landscape, thereby improving model performance.
+    p The Multiple-Location Weather Model Configuration requires multiple observed weather stations data within the area of interest (AOI), and these data are not always available for the AOI. Alternatively, "station" driver data can be provided to VELMA from other forms of spatially derived daily precipitation and air temperature values for cells in a simulation's delineated AOI. Unlike actual observed weather station data, these pseudo-station climate data are developed from sophisticated spatial climate models' datasets such as PRISM (PRISM, 2013) or Daily Gridded Weather Data (Daymet). Both data sets are publicly available daily national climate data, gridded at 1 km x 1 km spatial resolution for Daymet, compared to the 4 km x 4 km resolution data from PRISM. Daily gridded data can be extracted as input climate driver data for a VELMA simulation, by probing latitude and longitude positions for single or multiple locations within an AOI. (Figure 1.)
+    img(width="418" height="556" alt="screenshot" title="screenshot" src="public/suppImage_219.jpg")
+    p Figure 12 Pseudo weather station example, Flint hills Kansas.
+    h2 Example Procedure -PRISM, Daymet, or, Observed?
+    p Multiple weather station driver data allows VELMA to more dynamically apply spatially explicit climate drivers to a simulation. For a series of AOI's in the Kansas's Flint hills, there are publicly available NOAA observed weather station data that reside across the study region (Figure1). Only two of the simulated AOI's has a single observation station that resides with its study area, while many observation stations are nearby but are outside these study areas. In this example, many of these NOAA stations had missing data for either precipitation or air temperature, as well as being located out of the AOI's. Pseudo stations or probes of modeled climate data can, in some effect, cover the spatial dynamic of the daily climate by nearest neighbor assignment to probe station. In these study areas, nine stations were created for each AOI to fit Multi-station data from a combination of PRISM and Daymet daily modeled precipitation and air temperature data (Appendix).
+    p In the Kansas example, the simulation was ran for the years 1998 - 2015. Higher resolution Daymet data was available for the years 1998 - 2014. While PRISM data was available for the year 2015. No
+    p continuous data were observed by NOAA in the AOI's. Daymet data was then supplemented with PRISM
+    p data for the missing years, and formatted as required by the "Multiple-Location Weather Configuration"
+    p (Figure 2) (Appendix).
+    img(width="453" height="442" alt="screenshot" title="screenshot" src="public/suppImage_220.png")
+    p Figure 13 Process flow for multi-station climate data.
+    p Within VELMA there are two choices for the Multi-Location models, "Multiple-Location Weather Model" and "Multiple-Weighted-Locations Weather Model" (Figure 3).
+    img(width="628" height="450" alt="screenshot" title="screenshot" src="public/suppImage_221.jpg")
+    p Figure 14 Multi-Location Weather Model options with in VELMA simulator.
+    
+    h2 Multiple-Location Weather Model
+    p The "Multiple-Location Weather Model" creates Thiessen Polygons around each of the probe stations Figure 4). This is a very common method used in hydrometeorology for creating a weighted mean from multiple measurement spots in a watershed area.
+    img(width="627" height="377" alt="screenshot" title="screenshot" src="public/suppImage_222.jpg")
+    p Figure 15 Thiessen Polygons around pseudo station probes.
+    
+    p Multiple-Weighted-Locations Weather Model
+    p The second method "Multiple-Weighted-Locations Weather Model" is a nonlinear interpolation or inverse distance weighting technique. The weight a sample point assigns to the averaging calculation value to a cell is based on its distance or closeness it is to the cell. This weighting creates a moving surface, based on inverse distance squared relationship instead of simple inverse (Figure 5).
+    img(width="521" height="391" alt="screenshot" title="screenshot" src="public/suppImage_223.jpg")
+    p Figure 16 Inverse distance weighted influence of pseudo weather station.
+    h4 You Must Provide the Weather Model with Location and Driver Data for One or More Weather Locations
+    p The Multiple-Location Weather Model needs the location and driver data file name for each "Weather Location" it will use. A "Weather location" is simply the x and y coordinates of a cell within the bounds of the DEM grid specified for the simulation configuration, plus a file of daily driver values that specifies the precipitation and air temperature at that cell.
+    p The value for the weatherLocationDataFileName parameter must be the name (or fully-qualified path + name) of a comma-separated (.csv) file with one or more rows. Each row specifies the location and driver data for a specific cell and has the following field layout:
+    p x-coordinate, y-coordinate, uniqueName, driverFileName
+    p The x-coordinate and y-coordinate must specify a location within the bounds of the simulation
+    p configuration's DEM grid. (I.e. they must be in the ranges [0, (ncol - 1)] and [0, (nrow - 1)] respectively.
+    p (Recall that ncol and nrow are the DEM grid's number-of-columns and number-of-rows values - and they must be set to match the ncols and nrows values of the DEM grid's input_dem (.asc) file.)
+    p As with the weatherLocationDataFileName, the driverFileName may be either a fully-qualified path + name, or simply a file name. In both cases, when presented with a file name without a path, the VELMA simulation engine's initialization code will assume the file is located in the directory specified by the inputDataLocationRootName/inputDataLocationDirName path.
+    img(width="608" height="145" alt="screenshot" title="screenshot" src="public/suppImage_224.jpg")
+    p Note: Currently, the weatherLocationDataFileName file <b>cannot </b>contain a header row.
+    p You Must Provide a Driver Data .csv File Corresponding to Each driverFileName Listed in the Weather Locations Data File.
+    p Each driverFileName specifies a comma-separated (.csv) with one row of data per simulation day. Currently, the number of rows must exactly match the number of days implied by the simulation configuration's forcing_start and forcing_end parameters. (E.g. if forcing_start = 1999 and forcing_end
+    p. 
+        = 2000, then there must be 365 + 366 = 731 rows of driver data in each specified driverFileName file.) 
+        Each row of a driverFileName file as the following field layout:
+    p Year, Julian Day, Day's Precipitation (mm), Average Day's Air Temperature (degrees C)
+    table
+        thead 
+        th.col-span-4 Here is an example of a few rows from a driver file (these rows are not the first rows in the file):
+        tr
+            td 1983,
+            td 28,
+            td 0,
+            td 3.23
+        
+        tr
+            td 1983,
+            td 29,
+            td 9.6,
+            td 1.94
+        
+        tr
+            td 1983,
+            td 30,
+            td 3.3,
+            td -0.95
+        
+        tr
+            td 1983,
+            td 31,
+            td 12.5,
+            td -4.6
+        
+        tr
+            td 1983,
+            td 32,
+            td 12.5,
+            td -4.6
+        
+        tr
+            td 1983,
+            td 33,
+            td 0,
+            td -5.53
+        
+        tr
+            td 1983,
+            td 34,
+            td 0,
+            td -9.51
+        
+        tr
+            td 1983,
+            td 35,
+            td 0.5,
+            td -9.36
+        
+        tr
+            td.col-span-4 Again, whitespace has been added above to make the data easier to read. Do <i>not </i>include such whitespace in actual data files.
+    
+    p Note: Currently, driverFileName files <i><b>cannot </b></i>contain header rows.
+    h2 Appendix: GIS Methods
+    p Making probe points and setting up VELMA's multiple station weather model
+    ul 
+        li In ArcGIS
+            ul 
+                li Make point features in watershed
+                li Add lat &amp; long columns in attribute table
+                    ul 
+                        li  Calculate X and Y locations for the respective columns in degrees (projection?)
+                li Add UTM_lat and UTM_long columns (float),
+                    ul 
+                        li  Calculate X and Y using NAD1983 UTM and units of meters
+                li Add x-cell, y-cell columns (integer)
+                    ul 
+                        li  Look up top limit of AOI and left limit
+                        li Using field calculator:
+                            ul 
+                                li x-cell = (UTM_long-AOI_left)/(cell size)
+                                li y-cell = (AOI_top-UTM_lat)/(cell size)
+                li Export attribute table as .txt, then change to .csv
+        li Using R Scripts
+            li Enter lat-lon values into 'daymetR' R script to download data from Daymet for each station
+                ul 
+                    li  May need to change some parts of script like directories/filenames
+                    li  SNOTEL locations will need to be updated when exact locations are found
+                        ul 
+                            li Bob can identify from satellite imagery
+            li Use 'fix_daymet' R script to account for Daymet lack of leap year (averages first and last day of year)
+                ul 
+                    li  Some things in script like file names, directories, and years need to be altered
+        li Creating VELMA set up files for Multiple-location Weather Configurations (this tutorial)
+            ul 
+                li Need to make .csv set up file in Excel for VELMA for multiple weather stations with x, y, cell_index , weather station file name
+                li 'fix_daymet' R script gives an output of created file names, can be copied into this
+                li for cell_index column can use any unique identifier, we just used 'x_XXXX_y_YYYY' with XXXX and YYYY being the x and y cords
+        li VELMA set up
+            ul 
+                li Edit -&gt; Set Weather Model -&gt; Multiple-Location Weather Model 'weatherLocationsdatafilename' variable is the configuration file made above
+    
+    h2 Appendix (Example R code):
+    h4 DaymetR_KS.r
+    p # Author: Paul Pettus
+    p # Purpose: Download Daymet climate data via lat long probe method
+    p install.packages(&quot;rgeos&quot;) install.packages(&quot;DaymetR&quot;) library(&quot;DaymetR&quot;)
+    p setwd(&quot;d:/temp/netCDF/&quot;)
+    p # Download a probe site by latitude and longitude
+    p download.daymet(site=&quot;Northern_KS_1998-2014_X_478_Y_427&quot;,lat=39.3031,lon=-96.3158,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Northern_KS_1998-2014_X_474_Y_759&quot;,lat=38.9298,lon=-96.3348,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Northern_KS_1998-2014_X_474_Y_119&quot;,lat=39.65,lon=-96.3074,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Northern_KS_1998-2014_X_153_Y_121&quot;,lat=39.658,lon=-96.7758,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Northern_KS_1998-2014_X_142_Y_437&quot;,lat=39.3019,lon=-96.8018,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Northern_KS_1998-2014_X_153_Y_741&quot;,lat=38.9604,lon=-96.7978,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Northern_KS_1998-2014_X_800_Y_121&quot;,lat=39.6361,lon=-95.8344,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Northern_KS_1998-2014_X_806_Y_426&quot;,lat=39.2931,lon=-95.8401,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Northern_KS_1998-2014_X_803_Y_759&quot;,lat=35.8617,lon=-95.8617,start_yr=1998,end_yr=2014,internal=FALSE)
+    p download.daymet(site=&quot;Southern_KS_1998-2014_X_258_Y_621&quot;,lat=37.4711,lon=-96.9415,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southern_KS_1998-2014_X_51_Y_607&quot;,lat=37.4914,lon=-97.2331,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southern_KS_1998-2014_X_447_Y_626&quot;,lat=37.4599,lon=-96.6753,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southern_KS_1998-2014_X_32_Y_170&quot;,lat=37.9838,lon=-97.249,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southern_KS_1998-2014_X_42_Y_381&quot;,lat=37.7462,lon=-97.2408,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southern_KS_1998-2014_X_271_Y_374&quot;,lat=37.7487,lon=-96.9161,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southern_KS_1998-2014_X_452_Y_375&quot;,lat=37.7423,lon=-96.6586,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southern_KS_1998-2014_X_459_Y_157&quot;,lat=37.9872,lon=-96.6409,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southern_KS_1998-2014_X_259_Y_181&quot;,lat=37.966,lon=-96.9258,start_yr=1998,end_yr=2014,internal=FALSE)
+    p download.daymet(site=&quot;Middle_North_KS_1998-2014_X_172_Y_594&quot;,lat=38.2307,lon=-96.7979,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Middle_North_KS_1998-2014_X_157_Y_396&quot;,lat=38.4546,lon=-96.812,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Middle_North_KS_1998-2014_X_148_Y_185&quot;,lat=38.6926,lon=-96.8179,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Middle_North_KS_1998-2014_X_368_Y_183&quot;,lat=38.6883,lon=-96.5013,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Middle_North_KS_1998-2014_X_722_Y_684&quot;,lat=38.113,lon=-96.0174,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Middle_North_KS_1998-2014_X_436_Y_598&quot;,lat=38.2189,lon=-96.4213,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Middle_North_KS_1998-2014_X_439_Y_385&quot;,lat=38.4586,lon=-96.4075,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Middle_North_KS_1998-2014_X_647_Y_176&quot;,lat=38.6873,lon=-96.101,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Middle_North_KS_1998-2014_X_711_Y_463&quot;,lat=38.3613,lon=-96.0229,start_yr=1998,end_yr=2014,internal=FALSE)
+    p download.daymet(site=&quot;Southeastern_KS_1998-2014_X_154_Y_414&quot;,lat=37.848,lon=-96.3725,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southeastern_KS_1998-2014_X_161_Y_727&quot;,lat=37.4954,lon=-96.3756,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southeastern_KS_1998-2014_X_149_Y_112&quot;,lat=38.1875,lon=-96.3673,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southeastern_KS_1998-2014_X_422_Y_738&quot;,lat=37.4738,lon=-96.0081,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southeastern_KS_1998-2014_X_703_Y_360&quot;,lat=37.8888,lon=-95.5907,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southeastern_KS_1998-2014_X_426_Y_476&quot;,lat=37.7686,lon=-95.9892,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southeastern_KS_1998-2014_X_474_Y_216&quot;,lat=38.0601,lon=-95.9096,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southeastern_KS_1998-2014_X_703_Y_815&quot;,lat=37.3764,lon=-95.6141,start_yr=1998,end_yr=2014,internal=FALSE) download.daymet(site=&quot;Southeastern_KS_1998-2014_X_682_Y_622&quot;,lat=37.5948,lon=-95.6343,start_yr=1998,end_yr=2014,internal=FALSE)
+    p fix_Daymet_LeapYear_PPT_TMEAN.r
+    p # Author: Paul Pettus
+    p # Purpose: Format Daymet data, fix leap years, create air temp mean.
+    p # Daymet data does not create daily files for leap day on leap years, it drops Dec 31 # data on leap years. VELMA requires leap days, solution is to average both mean
+    p # air temp and precipitation of julian day 365 and 1 -&gt; julian day 366 # For data sets ending in a leap year, such as 2016, julian day 365 data # is repeated for julian day 366.
+    p #install.packages(&quot;miscTools&quot;) library(&quot;miscTools&quot;) library(plyr)
+    p ###########################################################################################
+    p # Modify setwd (working directory)
+    p # Modify outDir (output file directory) setwd(&quot;C:/Temp/VELMA_Mobile_Bay/Climate/&quot;) outDir&lt;-&quot;C:/Temp/VELMA_Mobile_Bay/Climate/Output/&quot;
+    p # Modify station output processed list file name (.csv)
+    p stationsFile&lt;-&quot;C:/Temp/VELMA_Mobile_Bay/Climate/Output/Mobile_Stations.csv&quot; ###########################################################################################
+    p # Expected input is &quot;download_daymet&quot; from &quot;daymetr&quot; package # or &quot;download.daymet&quot; from &quot;DaymetR&quot; package
+    p inFiles &lt;- list.files(pattern=&quot;*.csv&quot;) nFiles &lt;- length(inFiles)
+    p # For multiple probe station files
+    p # For each leap year in the study range input a mean value for julian day 366 for (name in inFiles)
+    p {
+    p Page | 220
+    p print(name) # test file
+    p # myfile&lt;-&quot;C:/Temp/VELMA_Mobile_Bay/Climate/Daphne_0.4_SW_AL_US_2012-2016_X_989_Y_-7027_2012_2016.csv&quot; # will overwrite test file with listed file
+    p myfile&lt;-name
+    p # read in raw daymet file
+    p df = read.csv(myfile,skip=8,header=FALSE,sep=&quot;,&quot;,col.names=c(&quot;year&quot;,&quot;yday&quot;,&quot;tday&quot;,
+    p &quot;ppt&quot;,&quot;srad&quot;,&quot;swe&quot;,
+    p &quot;tmax&quot;,&quot;tmin&quot;,&quot;vp&quot;))
+    p # remove unnecessary Daymet climate columns # keep ppt, tmax, tmin
+    p parseFile&lt;-df[-c(3,5,6,9)] head(parseFile)
+    p # add tmean column parseFile[&quot;tmean&quot;]&lt;- NA
+    p # create a mean air temp from max and min daily temp parseFile$tmean &lt;- (parseFile$tmax+parseFile$tmin)/2
+    p # remove tmax, tmin columns modDaymet &lt;- parseFile[-c(4,5)] head(modDaymet)
+    p # return a vector of all unique years in the Daymet file listYears=unique(modDaymet$year)
+    p <a href="http://en.wikipedia.org/wiki/Leap_year"># A function to determin if a year is a leap year # http://en.wikipedia.org/wiki/Leap_year</a>
+    p # A leap year is every 4 years, but not every 100 years, yet then again every 400 years is.leapyear=function(year){
+    p return(((year %% 4 == 0) &amp; (year %% 100 != 0)) | (year %% 400 == 0))
+    p }
+    p # empty vector for leap years leapYears &lt;- c()
+    p # Loop through all the years looking for the leap years and add them to a list of leap years for (yearNumber in listYears) {
+    p # Using the is.leapyear function return and add a leap year to the yeap year list if (is.leapyear(yearNumber) == TRUE) {
+    p leapYears &lt;- c(leapYears,yearNumber)
+    p }
+    p }
+    p # Create a new data.frame that matches the raw Dayment frame input
+    p # this will be filled with the output data.frame and leap day additions
+    p newFrame &lt;- data.frame(year= integer(0), yday=integer(0), ppt=numeric(0), tmean=numeric(0))
+    p # track position of rows processed, start at the end of first year rowsProcessed &lt;- 0
+    p # Loop through all the years to process for (yearNumber in listYears) {
+    p print (yearNumber)
+    p # check to see if year is a leap year and leap year is not the last year to process if (is.element(yearNumber, leapYears) &amp;&amp; yearNumber &lt; listYears[length(listYears)] ){
+    p # Get values of 1 to 365 Julian day of the year yearSubset&lt;-subset(modDaymet, year == yearNumber) # bind subset of year to newFrame
+    p newFrame&lt;-rbind(newFrame,yearSubset)
+    p # increment rows processed position pointer to the end of year (365) on the original raw Daymet frame rowsProcessed&lt;-rowsProcessed + 365
+    p # Get values of Julian day 365 value_J_365&lt;-modDaymet[rowsProcessed,] # Get values of next years Julian day 1 value_J_1&lt;-modDaymet[rowsProcessed+1,] # Average the first and last day value_J_366&lt;-(value_J_365+value_J_1)/2 # copy the year number value_J_366[1]=yearNumber
+    p # create a new 366 Julian day value_J_366[2]=366
+    p # File new data frame with new Julian 366 data newFrame&lt;-rbind(newFrame,value_J_366)
+    p }
+    p # check if the year is the last year in the listYears and that it is also # a leap year
+    p else if (yearNumber == listYears[length(listYears)] &amp;&amp; yearNumber == leapYears[length(leapYears)] ){ # Get values of 1 to 365 Julian day of the year
+    p yearSubset&lt;-subset(modDaymet, year == yearNumber) # bind subset of year to newFrame
+    p newFrame&lt;-rbind(newFrame,yearSubset)
+    p # increment rows processed position pointer to the end of year (365) on the original raw Daymet frame rowsProcessed&lt;-rowsProcessed + 365
+    p # copy the last day of the year to Julian 365 value_J_365&lt;-modDaymet[rowsProcessed,]
+    p # copy the last day of the year to Julian 366 value_J_366&lt;-value_J_365
+    p # copy the year number value_J_366[1]=yearNumber
+    p # create a new 366 Julian day value_J_366[2]=366
+    p # File new data frame with new Julian 366 data newFrame&lt;-rbind(newFrame,value_J_366)
+    p }
+    p # All other years are not leap years, so just add their data to the new frame else{
+    p # Get values of 1 to 365 Julian day of the year yearSubset&lt;-subset(modDaymet, year == yearNumber) # bind subset of year to newFrame
+    p newFrame&lt;-rbind(newFrame,yearSubset)
+    p # increment rows processed position pointer to the end of year (365) on the original raw Daymet frame rowsProcessed&lt;-rowsProcessed + 365
+    p }
+    p }
+    p print(&quot;Processed Psuedo Station File&quot;) print(name)
+    p # Define output file name
+    p outFile&lt;-paste(outDir,name,sep=&quot;&quot;)
+    p # convert data.frame to data.matrix for easier file writing matClimate&lt;-data.matrix(newFrame)
+    p # Create the output file of processed weather data write.table(matClimate,outFile,row.names=FALSE,col.names=FALSE,sep=&quot;,&quot;)
+    p }
+    p # Write out a list of stations processed write.table(inFiles,stationsFile,row.names=FALSE,col.names=FALSE,sep=&quot;,&quot;) print(&quot;We did it, time for a coffee break!&quot;)
+    p Daymet_prism_blender_2-25-2016.r
+    p # Author: Paul Pettus # Date: 2-29-2016
+    p # Purpose:
+    p # Blend Daymet and PRISM probe weather station data into VELMA ready driver input #
+    p install.packages(&quot;prism&quot;) install.packages(&quot;zoo&quot;)
+    p #updateR() library(&quot;prism&quot;) library(&quot;zoo&quot;)
+    p # set working dir setwd(&quot;c:/Temp/PRISM/&quot;) mydir&lt;-&quot;c:/Temp/PRISM/&quot;
+    p # check path for prism package path_check()
+    p # Download study dates for precipitation and mean air temperature, PRISM get_prism_dailys(type=&quot;tmean&quot;, minDate = &quot;2015-01-01&quot;, maxDate = &quot;2016-2-22&quot;, keepZip=FALSE) get_prism_dailys(type=&quot;ppt&quot;, minDate = &quot;2015-01-01&quot;, maxDate = &quot;2016-2-22&quot;, keepZip=FALSE)
+    p # Set input dir of probe data, this data was created from Daymet probes baseInDir&lt;-&quot;C:/temp/Output/&quot;
+    p # Set output dir for final files baseOutDir&lt;-&quot;C:/temp/New_Output/&quot;
+    p # CSV file containing the station file names and lat and long of stations stationCSV&lt;-&quot;C:/temp/kansas_stations.csv&quot;
+    p headNames&lt;-c(&quot;filename&quot;,&quot;lat&quot;,&quot;long&quot;)
+    p stations &lt;- read.csv(stationCSV,header=FALSE,sep=&quot;,&quot;,col.names=headNames) # Determine the number of stations
+    p nFiles &lt;- nrow(stations)
+    p for (i in 1:nFiles)
+    p {
+    p # Get latitude, longitude, and filename lat&lt;-stations$lat[i]
+    p long&lt;-stations$long[i] filename&lt;-stations$filename[i] location&lt;-c(long,lat)
+    p # Define the Daymet input file name
+    p fullPathFile&lt;-paste(baseInDir,filename,&quot;_1998_2014&quot;,&quot;.csv&quot;,sep=&#39;&#39;) headNames&lt;-c(&quot;year&quot;,&quot;yday&quot;,&quot;ppt&quot;,&quot;tmean&quot;)
+    p # Read in Daymet probe station file
+    p wData&lt;-read.csv(fullPathFile,header=FALSE,sep=&quot;,&quot;,col.names=headNames) # Slice prism cell data by location of cell
+    p curStation &lt;- prism_slice(location,ls_prism_data()[,1])
+    p # Retrive precip and mean air temp
+    p rain&lt;-curStation$data[grep(&quot;ppt&quot;,rownames(curStation$data)),] temp&lt;-curStation$data[grep(&quot;tmean&quot;,rownames(curStation$data)),] rownames(rain)&lt;-c() #remove rownames
+    p rownames(temp)&lt;-c() #remove rownames
+    p addLength&lt;-nrow(rain)
+    p # create a new data frame for the output data
+    p outFrame &lt;- data.frame(year=integer(addLength),yday=integer(addLength),ppt=double(addLength),tmean=double(addLength))
+    p # modify the date field to julian day and year outFrame$yday&lt;-as.numeric(format(rain$date, &quot;%j&quot;)) outFrame$year&lt;-as.numeric(format(rain$date, &quot;%Y&quot;)) outFrame$ppt&lt;-rain$data
+    p outFrame$tmean&lt;-temp$data
+    p # combined Daymet frame with PRISM frame climate data finalFrame&lt;-rbind(wData,outFrame)
+    p # Fixing file name of input files newFN&lt;-gsub(&quot;2014&quot;,&quot;2015&quot;,filename) # Define the output file name
+    p outPathFile&lt;-paste(baseOutDir,newFN,&quot;.csv&quot;,sep=&#39;&#39;)
+    p # write output file to final output dir. matClimate&lt;-data.matrix(finalFrame)
+    p write.table(matClimate,outPathFile,row.names=FALSE,col.names=FALSE,sep=&quot;,&quot;) }

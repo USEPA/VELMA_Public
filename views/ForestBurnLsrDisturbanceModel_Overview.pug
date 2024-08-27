@@ -1,0 +1,1076 @@
+extends layout.pug
+block content
+  h1
+    | VELMA Forest-Burn LSR Disturbance Model
+  h2
+    | Introduction
+  p
+    | VELMA version 2.2.0.0 includes a new disturbance type called "Forest Burn LSR".
+    br
+    |  Simulation configurations can include parameterizations for this disturbance to mimic the effects of burning on VELMA's core LSR ([L]eaf [S]tem [R]oot) biomass and detritus data pools.
+  p
+    | The Forest Burn disturbance does 
+    strong
+      em
+        | not
+    |  simulate fire itself. Fire propagation, extent, intensity, etc. are not subjects addressed by the the Forest Burn disturbance. Its sole focus is making changes (reductions and transfers) to the LSR pools at specific times and locations during a VELMA simulation run. Configuring a Forest Burn disturbance for a VELMA simulation presupposes that applicable fire data already exists and is available for use.
+  p
+    | Forest Burn disturbance paremeterizations specify when (what steps during a simulation run) and where (which cells of the simulation grid) burning occurs, the fractional reduction the burning incurs upon VELMA's LSR pools, and the fractions of burned matter that are volatilized.
+    br
+    |  The values necessary to inform a Forest Burn parameterization must be derived from preexisting fire data, either collected from actual fire events or simulated via a fire model/simulation.
+  p
+    | The Forest Burn disturbance provides two distinct scheduling strategies for parameterizing when and where burn-reduction of the LSR pools occurs:
+  ul
+    li
+      | The 
+      code
+        | ForestBurnLsrDisturbanceModel
+      |  allows map-based location specification, but with a single timing schedule. Its timing parameters may include multiple, arbitrary simulation steps when burn-reduction occurs, but all cell locations specified incur burn-reduction at every specified step.
+    li
+      | The 
+      code
+        | HistoricalForestBurnLsrDisturbanceModel
+      |  allows list-based specification of a unique timing schedule for each cell location intended for burn-reduction. This provides finer-grained burn scheduling, but can require more effort to specify.
+  p
+    | Both strategies employ the same paramterization scheme to specify reduction fractions, and the same mechanism to reduce and transfer LSR pool amounts. They only differ in how they allow specifying when and where burn-reduction occurs.
+  p
+    | A single simulation configuration may contain multiple Forest Burn disturbance parameterization groups, and each parameterization goup may be either a 
+    code
+      | ForestBurnLsrDisturbanceModel
+    |  or a 
+    code
+      | HistoricalForestBurnLsrDisturbanceModel
+    | . This allows fairly complicated scheduling patterns, but users should strive to use as few disturbance parameterization groups per simulation as possible, to reduce overall simulation configuration complexity.
+  p
+    | Forest Burn disturbances cannot apply cell-specific reduction fractions: every cell affected by a given parameterization group is burn-reduced using the same set of reduction fractions. Adding multiple Forest Burn disturbance parameterization groups to a simulation permits different reduction fractions, but is not satisfactory way of achieving fine-grained, per-cell burn-reduction specification. As discussed later in this document, adding more than a few Forest Burn disturbance parameterization groups to a single simulation configuration rapidly becomes problematic. VELMA does not permit users to specify the order in which disturbances are applied within a single simulation step. If two Forest Burn disturbances target the same cell location in the same step, the user cannot determine which occurs first. Also, care must be taken when reviewing reported (some) results because all Forest Burn disturbance write burn-specific results map data to a shared set of .asc files.
+  h2
+    | Mechanism Overview
+  p
+    | A Forest Burn disturbance affects VELMA LSR pools at each eligible cell in the following ways:
+  h4
+    | ABOVE-GROUND BIOMASS
+  p
+    | The Biomass Leaf and Biomass Above-Ground Stem pools amounts are reduced, and the reduction amount is further split into transferred and removed portions based on pool-specific burn and volatilized fraction parameters.
+    br
+    |  The sequence for each pool is:
+  ol
+    li
+      | pool burned amount = (pool initial amount * pool burn fraction)
+    li
+      | pool volatilized amount = (pool burned amount * pool volatilized fraction)
+    li
+      | pool transferred amount = (pool burned amount - pool volatilized amount)
+    li
+      | pool final amount = (pool initial amount - pool burned amount)
+  p
+    | Volatilized amounts are removed from the simulation state.
+  p
+    | Transferred amounts are added to pool-specific, corresponding detritus pools:
+  ul
+    li
+      | Detritus Leaf amount = (Detritus Leaf amount + Biomass Leaf transferred amount)
+    li
+      | Detritus AgStem amount = (Detritus AgStem amount + Biomass AgStem transferred amount)
+  p
+    | The transfers from biomass to detritus specified above occur AFTER the detritus reductions specified below.
+  h4
+    | ABOVE-GROUND DETRITUS
+  p
+    | The Detritus Leaf and Detritus Above-Ground Stem pools are reduced, and the entire reduction amount is considered volatilized and is removed (i.e. "lost") from the simulation state.
+    br
+    |  The sequence for each pool is:
+  ol
+    li
+      | pool burned amount = (pool initial amount * pool burn fraction)
+    li
+      | pool volatilized amount = pool burned amount
+    li
+      | pool final amount = (pool initial amount - pool burned amount)
+  h4
+    | BELOW-GROUND BIOMASS
+  p
+    | The Biomass Below-Ground Stem and Biomass Root pools are reduced, and the entire reduction amount is transferred to a corresponding detritus pool. The sequence for each pool is:
+  ol
+    li
+      | pool burned amount = (pool initial amount * pool burn fraction)
+    li
+      | pool transferred amount = pool burned amount
+    li
+      | pool final amount = (pool initial amount - pool burned amount)
+  p
+    | Transferred amounts are added to pool-specific, corresponding detritus pools:
+  ul
+    li
+      | Detritus BgStem Layer amount = (Detritus BgStem amount + (Biomass BgStem transferred amount * root fraction for Layer))
+    li
+      | Detritus Root Layer amount = (Detritus Root Layer amount + (Biomass Root transferred amount * root fraction for Layer))
+  p
+    | (The "root fraction for Layer" is the cover-specific, layer-specific Gale-Grigal root fraction value.)
+  h2
+    | Scheduling Overview
+  p
+    | As stated in the 
+    a
+      | introduction
+    | , the Forest Burn disturbance provides two different ways to parameterize scheduling, but both ways require specifying when (simulation steps) and where (cell locations within the simulation's delineated watershed) burn-reduction activity will occur. During a simulation run, VELMA keeps track of where and when burn-reduction should occur, and applies the burn-reduction 
+    a
+      | mechanism
+    |  to each specified cell location at each specified simulation step, as one of the last actions performed for the step. (I.e. after water balance, water transfer, and Plant-Soil interactions have occurred.)
+  p
+    | A simulation that configures disturbance parameter groups so that two or more disturbances occur at the same simulation step 
+    strong
+      em
+        | cannot
+    |  specify the order in which the disturbances are applied for that step. The order in which VELMA applies any disturbances specified (Harvest, Fertilize, Burn, etc.) is arbitrary and depends upon factors within VELMA's initialization mechanisms.
+  blockquote
+    p
+      | Note: there are a couple of caveats to the cannot-specify-order rule:
+    ol
+      li
+        | Water Drain disturbances are applied during a given simulation step at a point completely apart from any other disturbances.
+        br
+        |  (And, multiple Water Drain disturbances 
+        em
+          | still
+        |  cannot be explicitly ordered relative to each other.)
+      li
+        | Disturbances that provide pool initialization functions may be parameterized to occur at the start, rather than the end of the simulation step.
+        br
+        |  (Again, however, they cannot be explicitly ordered relative to other disturbances.)
+    p
+      | However, neither of the above caveats apply for Forest Burn Disturbances.
+  p
+    | The details of how to specify exactly which simulation steps and cell locations are affected by a Forest Burn disturbance are given in the next of this document.
+  h2
+    | Adding a Forest Burn Disturbance to a Simulation Configuration
+  h3
+    | Preliminary Considerations
+  h4
+    em
+      | Fire Data
+  p
+    | Before adding a Forest Burn disturbance to a VELMA simulation configuration, you must have data from a fire. The fire data may be from any source: an actual event, a hypothetical event, or output from a fire simulation, but it should be relevant for your VELMA simulation site, and must provide you with enough information for you to decide:
+  ul
+    li
+      | What locations are affected.
+    li
+      | When those locations are affected.
+    li
+      | How much burn reduction occurs at affected locations.
+  h4
+    em
+      | Deciding Which Scheduling Type to Use
+  p
+    | Once you have determined "when", "where" information from fire data, you can decide which Forest Burn disturbance to use.
+    br
+    |  The 
+    code
+      | ForestBurnLsrDisturbanceModel
+    |  is typically simpler to configure than the 
+    code
+      | HistoricalForestBurnLsrDisturbanceModel
+    | , and should be the default selection. However, if your fire data presents you with many, smaller, disjoint areas, affected by burning, the latter option may result in a clearer configuration.
+  h3
+    | Adding the Disturbance to the Configuration
+  p
+    | Begin with either a pre-existing VELMA simulation configuration loaded into JVelma, or by create a new configuration from within JVelma (via the Edit -> "Create a New, Empty Configuration" menu item).
+  p
+    | Next, click the Edit -> "Disturbances" -> "Add Disturbance" menu item. This will open the "Specify Disturbance Model Type and Name" popup dialog box.
+  p
+    | In the dialog box, set the Disturbance Type by selecting either 
+    code
+      | ForestBurnLsrDisturbanceModel
+    |  or 
+    code
+      | HistoricalForestBurnLsrDisturbanceModel
+    |  from the drop-down list.
+  p
+    | Enter a name in the disturbance in the "Disturbance Name" text field. The name should be composed only of alpha-numeric characters and (optionally) underscore or dash characters. Do 
+    em
+      | not
+    |  use whitespace (blank or tab) or punctuation characters (e.g. comma, colon, or semicolon). The name must be unique from the names of any other disturbances already added to the simulation configuration.
+  p
+    | Click the dialog box's 
+    code
+      | [ OK ]
+    |  button to confirm and add a parameterization group for the type of Forest Burn disturbance you selected. JVelma then shifts display focus to the "All Parameters" tab, and filters the rows of the parameters table to those specific to your newly-added disturbance.
+  h3
+    | Common Parameters
+  p
+    | Regardless of the scheduling type of Forest Burn disturbance added, the following parameters always occur as part of the parameterization group.
+  h4
+    em
+      | Parameters That Can (Should!) Be Left Alone
+  p
+    | The 
+    code
+      | modelClass
+    |  parameter is set by JVelma when you add the contaminant to the simulation configuration. Do Not Change this parameter’s value. 
+    em
+      | Ever
+    | .
+  h4
+    em
+      | Paremeters That Specify Burn Effects
+  p
+    | The following parameters determine the fractions that a Forest Burn disturbance employs to calculate the amounts of biomass or detritus burned at a given cell location and simulation step.
+  pre
+    code
+      | biomassAgStemNburnFraction
+biomassAgStemNvolatilizedFraction
+biomassBgStemNburnFraction
+biomassLeafNburnFraction
+biomassLeafNvolatilizedFraction
+biomassRootNburnFraction
+detritusAgStemNburnFraction
+detritusLeafNburnFraction
+
+  p
+    | All of the above parameters must be provided decimal values in the range [0.0, 1.0]. Their names start with the pool name they are for, and end in 
+    code
+      | ...burnFraction
+    |  or 
+    code
+      | ...volatilizedFraction
+    | , depending upon whether they represent the fraction of existing amount burned, or the fraction of the burned amount volatilized. See the 
+    a
+      | Mechanism Overview
+    |  section of this document for details of the burn-reduction calculations.
+  p
+    | The 
+    code
+      | initializeAgeModification
+    |  parameter specifies what happens to a cell's age value after burn reduction occurs at the cell's location. The parameter's value indicates the number of integer years to add to, subtract from, or set for the cell's age.
+  ul
+    li
+      | To add 
+      em
+        | n
+      |  years to a cell's age, prefix a plus (
+      code
+        | +
+      | ) to the specified year amount 
+      em
+        | n
+      | .
+    li
+      | To set the cell's age to 
+      em
+        | n
+      |  years, specify 
+      em
+        | n
+      | .
+    li
+      | To subtract 
+      em
+        | n
+      |  years from a cell's age, prefix a minus sign (
+      code
+        | -
+      | ) to the specified year amount 
+      em
+        | n
+      | .
+      br
+      |  Note: subtraction halts at zero: negative ages are prevented from occurring.
+  p
+    strong
+      | Examples:
+  table
+    thead
+      tr
+        th
+          code
+            | initializeAgeModification
+        th
+          | Meaning
+    tbody
+      tr
+        td
+          | 0
+        td
+          | Set the cell's age to 0.
+      tr
+        td
+          | +0
+        td
+          | Add 0 to the cell's age (i.e. do not change the cells age at all).
+      tr
+        td
+          | +5
+        td
+          | Add 5 years to the cell's age.
+      tr
+        td
+          | -7
+        td
+          | Subtract 7 years from the cell's age. Cell's resulting age will be 0 if original value is less than 7.
+      tr
+        td
+          | 9
+        td
+          | Set the cell's age to 9.
+  h4
+    em
+      | Parameters That Control Results Reporting
+  p
+    | When the 
+    code
+      | enableAutomaticSpatialReporting
+    |  is set 
+    code
+      | True
+    | , the Forest Burn disturbance will write .asc map files to the simulation's specified Results folder. Maps are written for each simulation step in which burn-reductions occur, and provide cell-specific data about burn amounts. Setting this parameter 
+    code
+      | False
+    |  suppresses writing the output maps. Set the 
+    a
+      | Results Reported
+    |  section later in this document for additional details.
+  p
+    strong
+      em
+        | WARNING:
+    |  Any and all burn disturbances configured within the same simulation configuration write to the same set of .asc output files.
+    br
+    |  When two or more burn disturbances write data to an .asc output file on the same day, succesive burn disturbances 
+    strong
+      em
+        | overwrite
+    |  prior burn disturbance values in burn-specific maps. Keep this in mind if you must schedule two or more burn disturbances to occur at the same step and location.
+  p
+    | When the 
+    code
+      | trimOutputToWatershedBoundary
+    |  parameter is 
+    code
+      | True
+    | , output maps written are the size (
+    code
+      | ncols
+    |  and 
+    code
+      | nrows
+    | ) of the bounding rectangle of the simulation's delineated watershed. When set to 
+    code
+      | False
+    | , output maps dimensions match the simulation's DEM map. This parameter is ignored when 
+    code
+      | enableAutomaticSpatialReporting
+    |  is set 
+    code
+      | False
+    | .
+  h3
+    | Parameters Specific to 
+    code
+      | ForestBurnLsrDisturbanceModel
+  p
+    | Burn-reduction affects cell locations only when and where all of the values specified in the following parameters are true.
+  h4
+    em
+      | Parameters That Specify When Map-Based Burning Occurs
+  p
+    | The 
+    code
+      | ageThreshold
+    |  selects cell locations for burn-reduction based on the cell-specific age (in years) value that VELMA tracks for each cell in the simulation's delineated watershed. The parameter accepts either a single integer, or a comma-delimited sequence of dash-separated min-max integer range pairs.
+  ul
+    li
+      | When a single integer is specified, any otherwise-eligible cell location remains eligible only if its age value is greater than or equal to the specified value.
+    li
+      | When multiple integers or min-max range pairs are specified, any otherwise-eligible cell location remains eligible on if its age value falls within one of the specified ranges. This parameter defaults to 0, and if age is not a part of your selection criteria, it can be left at the default setting.
+  p
+    strong
+      | Examples:
+  table
+    thead
+      tr
+        th
+          code
+            | ageThreshold
+        th
+          | Meaning
+    tbody
+      tr
+        td
+          code
+            | 0
+        td
+          | All otherwise-eligible cell location remains eligible (because any cell has age zero more).
+      tr
+        td
+          code
+            | 60
+        td
+          | Only otherwise-eligible cell locations with age >= 60 remain eligible.
+      tr
+        td
+          code
+            | 60-60
+        td
+          | Only otherwise-eligible cell locations with age == 60 remain eligible.
+      tr
+        td
+          code
+            | 10-50
+        td
+          | Only otherwise-eligible cell locations with age in the range [10, 50] remain eligible.
+      tr
+        td
+          code
+            | 10-50, 75-100
+        td
+          | Otherwise-eligible cell locations with age in the range [10, 50] or [75, 100] remain eligible.
+  p
+    | The next three parameters all accept either a single integer value, or a comma-separate list of integer values and/or integer range pairs.
+  p
+    | The 
+    code
+      | initializeActiveLoops
+    |  parameter specifies the simulation loop index numbers during which burn-reduction can occur. A valid loop index is an integer between 1 and the number of loops (
+    code
+      | numberOfLoops
+    |  parameter) specified for the simulation. Values outside the valid range are ignored.
+  p
+    strong
+      | Examples:
+    |  (assuming 
+    code
+      | numberOfLoops
+    |  is set to 
+    code
+      | 10
+    | )
+  table
+    thead
+      tr
+        th
+          code
+            | initializeActiveLoops
+        th
+          | Meaning
+    tbody
+      tr
+        td
+          code
+            | 3
+        td
+          | Burn reduction can only occur during loop 3.
+      tr
+        td
+          code
+            | 3, 5, 9
+        td
+          | Burn reduction can only occur during loops 3, 5, and 9.
+      tr
+        td
+          code
+            | 3-9
+        td
+          | Burn reduction can only occur during loops 3 through 9.
+      tr
+        td
+          code
+            | 1, 4-6, 10
+        td
+          | Burn reduction can only occur during loops 1, 4 through 6, and 10.
+  p
+    | The 
+    code
+      | initializeActiveYears
+    |  parameter specifies the years of the simulation run when burn-reduction can occur. Valid values for this parameter must be fully-specified year integers (e.g. 
+    code
+      | 1992
+    |  
+    em
+      | not
+    |  
+    code
+      | 92
+    | ) that are within the range specified by the simulation's start and end year ([
+    code
+      | syear
+    | , 
+    code
+      | eyear
+    | ]) parameter values. Values outside the valid range are ignored.
+  p
+    strong
+      | Examples:
+    |  (assuming [
+    code
+      | syear
+    | , 
+    code
+      | eyear
+    | ] are set to [
+    code
+      | 1990
+    | , 
+    code
+      | 2005
+    | ])
+  table
+    thead
+      tr
+        th
+          code
+            | initializeActiveYears
+        th
+          | Meaning
+    tbody
+      tr
+        td
+          code
+            | 1990
+        td
+          | Burn reduction can only occur during simulation year 1990.
+      tr
+        td
+          code
+            | 1990, 1995
+        td
+          | Burn reduction can only occur during simulation years 1990 and 1995.
+      tr
+        td
+          code
+            | 1990-1995
+        td
+          | Burn reduction can only occur during simulation years 1990 through 1995.
+      tr
+        td
+          code
+            | 1990, 2000-2004, 2005
+        td
+          | Burn reduction can only occur during simulation years 1990, 2000 through 2004, and 2005.
+  p
+    | The 
+    code
+      | initializeActiveJdays
+    |  parameter specifies the Julian days of each simulation year when burn-reduction can occur. Valid values for this parameter must be integers between 1 and 366 (366 is used to indicate the "extra" day of a leap year). Values outside the valid range are ignored.
+  p
+    strong
+      | Examples:
+  table
+    thead
+      tr
+        th
+          code
+            | initializeActiveJdays
+        th
+          | Meaning
+    tbody
+      tr
+        td
+          | 60
+        td
+          | Burn reduction can only occur on the 60th day of a year.
+      tr
+        td
+          | 1, 90, 180
+        td
+          | Burn reduction can only occur on Julian days 1, 90, and 180 of a year.
+      tr
+        td
+          | 1, 365-366
+        td
+          | Burn reduction can only occur on the first and last days of non-leap years, and the last two days of leap years.
+      tr
+        td
+          | 1-366
+        td
+          | Burn reduction can occur on every day of a year.
+  blockquote
+    p
+      | Keep in mind the effect of leap years when translating calendar dates to Julian days. For example: "the 60th day of the year" maps to either the last day of February or the first day of March.
+  h4
+    em
+      | Parameters That Specify Where Map-Based Burning Occurs
+  p
+    | The 
+    code
+      | initializeCoverIds
+    |  specifies a comma-separated sequence of integer cover ID values. Only valid cover IDs specified in this list are eligible for burn-reduction. Valid cover IDs must correspond to integer values present within the cover map specified by the simulation's 
+    code
+      | coverSpeciesIndexMapFileName
+    | , and by a 
+    code
+      | uniqueId
+    |  parameter in one of the simulations CoverSpecies parameter groups. Valid cover IDs must also be present at cell locations within the delineated watershed, i.e. even if a cover ID exists in the cover map and for a CoverSpecies, it isn't valid for a burn disturbance unless some cells within the watershed are of that cover type.
+  p
+    | The 
+    code
+      | filterMapFullName
+    |  allows users to specify Grid ASCII .asc map file containing (integer) filter ID values.
+    br
+    |  If the value of this parameter is not a fully-qualified path and file name, VELMA will prefix the specified input data location root and name to this parameter's value to create a fully-qualified name. (I.e. partially-specified file names are assumed to be relative to the simulation's input data location.)
+    br
+    |  If the value of this parameter is left blank, filtering by it is deactivated (and this is the default behavior). When specified the filter map provides a second layer of arbitrary ID values used in conjunction with the 
+    code
+      | initializeFilterIds
+    |  parameter. The .asc map file specified must match the header information of the simulation's specified DEM grid.
+  p
+    | The 
+    code
+      | initializeFilterIds
+    |  specifies a sequence of comma-separated filter ID values. Only valid filter IDs specified in this list (AND in the cover IDS list) are eligible for burn-reduction. Valid filter IDs must correspond to integer values present within the Grid ASCII .asc map file specified by 
+    code
+      | filterMapFullName
+    | . If 
+    code
+      | filterMapFullName
+    |  is left blank, filtering is deactivated, and this parameter is ignored.
+  h3
+    | Parameters Specific to 
+    code
+      | HistoricalForestBurnLsrDisturbanceModel
+  p
+    | With the exception of 
+    code
+      | initializeActiveLoops
+    | , the 
+    code
+      | HistoricalForestBurnLsrDisturbanceModel
+    |  does not have parameters that specify when and where burn-reduction occurs. Instead, it requires the user to specify when-and-where information in a 
+    code
+      | .csv
+    |  file, and contains parameters to specify that file, and how it should be loaded.
+  p
+    | The 
+    code
+      | initializeActiveLoops
+    |  parameter specifies the simulation loop index numbers during which burn-reduction can occur. A valid loop index is an integer between 1 and the number of loops (
+    code
+      | numberOfLoops
+    |  parameter) specified for the simulation.
+    br
+    |  This parameter is common to both Forest Burn disturbance scheduling styles -- see its description in the 
+    a
+      code
+        | ForestBurnLsrDisturbanceModel
+    |  section above for details and examples of its use.
+  p
+    | The 
+    code
+      | initializeHistoricalData
+    |  parameter specifies the path and name of the 
+    code
+      | .csv
+    |  file containing the when-and-where burn-reduction occurs. If the value of this parameter is not a fully-qualified path and file name, VELMA will prefix the specified input data location root and name to this parameter's value to create a fully-qualified name. (I.e. partially-specified file names are assumed to be relative to the simulation's input data location.)
+    br
+    |  The contents and format required for the 
+    code
+      | .csv
+    |  file are described in the 
+    a
+      | next section
+    |  of this document.
+  p
+    | The 
+    code
+      | enableFullDataBuffer
+    |  parameter specifies how the 
+    code
+      | HistoricalForestBurnLsrDisturbanceModel
+    |  loads the 
+    code
+      | .csv
+    |  file data. When set to 
+    code
+      | True
+    | , VELMA will read the entire contents of the 
+    code
+      | .csv
+    |  data file into memory once, at the start of the simulation run. No additional data-reads from the file are performed during the simulation run. This reduces the simulation running time, but increases the memory used by the simulator during the entire simulation run.
+    br
+    |  When set to 
+    code
+      | False
+    | , VELMA reads the 
+    code
+      | .csv
+    |  data file multiple times, at the start of each simulation year, and stores only the current year's data into memory. This increases simulation running time, but decreases the memory used by the simulator during the entire simulation run.
+  blockquote
+    p
+      | Note: unless your 
+      code
+        | .csv
+      |  data file is quite small (e.g. less than 500 rows of data), or you are absolutely certain you will not incur and out-of-memory error, set this parameter's value to 
+      code
+        | False
+      | .
+  h4
+    em
+      | Historical Data File Format Details
+  p
+    | The file specified by the 
+    code
+      | initializeHistoricalData
+    |  parameter must contain comma-separated-values data. The file must contain one row of data for each cell were burn-reduction should occur. Each row in the file must contain a cell id (linear index number), followed by a sequence of year and Julian day-or-range paired values. Rows are 
+    em
+      | not
+    |  required to all have the same number of year and Julian day paired values, but each row must start with a valid cell id, followed by at least one year value and one Julian day-or-range value. This permits each cell to potentially have its own, unique "burn schedule".
+  blockquote
+    p
+      | Note: the file should 
+      em
+        | not
+      |  contain a header row.
+  p
+    | The format of a row in the data file is:
+  pre
+    code
+      | cellID,Year,JdayOrRange[,Year,JdayOrRange ...]
+
+  blockquote
+    p
+      | Note: whitespace on either side of the commas separating the data value is strongly discouraged.
+      br
+      |  Note: rows in the file must not end in a comma.
+  p
+    | The 
+    code
+      | cellID
+    |  must be an integer, and its value must be the linear index of a cell that is within the simulation's delineated watershed.
+  p
+    code
+      | Year
+    |  values must be full-year integers: e.g. 
+    code
+      | 1995
+    |  
+    em
+      | not
+    |  
+    code
+      | 95
+    | .
+  p
+    code
+      | JulianDayOrRange
+    |  values must be either a single integer value (a Julian Day) or two integer values separated by a dash (
+    code
+      | -
+    | ) character (a Julian Range).
+  ul
+    li
+      | Julian Day values must be within the range [1, 366].
+    li
+      | The two values of a Julian Range must each be within the range [1, 366] and the second value must be greater-or-equal to the first.
+      br
+      |  No whitespace is permitted between the dash separator character and the two Julian day range values. Together, Julian Range values indicate an inclusive range of days within a year.
+  p
+    strong
+      | Example File Contents:
+  pre
+    code
+      | 1070,1995,60,1995,120
+1300,1995,60,1995,90-220,1996,120
+2105,2000,210-214
+
+  p
+    | The 3 rows of csv data above specify three cell locations and when burn-reduction occurs for each of the three.
+  ul
+    li
+      | Row 1 specifies that burn-reduction occurs at cell location 
+      code
+        | 1070
+      |  in 
+      code
+        | 1995
+      |  on Julian days 
+      code
+        | 60
+      |  and 
+      code
+        | 120
+      | .
+    li
+      | Row 2 specifies that burn-reduction occurs at cell location 
+      code
+        | 1300
+      |  in 
+      code
+        | 1995
+      |  on Julian days 
+      code
+        | 60
+      |  and days 
+      code
+        | 90
+      |  through 
+      code
+        | 200
+      | , and in 
+      code
+        | 1996
+      |  on Julian day 
+      code
+        | 120
+      | .
+    li
+      | Row 3 specifies that burn-reduction occurs at cell location 
+      code
+        | 2105
+      |  in 
+      code
+        | 2000
+      |  on Julian days 
+      code
+        | 210-214
+      | .
+  h2
+    | Results Reported for Forest Burn Disturbances
+  h4
+    | Daily Results
+  p
+    | The effects of Forest Burn disturbances are reflected in the values of the various BIOMASS and DETRITUS results columns of the 
+    code
+      | DailyResults.csv
+    |  file, and the files that are derived from it (i.e. 
+    code
+      | AnnualResults.csv
+    | , and 
+    code
+      | Combined_DailyResults.csv
+    | ).
+  p
+    | The 
+    code
+      | DailyResults.csv
+    |  file also records burn-reduction amounts in the values of the cover-specific "Disturbance_N_Removed" columns:
+  pre
+    code
+      | <cover>_Disturbance_N_Removed(gN)_Cover_Total
+<cover>_Disturbance_N_Removed(gN/m2)_Cover_Average
+<cover>_Disturbance_N_Removed(gN/m2)_Delineated_Average
+<cover>_Disturbance_N_Removed_Cell_Count_Cover_Total
+
+  p
+    | Where 
+    code
+      | <cover>
+    |  is the 
+    code
+      | uniqueName
+    |  of a CoverSpecies parameterized for your simulation.
+  p
+    | However, be aware that these columns record 
+    em
+      | any
+    |  disturbance-related reductions. If, for example, your simulation configuration has parameterized both a Harvest disturbance 
+    em
+      | and
+    |  a Forest Burn disturbance, the reductions for both will appear in these columns. You must note the simulation timing information (in the Loop, Step, Year, and Jday columns) and know when your disturbances will occur to determine which values represent which disturbances.
+  h4
+    | Cell Data Writers
+  p
+    | Cell Data Writer files written for simulation configurations that include Forest Burn disturbances report burn amount in the following columns:
+  pre
+    code
+      | Burned_Biomass_Leaf_C
+Burned_Biomass_Ag_Stem_C
+Burned_Detritus_Leaf_C
+Burned_Detritus_Ag_Stem_C
+Burned_Ash_Amount_N
+Burned_AG_Total_N
+Burned_Volatilized_Amount_N
+
+  blockquote
+    p
+      | Note: Forest Burn disturbances 
+      em
+        | always
+      |  set the 
+      code
+        | Burned_Ash_Amount_N
+      |  map containing only zeroes: this data column for Forest Burn results.
+      br
+      |  Forest Burn is required by VELMA implementation details to write the 
+      code
+        | Burned_Ash_Amount_N
+      |  data column, but the file contents are for a different type of disturbance.
+  p
+    | Cell Data Writer files also record burn-reduction amounts in the values of the "Disturbanc_N_Removed" columns:
+  pre
+    code
+      | Disturbance_N_Removed_Layer1
+Disturbance_N_Removed_Layer2
+Disturbance_N_Removed_Layer3
+Disturbance_N_Removed_Layer4
+
+  p
+    | However, be aware that these columns record 
+    em
+      | any
+    |  disturbance-related reductions. If, for example, your simulation configuration has parameterized both a Harvest disturbance 
+    em
+      | and
+    |  a Forest Burn disturbance, the reductions for both will appear in these columns. You must note the simulation timing information (in the Loop, Step, Year, and Jday columns) and know when your disturbances will occur to determine which values represent which disturbances.
+  h4
+    | Spatial Data Results
+  p
+    | When one or more Forest Burn parameter groups set 
+    a
+      code
+        | enableAutomaticSpatialReporting
+    |  as 
+    code
+      | True
+    | , the VELMA simulator writes a collection of spatial data 
+    code
+      | .asc
+    |  map files for each day that any burn-reduction occurs.
+  p
+    | Be aware that any and all burn disturbances configured within the same simulation configuration write to the same set of .asc output files.
+    br
+    |  When two or more burn disturbances write data to an .asc output file on the same day, succesive burn disturbances 
+    strong
+      em
+        | overwrite
+    |  prior burn disturbance values in burn-specific maps. Keep this in mind if you must schedule two or more burn disturbances to occur at the same step and location.
+  p
+    | The files are written to top-level results location directory specified by the simulation configuration, and have the following filename format:
+  pre
+    code
+      | Spatial_BURNED_<data-name>_ALL_<loop-id>_<year>_<jday>.asc
+
+  p
+    | Where:
+  ul
+    li
+      code
+        | <data-name>
+      |  indicates the type of data in the map file.
+    li
+      code
+        | <loop-id>
+      |  is the simulation loop the burn data is for.
+    li
+      code
+        | <year>
+      |  is the simulation year the burn data is for.
+    li
+      code
+        | <jday>
+      |  is the Julian day the burn data is for.
+  p
+    strong
+      | Example:
+    |  The filename 
+    code
+      | Spatial_BURNED_BIOMASS_AG_STEM_C_ALL_1_2003_181.asc
+    |  has:
+  ul
+    li
+      code
+        | <data-name>
+      |  = 
+      code
+        | BIOMASS_AG_STEM
+    li
+      code
+        | <loop-id>
+      |  = 
+      code
+        | 1
+    li
+      code
+        | <year>
+      |  = 
+      code
+        | 2003
+    li
+      code
+        | <jday>
+      |  = 
+      code
+        | 181
+  p
+    | The data types reported are:
+  table
+    thead
+      tr
+        th
+          code
+            | <data-name>
+        th
+          | data units
+        th
+          | Description
+    tbody
+      tr
+        td
+          code
+            | AG_TOTAL_N
+        td
+          | grams (Nitrogen)
+        td
+          | Total Above-Ground amount burned from cell (BIOMASS and DETRITUS pools).
+      tr
+        td
+          code
+            | ASH_AMOUNT_N
+        td
+          | grams (Nitrogen)
+        td
+          strong
+            | Unused!
+          |  (You may ignore this map file.)
+      tr
+        td
+          code
+            | BIOMASS_AG_STEM_C
+        td
+          | grams (Carbon)
+        td
+          | Amount burned from BIOMASS_AG_STEM pool.
+      tr
+        td
+          code
+            | BIOMASS_LEAF_C
+        td
+          | grams (Carbon)
+        td
+          | Amount burned from BIOMASS_LEAF pool.
+      tr
+        td
+          code
+            | DETRITUS_AG_STEM_C
+        td
+          | grams (Carbon)
+        td
+          | Amount burned from DETRITUS_AG_STEM pool.
+      tr
+        td
+          code
+            | DETRITUS_LEAF_C
+        td
+          | grams (Carbon)
+        td
+          | Amount burned from DETRITUS_LEAF pool.
+  blockquote
+    p
+      | Note: Forest Burn disturbances write an 
+      code
+        | ASH_AMOUNT_N
+      |  map containing only zeroes: ignore this map file when reviewing Forest Burn results.
+      br
+      |  Forest Burn is required by VELMA implementation details to write the 
+      code
+        | ASH_AMOUNT_N
+      |  file, but the file contents are for a different type of disturbance.
+  p
+    | All the 
+    code
+      | Spatial_BURNED_
+    |  files that VELMA writes will have the same dimensions as the DEM grid specified for the simulation configuration, unless the 
+    a
+      code
+        | trimOutputToWatershedBoundary
+    |  parameter is set 
+    code
+      | True
+    | .

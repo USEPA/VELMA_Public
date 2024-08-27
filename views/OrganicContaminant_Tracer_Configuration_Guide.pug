@@ -1,0 +1,147 @@
+extends layout.pug
+block content
+  h1
+    | Configuring An Organic Contaminant as a Tracer
+  h2
+    | Overview
+  p
+    | A VELMA Organic Contaminant parameterization can be configured to utilize the contaminant's presence and amounts within a simulation run as a "tracer". In this role, the contaminant's normal sorption and decay processes are deactivated, leaving hydrologic transport (lateral and vertical) along with the contaminant's solubility as the only factors determining concentration and dispersion of the contaminant within a simulation run.
+  p
+    | Spatial Data Writers, configured to capture the contaminant's surface and/or soil layer amounts provide -- via the tracer-configured contaminant -- a way of visualizing hydrologic flow through the watershed from the (arbitrary) location(s) of contaminant deposition to the watershed's outlet cell.
+  h2
+    | Details
+  p
+    | During each VELMA simulation step, the amount of organic contaminant within a given cell of the delineated watershed is modified by the processes of:
+  ul
+    li
+      | Hydrologic lateral transport
+    li
+      | Hydrologic vertical transport
+    li
+      | Sorption
+    li
+      | Decay
+  p
+    | The hydrologic lateral and vertical transport processes transfer contaminant amounts between cells without reducing the overall contaminant amount in the watershed.
+    br
+    |  The sorption process impedes lateral and vertical transport, but likewise does not reduce the total contaminant amount present in the watershed. Decay 
+    em
+      | does
+    |  reduce the total contaminant amount present, and does so at every cell containing contaminant.
+    br
+    |  To configure a contaminant as a tracer we want to deactivate sorption -- so that transfer is a direct and sole result of hydrologic transport, and deactivate decay, so that the "trace signal" is not weakened by reduced amounts over time.
+  p
+    | Deactivating sorption and decay can be achieved by adding a 
+    a
+      | specific remediation configuration for the Organic Contaminant
+    | , that sets every cell's scaling factor value in the HUMUS and DECAY maps to zero.
+    br
+    |  However, only sorption 
+    em
+      | must
+    |  be deactivated this way.
+    br
+    |  Decay 
+    em
+      | can
+    |  be deactivated via remediation configuration to zero values, but can also be deactivated (more simply) by settting the Organic Contaminant's 
+    code
+      | setChemMaxDecay
+    |  parameter's value to zero. It applies for every cell, and effectively "shuts down" decay.
+  h2
+    | Configuration Steps
+  h3
+    | 1. Add and configure an OrganicContaminantModel to your VELMA simulation configuration.
+  p
+    | In order to use it as a tracer, you must have an OrganicContaminantModel instance parameterized in your VELMA simulation configuration. Follow the steps of the separate documentation for adding/configuring OrganicContaminantModel parameterizations to a simulation configuration.
+  h3
+    | 2. Set the Organic Contaminant's 
+    code
+      | setDecompositionFactorMode
+    |  value
+  p
+    | If you are setting both sorption and decay via Modify-by-Map disturbances, set the value of the 
+    code
+      | setDecompositionFactorMode
+    |  parameter to 
+    code
+      | BOTH
+    | .
+    br
+    |  If you are setting only sorption via Modify-by-Map disturbances (and deactivating decay by setting 
+    code
+      | setChemMaxDecay
+    | =
+    code
+      | 0.0
+    | , then set the value of the 
+    code
+      | setDecompositionFactorMode
+    |  parameter to 
+    code
+      | HUMUS
+    | . Desired Remediation | Value for 
+    code
+      | setDecompositionFactorMode
+    |  | Simulation Effect
+  h3
+    | 3. Create an "all-zeroes" raster (.asc) map file with cell-specific scaling factor values
+  p
+    | Generate the file using whatever GIS tool or software you prefer. Regardless of the method you use to it, the file must abide by the following rules:
+  ul
+    li
+      | The .asc map file must have the same dimensions (header row values) as the simulation's DEM map, specified as the value of the 
+      code
+        | input_dem
+      |  configuration parameter.
+    li
+      | The .asc map file must 
+      strong
+        em
+          | not
+      |  contain 
+      code
+        | nodata_value
+      |  for 
+      em
+        | any
+      |  location in the map.
+    li
+      | Every cell in the .asc map file must have the value 
+      code
+        | 0
+    li
+      | The file's encoding should be ASCII, or ISO-LATIN (UTF-8 is permitted, but not encouraged, UTF-16 and UTF-32 are not supported.)
+  h3
+    | 4. Add and configure a Modify-by-Map disturbance(s)
+  p
+    | Follow the instructions for setting and configuring the Modify-by-Map disturbances provided in the 
+    a
+      | remediation configuration guide
+    | .
+    br
+    |  If you set 
+    code
+      | setDecompositionFactorMode
+    | =
+    code
+      | BOTH
+    | , add and configure two, separate Modify-by-Map disturbances: one for HUMUS and one for DECAY (however both disturbances can source the same "all-zeroes" .asc map file you created in step 3 above). If you 
+    code
+      | setDecompositionFactorMode
+    | =
+    code
+      | HUMUS
+    | , add and configure one Modify-by-Map disturbance for HUMUS (and confirm that you are deactivating decay by setting the contaminant's own 
+    code
+      | setChemMaxDecay
+    |  parameter to 
+    code
+      | 0.0
+    | ).
+  h3
+    | 5. Add Spatial Data Writers to report contaminant amounts
+  p
+    | Spatial Data writers, configured to write contaminant amount .asc map files on a per-simulation-step basis, are the best way to obtain spatially and temporally explicit "tracer" data.
+    br
+    |  (The separate, primary documentation for adding/configuring OrganicContaminantModel parameterizations includes a discussion of how to set up SpatialDataWriter parameterizations to capture the contaminant amounts. Review that document for details.)

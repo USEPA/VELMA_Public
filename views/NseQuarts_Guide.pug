@@ -1,0 +1,219 @@
+extends layout.pug
+block content
+  h1
+    | NseQuarts Guide
+  h2
+    | Overview
+  p
+    | As part of its results, the VELMA simulator generates a "final" Nash-Sutcliffe Efficiency value for runoff, as well as annual values. However, quarterly runoff NSE values have also proven useful in analyzing simulator runoff behavior during calibration efforts.
+  p
+    | The VELMA simulator does not provide automatic generation of quarterly runoff NSE values, but the NseQuarts Python utility script can generate them from post-simulation results combined with the observed runoff used as part of the input data.
+  p
+    strong
+      | Requirements
+  ul
+    li
+      | A Windows Powershell or Command Prompt.
+    li
+      | Python 3 installed and available.
+    li
+      | Python's Pandas library installed for Python 3.
+    li
+      | The DailyResults.csv file from a VELMA simulator results.
+    li
+      | The observed runoff .csv file provided as part of the same VELMA simulator results' input data.
+    li
+      | The year to generate quarterly runoff NSE values for.
+  p
+    strong
+      | Limitations
+  ul
+    li
+      | You must specify a year, and the data for that year must be complete (all 365 or 366 days) within both the simulated (DailyResults) and observed .csv files.
+    li
+      | The specified year's data cannot contain NaN values, either in the simulated or observed files.
+    li
+      | The observed data file must be "MOEA formatted".
+    li
+      | Output is only to console stdio (it may be redirected to a file using the console's commands).
+  h2
+    | Usage
+  p
+    | Open a Windows Powershell or Command Prompt and type the following command:
+  pre
+    code
+      | py -3 NseQuarts.py --help
+
+  p
+    | Depending upon where the 
+    code
+      | NseQuarts.py
+    |  script is located, you may need to include full or partial path info as part of its name.
+    br
+    |  The command above assumes it is being run in the directory where 
+    code
+      | NseQuarts.py
+    |  is located.
+    br
+    |  Running the command above echoes 
+    code
+      | NseQuarts.py's
+    |  help message to your console:
+  pre
+    code
+      | usage: NseQuarts.py [-h] simRunoffFilename obsRunoffFilename year
+      | 
+      | Computes annual and quarterly runoff NSE values for specified VELMA data.
+      | 
+      | positional arguments:
+      |   simRunoffFilename  The DailyResults.csv file from a VELMA simulator results folder (provides the simulated runoff
+      |                     values).
+      |   obsRunoffFilename  The MOEA-formatted .csv file containing the observed runoff values for same VELMA simulation run
+      |                     as simRunoffFilename.
+      |   year               The year within the VELMA simulator run's range to generate quarterly NSE values for.
+      | 
+      | optional arguments:
+      |   -h, --help         show this help message and exit
+
+  p
+    | Per the help message above:
+  ol
+    li
+      p
+        | You must specify the DailyResults.csv file from a VELMA simulator results folder as the source of your simulator runoff value.
+        br
+        |  The DailyResults.csv file must appear as the first argument of the command line.
+        br
+        |  You must include whatever path information is necessary to find the file.
+        br
+        |  The file 
+        em
+          | must
+        |  be a DailyResults.csv file -- no other .csv file or format is allowed.
+        br
+        |  (The 
+        code
+          | NseQuarts.py
+        |  script is hardwired to find runoff data by a specific column name.)
+    li
+      p
+        | You must specify a file containing observed runoff data as the second argument of the command line.
+        br
+        |  The observed runoff file must be "MOEA formatted": i.e. a .csv file with 3 values per row.
+        br
+        |  The values in order are: 
+        code
+          | YEAR
+        | , 
+        code
+          | DAY_OF_YEAR
+        | , and 
+        code
+          | OBSERVED_VALUE
+        | , where 
+        code
+          | YEAR
+        |  and 
+        code
+          | DAY_OF_YEAR
+        |  are integer values within valid respective ranges, and the 
+        code
+          | OBSERVED_VALUE
+        |  is a floating-point value representing an observed runoff amount in units of millimeters of water.
+    li
+      p
+        | You must specify the simulation year you wish to generate quarterly NSE values for as the third argument of the command line.
+        br
+        |  The year must be an integer value, and the data for that year must exist and be complete (all 365 or 366 days) within both the simulated (DailyResults) and observed .csv files.
+  h2
+    | Example Usage
+  p
+    | Remember: you will typically need to include paths in the file names. Paths have been omitted in this example to keep the command line compact.
+  pre
+    code
+      | PS C:\Users\Me\Velma\My_Results> py -3 NseQuarts.py DailyResults.csv My_Obs_Runoff.csv 2020
+      | Year,Q_Name,Jday_Range,NSE_Value
+      | 2020,All,[1-366],0.7845631459960574
+      | 2020,Q1,[1-92],0.7381363311608637
+      | 2020,Q2,[93-183],0.7932735462074367
+      | 2020,Q3,[184-274],0.5355080821221985
+      | 2020,Q4,[275-366],0.8337491857897329
+
+  p
+    | As the example above shows, output is to the console (stdout) and is comma-separated (for easy copy-paste into a spreadhseet or .csv file).
+    br
+    |  After a header row, each row of output contains, in order:
+  ol
+    li
+      | The year the NSE values are calculated for (the 
+      code
+        | Year
+      |  column).
+    li
+      | The range name (the 
+      code
+        | Q_name
+      |  column).
+    li
+      | The range as its actual pair of day-of-year inclusive bounds values (the 
+      code
+        | Jday_Range
+      |  column).
+    li
+      | The actual NSE for that range (the 
+      code
+        | NSE_Value
+      |  column).
+  h2
+    | Output to Files
+  p
+    | The 
+    code
+      | NseQuarts.py
+    |  script outputs its results directly to your console. There is no option for saving the results directly to a file, however you can capture the output into a file using various console options.
+  p
+    | For Windows PowerShell, we recommend capturing the output via a 
+    a
+      | pipeline
+    |  combined with the PowerShell 
+    a
+      | Out-File
+    |  cmdlet.
+    br
+    |  Here is the previous Usage example, plus the additional command line syntax to capture the output to a file named "my2020_quarts.csv" instead of to the console itself:
+  pre
+    code
+      | PS C:\Users\Me\Velma\My_Results> py -3 NseQuarts.py DailyResults.csv My_Obs_Runoff.csv 2020 | Out-File -Encoding ASCII -FilePath my2020_quarts.csv
+
+  p
+    | The pipe ("
+    code
+      | |
+    | ") symbol tells PowerShell to take the output of command on its left (the 
+    code
+      | NseQuarts.py
+    |  command) and pass it to the command its right (the Write-Output cmdlet).
+  p
+    | The Out-File cmdlet can be used in various ways and for various situations, but what we want it to do here is:
+  ol
+    li
+      | Force the output to be ASCII-encoded (so that Excel can unambiguously open our resulting file as .csv data).
+    li
+      | Save the output to the file "my2020_quarts.csv" specified by the 
+      code
+        | -FilePath
+      |  argument.
+  p
+    | We force the output to be ASCII because 
+    a
+      | PowerShell's default encoding is Unicode
+    | . If you omit the 
+    code
+      | -Encoding ASCII
+    |  argument, the output is written to the file as Unicode characters. If you then open the file in Excel, you may find Excel has interpreted the contents as 6 rows of 1 column each, instead of 6 rows of 4 columns each, because Excel did not auto-detect the comma ("
+    code
+      | ,
+    | ") character. Whether this actually happens depends on how your Excel and Windows enviroments are configured. If you find you don't need the 
+    code
+      | -Encoding ASCII
+    |  option, feel free to omit it.

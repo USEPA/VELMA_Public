@@ -1,0 +1,438 @@
+extends layout.pug
+block content
+  h1
+    | Analyzing VelmaParalleCmdLine Failed Runs
+  h2
+    | Overview
+  p
+    | When VelmaParallelCmdLine is invoked, one of the first things it does is create a top-level results directory.
+    br
+    |  The directory name starts with 
+    code
+      | MULTI_
+    | , plus the name specified in the simulation configuration .xml file's 
+    code
+      | run_index
+    |  parameter.
+    br
+    |  (Example: if 
+    code
+      | run_index
+    |  is 
+    code
+      | MyConfiguration
+    | , the top-level directory is named 
+    code
+      | MULTI_MyConfiguration
+    | .)
+  p
+    | After creating the top-level results directory, VelmaParallelCmdLine configures a runtime logger and creates a file in the top-level results directory named VelmaParalleRunlog.txt. This top-level log file contains start/end messages for each sub-reach that VelmaParallelCmdLine attempts to run, along with whether each sub-reach ran to completion or failed. In all but the most abrupt runtime failures the VelmaParallelRunlog.txt file will contain log messages documenting the runtime behavior of the overall parallel run.
+  p
+    | Additionally if any of the sub-reaches started and run by VelmaParallelCmdLine fail, VelmaParallelCmdLine creates a subdirectory named 
+    code
+      | .\FAILED_Results
+    |  directly underneath the top-level results directory. If your top-level results directory contains a 
+    code
+      | .\FAILED_Results
+    |  directory, at least one of your sub-reaches failed to run correctly to completion.
+  p
+    | You can get a quick idea of how many runs failed, by looking at the contents of the 
+    code
+      | .\FAILED_Results
+    |  directory: it will contain a 
+    code
+      | FAILED_Results_<n>_log.txt
+    |  file (where 
+    code
+      | <n>
+    |  is the cell index of a specfic sub-reach outlet) for each sub-reach that failed to run. The contents of these "fail-log" files are the 
+    code
+      | WARNING
+    |  and 
+    code
+      | SEVERE
+    |  log messages from the specific sub-reach 
+    code
+      | .\Results_<n>\GlobalStateLog.txt
+    |  runtime log file.
+  p
+    strong
+      | Rule of Thumb
+    | : Look in VelmaParallelRunlog.txt for overview/summary information, and look in the fail-log files for the error details of specific, failed reaches.
+  hr
+  h2
+    | Heuristics for Analyzing VelmaParallelCmdLine Failures
+  p
+    | Things to check when VelmaParallelCmdLine doesn't run as as expected.
+  h4
+    strong
+      | Is the expected top-level directory missing?
+  p
+    | If no top-level directory exists, the VelmaParallelCmdLine invocation failed very quickly and abruptly. In these cases, the fault may be a mis-typed command line parameter. Check your console output for information or clues.
+    br
+    |  Here is is the console output for a VelmaParallelCmdLine with a mis-type command line parameter (
+    code
+      | maxProcessors
+    |  instead of 
+    code
+      | maxProcesses
+    | ):
+  pre
+    code
+      | SEVERE 2021-10-12 15:04:02 VelmaParallelCmdLine: FAIL! Unrecognized optional argument="--maxProcessors=2"
+      | CONFIG 2021-10-12 15:04:02 VelmaParallelCmdLine: FINISHED Parallel Processing outcome=FAILED finalExitStatus=1
+
+  h4
+    strong
+      | Did you re-run an existing, completed result?
+  p
+    | When you repeatly run VelmaSimulatorCmdLine with the same simulation configuration .xml file, it runs the configuratione multiple times, and generates a new results directory for each run. Each directory (after the initial run) has a sequence number (
+    code
+      | _<n>
+    | ) added as a suffix, to keep track of and distiguish each run.
+    br
+    |  But: 
+    strong
+      | VelmaParallelCmdLine does not behave like VelmaSimulatorCmdLine in this regard.
+    br
+    |  VelmaParallelCmdLine allows "restarting" a prior, partially-failed run (to avoid re-doing parts that initially succeeded). Because of this, it assumes that you want to re-run in the exact same results directory as before. If your first run was completely successful, there is no further work to do, and VelmaParallelCmdLine will exit almost immediately.
+  p
+    | Check your console: if you see that the final message has 
+    code
+      | outcome=COMPLETED
+    |  and 
+    code
+      | finalExitStatus=0
+    | , then you have likely tried to re-run a simulation that already ran completely correctly.
+    br
+    |  Here is an example of the type of full, final log message that characterizes this situation:
+  pre
+    code
+      | CONFIG 2021-10-12 14:29:04 VelmaParallelCmdLine: FINISHED Parallel Processing outcome=COMPLETED finalExitStatus=0
+
+  h4
+    strong
+      | Are there dependency paradoxes?
+  p
+    | When VelmaParallelCmdLine is (re)started for a pre-existing, partially-completed simulation result, it checks whether any of the completed reaches depending "pending" reaches (i.e.) reaches that haven't been run yet. This is a relatively rare situation, but if it occurs it is not something VelmaParallelCmdLine can resolve. The 
+    code
+      | SEVERE
+    |  message:
+  pre
+    code
+      | FAIL! Cannot run parallel VELMA with completed reach dependency paradoxes.
+
+  p
+    | is written to the VelmaParallelRunlog.txt file, and VelmaParallelCmdLine stops its run.
+    br
+    |  You will have to resolve the situation manually before re-re-starting the simulation run. One way to do this is to delete any completed 
+    code
+      | Results_*
+    |  sub-directories from the simulation's top-level results directory. (You can move the 
+    code
+      | Results_*
+    |  folders to some other location outside of the top-level results directory-tree instead of deleting them if you want to preserve their contents.) The VelmaParallelRunlog.txt file should contain a 
+    code
+      | SEVERE
+    |  message for each completed/paradox reach that has this form:
+  pre
+    code
+      | FAIL! Dependency paradox: completed reach outlet=<n> ...
+
+  p
+    | Look for these messages to determine which completed/paradox 
+    code
+      | Results_*
+    |  sub-directories to delete or move.
+  h4
+    strong
+      | Does the top-level directory have a FAILED_Results sub-directory?
+  p
+    | When the 
+    code
+      | .\FAILED_Results
+    |  sub-directory exists, at least one of the simulation sub-reaches failed to run correctly to completion. The fail-log files in the sub-directory indicate the number of sub-reaches that failed, and the reach outlet-cell location that is part of each fail-log file name indicates the identity of specific failed reaches.
+  h4
+    strong
+      | What additional details exist?
+  p
+    | The reach outlet cell-index location numbers are consistent in all reporting. If there is a 
+    code
+      | .\FAILED_Results\FAILED_Results_<n>_log.txt
+    |  file, the same 
+    code
+      | <n>
+    |  in its name will show up in 
+    code
+      | .\Results_<n>
+    |  directory, and in 
+    code
+      | ... reach outlet=<n> ...
+    |  messages in the top-level VelmaParallelRunlog.txt file.
+    br
+    |  Look in the 
+    code
+      | .\Reasults_<n>\GlobalStateLog.txt
+    |  file (or alternate named file specified by the 
+    code
+      | globalStateLogFileName
+    |  parameter) for additional reach-specific log messages. All warning and severe message should have been copied to the 
+    code
+      | FAILED_Results_<n>_log.txt
+    |  fail-log file, but the surrounding log message may provide additional context and insight if the problem isn't evident in the fail-log file.
+    br
+    |  You can also grep (or 
+    a
+      code
+        | Select-String
+    |  in Powershell) to locate all the messages associated with 
+    code
+      | <n>
+    | .
+    br
+    |  Here is an example using the Powershell command: 
+    code
+      | (select-string "reach outlet=3590" VelmaParallelRunlog.txt).Line
+  pre
+    code
+      | CONFIG 2021-10-12 14:26:42 VelmaParallelCmdLine: Independent reach outlet=3590 ready to run
+      | INFO 2021-10-12 14:26:42 VelmaParallelCmdLine: STARTED reach outlet=3590 process=java.lang.ProcessImpl@52cc8049 memory="-Xmx1g"
+      | INFO 2021-10-12 14:26:48 VelmaParallelCmdLine: FINISHED reach outlet=3590 outcome=FAILED process=java.lang.ProcessImpl@52cc8049 status=1
+      | WARNING 2021-10-12 14:26:48 VelmaParallelCmdLine: FAILED reach outlet=3590 prevents dependent reach outlets=[1735, 3236, 2263] from running.
+
+  p
+    | The above gives a concise summary of reach outlet=3590's runtime history (but no 
+    em
+      | details
+    |  as to why it failed -- look in the fail-log file or reach-specific global state log file for those.) Note: the (...).Line PowerShell syntax emits each line found without line numbers or other context; remember that the above lines are very likely 
+    em
+      | not
+    |  contiguous in the original log file.
+  hr
+  h2
+    | Log Message Notes and Descriptions
+  h3
+    | In VelmaParallelRunlog.txt
+  h4
+    strong
+      | Log Message Format Notes
+  p
+    | All log messages start with 3 whitespace-separated fields: a status keyword, a date, and a time, in that order.
+  ul
+    li
+      | The keyword is one of the following: 
+      code
+        | CONFIG
+      | , 
+      code
+        | INFO
+      | , 
+      code
+        | WARNING
+      | , or 
+      code
+        | SEVERE
+      | .
+    li
+      | The date format is "YYYY-MM-DD"
+    li
+      | The time format is "HH:mm:ss"
+  p
+    | Example: 
+    code
+      | CONFIG 2021-10-12 14:26:42 ...
+  p
+    | The first message written by VelmaParallelCmdLine for a given invocation is always a 
+    code
+      | CONFIG
+    |  message with the text:
+  pre
+    code
+      | VelmaParallelCmdLine: STARTING Parallel Processing  
+
+  p
+    | When a VelmaParallelRunlog.txt file already exists, (e.g. for a re-start of an existing, partially-completed run) log messages are appended to the existing file.
+    br
+    |  Look for the 
+    code
+      | STARTING Parallel Processing
+    |  message to determine the start of separate runs when multiple runs are appended into one log file.
+  p
+    | The last message written in a given invocation of VelmaParalleCmdLine is a 
+    code
+      | CONFIG
+    |  message with the text
+  pre
+    code
+      | VelmaParallelCmdLine: FINISHED Parallel Processing ...
+
+  p
+    | and includes 
+    code
+      | outcome=
+    |  and 
+    code
+      | finalExitStatus=
+    |  values.
+    br
+    |  When 
+    code
+      | outcome=FAILED
+    |  and 
+    code
+      | finalExitStatus=1
+    | , it is preceeded by 2 log messages summarizing which reaches failed, and which reaches were prevented from running.
+    br
+    |  Example:
+  pre
+    code
+      | [ . . . ]
+      | SEVERE 2021-10-12 14:26:51 VelmaParallelCmdLine: These reach outlets failed to run correctly: [2434, 3590]
+      | WARNING 2021-10-12 14:26:51 VelmaParallelCmdLine: The failed reach outlets prevented these reaches from running: [1735, 2263, 3236]
+      | CONFIG 2021-10-12 14:26:51 VelmaParallelCmdLine: FINISHED Parallel Processing outcome=FAILED finalExitStatus=1
+
+  h4
+    strong
+      | Exit Status Codes
+  p
+    | Each reach that VelmaParallelCmdLine tries to run reports its exit status in an 
+    code
+      | INFO
+    |  message with the text:
+  pre
+    code
+      | ... FINISHED reach outlet=<n> outcome=... status=...
+
+  ul
+    li
+      | The 
+      code
+        | outlet=
+      |  value is the reach outlet cell index location.
+    li
+      | The 
+      code
+        | outcome=
+      |  value is either 
+      code
+        | COMPLETED
+      |  or 
+      code
+        | FAILED
+    li
+      | The 
+      code
+        | status=
+      |  value is 0 when 
+      code
+        | outcome=COMPLETED
+      | , otherwise it is != 0 (and is usually 1).
+  p
+    | Exit status messages indicate 
+    strong
+      | failure
+    |  by a 
+    strong
+      | nonzero
+    |  value ("1" in nearly every case).
+    br
+    |  The 
+    em
+      | only
+    |  exit status message value indicating complete success is zero ("0").
+    br
+    |  This applies to indivual reach message 
+    code
+      | status
+    |  values as well as the overall 
+    code
+      | finalExitStatus
+    |  value reported as the last message of a given VelmaParallelCmdLine invocation.
+  h3
+    | In Reach-Specific "fail-log" files
+  h4
+    strong
+      | Filename and Contents
+  p
+    | As stated previously, the reach-specific fail-log files have a uniform naming format that includes the reach's outlet cell index location in the name. The contents are specific for that reach, and are a filtered selection of the error messages reported in the reach's own global state log file.
+  h4
+    strong
+      | Sometimes, There is Nothing to Say
+  p
+    | It's possible for a reach to fail without leaving anything for VelmaParallelCmdLine to write into a fail-log file.:
+  ul
+    li
+      | No global state log file exists in the reach-specific 
+      code
+        | .\Results_<n>
+      |  directory
+    li
+      | The global state log file cannot be opened for reading
+    li
+      | The global state log is empty, or contains no error messages.
+  p
+    | In any of these cases, VelmaParallelCmdLine 
+    em
+      | can
+    |  write a fail-log file, but has nothing 
+    em
+      | to
+    |  write. This can happen if the reach-specific simulation run failed very quickly (e.g. during initialization, before its own logger mechanism started), if the cause of the failure emitted no error messages, or if the failure somehow locks the reach's global state log file for read-access.
+    br
+    |  VelmaParallelCmdLine 
+    em
+      | does
+    |  write a fail-log file in these situations, but the contents will only report that it cannot report any actual error messages.
+    br
+    |  Look for the following messages in the fail-log file:
+  pre
+    code
+      | Reach outlet=<n> status indicated a failed run, but no error messages were found in the log file.
+
+  p
+    | or
+  pre
+    code
+      | FAILURE INFO UNAVAILABLE: cannot find logfile=...
+
+  p
+    | Which are indicators that this sort of failure has occurred.
+  h4
+    strong
+      | Sometimes, There is No Place to Write
+  p
+    | If creating the 
+    code
+      | .\FAILED_Results
+    |  directory itself fails, or if a fail-log file cannot be created, VelmaParallelCmdLine logs the failure in the VelmaParallelRunlog.txt file with a 
+    code
+      | WARNING
+    |  message that says:
+  pre
+    code
+      | Cannot create a failure-summary log for reach outlet=<n> : encountered exception=...
+
+  p
+    | where 
+    code
+      | <n>
+    |  is the outlet cell index of the reach that failed.
+  h4
+    strong
+      | Exception Stack Traces Are 
+      em
+        | Not
+      |  Logged
+  p
+    | The fail-log files do not contain exception stack trace information. Although this information 
+    em
+      | is
+    |  emitted for some reach simulation failures, it is emitted directly to 
+    code
+      | stderr
+    | , and is not "caught" by either the reach-specific or the top-level VelmaParallelRunlog logger mechanims. The only place to view exception stack trace information is the command line console, and this is complicated by the fact that all the reach simulation processes that VelmaParallelCmdLine starts echo logging and exception messages back to the console, in an asynchronous and interleaved fashion. To reproduce and capture the console messages (include exception stack traces) for a specific reach, consider re-running that reach by itself using the VelmaSimulatorAltCmdLine tool (mentioned in "Gathering Further Information" below).
+  hr
+  h2
+    | Gathering Further Information
+  p
+    | Determining the exact cause of a specific reach's failure to run correctly and completely may involve running that specific reach by itself. You can do that using your existing simulation configuration .xml and the (partially-completed) results directory tree that VelmaParallelCmdLine created by using the related VelmaSimulatorAltCmdline tool. Please refer to VelmaSimulatorAltCmdline's HowTo guide for further information.

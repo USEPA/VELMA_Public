@@ -1,0 +1,167 @@
+extends layout.pug
+block content
+  h1
+    | NashSutcliffeCalculator : A Tool for Computing Nash-Sutcliffe Coefficients
+  p
+    | This guide explains how to use the NashSutcliffeCalculator utility.
+  h2
+    | Background
+  p
+    | The VelmaSimulator engine automatically calculates a Nash-Sutcliffe coefficient for simulated-vs-observed watershed runoff values, but only if the following conditions are met:
+  ol
+    li
+      | Observed runoff values are available for every day of driver data specified for the simulation run.
+    li
+      | Those observed runoff values are available in a properly-formatted .csv file, and that file is specified in the VELMA Simulation Configuration .xml file for the simulation run.
+  p
+    | Often, only partial or sparse observed runoff data is available for a given simulation site, or full runoff data only becomes available at some point after simulation runs have been completed.
+    br
+    |  In these cases, the NashSutcliffeCalculator utility can be used to compute a Nash-Sutcliffe value 
+    em
+      | after
+    |  the simulation run is completed, and can utilize partial or sparse observed data if that is all that is available.
+  p
+    | When NashSutcliffeCalculator is run from a command-line with the names of observed and simulation data files, it finds and pairs all the corresponding obs, sim data values, then computes the Nash-Sutcliffe coefficient for those data pairs.
+  h2
+    | Platform Requirements and Runtime Notes
+  p
+    | Running NashSutcliffeCalculator as a command-line utility requires the following:
+  ul
+    li
+      | Java 1.8 JRE (new versions should also work, but older versions -- e.g. 1.7 -- will not).
+    li
+      | Windows 10 (although the tool is not Windows-specific, Windows it the only platform it has been tested on).
+    li
+      | Windows Powershell (other shells should work, but PowerShell is the command shell it has been tested on).
+    li
+      | Access to either a JVelma .jar file (the NashSutcliffeCalculator is included in it)
+      br
+      |  or
+      br
+      |  Access to the 
+      a
+        | VELMA source code
+      |  and a way to generate the .class files for at least the VelmaUtils/bin directory tree. (This is usually done by cloning a local copy of the VELMA project into an Eclipse workspace.)
+  h2
+    | Step-by-Step Instructions
+  h3
+    | 1. Determine Observed and Simulation Data File Sources
+  p
+    | You must provide Nash-Sutcliffe with two comma-separated value (.csv) files:
+  h3
+    | An Observed Data File
+  ul
+    li
+      | Must contain 3 values per row, in this order: YEAR, JDAY, VALUE
+      ol
+        li
+          | YEAR must be a YYYY integer value.
+        li
+          | JDAY must be a JJJ (range [1, 366]) Julian day value.
+        li
+          | VALUE must be a floating-point data value.
+    li
+      | Must 
+      em
+        | NOT
+      |  contain a header row.
+  h3
+    | A Simulation Data File
+  ul
+    li
+      | Must contain the following data, in the following (zero-based) column positions:
+      ol
+        li
+          | LOOP (an integer value) in column 0.
+        li
+          | YEAR (a YYYY integer value) in column 2.
+        li
+          | JDAY (a JJJ range [1, 366] value) in column 3.
+        li
+          | VALUE must be a floating-point data value in column 9.
+  p
+    | The DailyResults.csv file generated as part of the standard results of a VELMA simulation run exactly meets the Simulation Data File requirements.
+  h3
+    | 2. Run NashSutcliffeCalculator from a PowerShell Window
+  h3
+    | Running from a 
+    code
+      | .jar
+    |  file
+  p
+    | The command must include the location of the JVelma.jar file.
+    br
+    |  (The NashSutcliffeCalculator engine and 
+    code
+      | main()
+    |  method are included in JVelma.jar.)
+    br
+    |  A template for the command is:
+  pre
+    code
+      | java -cp C:\path\to\JVelma.jar gov.epa.velmautils.NashSutcliffeCalculator --obsFile=C:\full\path\to\obs.csv --simFile=C:\full\path\to\sim.csv
+
+  h3
+    | Running from a VELMA Eclipse Workspace
+  p
+    | The command must include the location of VelmaUtils\bin within the Eclipes VELMA workspace.
+    br
+    |  A template for the command is:
+  pre
+    code
+      | java -cp C:\path\to\Velma\VelmaUtils\bin gov.epa.velmautils.NashSutcliffeCalculator --obsFile=C:\full\path\to\obs.csv --simFile=C:\full\path\to\sim.csv
+
+  h2
+    | Using NashSutcliffeCalculator within Java code
+  ol
+    li
+      | Create Java File objects for the observed and simulation data files.
+      br
+      |  (Also: perform any file-validation and "bad file" handling deemed necessary by your code.)
+  pre
+    code
+      | File obsFile = new File("C:/full/path/to/obs.csv");
+      | File simFile = new File("C:/full/path/to/sim.csv");
+
+  ol
+    li
+      | Create a NashSutcliffeCalulator object, and pass the the obs and sim File objects to its constructor.
+  pre
+    code
+      | NashSutcliffeCalculator nsCalc = new NashSutcliffeCalculator(obsFile, simFile);
+
+  ol
+    li
+      | Set desired options by calling appropriate 
+      code
+        | set..()
+      |  methods on the NashSutcliffeCalculator object.
+      br
+      |  Options available when calling NashSutcliffeCalculator via a command line are also available via setter methods.
+      br
+      |  
+      strong
+        | Important: Set options 
+        em
+          | before
+        |  calling 
+        code
+          | generateCoefficient()
+        | !
+      br
+      |  For example:
+  pre
+    code
+      | nsCalc.setSimMinYear(2010)
+
+  p
+    | is the source code equivalent to specifying
+  pre
+    code
+      | --setSimMinYear=2010 
+
+  p
+    | on the command line. 4. Call the 
+    code
+      | generateCoefficient()
+    |  method to compute the coefficient value for the specified obs and sim data files, taking into account any

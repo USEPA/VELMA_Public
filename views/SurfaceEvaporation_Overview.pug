@@ -1,0 +1,763 @@
+extends layout.pug
+block content
+  h1
+    | VELMA Surface Evaporation
+  h2
+    | Overview
+  p
+    | VELMA version 2.2.0.0 supports the inclusion of Surface Evaporation as part of simulation configurations.
+    br
+    |  When Surface Evaporation is included in a simulation run, evaporation amounts are calculated during each simulation step at each cell, and the calculated amounts of evaporated water are removed from the cell (and the simulation state). Water removed by surface evaporation is reported in Daily and Cell-specific .csv files of the simulation's results folder. Additionally, spatial-data writers may be configured to report evaporation amounts in 
+    code
+      | .asc
+    |  map files.
+  h3
+    | Important: Additional Driver Data Requirement
+  p
+    | Calculating surface evaporation involves dew point, and VELMA's Surface Evaporation code uses minimum air temperature as an approximate value for dew point. Therefore, 
+    strong
+      | any VELMA simulation configuration that includes Surface Evaporation must also include per-step minumum air temperature values as part of the driver data for its weather model
+    | .
+    br
+    |  Miniumum air temperature values are not required for VELMA simulation configuration 
+    em
+      | without
+    |  Surface Evaporation, but simulations configured 
+    em
+      | with
+    |  Surface Evaporation 
+    em
+      | must
+    |  provide miniumum air temperature driver data: without it, the simulation run will halt and fail during the first simulation step.
+    br
+    |  See the 
+    a
+      | Dewpoint and Dewpoint Correction
+    |  section of this document for how to provide minimum air temperature values to the simulation.
+  h3
+    | Adding Surface Evaporation to a VELMA Configuration
+  p
+    | Begin by loading a VELMA simulation configuration into JVelma, or by creating a new configuration from within JVelma (via the Edit -> "Create a New, Empty Configuration" menu item).
+  p
+    | Next, click the Edit -> "Set Surface Evaporation Model" to display the Surface Evaporation sub-menu. The Surface Evaporation sub-menu has two items: "NO Surface Evaporation Model" and "Default Surface Evaporation Model".
+  p
+    img
+  p
+    | To add Surface Evaporation parameters to the current configuration, click the "Default Surface Evaporation Model" item.
+  blockquote
+    p
+      strong
+        em
+          | Note:
+      |  If the current configuration 
+      em
+        | already
+      |  contains Surface Evaporation parameters, clicking "Default Surface Evaporation Model" "resets" all existing Surface Evaporation parameters back to their default values.
+  p
+    | When you click "Default Surface Evaporation Model", JVelma shifts display focus to the "All Parameters" tab, and filters the rows of the parameters table to those specific to Surface Evaporation.
+  p
+    img
+  blockquote
+    p
+      | The current set of Surface Evaporation parameters is relatively small, and several of them should be left as-is, set to the values provided as defaults.
+  h4
+    em
+      | Parameters That Can (Should!) be Left Alone
+  p
+    | The 
+    code
+      | modelClass
+    |  parameter is set by JVelma when you add the contaminant to the simulation configuration. Do Not Change this parameter’s value. 
+    em
+      | Ever
+    | .
+  p
+    | The 
+    code
+      | uniqueName
+    |  parameter is automatically set to the rightmost name in the dot-separated sequence of the 
+    code
+      | modelClass
+    |  name and should be left as-is.
+  p
+    | The 
+    code
+      | uniqueId
+    |  parameter is generated automatically and should be left as-is.
+  h4
+    em
+      | Parameters That Affect Surface Evaporation Behavior
+  p
+    | The 
+    code
+      | rainfallCutoff
+    |  parameter specifies the amount of recent rainfall (in mm) at a given cell necessary to trigger 
+    a
+      | dew point correction
+    |  prior to calculating the cell's surface evaporation.
+  pre
+    code
+      | When recentRainfall > rainfallCutoff --> perform dew point correction.
+
+  p
+    | By default, this parameter's value is set to an "impossibly high" value, which effectively prohibits dew point correction. Be sure to change this parameter's value to something reasonable for your specific simulation configuration if you expect dew point correction to occur.
+  p
+    | The 
+    code
+      | setDewpointMtclimK
+    |  parameter provides a K-coefficient calibration parameter for the MTCLIM equation used to compute dew point correction.
+    br
+    |  The value of this parameter can be either a floating point number or the name of an 
+    code
+      | .asc
+    |  grid map file of cell-specific values.
+  table
+    thead
+      tr
+        th
+          | parameter type
+        th
+          | example
+        th
+          | behavior
+    tbody
+      tr
+        td
+          | single value
+        td
+          code
+            | 1.65
+        td
+          | Specified value is used as the dew point MTCLIM K-coefficient at all delineated cells
+      tr
+        td
+          | map file name
+        td
+          code
+            | ./m_1_DEM/dewpointK_values.asc
+        td
+          | Values in the specified file are used as cell-specific MTCLIM K-coefficient values.
+  p
+    | When 
+    code
+      | setDewpointMtclimK
+    |  is set to an 
+    code
+      | .asc
+    |  grid map file, the file may be specified by its name alone, its name and a partial path, or its name and a fully-qualified path. When a fully-qualified path is not specified, VELMA assumes the name or partial path + name is relative to the root input data directory specified by the configuration parameters 
+    code
+      | inputDataLocationRootName
+    |  and 
+    code
+      | inputDataLocationDirName
+    | .
+  p
+    | An 
+    code
+      | .asc
+    |  grid map file used to provide data for the dew point K-coefficient calibration parameter must duplicate all of the DEM grid 
+    code
+      | .asc
+    |  file's header (
+    code
+      | ncols
+    | , 
+    code
+      | nrows
+    | , etc.) values.
+  p
+    | It should also 
+    em
+      | not
+    |  contain 
+    code
+      | nodata_value
+    |  values, because the Surface Evporation code does screen out or replace 
+    code
+      | nodata_value
+    | s in the 
+    code
+      | .asc
+    |  file. Any 
+    code
+      | nodata_value
+    |  value coinciding with a cell included in the simulation's delineated watershed will have the 
+    code
+      | nodata_value
+    |  value assigned as its MTMLIM K-coefficient. This is unlikely to be what was intended, and is difficult to detect if it occurs.
+  h4
+    em
+      | Parameters That Provide Additional Reporting Data
+  p
+    | The 
+    code
+      | enableTraceCell
+    |  and 
+    code
+      | traceCellIndex
+    |  pair of parameters determine whether or not VELMA collects and reports 
+    a
+      | extra Surface Evaporation calculation details
+    |  and the cell location those details are reported for.
+  p
+    | When 
+    code
+      | enableTraceCell
+    |  is set 
+    code
+      | true
+    | , VELMA writes a log message containing Surface Evaporation details for the cell location specified by 
+    code
+      | traceCellIndex
+    |  to the global trace log .csv file specified by the VELMA 
+    code
+      | csvTraceLogFileName
+    |  parameter (default name "GlobalTraceLog.csv").
+  p
+    | The 
+    code
+      | traceCellIndex
+    |  parameter's value can either be left unspecified, or be the linear cell index value of a cell within the watershed delineated for the simulation configuration. When it is left unspecified, VELMA will default to reporting details at the simulation configuration's specified outlet cell.
+  table
+    thead
+      tr
+        th
+          code
+            | enableTraceCell
+        th
+          code
+            | traceCellIndex
+        th
+          | Outcome
+    tbody
+      tr
+        td
+          code
+            | true
+        td
+          | blank
+        td
+          | outlet cell's surface ev. details logged to 
+          code
+            | csvTraceLogFileName
+          |  file.
+      tr
+        td
+          code
+            | true
+        td
+          | cell index
+        td
+          | specified cell's surface ev. details logged to 
+          code
+            | csvTraceLogFileName
+          |  file.
+      tr
+        td
+          code
+            | false
+        td
+          | blank
+        td
+          | no tracing written to trace .csv file.
+      tr
+        td
+          code
+            | false
+        td
+          | cell index
+        td
+          | no tracing written to trace .csv file.
+  p
+    | The details reported can assist in understanding surface evaporation behavior during calibration, but reporting them costs a bit of additional running, and increases the size of the global trace log .csv file. For this reason, 
+    code
+      | enableTraceCell
+    |  is set 
+    code
+      | false
+    |  by default, and VELMA only reports details for a single cell location.
+  h3
+    | Removing Surface Evaporation from a VELMA Configuration
+  p
+    | Clicking Edit -> "Set Surface Evaporation Model" -> "NO Surface Evaporation Model" 
+    em
+      | removes
+    |  any existing Surface Evaporation parameterization from the current configuration. When the current configuration has no existing Surface Evaporation parameters, clicking "NO Surface Evaporation Model" does nothing.
+  h3
+    | An Overview of Surface Evaporation's Behavior and Effect
+  h4
+    em
+      | How are Surface Evaporation Amounts Calculated?
+  p
+    | Surface Evaporation amounts are computed based on the technique described by Edward T. Linacre in his 1994 paper:
+    br
+    |  Linacre, Edward T. “Estimating U.S. Class A Pan Evaporation from Few Climate Data.” Water International, vol. 19, no. 1, 1994, pp. 5–14.
+  p
+    | Based on that paper, this is the equation VELMA uses:
+  pre
+    code
+      | ev = (0.015 + 0.00042 * temperature + 0.000001 * elevation) * (0.8 * irradiance - 40 + 2.5 * airDensityByElev * windSpeed * (temperature - dewPoint))
+
+  p
+    | The components of the formula are:
+  table
+    thead
+      tr
+        th
+          | Component
+        th
+          | Description
+        th
+          | Cell-Specific?
+    tbody
+      tr
+        td
+          | 0.015
+        td
+          code
+            | [ * ]
+        td
+          | no
+      tr
+        td
+          | 0.00042
+        td
+          code
+            | [ * ]
+        td
+          | no
+      tr
+        td
+          | temperature
+        td
+          | average daily air temperature, degrees C
+        td
+          | configuration-dependent
+      tr
+        td
+          | 0.8
+        td
+          code
+            | [ * ]
+        td
+          | no
+      tr
+        td
+          | irradiance
+        td
+          | solar irradiance in W/m^2
+        td
+          | configuration-dependent
+      tr
+        td
+          | 40
+        td
+          code
+            | [ * ]
+        td
+          | no
+      tr
+        td
+          | 2.5
+        td
+          code
+            | [ * ]
+        td
+          | no
+      tr
+        td
+          | airDensityByElev
+        td
+          | change in air density with elevation
+        td
+          | yes
+      tr
+        td
+          | windSpeed
+        td
+          | wind speed in m/sec at 2 meters above ground
+        td
+          | no
+      tr
+        td
+          | dewPoint
+        td
+          | deg C
+        td
+          | configuration-dependent
+  blockquote
+    p
+      | Note: Each 
+      code
+        | [ * ]
+      |  indicates a constant value for a term of the equation, as utilized by Linacre in the 1994 paper.
+      br
+      |  These values were derived by Linacre for his 1994 paper, based on his earlier 1993 paper:
+      br
+      |  Linacre, Edward T. “Data-Sparse Estimation of Lake Evaporation, Using a Simplified Penman Equation.” Agricultural and Forest Meteorology, vol. 64, no. 3, 1993, pp. 237–56.
+  blockquote
+    p
+      | Note: "configuration-dependent" indicates the component may or may not be cell-specific, depending upon the VELMA simulation configuration and driver data in use.
+  blockquote
+    p
+      | Note: Currently, VELMA hardwires windSpeed to the value 0.001.
+  h4
+    em
+      | How Does Surface Evaporation Affect Simulation State?
+  p
+    | When the simulator calculates a Surface Evaporation amount greater than zero for a cell location, the cell's current SURFACE_LATERAL_OUTFLOW water amount is reduced by the calculated evaporation amount. When the calulated evaporation amount exceeds the cell's current SURFACE_LATERAL_OUTFLOW amount, the SURFACE_LATERAL_OUTFLOW is zeroed. SURFACE_LATERAL_OUTFLOW is the amount of water that VELMA's Water Balance mechanism has determined a cell will transfer to its downhill neighbors during the current simulation step. Therefore, Surface Evaporation has the overall effect of (slightly) reducing the water amounts moving across the watershed surface during a simulation run. Because surface water may penetrate (inflow) into a cell's soil layers, Surface Evaporation can indirectly affect the water balance of a cell's soil layers (by reducing the amount of surface water available for inflow).
+  p
+    | Surface Evaporation is a separate computation from VELMA's PET/ET calculation. Unlike Surface Evaporation, PET/ET is calculated against the water amounts in the four soil layers, may include leaf biomass as a calculation factor, and is itself a factor of VELMA's water balance difference equations.
+  h4
+    em
+      | When Does Surface Evaporation Occur?
+  p
+    | Surface Evaporation amounts are computed individually for each cell, during each simulation step. Within the sequence of events that constitute a simulation step, Surface Evaporation is calculated 
+    em
+      | after
+    |  a cell's water balance is determined, but 
+    em
+      | before
+    |  transport of chemicals by lateral or vertical water movement is calculated. Surface Evaporation also occurs before water movement through drain pipes (if the simulation is configured with Water Drains).
+  h4
+    em
+      | Dew Point and Dew Point Correction
+  p
+    | Dew point is one of factors required for caculating surface evaporation values, and VELMA's Surface Evaporation code uses minimum air temperature as an approximate value for dew point. Therefore, as 
+    a
+      | previously stated
+    | , VELMA simulations configured for Surface Evaporation 
+    strong
+      | *must *
+    |  include per-step minimum air temperature driver data, or the simulation will and fail during the first simulation step.
+  p
+    | See the 
+    a
+      | MinMaxAirT Weather Drivers Overview document
+    |  for a summary of VELMA weather model min/max air temperature support and how to provide driver data.
+  p
+    | When a simulation configuration additionally provides maximum air temperature driver data values for its weather model 
+    em
+      | and
+    |  a value or map for its 
+    a
+      code
+        | setDewpointMtclimK
+    |  parameter, VELMA's Surface Evaporation code can attempt to improve ("correct") dew point values by setting them equal to the result of a MTCLIM model calculation.
+    br
+    |  However: keep in mind that even when all the necessary configuration/driver data is specified, dew point correction still occurs only when recent rainfall is greater than value of the 
+    a
+      code
+        | rainfallCutoff
+    |  parameter.
+    br
+    |  I.e.
+  pre
+    code
+      | When (Has max airT driver data) AND (Has setDewpointMtclimK value) AND (recentRainfall > rainfallCutoff) --> dew point correction is computed.
+
+  h3
+    | Simulation Results for Surface Evaporation
+  h4
+    em
+      | Basic Evaporation Results
+  p
+    | When a VELMA simulation configuration includes Surface Evaporation, VELMA's DailyResults.csv and AnnualResults.csv files, along with any specified Cell-writer .csv files, include columns reporting per-step surface evaporation amounts.
+  p
+    | In DailyResults.csv and AnnualResults.csv, the current column name for Surface Evaporation values is:
+  pre
+    code
+      | Surface_Evaporation(mm/day)_Delineated_Average
+
+  p
+    | In Cell-writer .csv files, the current column name for Surface Evaporation values is:
+  pre
+    code
+      | Surface_Evaporation(mm/day)
+
+  p
+    | Surface Evaporation-specific data columns are 
+    em
+      | not
+    |  included in VELMA results files when Surface Evaporation is not part of the simulation configuration.
+  h4
+    em
+      | Optional, Detailed Reporting for Configuration Calibration
+  p
+    | When the Surface Evaporation 
+    a
+      code
+        | enableTraceCell
+    |  parameter is set 
+    code
+      | true
+    | , VELMA writes a location-specific log message containing evaporation calculation details for each simulation step to the 
+    code
+      | csvTraceLogFileName
+    |  (default name "GlobalTraceLog.csv") 
+    code
+      | .csv
+    |  results file. The log messages report details of the surface evaporation calculation at every simulation step, but only for a single cell location, specified by the 
+    a
+      code
+        | traceCellIndex
+    |  parameter.
+  p
+    | A header log message for the trace data is also written; it looks like this:
+  pre
+    code
+      | FINEST,doSurfaceEvaporationAtCell,Loop,Step,Year,Jday,iCell,elevation,airDensityByElev,aveTemperature,minTemperature,maxTemperature,irradiance,recentRainfall,todayRain,rainfallCutoff,dewpointMtclimK,mtclimVal,dewPoint,T1_surfaceLateralOutFlow,evapo,actualEvapo,diff(evapo - actualEvapo),T2_surfaceEvaporation,T2_surfaceLateralOutFlow
+
+  table
+    thead
+      tr
+        th
+          | Column Header
+        th
+          | Description
+    tbody
+      tr
+        td
+          | FINEST
+        td
+          | The logging level of the data.
+      tr
+        td
+          | doSurfaceEvaporationAtCell
+        td
+          | The VELMA code that created the data.
+      tr
+        td
+          | Loop
+        td
+          | The simulation loop when this row of data was written.
+      tr
+        td
+          | Step
+        td
+          | The simulation step (zero-based) when this row of data was written.
+      tr
+        td
+          | Year
+        td
+          | The simulation year when this row of data was written.
+      tr
+        td
+          | Jday
+        td
+          | The Julian day of the year when this row of data was written.
+      tr
+        td
+          | iCell
+        td
+          | The location (linear cell index) that this data is for.
+      tr
+        td
+          | elevation
+        td
+          | The elevation (in meters) of iCell.
+      tr
+        td
+          | airDensityByElev
+        td
+          | The air density used in the evaporation calculation.
+      tr
+        td
+          | aveTemperature
+        td
+          | iCell's average air temperature (in degrees C)
+      tr
+        td
+          | minTemperature
+        td
+          | iCell's minimun air temperature (in degrees C)
+      tr
+        td
+          | maxTemperature
+        td
+          | iCell's maximum air temperature (in degrees C). A value of 
+          code
+            | NaN
+          |  indicates maximum air temperature driver data was unavailable.
+      tr
+        td
+          | irradiance
+        td
+          | iCell's irradiance (in Watts/m^2)
+      tr
+        td
+          | recentRainfall
+        td
+          | The amount (in mm) of recent rainfall. (Currently, "recent" means rainfall on the previous day).
+      tr
+        td
+          | todayRain
+        td
+          | The amount (in mm) of rainfall for the current simulation Step, at this iCell.
+      tr
+        td
+          | rainfallCutoff
+        td
+          | The value specified for the 
+          code
+            | rainfallCutoff
+          |  parameter.
+      tr
+        td
+          | dewpointMtclimK
+        td
+          | The value specified for the setDewPointMtclimK parameter either directly or via .asc map file at this iCell. A value of 
+          code
+            | NaN
+          |  indicates the parameter was left blank.
+      tr
+        td
+          | mtclimVal
+        td
+          | The MTCLIM value calculated as the corrected dew point value for this cell. A value of 
+          code
+            | NaN
+          |  
+          em
+            | may
+          |  indicate no mctlimVal was computed, 
+          em
+            | or
+          |  that a specific value computed to 
+          code
+            | NaN
+          | .
+      tr
+        td
+          | dewPoint
+        td
+          | The dew point value used in the evaporation calculation.
+      tr
+        td
+          | T1_surfaceLateralOutFlow
+        td
+          | The amount of water (in mm) available in the surface lateral outflow pool for this cell, at this simulation step, 
+          em
+            | before
+          |  evaporation takes place.
+      tr
+        td
+          | evapo
+        td
+          | The amount of water calculated as evaporated for iCell at the current simulation Step.
+      tr
+        td
+          | actualEvapo
+        td
+          | The amount of water actually evaporated (removed from the surface lateral outflow pool) at iCell for this simulation Step.
+      tr
+        td
+          | diff(evapo - actualEvapo)
+        td
+          | The difference between the two prior values, calculated as shown in the header text.
+      tr
+        td
+          | T2_surfaceEvaporation
+        td
+          | The amount of water (in mm) calculated as evaporated -- should match the "actualEvapo" value.
+      tr
+        td
+          | T2_surfaceLateralOutFlow
+        td
+          | The amount of water (in mm) remaining in the surface lateral outflow pool after it is reduced by the calculated evaporation amount.
+  h4
+    em
+      | Configuring Spatial Data Writers for Surface Evaporation
+  p
+    | VELMA simulations configured with Surface Evaporation can report spatially-explicit evaporation amounts as part of simulation run results by configuring a Spatial Data Writer to capture 
+    code
+      | SURFACE_EVAPORATION
+    | .
+  p
+    | Here is an example spatial data parameterization:
+  pre
+    code
+      | /spatialDataWriter/SurfaceEv/allowNonWatershedCellValues, false
+      | /spatialDataWriter/SurfaceEv/initializeActiveInterval,
+      | /spatialDataWriter/SurfaceEv/initializeActiveJdays, 1
+      | /spatialDataWriter/SurfaceEv/initializeActiveLoops, 1
+      | /spatialDataWriter/SurfaceEv/initializeActiveYears, 1980
+      | /spatialDataWriter/SurfaceEv/initializeResultsLocation, ./SpatialResults
+      | /spatialDataWriter/SurfaceEv/initializeSpatialDataSources, SURFACE_EVAPORATION
+      | /spatialDataWriter/SurfaceEv/modelClass, SpatialDataWriter
+      | /spatialDataWriter/SurfaceEv/trimOutputToWatershedBoundary, false
+
+  p
+    | Other simulation configurations could select different timing or trimming values. Only the 
+    code
+      | initializeSpatialDataSources
+    |  parameter's value is invariant: it 
+    em
+      | must
+    |  be set to 
+    code
+      | SURFACE_EVAPORATION
+    |  for the Spatial Data Writer to successfully report surface evaporation data values.
+  h3
+    | The Surface Evaporation Runtime Display
+  p
+    | When VELMA simulation configurations include Surface Evaporation, the JVelma GUI's "Chart" provides a basic runtime display option.
+    br
+    |  After starting a simulation run in JVelma, in the "Chart" tab, click the drop-down display selector to list the available chart types, and click-select "Surface Evaporation". (Note: "Surface Evaporation" only appears in the drop-down if the running simulation configuration includes Surface Evaporation.)
+  p
+    | The Surface Evaporation display provides spatially-explicit views of current surface evaporation values and surface later outflow amounts, as well as daily average temporal charting for the same.
+  p
+    img
+  p
+    | The display panel color-range min/max values are specified by the following configuration parameters:
+  table
+    thead
+      tr
+        th
+          | Parameter Name
+        th
+          | Defines?
+    tbody
+      tr
+        td
+          | minSurfaceEvaporationSpatialDisplay
+        td
+          | min value for upper-left Surface Evaporation spatial panel.
+      tr
+        td
+          | maxSurfaceEvaporationSpatialDisplay
+        td
+          | max value for upper-left Surface Evaporation spatial panel.
+      tr
+        td
+          | minSurfaceLateralOutflowSpatialDisplay
+        td
+          | min value for upper-right Surface Lateral Outflow spatial panel.
+      tr
+        td
+          | maxSurfaceLateralOutflowSpatialDisplay
+        td
+          | max value for upper-right Surface Lateral Outflow spatial panel.
+      tr
+        td
+          | minSurfaceEvaporationDayDisplay
+        td
+          | min value for the left-side scale of the bottom Daily Averaged temporal panel.
+      tr
+        td
+          | maxSurfaceEvaporationDayDisplay
+        td
+          | max value for the left-side scale of the bottom Daily Averaged temporal panel.
+      tr
+        td
+          | maxRainDayDisplay
+        td
+          | max value for the right-side scale of the bottom Daily Averaged temporal panel.
+  blockquote
+    p
+      | Note: there is no 
+      code
+        | minRainDayDisplay
+        | parameter. Minimum rain is hardwired to "0.0".
+  p
+    | Adjust these values to provide suitable color ramping for your simulation's range of evaporation and surface lateral outflow amount values.

@@ -1,0 +1,192 @@
+extends layout.pug
+block content
+  h1
+    | How To Clone GitHub USEPA/VELMA to a Local Machine and Configure it for Eclipse Development
+  h2
+    | Overview
+  p
+    | This guide explains how to get the VELMA source code from its GitHub repository via the TortoiseGit Git client/GUI, and how to set up Eclipse to work with it on a local machine.
+  h2
+    | Requirements
+  p
+    | Before you begin, make sure you have the following available:
+  ul
+    li
+      | A PC running Windows 10 connected to the internet.
+    li
+      | A valid GitHub account that is authorized to access the (private) USEPA/VELMA repository.
+    li
+      | The 
+      a
+        | Git
+      |  version control system installed on the PC.
+    li
+      | The 
+      a(href="https://tortoisegit.org/") TortoiseGit
+      |  Git client installed on the PC.
+    li
+      | The 
+      a(href="https://www.eclipse.org/downloads/") Eclipse
+      |  IDE installed on the PC.
+  h2
+    | Step-by-Step Instructions
+  h3
+    | 1. Open Windows File Explorer and create a new Folder in an appropriate (for your needs) location.
+  p
+    | Note that network drive locations may suffer a read/write performance lag.
+  h3
+    | 2. Click into the newly-created folder, then right-click to open the folder's context menu.
+  p
+    | Click-select the "Git Clone" menu item.
+    br
+    |  Example:
+    br
+    |  
+    img(src="image-TortoiseGit_cloneMenuItem.PNG", alt="TortoiseGit Git Clone menu item selected")
+  h3
+    | 3. In the "Git clone - TortoiseGit" configuration dialog:
+  p
+    | Set the "URL:" field to https://github.com/USEPA/VELMA.git
+    br
+    |  Set the "Directory:" field to the fully-qualified path of the new folder you created.
+    br
+    |  Click the "Recursive" check-box.
+    br
+    |  Click the "OK" button to begin cloning the VELMA source code from GitHub.
+    br
+    |  Example:
+    br
+    |  
+    img(src="image-TortoiseGit_cloneConfigurationDialog.PNG", alt="TortoiseGit Git clone configuration dialog")
+    br
+    |  After you click OK, GitHub, via TortoiseGit askes for your username and password.
+    br
+    |  Enter the username for your GitHub account, and your password for that account.
+  blockquote
+    p
+      | Note: It's possible that this step may fail -- even if you enter a valid username and password combination.
+      br
+      |  In this case, TortoiseGit asks for your username and password again, with a slightly different dialog.
+      br
+      |  Keep trying: we've seen up two failed attempts followed by success on the third try.
+      br
+      |  We have no idea why TortoiseGit + GitHub behaves this way.
+  p
+    | TortoiseGit will begin cloning the USEPA/VELMA repository into your local folder.
+    br
+    |  This can take a significant amount of time! A progress window should open and keep you informed of how the process is going.
+    br
+    |  Example:
+    br
+    |  
+    img(src="image-TortoiseGit_cloneProgressDialog.PNG", alt='TortoiseGit "Git clone" progress dialog')
+    br
+    |  Eventually, you should see the following concluding statement in the "Git clone" dialog:
+    br
+    |  
+    img(src="image-TortoiseGit_cloneSuccessDialog.PNG", alt='TortoiseGit "Git clone" success dialog')
+  h3
+    | 4. Start Eclipse and Set the Workspace
+  p
+    | Can't find Eclipse?
+    br
+    |  Click the Windows Start Menu icon, then type "Eclipse".
+    br
+    |  (There's no need to click into a text box -- just click the Start Menu icon and start typing.)
+    br
+    |  If it's properly installed, Eclipse should appear as a Search result. Click it to start it.
+    br
+    |  Example:
+    br
+    |  
+    img(src="image-StartMenu_SearchFoundEclipse.PNG", alt="Start Menu search dialog with Eclipse App found")
+    br
+    |  When Eclipse starts, it will either pop up a dialog asking you to "Select a directory as a workspace", or it will immediately open a workspace you have previously selected.
+    br
+    |  If the "Select a directory as a workspace" dialog appears, set the value of the "Workspace" entry to your new, local, cloned VELMA repository. Example: (Using the same location as previous examples)
+    br
+    |  
+    img(src="image-Eclipse_SetWorkspaceDialog.PNG", alt="Eclipse Set Workspace dialog")
+    br
+    |  Click the "Launch" button to select the directory as a workspace.
+    br
+    |  By default, Eclipse opens a new workspace with a "Welcome Tab" screen.
+    br
+    |  
+    img(src="image-Eclipse-EmptyJavaBrowsingPerspective.PNG", alt="Eclipse IDE displaying an empty Java Browsing perspective")
+    br
+    |  Click the Tab's [X] button to close it.
+    br
+    |  This should leave Eclipse displaying the "Java Browsing Perspective".
+    br
+    |  Notice the empty "Package Explorer" pane along the left side of the windows layout -- you will use that in the next step.
+    br
+    |  
+    img(src="image-Eclipse-EmptyJavaBrowsingPerspective.PNG", alt="Eclipse IDE displaying an empty Java Browsing perspective")
+  h3
+    | 5. Import the VELMA source code into the Workspace
+  p
+    | The Eclipse IDE won't automatically recognize that the various projects comprising VELMA already exist in the new workspace location that you've opened. To "import" them (i.e. make Eclipse aware of them), right-click inside the "Package Explorer" window pane, and click-select "Import" in the context menu.
+    br
+    |  Doing this should open the Import Select dialog. Expand the "General" item, click-select the "Existing Projects into Workspace" item, then click the "Next" button:
+    br
+    |  
+    img(src="image-Eclipse_ImportWizardSelectionDialog.PNG", alt="image-Eclipse_ImportProjectsDialog.PNG")
+    br
+    |  In the "Import Projects" dialog that opens next, fill in the "Select root directory" field with the full path of your workspace location.
+    br
+    |  Conveniently, if you click the "Browse" button, Eclipse opens a "Browse For Folder" sub-dialog that has your workspace location highlighted by default. You may have to scroll down in the folder browser to confirm this is so, but if it is, all you need to do is click the folder browser's OK button.
+    br
+    |  Once a root directory is set, the "Projects" list should fill with the names of the VELMA projects in your workspace.
+    br
+    |  
+    img(src="image-Eclipse_ImportProjectsDialog.PNG", alt="Eclipse IDE displaying the Import Projects dialog")
+    br
+    |  Note that "PropertyViewer" is legacy and may be ignored: uncheck its checkbox, then click the "Finish" button.
+    br
+    |  Eclipse will "import" (i.e. become aware of) the already-existing VELMA projects, and they will be displayed in the "Package Explorer" window pane:
+    br
+    |  
+    img(src="image-Eclipse-ProjectsJavaBrowsingPerspective.PNG", alt="Eclipse IDE displaying VELMA projects in the Package Explorer window pane")
+    br
+    |  Notice the "[Velma_GitHub master]" nomenclature next to each project name: recent Eclipse versions have a Git client interface built in. If you are comfortable using it, you can perform Git actions through it, however, we strongly advise using TortoiseGit from Windows File Explorer windows unless you are already completely versed in Eclipse's Git client.
+  h3
+    | 6. Set the Compiler compliance level for the projects in the VELMA Workspace
+  p
+    | The VELMA simulator is intended to run with a Java 1.8 JRE (i.e. run under a 1.8 [J]ava [R]untime [E]nvironment).
+    br
+    |  This means that VELMA source code must be compiled to comply with version 1.8 Java.
+  blockquote
+    p
+      | Note: you can 
+      em
+        | run
+      |  VELMA source code for Java 1.8 on Java JREs newer than 1.8 -- VELMA only needs to be 
+      em
+        | compiled
+      |  for Java 1.8.
+  p
+    | The Eclipse IDE can be configured to honor a specific "compiler compliance" level, but depending upon which version of Eclipse you have, the default level it is set for may differ from 1.8.
+    br
+    |  With Eclipse open to the workspace and VELMA source code projects you imported in the last step, click the "Window" menu, then click-select "Preferences":
+    br
+    |  
+    img(src="image-Eclipse-SelectWindowMenuPreferences.PNG", alt="Eclipse IDE displaying the Window menu")
+    br
+    |  In the "Preferences" dialog that opens next, click-expand the "Java" item in the preferences list, then click the "Compiler" sub-item:
+    br
+    |  
+    img(src="image-Eclipse_PreferencesJavaCompilerDialog.PNG", alt="Eclipse Preferences dialog")
+    br
+    |  Click the "Compiler compliance level:" drop-down list, and click-select "1.8".
+    br
+    |  Do the same for the "Generated .class files compatibility:" and "Source compatibility:" settings.
+  blockquote
+    p
+      | Note: some Eclipse IDE versions have the "Use default compliance settings" checkbox checked by default -- you may need to uncheck it in order to activate and set "Generated .class files compatibility:" and "Source compatibility:".
+  h2
+    | That's It!
+  p
+    | You should be ready to work with the VELMA source code within your new Eclipse workspace.
+    br
+    |  (You may want to export your Eclipse preferences (e.g. editor fonts and syntax coloring) from your prior workspace, then import them into this new workspace.)

@@ -1,0 +1,203 @@
+extends layout.pug
+block content
+  h1
+    | VelmaSimRunner Quick Reference
+  h3
+    | Commands
+  p
+    | These are the commands that 
+    a
+      code
+        | VelmaSimRunner
+    |  accepts:
+  table
+    thead
+      tr
+        th
+          | Command
+        th
+          | KeyName?
+        th
+          | Value?
+        th
+          | Description
+    tbody
+      tr
+        td
+          | add
+        td
+          | <key>
+        td
+          | <value>
+        td
+          | Adds the specified value to the specified <key>'s default value.
+      tr
+        td
+          | add
+        td
+          | config_item
+        td
+          | <config_name>
+        td
+          | Adds a new item to the configuration list. The <config_name> must be the name of a VELMA simulation configuration .xml file. 
+          code
+            | VelmaSimRunner
+          |  will look for this .xml file in the directory specified for the 
+          code
+            | config_location
+          |  key.
+      tr
+        td
+          | delete
+        td
+          | config_item
+        td
+          | <index#>
+        td
+          | Removes the item at the specified (zero-based) integer <index#> from the configuration list.
+      tr
+        td
+          | exit
+        td
+        td
+        td
+          | Exits the VelmaSimRunner interpreter.
+      tr
+        td
+          | list
+        td
+        td
+        td
+          | Lists all current defaults key-value settings and configuration list items.
+      tr
+        td
+          | load
+        td
+        td
+          | <confg_file_name>
+        td
+          | loads and evaluates a sequence of commands from file <confg_file_name>.
+      tr
+        td
+          | reset
+        td
+        td
+        td
+          | Resets all defaults to original values and removes all items from configuration list.
+      tr
+        td
+          | run
+        td
+        td
+        td
+          | Runs the current configuration list's items, in order of their indices.
+      tr
+        td
+          | set
+        td
+          | <key>
+        td
+          | <value>
+        td
+          | Sets the specified value as the specified key's default value. Replaces specified <key>'s current default value with specified <value>.
+      tr
+        td
+          | set
+        td
+          | <key>
+        td
+        td
+          | Removes <key>'s current value. (This is how to clear/reset a default <key>'s value.)
+  h3
+    | DEFAULTS Keys
+  p
+    | The following key names can be assigned values that serve as defaults when 
+    code
+      | VelmaSimRunner
+    |  constructs simulation command lines to 
+    code
+      | run
+    | .
+  table
+    thead
+      tr
+        th
+          | Key Name
+        th
+          | Description
+    tbody
+      tr
+        td
+          | vm_name
+        td
+          | The name of the virtual machine ("vm") to run (usually 
+          code
+            | java
+          | ).
+      tr
+        td
+          | vm_args
+        td
+          | Zero or more arguments to pass to the vm at runtime.
+      tr
+        td
+          | vm_classpath
+        td
+          | The classpath (
+          em
+            | including
+          |  the "-cp" or "--classpath" argument itself) for when vm_name is "java".<br>(e.g. 
+          code
+            | -cp C:\Users\me\VelmaUtils\bin;C:\Users\me\VelmaSimulator\bin
+          | )
+      tr
+        td
+          | tool_name
+        td
+          | The VELMA simulator or utility tool to run (e.g. 
+          code
+            | VelmaSimulatorCmdLine
+          |  or 
+          code
+            | VelmaParallelCmdLine
+          | ).
+      tr
+        td
+          | tool_before_args
+        td
+          | Any command line arguments that should appear after 
+          code
+            | vm_name
+          |  and its args, but before 
+          code
+            | tool_name
+          |  on the command line to run.
+      tr
+        td
+          | config_location
+        td
+          | The (fully-qualified) path to the directory where 
+          code
+            | config_item
+          |  is located.
+      tr
+        td
+          | config_item
+        td
+          | Used exclusively with the 
+          code
+            | add
+          |  command to add a VELMA simulation configuration .xml file to list of configs to run.
+      tr
+        td
+          | tool_after_args
+        td
+          | Any command line arguments that should appear after 
+          code
+            | tool_name
+          |  on the command line to run.
+      tr
+        td
+          | results_prefix
+        td
+          | An optional prefix string that will be pre-pended to the simulation results for configs that are run.

@@ -1,5 +1,5 @@
 /node_modules
 
-/velma*
+# /public
 
-velma_current_user_manual.html
+package-lock.json

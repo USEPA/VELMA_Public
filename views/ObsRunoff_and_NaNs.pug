@@ -1,0 +1,195 @@
+extends layout.pug
+block content
+  h1
+    | Observered Runoff Data May Inlude NaN Values
+  h2
+    | Overview
+  p
+    | Unlike other input data, the observed runoff values presented to VELMA may contain 
+    code
+      | NaN
+    |  values. The code within VELMA that computes Nash-Sutcliffe ("NSE") and Root Mean Square ("RMSE") statistics for runoff treats 
+    code
+      | NaN
+    |  as a "no data" value. Any (simulated, observed) data-pair where one or both values equal 
+    code
+      | NaN
+    |  is "rejected" (i.e. ignored) by the NSE and RMSE calculators.
+  p
+    | Like other driver data files, any observed runoff file presented to a VELMA simulation must have a data value for each Julian day between (inclusively) the simulation's 
+    code
+      | forcing_start
+    |  and 
+    code
+      | forcing_end
+    |  parameter year values.
+  blockquote
+    p
+      strong
+        | Example
+      br
+      |  Suppose a simulation configuration has 
+      code
+        | forcing_start=1991
+      |  and 
+      code
+        | forcing_end=1993
+      | .
+      br
+      |  Driver data files for that simulation must contain 
+      code
+        | (1993 - 1991 + 1) * 365 = 1095
+      |  values.
+  p
+    em
+      | Un
+    | like other driver data files, observed runoff files are allowed to have 
+    code
+      | NaN
+    |  as the value for a given step.
+    br
+    |  The option of explicitly specifying that an observed runoff data value is missing (via 
+    code
+      | NaN
+    | ) allows VELMA to calculate NSE and RMSE values for your simulation run's runoff even when you don't have observed data for every step of the 
+    code
+      | [forcing_start, forcing_end]
+    |  span. The NSE and RMSE values are calculated with however many data-pairs are available. VELMA reports how many observed values were used, but not their distribution across the simulated values. You are responsible for knowing and deciding whether their distribution is a problem or not.
+  blockquote
+    p
+      strong
+        | Example
+      br
+      |  Suppose the observed runoff file for our 
+      code
+        | forcing_start=1991
+      |  and 
+      code
+        | forcing_end=1993
+      |  simulation configuration has 
+      code
+        | NaN
+      |  values for all of the steps (days) in year 1992.
+      br
+      |  Further suppose that the simulation is run for year 1992: the NSE for this run will be 
+      code
+        | NaN
+      | , and VELMA results will report it as such along with the fact that 365 of 365 elements (obs,sim data-pairs) were rejected.
+      br
+      |  Now suppose the same simulation configuration is run again, but for 1991 through 1993, and that the NSE for this run computes to 0.75. You must be aware -- apart from anything VELMA inludes in its results -- that the 730 of 1095 data-pairs used to compute the NSE (and RMSE) completely exclude the middle year of the simulation run.
+  h4
+    | Specific Notes
+  ul
+    li
+      p
+        | When you set a value in an observed runoff data file to 
+        code
+          | NaN
+        | , it must have exactly that spelling and letter-case.
+        br
+        |  For example, none of the following are recognized: "nan", "NAN", "Nan", and each would cause the observed runoff file's load and initialization process -- and the simulation run itself -- to fail.
+    li
+      p
+        | Each row of your observed runoff file can contain either 1 or 3 comma-separated fields.
+        br
+        |  No other combinations or formats are permitted.
+        br
+        |  Here are a few lines of a single-field file as an example:
+  pre
+    code
+      | 11.5121
+      | NaN
+      | 24.80
+      | 26.2279
+
+  p
+    | When the file has a single field, that field contains the observed runoff value for one simulation step, and implicitly, the first value in the file is the value for first day of the 
+    code
+      | forcing_start
+    |  year, and so on.
+  p
+    | Here are a few lines from a triple-field version of the same data:
+  pre
+    code
+      | 1991,1,11.5121
+      | 1991,2,NaN
+      | 1991,3,24.80
+      | 1991,4,26.2279
+
+  p
+    | When the file has three fields, the first two fields are interpreted as a year and jday.
+    br
+    |  
+    strong
+      | However, 
+      em
+        | the first value in the file is still the value for first day of the
+      |  
+      code
+        | forcing_start
+      |  
+      em
+        | year
+      | !
+    | .
+    br
+    |  The year and jday are 
+    em
+      | permitted
+    | , but VELMA 
+    em
+      | ignores
+    |  them. They are permitted to make the file easier for humans to read and verify.
+  ul
+    li
+      p
+        | Here's a dark secret: if your observed runoff data file's first value 
+        em
+          | is
+        |  the value for the first day of the 
+        code
+          | forcing_start
+        |  year (and it 
+        em
+          | will
+        |  be used as such, regardless) you can have fewer data values in you file then the number of steps in the 
+        code
+          | [forcing_start, forcing_end]
+        |  span, and your simulation run should still produce a "usable" NSE value.
+        br
+        |  This is because VELMA fills in "missing" values at then end of your data as it loads from your file. It can do this because it can unambiguously assign 
+        code
+          | NaN
+        |  for each missing value.
+        br
+        |  
+        strong
+          em
+            | Do not take advantage of this behavior
+          | !
+        br
+        |  If you have fewer actual observed values than the 
+        code
+          | [forcing_start, forcing_end]
+        |  span requires, fill the remainder of your file with 
+        code
+          | NaN
+        |  values explicitly. Do 
+        em
+          | not
+        |  rely on VELMA to do this for you. We only mention this behavior in case you accidentally use an observed runoff file that is "too short", and then wonder how the results are able to include an NSE value at all.
+    li
+      p
+        | Having a header row for your observed runoff data file is allowed, but currently discouraged, because some command line tools that use observed runoff data files cannot process them correctly. Your observed data file will be read OK by the VELMA simulator, but not by other VELMA utility tools.
+    li
+      p
+        | JVelma displays observed runoff 
+        code
+          | NaN
+        |  values in charts that include observed runoff -- e.g. "Calibration Hydrology" -- by "pegging the value to the top". That is, the value will appear at the very top of the chart's display array. This may be outside the borders of the chart's graph. Annual-values charts with a 
+        code
+          | NaN
+        |  at any point during the year will display that year as 
+        code
+          | NaN
+        |  (i.e. pegged to top).

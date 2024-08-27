@@ -1,0 +1,534 @@
+extends layout.pug
+block content
+  h1
+    | Modifying a VELMA SpatialData Pool Using Grid ASCII Map Data
+  h2
+    | Overview
+  p
+    | The contents of a VELMA simulator spatial data pool can be modified at an arbitrary simulation step, or at multiple steps, by specifying "Modify Spatial Data By Map" (shorthand term: "Modify-By-Map") disturbances as part of a simulator run's simulation configuration. Each spatial data pool (and each layer of that pool for multi-layer pools) that is modified must have a separate disturbance specified and parameterized for it, and its own Grid ASCII (.asc) map file available for the disturbance to use as a data source.
+  h2
+    | Requirements
+  ul
+    li
+      | One Modify-By-Map item parameterization per spatial data pool, layer, and modification. (Modifying multiple layers of a single spatial data pool requires multiple Modify-By-Map item parameterizations.)
+    li
+      | One Grid ASCII (.asc) map file per Modify-By-Map item parameterization.
+    li
+      | The .asc map file must have the same dimensions as the simulation's specified DEM Grid file.
+    li
+      | The .asc map file's values may be positive or negative, but units for the values are assumed to match the units of the targeted spatial data pool. 
+      em
+        | No
+      |  error-checking or validation of the values is performed.
+  h3
+    | Adding a Modify-By-Map Disturbance to a Simulation Configuration
+  ol
+    li
+      | In JVelma, with a simulation configuration created or loaded, click/open the menu item: 
+      code
+        | Edit
+      |  -> 
+      code
+        | Disturbances
+      |  -> 
+      code
+        | Add a Disturbance
+      |  <br><br>
+    li
+      | In the Disturbance Model Selector dialog, scroll down through the drop-down selector items list to 
+      code
+        | ModifySpatialDataByMapDisturbanceModel
+      |  and click/set it as the Disturbance Type. <br><br>
+    li
+      | In the text box next to the "Disturbance Name" prompt, type a name for this specific disturbance.
+      br
+      |  The name must be unique, and must also be an valid Xml identifier (e.g., cannot start with a numeral).
+      br
+      |  Best practice when selecting a name: avoid whitespaces (use underscore '_' characters instead) and (apart from hyphen and underscore) eschew non-alphanumeric characters. <br><br>
+    li
+      | Click the dialog's OK button.
+      br
+      |  This closes the dialog, and adds a new Modify-By-Map item parameterization to your simulation configuration
+  h3
+    | Configuring a Modify-By-Map Disturbance's Parameters
+  p
+    | Modify-By-Map parameters specify ...
+  ul
+    li
+      em
+        | When
+      |  the modification should occur,
+    li
+      | The 
+      em
+        | source
+      |  for modification data (i.e. the Grid .asc map file to use),
+    li
+      | The 
+      em
+        | target
+      |  spatial data pool to modify,
+    li
+      em
+        | How
+      |  the source data map's values should modify the target spatial data pool's values. (The Modify-By-Map item parameterization also contains a 
+      em
+        | metadata
+      |  parameter, but its value should be left untouched.)
+  h4
+    em
+      | When
+    |  Parameters
+  table
+    thead
+      tr
+        th
+          | Parameter Name
+        th
+          | Expected Value
+        th
+          | Description
+        th
+          | Can leave blank?
+    tbody
+      tr
+        td
+          code
+            | initializeActiveLoops
+        td
+          | One-based Loop number(s)
+        td
+          | The disturbance can occur only in listed Loops
+        td
+          | NO
+      tr
+        td
+          code
+            | initializeActiveYears
+        td
+          | Full-digits Year number(s)
+        td
+          | The disturbance can occur only in listed Years
+        td
+          | NO
+      tr
+        td
+          code
+            | initializeActiveJdays
+        td
+          | Julian day(s)
+        td
+          | The disturbance occurs for every listed Jday
+        td
+          | NO
+      tr
+        td
+          code
+            | occursAtStepStart
+        td
+          | "true" or "false" (without quotes)
+        td
+          | determines whether the disturbance occurs at the beginning or the end of simulation steps
+        td
+          | NO
+  p
+    | The following rules apply to values for the Loop, Year, and Jdays parameters.
+  ul
+    li
+      | All values must be positive integers.
+    li
+      | The parameter value as whole may consist of:
+      ul
+        li
+          | a single value (e.g. 1)
+        li
+          | a range (e.g. 1999-2010)
+        li
+          | or a list of values and/or ranges (e.g. 1, 32, 59, 100-205, 365, 366)
+    li
+      | Lists elements must be comma-separated.
+    li
+      | Loop values outside of the [1, 
+      code
+        | numberOfLoops
+      | ] are ignored.
+    li
+      | Year values must be full values (e.g. the "99" is treated as the year 99, 
+      em
+        | not
+      |  the year 1999).
+    li
+      | Year values outside the range of the simulation configuration's [
+      code
+        | syear
+      | , 
+      code
+        | eyear
+      | ] (start year and end year) parameter values are ignored.
+    li
+      | Jday values outside the range [1, 366] are ignored, and the value 366 is ignore in non-leap years.
+  h4
+    em
+      | Source
+    |  Parameters
+  table
+    thead
+      tr
+        th
+          | Parameter Name
+        th
+          | Expected Value
+        th
+          | Description
+        th
+          | Can leave blank?
+    tbody
+      tr
+        td
+          code
+            | spatialDataFileFullName
+        td
+          | A filename
+        td
+          | The full or partial path+name of a valid Grid ASCII (.asc) map file
+        td
+          | NO
+  p
+    | Unless the specified filename is a fully-specified path + name, it is assumed to be relative to the directory, location specified by the simulation configuration's 
+    code
+      | inputDataLocationRootName
+    | /
+    code
+      | inputDataLocationDirName
+    |  pair of parameters.
+  p
+    | Use forward slash “/” characters as path separators. Also, be very careful with whitespace; if there is any, it must exactly match whatever whitespace is present in the actual path and filename.
+  h4
+    em
+      | Target
+    |  Parameters
+  table
+    thead
+      tr
+        th
+          | Parameter Name
+        th
+          | Expected Value
+        th
+          | Description
+        th
+          | Can leave blank?
+    tbody
+      tr
+        td
+          code
+            | spatialDataName
+        td
+          | A SpatialData keynames
+        td
+          | The name of the spatial data pool to modify
+        td
+          | NO
+      tr
+        td
+          code
+            | spatialDataLayer
+        td
+          | One-based layer index number
+        td
+          | The layer of the SpatialData
+        td
+          | NO
+  p
+    | When the 
+    code
+      | spatialDataName
+    |  value specifies a single-layer spatial data pool, the 
+    code
+      | spatialDataLayer
+    |  value 
+    em
+      | must
+    |  be set to 1. Setting 
+    code
+      | spatialDataLayer
+    |  to a value > the number of layers in a spatial data pool 
+    em
+      | is not
+    |  caught during simulation initialization, but 
+    em
+      | will
+    |  cause a runtime error.
+  p
+    | VELMA SpatialData pool keynames are listed in a separate document.
+  h4
+    em
+      | How
+    |  Parameters
+  table
+    thead
+      tr
+        th
+          | Parameter Name
+        th
+          | Expected Value
+        th
+          | Description
+        th
+          | Can leave blank?
+    tbody
+      tr
+        td
+          code
+            | setCellOutcome
+        td
+          | "AUGMENT" or "REPLACE" (without quotes)
+        td
+          | Determines if target value is augmented or replaced by source value
+        td
+          | NO
+      tr
+        td
+          code
+            | setMapValueMode
+        td
+          | "VALUE" or "FRACTION" (without quotes)
+        td
+          | Determines if source value should be treated as a fraction or not
+        td
+          | NO
+  p
+    | Combining the 
+    code
+      | setCellOutcome
+    |  and 
+    code
+      | setMapValueMode
+    |  parameter's values determines which of the four possible operations a given Modify-By-Map item performs:
+  table
+    thead
+      tr
+        th
+          code
+            | setCellOutcome
+        th
+          code
+            | setMapValueMode
+        th
+          | Operation Performed
+    tbody
+      tr
+        td
+          | AUGMENT
+        td
+          | VALUE
+        td
+          | t<sub>final</sub> = t<sub>initial</sub> + s
+      tr
+        td
+          | AUGMENT
+        td
+          | FRACTION
+        td
+          | t<sub>final</sub> = t<sub>initial</sub> + (t<sub>initial</sub> * s)
+      tr
+        td
+          | REPLACE
+        td
+          | VALUE
+        td
+          | t<sub>final</sub> = s
+      tr
+        td
+          | REPLACE
+        td
+          | FRACTION
+        td
+          | t<sub>final</sub> = t<sub>initial</sub> * s
+  p
+    | In the above table:
+  ul
+    li
+      | t = Spatial Data 
+      em
+        | target
+      |  cell
+    li
+      | s = Grid ASCII map 
+      em
+        | source
+      |  value corresponding to t's location.
+    li
+      | s values can be either positive or negative.
+    li
+      | t<sub>final</sub> values are 
+      em
+        em
+          | not
+      |  checked to see if they have become negative. It is possible to inadvertently create negative values in a spatial data pool where negative values are not allowed or make no sense (e.g. 
+      code
+        | BIOMASS_LEAF_N
+      | ).
+    li
+      | t and s values are 
+      em
+        em
+          | assumed
+      |  to share the same units. Modify-By-Map disturbances cannot perform unit conversions as part of modify a spatial data pool.
+  h4
+    em
+      | Metadata
+    |  Parameters (
+    strong
+      | Don't Touch!
+    | )
+  table
+    thead
+      tr
+        th
+          | Parameter Name
+        th
+          | Expected Value
+        th
+          | Description
+        th
+          | Can leave blank?
+    tbody
+      tr
+        td
+          code
+            | modelClass
+        td
+          code
+            | ModifySpatialDataByMapDisturbanceModel
+        td
+          | Automatically set when JVelma a the Modify-By-Map item parameterization to a simulation configuration
+        td
+          | NO
+  p
+    | The 
+    code
+      | modelClass
+    |  parameter is special and should never be changed from its initial value. It is used by the simulator to decide what disturbance code to load and run for this Modify-By-Map item parameterization.
+  h4
+    em
+      | An Example Modify-By-Map Parameterization
+  table
+    thead
+      tr
+        th
+          | Parameter
+        th
+          | Value
+    tbody
+      tr
+        td
+          code
+            | initializeActiveLoops
+        td
+          | 1
+      tr
+        td
+          code
+            | initializeActiveYears
+        td
+          | 1969
+      tr
+        td
+          code
+            | initializeActiveJdays
+        td
+          | 1
+      tr
+        td
+          code
+            | occursAtStepStart
+        td
+          | false
+      tr
+        td
+          code
+            | spatialDataName
+        td
+          code
+            | BIOMASS_LEAF_N
+      tr
+        td
+          code
+            | spatialDataLayer
+        td
+          | 1
+      tr
+        td
+          code
+            | setCellOutcome
+        td
+          code
+            | REPLACE
+      tr
+        td
+          code
+            | setMapValueMode
+        td
+          code
+            | VALUE
+      tr
+        td
+          code
+            | spatialDataFileFullName
+        td
+          | ./Every_Conifer_Cell_80d5.asc
+      tr
+        td
+          code
+            | modelClass
+        td
+          code
+            | ModifySpatialDataByMapDisturbanceModel
+  p
+    | This example parameterization creates a 
+    code
+      | ModifySpatialDataByMapDisturbanceModel
+    |  instance that loads data from Grid ASCII map file 
+    code
+      | inputDataLocationRootName
+    | /
+    code
+      | inputDataLocationDirName
+    | /Every_Conifer_Cell_80d5.asc and in the first simulation loop, on January 1, 1969 replaces each value of the 
+    code
+      | BIOMASS_LEAR_N
+    |  spatial data pool with the corresponding value from file Every_Conifer_Cell_80d5.asc. (
+    code
+      | BIOMASS_LEAR_N
+    |  is a single-layer pool, so 
+    code
+      | spatialDataLayer
+    | 's value 
+    em
+      | must
+    |  be 1.)
+  h3
+    | Using Modify-By-Map Instead of Set-By-Map
+  p
+    | The 
+    code
+      | ModifySpatialDataByMapDisturbanceModel
+    |  became available in VELMA version 2.1.0.10. Prior to this version the SpatialData modification capability VELMA provided was the 
+    code
+      | SetSpatialDataByMapDisturbance
+    |  ("Set-By-Map"). Set-By-Map disturbances are functionally equivalent to Modify-By-Map disturbances parameterized with 
+    code
+      | setCellOutcome
+    | =
+    code
+      | REPLACE
+    |  and 
+    code
+      | setMapValueMode
+    | =
+    code
+      | VALUE
+    | .
+  p
+    | VELMA still supports Set-By-Map disturbances (for legacy simulation configuration .xml) but now that Modify-By-Map disturbances are available, there is no reason to use Set-By-Map disturbances.

@@ -1,0 +1,549 @@
+extends layout.pug
+block content
+    h1 D.4 | Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools
+    div.info.blue-light-1
+        p Overview (Tutorial D.4 - Create Initial Spatial Soil and Plant Chemistry Pools)
+        p VELMA simulates responses of 58 soil and plant chemistry pools to changes in climate, land use and land cover. This document explains how to initialize the sizes (nitrogen or carbon grams/m2<a href="http://geotrendr.ceoas.oregonstate.edu/landtrendr/">) of these pools to reflect conditions at the beginning of a simulation. It is up to the user to obtain the spatial data describing those initial conditions. For example, data describing the amount of forest aboveground biomass across a landscape 30-meter grid can be obtained from remote sensing sources such as </a><a href="http://geotrendr.ceoas.oregonstate.edu/landtrendr/">http://geotrendr.ceoas.oregonstate.edu/landtrendr/</a><a href="https://www.sciencedaily.com/releases/2011/04/110420125458.htm">, or </a>https://www.sciencedaily.com/<a href="http://whrc.org/woods-hole-research-center-debuts-detailed-maps/"> </a>releases/2011/04/110420125458.htm.
+    p Initial chemistry or nutrient pools are created through a series of transformations of above ground biomass to each of the respective spatial and chemistry data pools. These transformations are defined by relationship ratios (fractions) each pool has to "real" or estimated measurements of above ground carbon, gC/m² for the study area. Optionally, a cover age file can be used to create these same chemistry pool ASCII rasters from the ratio lookup table.
+    p 58 VELMA Simulator spatial data pools will be created from this one raster grid biomass layer (Table 1 &amp; 2). See Table 1 for the complete list of initial layers that will be created, and Table 2 for the C:N ratio pools created. Each spatial data pool layer will have its own corresponding Grid Ascii (.asc) map file upon completion of the Python script. These Grid Ascii (.asc) map files will be used as inputs to VELMA for initializing the map disturbance events.
+    h2 Software Requirements
+    p To run and produce the processed permeability fraction map (ASCII) from the "roads" or impervious surface layer (ASCII), you will need the following:
+    ol 
+        li Python version 2.7: Current release is 2.7.11
+            ol 
+                li Python comes pre-packaged within ArcGIS, so it is likely you already have it installed on your computer. For example, a default install is currently here: C:\Python27\ArcGIS10.2\python.exe. Check to see if you have Python installed before installing a new version. If Python is not installed, you can obtain a copy here: https://www.python.org/download/releases/2.7/ Note that Python 2.7 is currently considered safe for use on U.S. EPA network and non-network computers.
+        li NumPy package installed, for the Python version
+    h2 File Requirements for Data Processing
+    ol 
+        li ASCII Map requirements:
+            ul 
+                li Above ground carbon g / m² ASCII (.asc) raster that matches the VELMA modeling DEM to the exact extent, row and column count, and cell size. (Optional, if using an age map)
+            li Age ASCII raster that matches the VELMA modeling DEM to the exact extent, row and column count, and cell size. (Optional, if using a biomass map)
+        li Biomass ratio look up file which contains all the pool attributes seen in table 1.
+            ul 
+                li Pool ratios values in subsequent columns (quantity 37) (Table 1).
+                li Biomass values (stand age / mass) is in the first column (Figure 1).
+                li Header and Column arrangement must match order in Table 1.
+                li Saved in ".csv" comma delaminate format
+        li Conversion driver file that relates ratio look up file column inputs to output names and additional C:N nitrogen conversion pools.
+            ul 
+                li Pool ratios values in subsequent columns (quantity 37) (Table 1) and the nitrogen conversion pools (quantity 21) (Table 2)
+                li Column descriptions (Figure 2 and 3):
+                    ul 
+                    li Outfile_Pool = The output file name for the ratio pool<h4>ii. Biomass_Ratio_Type = Spatial data pool type<h4>iii. Column_Number = The column number associate with the spatial data pool type.<h4>iv. Conversion_output = "FALSE" if the spatial data pool type is initial pool, "TRUE" if itp a C:N nitrogen conversion.
+                    li C_to_N_Associate_File = The filename of the spatial pool type to be converted to the nitrogen spatial pool by the C:N ratio.<h4>vi. C_to_N_Ratio = The C:N ratio that is divided into the carbon spatial pool to create the nitrogen poolli Header and Column arrangement must match the order in Figure 2 and 3.
+                li Saved in ".csv" comma delaminate format
+        li Maximum age (years) or above ground (gC / m²) (Optional, default to 400 years or 62000 gC / m²)
+        li Minimum age (years) or above ground (gC / m²) (Optional, default to 1 years or 400 gC / m²)
+    h4 Table 1. 
+    p Column ordering of the biomass ratio pool attributes file. Unless noted by it&#39;s chemisty, all units are grams carbon / m².p Highlighted pools are created from relationships to the first column, total above ground carbon.
+    table 
+        thead 
+            th Column Letter 
+            th Pool Attribute
+        tr 
+            td A 
+            td Average of agBiomass_Pool(gC/m2)_Del ineated_Average
+        tr
+            td B
+            td Average of RATIO: Biomass_Leaf : agBiomas_Pool
+        tr
+            td C
+            td Average of RATIO: Biomass_AgStem : agBiomas_Pool
+        tr
+            td D
+            td Average of RATIO: Biomass_BgStem : agBiomas_Pool
+        tr
+            td E
+            td Average of RATIO: Biomass_Root Layer 1 : agBiomas_Pool
+        tr
+            td F
+            td Average of RATIO: Biomass_Root Layer 2 : agBiomas_Pool
+        tr
+            td G
+            td Average of RATIO: Biomass_Root Layer 3 : agBiomas_Pool
+        tr
+            td H
+            td Average of RATIO: Biomass_Root Layer 4 : agBiomas_Pool 
+        tr 
+            td I 
+            td Average of RATIO: Detri tus _Leaf : agBiomas_Pool
+        tr
+            td J
+            td Average of RATIO: Detri tus _AgStem : agBiomas_Pool
+        tr
+            td K
+            td Average of RATIO: Detri tus _BgStem Layer 1 : agBiomas_Pool
+        tr
+            td L      
+            td Average of RATIO: Detri tus _BgStem Layer 2 : agBiomas_Pool
+        tr
+            td M
+            td Average of RATIO: Detri tus _BgStem Layer 3 : agBiomas_Pool
+        tr
+            td N
+            td Average of RATIO: Detri tus _BgStem Layer 4 : agBiomas_Pool
+        tr
+            td O
+            td Average of RATIO: Detri tus _Root Layer 1 : agBiomas_Pool
+        tr
+            td P
+            td Average of RATIO: Detri tus _Root Layer 2 : agBiomas_Pool
+        tr
+            td Q
+            td Average of RATIO: Detri tus _Root Layer 3 : agBiomas_Pool
+        tr
+            td R
+            td Average of RATIO: Detri tus _Root Layer 4 : agBiomas_Pool
+        tr
+            td S
+            td Average of RATIO: NH4_Pool _Layer 1 : agBiomas_Pool
+        tr
+            td T
+            td Average of RATIO: NH4_Pool _Layer 2 : agBiomas_Pool
+        tr
+            td U
+            td Average of RATIO: NH4_Pool _Layer 3 : agBiomas_Pool
+        tr
+            td V
+            td Average of RATIO: NH4_Pool _Layer 4 : agBiomas_Pool
+        tr 
+            td W 
+            td Average of RATIO: NO3_Pool _Layer 1 : agBiomas_Pool
+        tr
+            td X
+            td Average of RATIO: NO3_Pool _Layer 2 : agBiomas_Pool
+        tr
+            td Y
+            td Average of RATIO: NO3_Pool _Layer 3 : agBiomas_Pool
+        tr
+            td Z
+            td Average of RATIO: NO3_Pool _Layer 4 : agBiomas_Pool 
+        tr 
+            td AA
+            td Average of RATIO: DON_Pool _Layer 1 : agBiomas_Pool 
+        tr 
+            td AB 
+            td Average of RATIO: DON_Pool _Layer 2 : agBiomas_Pool 
+        tr 
+            td AC
+            td Average of RATIO: DON_Pool _Layer 3 : agBiomas_Pool 
+        tr 
+            td AD
+            td Average of RATIO: DON_Pool _Layer 4 : agBiomas_Pool
+        tr 
+            td AE
+            td Average of RATIO: DOC_Pool _Layer 1 : agBiomas_Pool 
+        tr
+            td AF 
+            td Average of RATIO: DOC_Pool _Layer 2 : agBiomas_Pool
+        tr 
+            td AG
+            td Average of RATIO: DOC_Pool _Layer 3 : agBiomas_Pool
+        tr 
+            td AH
+            td Average of RATIO: DOC_Pool _Layer 4 : agBiomas_Pool 
+        tr 
+            td AI
+            td Average of RATIO: Humus _Layer1 : agBiomas_Pool
+        tr 
+            td AJ 
+            td Average of RATIO: Humus _Layer2 : agBiomas_Pool 
+        tr 
+            td AK 
+            td Average of RATIO: Humus _Layer3 : agBiomas_Pool 
+        tr 
+            td AL 
+            td Average of RATIO: Humus _Layer4 : agBiomas_Pool
+    
+    img(width="437" height="863" alt="image" src="public/suppImage_198.png")
+
+    h4 Table 2. 
+    p Additional nitrogen spatial pools derived from C:N ratios of above ground carbon pools.
+            
+    table
+        thead
+            th Spatial Data Pool Name 
+            th Unit Type
+        tr
+            td N_g_leaf.asc
+            td N g/m²
+        
+        tr
+            td N_g_AgStem.asc
+            td N g/m²
+        
+        tr
+            td N_g_BgStem.asc
+            td N g/m²
+        
+        tr
+            td N_g_root_1.asc
+            td N g/m²
+        
+        tr
+            td N_g_root_2.asc
+            td N g/m²
+        
+        tr
+            td N_g_root_3.asc
+            td N g/m²
+        
+        tr
+            td N_g_root_4.asc
+            td N g/m²
+        
+        tr
+            td N_g_Det_leaf.asc
+            td N g/m²
+        
+        tr
+            td N_g_Det_AgStem.asc
+            td N g/m²
+        
+        tr
+            td N_g_Det_BgStem_1.asc
+            td N g/m²
+        
+        tr
+            td N_g_Det_BgStem_2.asc
+            td N g/m²
+        
+        tr
+            td N_g_Det_BgStem_3.asc
+            td N g/m²
+        
+        tr
+            td N_g_Det_BgStem_4.asc
+            td N g/m²
+        
+        tr
+            td N_g_Det_root_1.asc
+            td N g/m²
+        
+        tr
+            td N_g_Det_root_2.asc
+            td N g/m²
+        
+        tr
+            td N_g_Det_root_3.asc
+            td N g/m²
+        
+        tr
+            td N_g_Det_root_4.asc
+            td N g/m²
+        
+        tr
+            td N_g_Humus_1.asc
+            td N g/m²
+        
+        tr
+            td N_g_Humus_2.asc
+            td N g/m²
+        
+        tr
+            td N_g_Humus_3.asc
+            td N g/m²
+        
+        tr
+            td N_g_Humus_4.asc
+            td N g/m²
+        
+    img(width="588" height="391" alt="screenshot" title="screenshot" src="public/suppImage_199.jpg")
+    p Figure 6. Summary Biomass Ratio Look up file, .csv
+    img(width="618" height="347" alt="screenshot" title="screenshot" src="public/suppImage_200.jpg")
+    p Figure 7. Conversion diver file
+    img(width="627" height="460" alt="screenshot" title="screenshot" src="public/suppImage_201.jpg")
+    p Figure 8. Conversion driver file
+    h3 Processing
+    p Conversion of biomass (g / m²) to the final spatial pools and nitrogen pools (g / m²) are made through an intermediate step of converting mass to carbon (g / m²) pools, and then using the conversion driver file, different C to N ratios for each pool are used to calculate the final nitrogen pools. Fractions (ratios) of spatial pools change both in the positive and negative direction as a forest ages or increases in total biomass. Ratio pools can increase or decrease between stand age increments, and the calculations of these intermediate biomass observational values must reflect this dynamic nature of changing ratios between time steps. Intermediate values of biomass, those that land in between time step years, were therefore linearly interpolated between the time point bounds. Spatial map ascii grid values for each of the 37 pools should then backward match ratio conversions and final C to N calculations to the original "observed" above ground biomass. (Only a partial list of pools is displayed here).
+    p When using age maps instead of carbon biomass maps, spatial pools are created from the year and row number each cell corresponds too. If a cell is 1 year old, row 1 values would be used, while a 400-year- old cell relates to row 400.
+    p Example: A mid biomass cell value at B10 = 3276 (g / m²) and is part way between stand age values at L9 and L10. It's above ground stem carbon mass fraction increases from 0.8609 (D9) to 0.8642 (D10). So, its fraction stem mass (column D) should increase as its percentage difference moves from L9 towards LD10. Conversely, for all the other pool attributes, its percentage difference would increase as its fraction moves the opposite direction from rows 10 to rows 9.
+    img(width="492" height="362" alt="screenshot" title="screenshot" src="public/suppImage_202.jpg")
+    p Figure 9. Quality control check of Python script's dynamic conversions of "observed" above ground biomass (g / m²) to the final
+    p nitrogen (g / m²) spatial data pools.
+    p The "Spatial_Pools_CommandLine.py" and can be run on the Command Prompt line with Python. This script requires at a minimum, one biomass or one age surface map, a ratio look up file, a conversion driver file, and one output directory name. Optionally, a minimum and maximum age or grams carbon value can be provided.
+    h3 Windows PowerShell Command prompt input example:
+    p "python C:\Path\To\Spatial_Pools_CommandLine.py -Rat C:\Temp\Chem_Pools\Summary_Biomass_Ratios_.csv -Bio C:\Temp\Chem_Pools\randomBiomass.asc -Con C:\Temp\Chem_Pools\conversion_driver.csv - Max 62000 -Min 400 -Out C:\Temp\Chem_Pools\Output"
+    p "python C:\Path\To\Spatial_Pools_CommandLine.py -help" for exact arguments (Figure 5).
+    img(width="623" height="261" alt="screenshot" title="screenshot" src="public/suppImage_203.jpg")
+    p Figure 10 Window PowerShell
+    h4 Note
+    p Processing time is very dependent on processing power and the size of your study area. For example, the Blue River, in Oregon, had a study grid of ~350,000 cells and took ~10 minutes for each of the 37 pools, for a total of 6-8 hours. The Python shell will print updates of pool processing steps, and say "All Done!" when it's done.
+    p * Creating a notepad text file may make coping and pasting the prompt input easier.
+    h3 Scripts
+    p # Command line for gathering info for processing and generating initial spatial pools # 9-11-2018
+    p # Author: Paul Pettus
+    p # Spatial_Pools_CommandLine.py #
+    p import time import csv
+    p import os, sys, argparse import numpy
+    p import linecache
+    p # Error message class class Usage(Exception):
+    p def <u> </u>init<u> </u>(self, msg): self.msg = msg
+    p # Main class
+    p def main(argv=None):
+    p if argv is None: argv = sys.argv
+    p try:
+    p # Describe the tool and required aruments
+    p parser = argparse.ArgumentParser(description=&#39;Outputs spatial chemistry disturbance pools
+    p from an&#39;+ file.&#39;)
+    p &#39; above ground biomass file layer input and a ratio
+    p # Ratio file input
+    p parser.add_argument(&#39;-Rat&#39;, action=&#39;store&#39;, dest=&#39;ratioFILE&#39;,
+    p help=&#39;Fully-qualified path + name of &quot;.csv&quot; biomass ratio file.&#39;)
+    p # Biomass ascii file input
+    p parser.add_argument(&#39;-Bio&#39;, action=&#39;store&#39;, dest=&#39;biomassFILE&#39;,
+    p help=&#39;Fully-qualified path + name of &quot;.asc&quot; biomass file.&#39;)
+    p # Biomass ascii file input
+    p parser.add_argument(&#39;-Con&#39;, action=&#39;store&#39;, dest=&#39;conFILE&#39;,
+    p help=&#39;Fully-qualified path + name of &quot;.csv&quot; driver file.&#39;)
+    p # Age ascii file input
+    p parser.add_argument(&#39;-Age&#39;, action=&#39;store&#39;, dest=&#39;ageFILE&#39;,
+    p help=&#39;Fully-qualified path + name of &quot;.asc&quot; age file.&#39;)
+    p # Maximum biomass value per cell
+    p parser.add_argument(&#39;-Max&#39;, action=&#39;store&#39;, dest=&#39;maxBio&#39;,
+    p help=&#39;Maximum biomass/age value per cell (g/m2 or years) default is
+    p 62000g/m2 or 400 years.&#39;)
+    p # Minimum biomass value per cell
+    p parser.add_argument(&#39;-Min&#39;, action=&#39;store&#39;, dest=&#39;minBio&#39;,
+    p help=&#39;Minimum biomass/age value per cell (g/m2 or years), default is
+    p 400g/m2 or 1 year.&#39;)
+    p ### Minimum biomass value per cell
+    p ## parser.add_argument(&#39;-Min&#39;, action=&#39;store&#39;, metavar=&#39;minBio&#39;, ## type=int,
+    p ## help=&#39;Minimum biomass/age value per cell (g/m2 or years), default is 400g/m2 or 1 year.&#39;)
+    p # Output dir for spatial chemistry pools parser.add_argument(&#39;-Out&#39;, action=&#39;store&#39;, dest=&#39;outDIR&#39;,
+    p help=&#39;Fully-qualified path directory for the output pool files.&#39;) args = parser.parse_args()
+    p # args parsing
+    p if args.ratioFILE == None: ratioFile = args.ratioFILE
+    p else:
+    p ratioFile = str(os.path.abspath(args.ratioFILE))
+    p if args.biomassFILE == None: biomassFile = args.biomassFILE
+    p else:
+    p biomassFile = str(os.path.abspath(args.biomassFILE))
+    p if args.conFILE == None: conFile = args.conFILE
+    p else:
+    p conFile = str(os.path.abspath(args.conFILE))
+    p if args.ageFILE == None: ageFile = args.ageFILE
+    p else:
+    p ageFile = str(os.path.abspath(args.ageFILE))
+    p outDir = str(os.path.abspath(args.outDIR)) + &quot;\\&quot; if args.minBio == None:
+    p minValArg = args.minBio else:
+    p minValArg = int(args.minBio)
+    p if args.maxBio == None: maxValArg = args.maxBio
+    p else:
+    p maxValArg = int(args.maxBio)
+    p # Print all input arguments print(&#39;\n&#39; + &#39;\n&#39; + &quot;Echo inputs&quot; + &#39;\n&#39;)
+    p ## print(args)
+    p ## print(&#39;\n&#39;)
+    p print(outDir, ratioFile, biomassFile, conFile, ageFile, minValArg, maxValArg) # do the work function
+    p buildRatios(outDir, ratioFile, biomassFile, conFile, ageFile, minValArg, maxValArg)
+    p except Usage as e: print(e.msg) return 2
+    p except Exception as e:
+    p # STUB exception handler
+    p # Warning: poor programming style.
+    p # Catches almost any exception (but not KeyboardInterrupt -- which is a Good Thing) raise e
+    p ## Return an numpy array from an ascii raster def ascii2array(asciifn):
+    p #### GDAL version
+    p ## dsAscii = gdal.Open(asciifn,gdalconst.GA_ReadOnly) ## cols = dsAscii.RasterXSize
+    p ## rows = dsAscii.RasterYSize ## bands = dsAscii.RasterCount
+    p ## band = dsAscii.GetRasterBand(1)
+    p array = numpy.loadtxt(asciifn, skiprows=6, dtype= numpy.float32) return array
+    p ## Return and ascii raster file from an numpy array, output file name ## (optional inputs are an alternative ascii area of interest and or ## an optional header text: these are not used in the script
+    p def array2ascii(array, asciiOutfn, asciiaoi = None, headerList = None): # set up header text for the output ascii raster
+    p if asciiaoi == None:
+    p ## for i in headerList: header = headerList
+    p else:
+    p header = linecache.getline(asciiaoi,1) header += linecache.getline(asciiaoi,2) header += linecache.getline(asciiaoi,3) header += linecache.getline(asciiaoi,4) header += linecache.getline(asciiaoi,5) header += linecache.getline(asciiaoi,6)
+    p # open the output file and write the header text and numpy array # and save the output file
+    p f = open(asciiOutfn, &quot;w&quot;) f.write(header)
+    p numpy.savetxt(f, array, fmt=&quot;%f&quot;) f.close()
+    p ## return the header information of an ascii raster def readHeader(asciiFile):
+    p # return error if the ascii is not found if not os.path.exists(asciiFile):
+    p raise Usage(&#39;Cannot find ASCII &quot;&#39; + asciiFile + &#39;&quot;&#39;)
+    p # Open file and read in header info readFile = open(asciiFile)
+    p header = readFile.readline() #ncols header += readFile.readline() #nrows header += readFile.readline() #xllcorner header += readFile.readline() #yllcorner header += readFile.readline() #cellsize
+    p header += readFile.readline() #NODATA_value readFile.close()
+    p return header
+    p # Do the work class, build the ratio files
+    p def buildRatios(finalPoolDir, ratioFile, biomassFile, conFile, ageFile, minValArg, maxValArg):
+    p ##################################################################################
+    p # Start preprocess code block ##################################################################################
+    p # return error if the ratio file is not found if not os.path.exists(ratioFile):
+    p raise Usage(&#39;Cannot find ratio file &quot;&#39; + ratioFile + &#39;&quot;&#39;)
+    p # return error if both the age or biomass asciis are arguments if ageFile != None and biomassFile != None:
+    p print(ageFile) print(biomassFile)
+    p raise Usage(&#39;Please choose either a biomass or an age ASCII raster, not both.&#39;)
+    p # return error if the age or biomass ascii is not found if ageFile == None:
+    p # return error if the biomass ascii is not found
+    p print(&quot;Calculating chemistry pool rasters from biomass raster.&quot;+ &#39;\n&#39;) ## print(&quot;hello&quot;)
+    p ## print(biomassFile)
+    p if not os.path.exists(biomassFile):
+    p raise Usage(&#39;Cannot find biomass ASCII &quot;&#39; + biomassFile + &#39;\n&#39;)
+    p else:
+    p print(&quot;Calculating chemistry pool rasters from age raster.&quot;+ &#39;\n&#39;) if not os.path.exists(ageFile):
+    p raise Usage(&#39;Cannot find age ASCII &quot;&#39; + ageFile + &#39;&quot;&#39;)
+    p ## # return error if the biomass ascii is not found ## if not os.path.exists(biomassFile):
+    p ## raise Usage(&#39;Cannot find conversion driver file &quot;&#39; + conFile + &#39;&quot;&#39;)
+    p # create the output dir if it doesn&#39;t exist
+    p if not os.path.exists(os.path.dirname(finalPoolDir)): print(&quot;Final outpur dir not found, creating it.&quot;+ &#39;\n&#39;) # Safety bachslash to slash replacement finalPoolDir.replace(&quot;\\&quot;,&#39;/&#39;) os.makedirs(os.path.dirname(finalPoolDir))
+    p # Set maximum and minimum biomass value if biomassFile != None:
+    p print(biomassFile)
+    p # Set default maximum and minimum biomass value if maxValArg == None:
+    p maxValue = 62000 else:
+    p maxValue = maxValArg
+    p if minValArg == None: minValue = 400
+    p else:
+    p minValue = minValArg
+    p # Set maximum and minimum age value if ageFile != None:
+    p # Set default maximum and minimum age value if maxValArg == None:
+    p maxValue = 400 else:
+    p maxValue = maxValArg
+    p if minValArg == None: minValue = 0
+    p else:
+    p minValue = minValArg
+    p # Check to that maxValue isn&#39;t larger than length of ratio lookup
+    p ratioLookupArray = numpy.genfromtxt(ratioFile,skip_header=1, dtype=float, delimiter=&#39;,&#39;) rCount, cCount = ratioLookupArray.shape
+    p if int(maxValue) &gt; int(rCount):
+    p raise Usage(&#39;Max age is larger than ratio file rows &#39; + str(rCount))
+    p print(maxValue) print(minValue)
+    p # numpy method to read .csv to array
+    p ratioLookupArray = numpy.genfromtxt(ratioFile,skip_header=1, dtype=float, delimiter=&#39;,&#39;)
+    p # Read biomass or age raster to array if ageFile != None:
+    p # Read age raster to array ageArray = ascii2array(ageFile)
+    p # get the ascii raster header information buildRatios.header = readHeader(ageFile)
+    p else:
+    p # Read biomass to array
+    p biomassArray = ascii2array(biomassFile)
+    p # get the ascii raster header information buildRatios.header = readHeader(biomassFile)
+    p # read through ratio conversion driver file datafile = open(conFile, &#39;r&#39;) next(datafile,None)
+    p myreader = csv.reader(datafile)
+    p # create ratio conversion to a list driverList = list(myreader)
+    p # close file datafile.close()
+    p ##################################################################################
+    p # End preprocess code block ##################################################################################
+    p ##################################################################################
+    p # Start functions block ##################################################################################
+    p # Function: Returns grams of carbon for the upper and lower most
+    p # biomass lookup cells. These two cells do not need to dynamically # calculated.
+    p # Inputs:
+    p # upval = the lookup ratio
+    p # cellmass = biomass cell value # Output:
+    p # gramsC = grams of carbon
+    p def calLowHighper(upval,cellmass): gramsC = upval*cellmass return gramsC
+    p # Function: Dynamically returns grams of carbon from the larger and smaller # biomass lookup cells. Creates fraction difference between a larger
+    p # and smaller biomass value in the biomass lookup table, then applies that # fraction value difference to the lookup attribute.
+    p # Inputs:
+    p # smallMass = smaller biomass from the velma attribute array # largeMass = larger biomass from the velma attribute array
+    p # upval = the lookup ratio that corresponds to the largeMass value # lowval= the lookup ratio that corresponds to the smallMass value # cellmass = biomass cell value
+    p # Output:
+    p # gramsC = grams of carbon # Variables:
+    p # difmass = difference bewteen the large and small biomass # permass = fraction of cellmass that is over the smallMass # difval = difference between upval and lowval
+    p # deltaRatioValue = corresponding fraction of the lookup value # newValue = the correct ratio of the the lookup value
+    p # gramsC = grams of carbon
+    p def calMidper(upval,lowval,largeMass,smallMass,cellmass): difmass = (largeMass-smallMass)
+    p permass = (cellmass-smallMass)/difmass difval = (upval-lowval)
+    p # If the difval is negative then lowval is larger than upval. if difval &lt; 0:
+    p difval = (lowval-upval) deltaRatioValue = permass*difval newValue = (lowval-deltaRatioValue) gramsC = cellmass*newValue
+    p return gramsC elif difval == 0:
+    p gramsC = cellmass*upval return gramsC
+    p # Else: upval is larger than lowval else:
+    p deltaRatioValue = permass*difval newValue = deltaRatioValue+lowval gramsC = cellmass*newValue
+    p return gramsC
+    p # Function: For each cell in biomass raster, lookup its biomass in the biomass ratio lookup # table and calculate a new grams of carbon value. Returns an array that can be turned back # into a new raster for any inputed velma attribute.
+    p # Inputs:
+    p # biomassArray = input biomass array, from biomass raster
+    p # ratioLookupArray = input biomass lookup array, attribute table # column = column number of the attribute of interest
+    p # Output:
+    p # outArray = array with corresponding values of attribute calculated from biomass # Variables:
+    p # i = current row of biomass array
+    p # j = current column of biomass array, from biomass raster
+    p # row = current row of biomass lookup array, attribute table # rowPlus = one row ahead of item or current row
+    p # cellValue = value of the current cell in the biomass array, from biomass raster # returnCell = grams of carbon returned from function call
+    p def biomassConverter(biomassArray,ratioLookupArray,column,maxValue,minValue): #creates numpy array with zeros numpy.zeros()
+    p #array is the same size as biomass raster array rowArraySize, colArraySize = biomassArray.shape
+    p # create empty output array
+    p outArray = numpy.zeros( (rowArraySize,colArraySize) ) rowRatioArray, colRatioArray = ratioLookupArray.shape
+    p # Loop through all the biomass raster values for i in xrange(rowArraySize):
+    p for j in xrange(colArraySize):
+    p # Loop through all of the biomass values in the lookup chem ratios for row in xrange(rowRatioArray):
+    p # index for the next row rowPlus = row + 1
+    p cellValue = float(biomassArray[i,j])
+    p # Makes sure no cell value is over the maximum biomass allowed if cellValue &gt; maxValue:
+    p cellValue = float(maxValue)
+    p # Make sure no cell value is under the minimum biomass allowed if cellValue &lt; minValue:
+    p cellValue = float(minValue)
+    p ratio
+    p # Breaks loop if first element is in lookup chem ratios if cellValue &lt;= ratioLookupArray[row,0]:
+    p returnCell = calLowHighper(ratioLookupArray[row,column],cellValue) outArray[i,j] = returnCell
+    p break
+    p # Breaks loop if last element in lookup chem ratios if row == (rowRatioArray-1):
+    p returnCell = calLowHighper(ratioLookupArray[row,column],cellValue) outArray[i,j] = returnCell
+    p break
+    p # Looks to see if the biomass cellvalue is inbetween the current lookup chem # item and the next row lookup item
+    p if cellValue &gt; ratioLookupArray[row,0] and cellValue &lt;=
+    p ratioLookupArray[rowPlus,0]:
+    p # Return value that is between the two lookup chem ratio rows returnCell =
+    p calMidper(ratioLookupArray[rowPlus,column],ratioLookupArray[row,column],
+    p ratioLookupArray[rowPlus,0],ratioLookupArray[row,0],cellValue)
+    p outArray[i,j] = returnCell # Return the chem pool array
+    p return outArray
+    p #creates numpy array with zeros numpy.zeros() #array is the same size as biomass raster array
+    p def ageConverter(ageArray,ratioLookupArray,column,maxValue,minValue): clockStartBiomass = time.clock()
+    p rowArraySize, colArraySize = ageArray.shape outArray=numpy.zeros( (rowArraySize,colArraySize) )
+    p for i in xrange(rowArraySize):
+    p for j in xrange(colArraySize): yearRow = int(ageArray[i,j])
+    p # Change to the year to a max of 400 yo if yearRow &gt; maxValue:
+    p yearRow = maxValue
+    p if yearRow &lt; minValue: yearRow = minValue
+    p # the row number in the lookup ratio file corisponds to age (yr) biomassValue = ratioLookupArray[yearRow,0]
+    p ratioValue = ratioLookupArray[yearRow,column] cellValue = biomassValue * ratioValue outArray[i,j] = cellValue
+    p return outArray ##################################################################################
+    p # End functions block
+    p ##################################################################################
+    p print(&quot;Starting the 37 Biomass Ratio convertions!&quot;+&#39;\n&#39;) ##################################################################################
+    p # Processing block code
+    p ##################################################################################
+    p # Loop once through the driver list to create the carbon ratio ascii rasters first for i in driverList:
+    p # Get output file name outName = i[0]
+    p # Get column name, Unused colName = i[1]
+    p # Get ratio column number, check that it is not empty first
+    p # biomass ratio file column number associated with the attribute. # Empty sets are nitrogen conversion completed next step
+    p if i[2] != &#39;&#39;:
+    p ratioCol = int(i[2])
+    p # Get conversion boolean, FALSE equals file is not a ratio conversion conversionOut = i[3]
+    p # Function call to calculate each of the attributes and create # a raster from the returned array
+    p if conversionOut == &#39;FALSE&#39;:
+    p # start time clock clockStartBiomass = time.clock()
+    p if ageFile != None:
+    p # For each ratio attribute column determin the ratio of biomass # associated with that particular chemestry pool and return an # array used to create chem pool raster
+    p ratioArray = ageConverter(ageArray,ratioLookupArray,ratioCol,maxValue,minValue) else:
+    p # For each ratio attribute column determin the ratio of biomass # associated with that particular chemestry pool and return an # array used to create chem pool raster
+    p ratioArray = biomassConverter(biomassArray,ratioLookupArray,ratioCol,maxValue,minValue)
+    p # Concatinate output dir with output file name outName = finalPoolDir + outName
+    p # Create the chem pool raster
+    p array2ascii(ratioArray, outName, asciiaoi = None, headerList = buildRatios.header)
+    p # end time clock clockFinishBiomass = time.clock()
+    p biomassTime = round((clockFinishBiomass-clockStartBiomass)/60,2) print(&quot;Completed: &quot; + outName + &quot; in &quot; + str(biomassTime)+&quot; minutes!&quot;+&#39;\n&#39;)
+    p print(&quot;Starting the C to N convertions!&quot; + &#39;\n&#39;)
+    p # Second time through the driver list to complete nitrogen ratios last # Create Nitrogen grams per square meter from carbon layers
+    p # Values are carbon to nitrogen ratios from Bob ratio chem file for i in driverList:
+    p # Get output file name outName = i[0]
+    p # Get conversion boolean, TRUE equals file is a nitrogen ratio conversion conversionOut = i[3]
+    p # Carbon filename associated with the nitrogen ratio conversion cToNassociateFile = i[4]
+    p # Get ratio conversion, check that it is not empty first.
+    p # Empty set are files that don&#39;t have a conversion n to c ratio if i[5] != &#39;&#39;:
+    p cToNratio = float(i[5]) if conversionOut == &#39;TRUE&#39;:
+    p # start time clock clockStartBiomass = time.clock()
+    p # Concatinate output dir with input file name associateFile = finalPoolDir + cToNassociateFile
+    p # Get array from ascii raster values from associate carbon raster associateArray = ascii2array(associateFile)
+    p # Create the associated c to n array chemestry pool and return an # array used to create chem pool raster
+    p ratioArray = numpy.divide(associateArray,cToNratio) # Concatinate output dir with output file name outName = finalPoolDir + outName
+    p # Create the chem pool raster
+    p array2ascii(ratioArray, outName, asciiaoi = None, headerList = buildRatios.header)
+    p # end time clock clockFinishBiomass = time.clock()
+    p biomassTime = round((clockFinishBiomass-clockStartBiomass)/60,2) print(&quot;Completed: &quot; + outName + &quot; in &quot; + str(biomassTime)+&quot; minutes!&quot;+&#39;\n&#39;)
+    p print(&quot;Done!&quot;+&#39;\n&#39;)
+    p ##################################################################################
+    p # End Processing block ##################################################################################
+    p if <u> </u>name<u> </u> == &quot;<u> </u>main<u> </u>&quot;: sys.exit(main())
+    

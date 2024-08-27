@@ -1,0 +1,69 @@
+extends layout.pug
+block content
+    h1 D.6 | Add Georeferenced Projection Information to VELMA Output ASCII Maps
+    div.info.blue-light-1
+        p Overview (Tutorial D.6 - Add Georeferenced Projection Info to VELMA Output ASCII Maps)
+        p This document describes how to add georeferenced projection information to VELMA's spatial output files so that the outputs can be correctly displayed in space with reference to other geospatial data.
+        p Very important when using ArcGIS, VISTAS or other visualization software to compare VELMA outputs with other geospatial data.
+        p <a href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model-20">
+        p Note: Instructions for creating VELMA spatial output files can be found in section "23.0 - Spatial Data Items" in the VELMA 2.0 User Manual (</a>https://www.epa.gov/water-research/visualizing-<a href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model-20"> </a>ecosystem-land-management-assessments-velma-model-20).
+        
+    p VELMA output maps are by default produced without adjoining projection files. This script will create the corresponding projection information for each output map so that the user can properly geolocate the ASCII maps in a GIS software, such as ArcGIS or QGIS. The user will have to create or provide a single projection file from which all other maps will be referenced to.
+    h2 Software Requirements and Processing
+    p To run and produce the adjoining projection files for a set of VELMA ASCII map outputs you will need the following:
+    ol 
+        li Python version 2.x: Current release is 2.7.12
+            ol
+                li Python comes pre-packaged within ArcGIS and QGIS, so it is likely you already have it installed on your computer. For example, a default install is currently here: C:\Python27\ArcGIS10.2\python.exe. Check to see if you have Python installed before installing a new version. If Python is not installed, you can obtain a copy here: </a>https://www.python.org/download/releases/2.7/ Note that Python 2.7 is currently considered safe for use on U.S. EPA network and non-network computers.
+        li ASCII Maps requirements: VELMA ASCII raster outputs.
+        li A single projection (.prj) file that matches the projection of raster outputs.
+        li "<b>Add_Projection.py</b>" and can be run with Command Prompt line with Python. Command prompt input example:
+    code "python Add_Projection.py -FOLDER C:\Temp\Test -PRJ mypojectionFile.prj"
+    code "python Add_Projection.py --help" for exact arguments (Figure 1).
+    img(width="526" height="268" alt="screenshot" title="screenshot" src="public/suppImage_212.jpg")
+    p Figure 1. Command line example of running the projection adding script.
+    h3 Scripts
+    p # Add_Projection.py # Author: Paul Pettus # Date: 5-1-2017
+    p # Description: Adds projections to raw ASCII VELMA file outputs #
+    p # VELMA Output files are created without projection. This script creates # projections for those output files from a single projection file.
+    p #
+    p # Last updated: 5-2-2017 import os, sys, argparse
+    p # Error message class class Usage(Exception):
+    p def __init__(self, msg):
+    p self.msg = msg def main(argv=None):
+    p if argv is None:
+    p argv = sys.argv
+    p try:
+    p print(&quot;GO!&quot;)
+    p parser = argparse.ArgumentParser(description=&#39;Creates projections to undefined ASCII files.&#39;
+    p )
+    p parser.add_argument(&#39;-FOLDER&#39;, dest=&#39;asciiFolder&#39;, help=&#39;Fully-qualified folder path of &quot;.asc&quot; files.&#39;)
+    p parser.add_argument(&#39;-PRJ&#39;, dest=&#39;projectionFile&#39;, help=&#39;Fully-qualified path + name of &quot;.prj&quot; file.&#39;)
+    p args = parser.parse_args() # args parsing
+    p prjFile = os.path.abspath(args.projectionFile)
+    p inFolder = os.path.abspath(args.asciiFolder) print (prjFile)
+    p print (inFolder)
+    p # do the work addProjections(prjFile, inFolder)
+    p except Usage as e:
+    p print(e.msg) return 2
+    p except Exception as e:
+    p # STUB exception handler
+    p # Warning: poor programming style.
+    p # Catches almost any exception (but not KeyboardInterrupt -- which is a Good Thing) raise e
+    p def addProjections(prjFile, inFolder):
+    p # Check that projection file exists if not os.path.exists(prjFile):
+    p raise Usage(&#39;Cannot find projection file &quot;&#39; + prjFile + &#39;&quot;&#39;)
+    p # Check that ASCII folder exists if not os.path.exists(inFolder):
+    p raise Usage(&#39;Cannot find folder &quot;&#39; + inFolder + &#39;&quot;&#39;) print (&quot;Starting projection definitions.&quot;)
+    p # read in projection file text prjF = open(prjFile,&#39;r&#39;) prjText = prjF.readlines() prjF.close()
+    p # read in ASCII files asciiList = []
+    p for files in os.listdir(inFolder):
+    p if files.endswith(&quot;.asc&quot;):
+    p print(files) asciiList.append(files)
+    p # Loop through files and create new projections for files in asciiList:
+    p fileName, fileExtension = os.path.splitext(files) outFile = fileName + &quot;.prj&quot;
+    p print(outFile)
+    p f = open(outFile, &quot;w&quot;) for item in prjText:
+    p f.write(item) f.close()
+    p print(&quot;Done!&quot;)
+    p if __name__== &quot;__main__&quot;: sys.exit(main())
