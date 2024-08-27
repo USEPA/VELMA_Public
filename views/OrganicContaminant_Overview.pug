@@ -9,7 +9,7 @@ block content
   p
     | Organic contaminants added to a VELMA simulation configuration undergo decomposition and lateral and vertical transport during each simulation step. No other processes occur for contaminants. Currently, only one type of decomposition is available, based on equations developed by C.S. Potter, et. al, and parameterized by microbe efficiency and a maximum decay factor.
   p
-    | Unlike VELMA’s core chemistry pools (NH4, NO3, etc.), there is no global, initial amount of contaminant added to the simulation state at simulation start. Configuring one or more contaminant parameterizations requires configuration an equal number (or more) of VELMA disturbance parameterizations to introduce actual amounts of the contaminant into the simulation state. VELMA disturbances can be configured to introduce specific amounts of contaminant to specific locations of the simulation watershed and arbitrary steps during the simulation run. Each parameterized contaminant adds its own surface and layered spatial data pools and a loss-tracking temporal data arrays to the simulation state at runtime.
+    | Unlike VELMA's core chemistry pools (NH4, NO3, etc.), there is no global, initial amount of contaminant added to the simulation state at simulation start. Configuring one or more contaminant parameterizations requires configuration an equal number (or more) of VELMA disturbance parameterizations to introduce actual amounts of the contaminant into the simulation state. VELMA disturbances can be configured to introduce specific amounts of contaminant to specific locations of the simulation watershed and arbitrary steps during the simulation run. Each parameterized contaminant adds its own surface and layered spatial data pools and a loss-tracking temporal data arrays to the simulation state at runtime.
   p
     | Spatial Data Writers may be configured for contaminant pools, but unlike other spatial data pools in VELMA (e.g. 
     code
@@ -28,7 +28,7 @@ block content
     | As a best practice, start with a “proven” VELMA simulation configuration -- i.e., a simulation configuration .xml file that is already calibrated and known to run reliably and accurately for your study site. Load that simulation configuration .xml file into JVelma and immediately change its “Simulation Run Name” (i.e. the 
     code
       | run_index
-    |  parameter’s value), then save it. This creates a copy of the original .xml that you can modify with contaminant additions, while leaving the original .xml unchanged and available for other use.
+    |  parameter's value), then save it. This creates a copy of the original .xml that you can modify with contaminant additions, while leaving the original .xml unchanged and available for other use.
   blockquote
     p
       | It is not 
@@ -81,7 +81,7 @@ block content
   p
     img
   p
-    | Clicking OK in the “Unique Contaminant Name” dialog adds the new parameterization group to the simulation configuration and changes JVelma’s display to the “All Parameters” tab, with the Item-level filter set to display the the parameters for the newly-added contaminant.
+    | Clicking OK in the “Unique Contaminant Name” dialog adds the new parameterization group to the simulation configuration and changes JVelma's display to the “All Parameters” tab, with the Item-level filter set to display the the parameters for the newly-added contaminant.
   p
     img
   p
@@ -101,7 +101,7 @@ block content
     |  The 
     code
       | modelClass
-    |  parameter is set by JVelma when you add the contaminant to the simulation configuration. Do Not Change this parameter’s value. 
+    |  parameter is set by JVelma when you add the contaminant to the simulation configuration. Do Not Change this parameter's value. 
     em
       | Ever
     | .
@@ -109,10 +109,10 @@ block content
     | The 
     code
       | uniqueName
-    |  parameter is set to the name you specified while adding the contaminant parameterization to the configuration. After that initial specification, we recommend never changing this parameter’s value, because it is used as part of the name for the contaminant’s spatial data pools. If you do change 
+    |  parameter is set to the name you specified while adding the contaminant parameterization to the configuration. After that initial specification, we recommend never changing this parameter's value, because it is used as part of the name for the contaminant's spatial data pools. If you do change 
     code
       | uniqueName
-    | ’s value, any Disturbances referencing its spatial data pools must update those pool names as well.
+    | 's value, any Disturbances referencing its spatial data pools must update those pool names as well.
   p
     | The 
     code
@@ -259,7 +259,7 @@ block content
   p
     code
       | setMolarMass
-    |  is this contaminant’s mass, in grams per mol (g/mol).
+    |  is this contaminant's mass, in grams per mol (g/mol).
   p
     code
       | setMolarSolubilityCoefficient
@@ -270,7 +270,7 @@ block content
     | Including one or more OrganicContaminantModel parameterizations in a VELMA simulation configuration 
     strong
       | does not add any actual chemical amounts to the simulation run
-    | . To introduce amounts of the contaminant(s) into the contaminant pools, you’ll need to parameterize one or more disturbance events.
+    | . To introduce amounts of the contaminant(s) into the contaminant pools, you'll need to parameterize one or more disturbance events.
   p
     | You can use Surface Deposition disturbances or Modify Spatial Data By Map disturbances (or one or more instances of both) to introduce contaminant amounts into the contaminant pools.
   p
@@ -295,7 +295,7 @@ block content
   h4
     | Simulation Results for Contaminants
   p
-    | When a VELMA simulation configuration contains one or more contaminants, an additional daily results file is written as part of the simulation’s results. The file is named DailyContaminantResults.csv and contains daily-averaged values for each contaminant’s surface and layered pools as well as surface and layered watershed loss amounts (the amount calculated to have left the watershed via transfer from non-channel to channel cells).
+    | When a VELMA simulation configuration contains one or more contaminants, an additional daily results file is written as part of the simulation's results. The file is named DailyContaminantResults.csv and contains daily-averaged values for each contaminant's surface and layered pools as well as surface and layered watershed loss amounts (the amount calculated to have left the watershed via transfer from non-channel to channel cells).
   p
     | Additionally, Cell Data Writers specified for a VELMA simulation configuration contain rows reporting the surface and layer amounts, and the surface and layer lateral-outflow amounts for each contaminant in the simulation configuration.
   p
@@ -331,10 +331,10 @@ block content
   p
     | Contaminant spatial data pool names are constructed using a common prefix and a unique suffix. To provide proper key-name for disturbances or spatial data writers parameterized to reference or modify contaminant pool values, you must know how to construct the specific pool name for a specific contaminant pool.
   p
-    | The contaminant’s surface pool prefix is 
+    | The contaminant's surface pool prefix is 
     code
       | CONTAMINANT_SURFACE_
-    |  and the suffix is the contaminant’s 
+    |  and the suffix is the contaminant's 
     code
       | uniqueName
     |  parameter value shifted to all-uppercase.
@@ -351,7 +351,7 @@ block content
       | CONTAMINANT_SURFACE_GLYSOPHATE
     | .
   p
-    | Similarly, the contaminant’s layered pool prefix is 
+    | Similarly, the contaminant's layered pool prefix is 
     code
       | CONTAMINANT_LAYERS_
     |  and the suffix is the 

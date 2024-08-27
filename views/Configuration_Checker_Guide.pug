@@ -112,23 +112,23 @@ block content
   pre
     code
       | Windows PowerShell
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-PS C:\Users\me> java -Xmx1g -cp C:\Users\me\Velma\JVelma.jar `
->> gov.epa.velmasimulator.VelmaSimulatorCmdLine `
->> C:\Users\me\Velma\Case_Studies\MD_Chesapeake\WS109\XMLs\MD_RR_WS109_10m_badCdw_2020-10-28a.xml `
->> --lint
-VELMA LINTER: started at 2021-02-03 11:17:01
-WARNING VelmaSimulatorEngine runLinter: VELMA Lint Mode Enabled: startups parameter suppressAllOutputFiles overridden and set == true
-WARNING GlobalState setOutputDataLocationDir: All File Output is suppressed: ignoring Output Data Location
-WARNING SoilParameters setSoilLayerWeights: Soil column weights [0.16670000553131104, 0.16670000553131104, 0.16670000553131104, 0.5] sum=1.0001 but should sum to 1.0 -- either the initial values are incorrect or the floating-point arithmetic produced an inexact result.
-WARNING SoilParameters setSoilLayerWeights: Soil column weights [0.018200000748038292, 0.018200000748038292, 0.018200000748038292, 0.9455000162124634] sum=1.0001 but should sum to 1.0 -- either the initial values are incorrect or the floating-point arithmetic produced an inexact result.
-WARNING SoilParameters setSoilLayerWeights: Soil column weights [0.022199999541044235, 0.022199999541044235, 0.022199999541044235, 0.9333000183105469] sum=0.9999 but should sum to 1.0 -- either the initial values are incorrect or the floating-point arithmetic produced an inexact result.
-WARNING SoilParameters setSoilLayerWeights: Soil column weights [0.028599999845027924, 0.028599999845027924, 0.028599999845027924, 0.9143000245094299] sum=1.0001 but should sum to 1.0 -- either the initial values are incorrect or the floating-point arithmetic produced an inexact result.
-WARNING GlobalState initializeCoverSpeciesForRun: CoverSpecies uniqueId=500 uniqueName="NoData" referenced in: dem=NO sid=NO inSidCount=0
-WARNING CellDataWriterManager load: IGNORED CellDataWriter: name=OffGrid at cell x=90 y=90 index=-1 [OFF-GRID LOCATION (Grid is: cols=86 rows=67)]
-VELMA LINTER: done at 2021-02-03 11:17:02
-PS C:\Users\me>
+      | Copyright (C) Microsoft Corporation. All rights reserved.
+      | 
+      | PS C:\Users\me> java -Xmx1g -cp C:\Users\me\Velma\JVelma.jar `
+      | >> gov.epa.velmasimulator.VelmaSimulatorCmdLine `
+      | >> C:\Users\me\Velma\Case_Studies\MD_Chesapeake\WS109\XMLs\MD_RR_WS109_10m_badCdw_2020-10-28a.xml `
+      | >> --lint
+      | VELMA LINTER: started at 2021-02-03 11:17:01
+      | WARNING VelmaSimulatorEngine runLinter: VELMA Lint Mode Enabled: startups parameter suppressAllOutputFiles overridden and set == true
+      | WARNING GlobalState setOutputDataLocationDir: All File Output is suppressed: ignoring Output Data Location
+      | WARNING SoilParameters setSoilLayerWeights: Soil column weights [0.16670000553131104, 0.16670000553131104, 0.16670000553131104, 0.5] sum=1.0001 but should sum to 1.0 -- either the initial values are incorrect or the floating-point arithmetic produced an inexact result.
+      | WARNING SoilParameters setSoilLayerWeights: Soil column weights [0.018200000748038292, 0.018200000748038292, 0.018200000748038292, 0.9455000162124634] sum=1.0001 but should sum to 1.0 -- either the initial values are incorrect or the floating-point arithmetic produced an inexact result.
+      | WARNING SoilParameters setSoilLayerWeights: Soil column weights [0.022199999541044235, 0.022199999541044235, 0.022199999541044235, 0.9333000183105469] sum=0.9999 but should sum to 1.0 -- either the initial values are incorrect or the floating-point arithmetic produced an inexact result.
+      | WARNING SoilParameters setSoilLayerWeights: Soil column weights [0.028599999845027924, 0.028599999845027924, 0.028599999845027924, 0.9143000245094299] sum=1.0001 but should sum to 1.0 -- either the initial values are incorrect or the floating-point arithmetic produced an inexact result.
+      | WARNING GlobalState initializeCoverSpeciesForRun: CoverSpecies uniqueId=500 uniqueName="NoData" referenced in: dem=NO sid=NO inSidCount=0
+      | WARNING CellDataWriterManager load: IGNORED CellDataWriter: name=OffGrid at cell x=90 y=90 index=-1 [OFF-GRID LOCATION (Grid is: cols=86 rows=67)]
+      | VELMA LINTER: done at 2021-02-03 11:17:02
+      | PS C:\Users\me>
 
   blockquote
     p
@@ -146,7 +146,7 @@ PS C:\Users\me>
   pre
     code
       | WARNING VelmaSimulatorEngine runLinter: VELMA Lint Mode Enabled: startups parameter suppressAllOutputFiles overridden and set == true
-WARNING GlobalState setOutputDataLocationDir: All File Output is suppressed: ignoring Output Data Location
+      | WARNING GlobalState setOutputDataLocationDir: All File Output is suppressed: ignoring Output Data Location
 
   p
     | The first message occurs because the Configuration Checker always overrides a single parameter from the .xml file it checks: the 
@@ -166,7 +166,7 @@ WARNING GlobalState setOutputDataLocationDir: All File Output is suppressed: ign
   pre
     code
       | Checking the current configuration via the VELMA Linter.
-Configuration editing is not permitted until the Linter is done.
+      | Configuration editing is not permitted until the Linter is done.
 
   p
     | These messages simply confirm that the Checker is running, and that you cannot edit your configuration while it runs. You 
@@ -178,8 +178,8 @@ Configuration editing is not permitted until the Linter is done.
   pre
     code
       | VELMA LINTER: started at 2021-02-03 11:17:01
-[ . . . ]
-VELMA LINTER: done at 2021-02-03 11:17:02
+      | [ . . . ]
+      | VELMA LINTER: done at 2021-02-03 11:17:02
 
   blockquote
     p

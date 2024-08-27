@@ -205,7 +205,7 @@ block content
     | The 
     code
       | modelClass
-    |  parameter is set by JVelma when you add the contaminant to the simulation configuration. Do Not Change this parameter’s value. 
+    |  parameter is set by JVelma when you add the contaminant to the simulation configuration. Do Not Change this parameter's value. 
     em
       | Ever
     | .
@@ -217,13 +217,13 @@ block content
   pre
     code
       | biomassAgStemNburnFraction
-biomassAgStemNvolatilizedFraction
-biomassBgStemNburnFraction
-biomassLeafNburnFraction
-biomassLeafNvolatilizedFraction
-biomassRootNburnFraction
-detritusAgStemNburnFraction
-detritusLeafNburnFraction
+      | biomassAgStemNvolatilizedFraction
+      | biomassBgStemNburnFraction
+      | biomassLeafNburnFraction
+      | biomassLeafNvolatilizedFraction
+      | biomassRootNburnFraction
+      | detritusAgStemNburnFraction
+      | detritusLeafNburnFraction
 
   p
     | All of the above parameters must be provided decimal values in the range [0.0, 1.0]. Their names start with the pool name they are for, and end in 
@@ -767,8 +767,8 @@ detritusLeafNburnFraction
   pre
     code
       | 1070,1995,60,1995,120
-1300,1995,60,1995,90-220,1996,120
-2105,2000,210-214
+      | 1300,1995,60,1995,90-220,1996,120
+      | 2105,2000,210-214
 
   p
     | The 3 rows of csv data above specify three cell locations and when burn-reduction occurs for each of the three.
@@ -844,9 +844,9 @@ detritusLeafNburnFraction
   pre
     code
       | <cover>_Disturbance_N_Removed(gN)_Cover_Total
-<cover>_Disturbance_N_Removed(gN/m2)_Cover_Average
-<cover>_Disturbance_N_Removed(gN/m2)_Delineated_Average
-<cover>_Disturbance_N_Removed_Cell_Count_Cover_Total
+      | <cover>_Disturbance_N_Removed(gN/m2)_Cover_Average
+      | <cover>_Disturbance_N_Removed(gN/m2)_Delineated_Average
+      | <cover>_Disturbance_N_Removed_Cell_Count_Cover_Total
 
   p
     | Where 
@@ -871,12 +871,12 @@ detritusLeafNburnFraction
   pre
     code
       | Burned_Biomass_Leaf_C
-Burned_Biomass_Ag_Stem_C
-Burned_Detritus_Leaf_C
-Burned_Detritus_Ag_Stem_C
-Burned_Ash_Amount_N
-Burned_AG_Total_N
-Burned_Volatilized_Amount_N
+      | Burned_Biomass_Ag_Stem_C
+      | Burned_Detritus_Leaf_C
+      | Burned_Detritus_Ag_Stem_C
+      | Burned_Ash_Amount_N
+      | Burned_AG_Total_N
+      | Burned_Volatilized_Amount_N
 
   blockquote
     p
@@ -897,9 +897,9 @@ Burned_Volatilized_Amount_N
   pre
     code
       | Disturbance_N_Removed_Layer1
-Disturbance_N_Removed_Layer2
-Disturbance_N_Removed_Layer3
-Disturbance_N_Removed_Layer4
+      | Disturbance_N_Removed_Layer2
+      | Disturbance_N_Removed_Layer3
+      | Disturbance_N_Removed_Layer4
 
   p
     | However, be aware that these columns record 

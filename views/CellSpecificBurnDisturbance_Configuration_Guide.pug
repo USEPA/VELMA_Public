@@ -902,12 +902,10 @@ block content
   pre
     |                 
     code
-      | 
-                    1001,1989,305-311,0,1993,305-311,0
-                    1010,1989,305-311,0,1993,305-311,0
-                    1011,1989,305-311,0,1993,305-311,0
-                
-    | 
+      | 1001,1989,305-311,0,1993,305-311,0
+      | 1010,1989,305-311,0,1993,305-311,0
+      |  1011,1989,305-311,0,1993,305-311,0
+
             
   p
     | The ",0" values above are the gCount values, and they indicate that there are no parameterization groups associated with the cells and dates where and when burning occurs. Instead, the burn disturbance will use the setDefault[...]FractionParameters for parameter values to compute the burn, volatilized, and bgDamage fractions.
@@ -937,8 +935,8 @@ block content
   pre
     code
       | 1001, 1989,305-311, 1,1,0.50, 2,3,0.10,0.25,1.20, 3,1,0.63, 1993,305-311, 1,1,0.33, 2,3,0.15,0.30,1.11, 3,1,0.24
-1010, 1989,305-311, 1,1,0.33, 2,3,0.08,0.35,1.15, 3,1,0.45, 1993,305-311, 1,1,0.40, 2,3,0.27,0.30,1.50, 3,1,0.30
-1011, 1989,305-311, 1,1,0.70, 2,3,0.20,0.15,1.00, 3,1,0.60, 1993,305-311, 1,1,0.42, 2,3,0.08,0.30,0.85, 3,1,0.55
+      | 1010, 1989,305-311, 1,1,0.33, 2,3,0.08,0.35,1.15, 3,1,0.45, 1993,305-311, 1,1,0.40, 2,3,0.27,0.30,1.50, 3,1,0.30
+      | 1011, 1989,305-311, 1,1,0.70, 2,3,0.20,0.15,1.00, 3,1,0.60, 1993,305-311, 1,1,0.42, 2,3,0.08,0.30,0.85, 3,1,0.55
 
   p
     em
@@ -948,20 +946,20 @@ block content
   pre
     code
       | 1001, 1989,305-311, 1,1,0.50, 2,3,0.10,0.25,1.20, 3,1,0.63, (... etc ...)
-                    | | |     | | |    |    |     | | |
-                    | | |     | | |    |    |     | | bgDamageFractionParemeter value F (for DIRECT_VALUE mode)
-                    | | |     | | |    |    |     | bgDamageFractionParameter pCount
-                    | | |     | | |    |    |     bgDamageFractionParameter pID
-                    | | |     | | |    |    |
-                    | | |     | | |    |    volatilizationFractionParameter value E (for FUEL_DYNAMIC mode)
-                    | | |     | | |    volatilizationFractionParameter value D (for FUEL_DYNAMIC mode))
-                    | | |     | | volatilizationFractionParameter value N (for FUEL_DYNAMIC mode))
-                    | | |     | volatilizationFractionParameter pCount 
-                    | | |     volatilizationFractionParameter pID
-                    | | |
-                    | | burnFractionParameter value K (for SATURATION_BASED mode)
-                    | burnFractionParameter pCount
-                    burnFractionParameter pID
+      |               | | |     | | |    |    |     | | |
+      |               | | |     | | |    |    |     | | bgDamageFractionParemeter value F (for DIRECT_VALUE mode)
+      |               | | |     | | |    |    |     | bgDamageFractionParameter pCount
+      |               | | |     | | |    |    |     bgDamageFractionParameter pID
+      |               | | |     | | |    |    |
+      |               | | |     | | |    |    volatilizationFractionParameter value E (for FUEL_DYNAMIC mode)
+      |               | | |     | | |    volatilizationFractionParameter value D (for FUEL_DYNAMIC mode))
+      |               | | |     | | volatilizationFractionParameter value N (for FUEL_DYNAMIC mode))
+      |               | | |     | volatilizationFractionParameter pCount 
+      |               | | |     volatilizationFractionParameter pID
+      |               | | |
+      |               | | burnFractionParameter value K (for SATURATION_BASED mode)
+      |               | burnFractionParameter pCount
+      |               burnFractionParameter pID
 
   h2
     | Additional Information

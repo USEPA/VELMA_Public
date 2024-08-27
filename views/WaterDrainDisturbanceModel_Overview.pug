@@ -16,7 +16,7 @@ block content
         | VELMA simulation configurations containing Water Drain Disturbances 
         strong
           | cannot
-        |  be used with VELMA’s Parallel, Multiscale, or Multimap modes.
+        |  be used with VELMA's Parallel, Multiscale, or Multimap modes.
     li
       p
         | VELMA simulation configurations containing Water Drain Disturbances with drain "pipes" that specify an inlet-outlet pair in separate sub-reaches, may not report accurate sub-reach runoff values. If you need accurate sub-reach runoff information you must ensure that any given inlet "pipe" and its associated outlets are all located within a single reach.
@@ -219,8 +219,8 @@ block content
   pre
     code
       | iInlet, inFraction[:capThreshold], #ofOutlets, iOutlet1, outFraction1, iOutlet2, outFraction2
-227,    0.90:1200.0,               2,          343,      0.50,         323,      0.50
-348,    0.75,                      2,             ,      0.75,         390,      0.25
+      | 227,    0.90:1200.0,               2,          343,      0.50,         323,      0.50
+      | 348,    0.75,                      2,             ,      0.75,         390,      0.25
 
   ul
     li
@@ -252,7 +252,7 @@ block content
   p
     img
   p
-    | After selecting WaterDrainDisturbanceModel as the type, enter a unique name for the disturbance in ihe “Disturbance Name’ field of the dialog. Finally, click the OK button, which adds a new parameterization group to the simulation configuration and changes JVelma’s display to the “All Parameters” tab, with the item-level filter set to only display the parameters for the newly-added Water Drain Disturbance:
+    | After selecting WaterDrainDisturbanceModel as the type, enter a unique name for the disturbance in ihe “Disturbance Name' field of the dialog. Finally, click the OK button, which adds a new parameterization group to the simulation configuration and changes JVelma's display to the “All Parameters” tab, with the item-level filter set to only display the parameters for the newly-added Water Drain Disturbance:
   p
     img
   p
@@ -356,8 +356,8 @@ block content
   pre
     code
       | initializeActiveLoops = 3
-initializeActiveYears = 2000, 2002
-initializeActiveJdays = 1-31, 91, 182
+      | initializeActiveYears = 2000, 2002
+      | initializeActiveJdays = 1-31, 91, 182
 
   p
     | All of the water drain "pipes" specified for a Water Drain Disturbance are active on the schedule specified by the three 
@@ -387,7 +387,7 @@ initializeActiveJdays = 1-31, 91, 182
     | You may specify the file by a fully-qualified path and name, a partial path and name, or just the name of the file. When the 
     code
       | waterDrainDataFileName
-    |  parameter’s value isn’t fully-qualified, JVelma assumes the file’s location is relative to the input location specified for the simulation run by the 
+    |  parameter's value isn't fully-qualified, JVelma assumes the file's location is relative to the input location specified for the simulation run by the 
     code
       | inputDataLocationRootName
     |  and 
@@ -504,7 +504,7 @@ initializeActiveJdays = 1-31, 91, 182
       | Occurrence: 1 record per inlet per simulation step, 
       em
         | if
-      |  the inlet’s initial transfer amount is over the specified capacityThreshold.
+      |  the inlet's initial transfer amount is over the specified capacityThreshold.
     li
       | Number of fields is constant.
     li
