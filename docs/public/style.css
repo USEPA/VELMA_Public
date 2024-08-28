@@ -45,7 +45,7 @@ p {
     margin-bottom: 16px;
 }
 
-h1{
+h1, h2, h3{
     text-align: center;
 }
 
@@ -64,10 +64,6 @@ li {
 }
 
 /* Nav Styles */
-/* nav {
-    position: sticky;
-    top: 0;
-} */
 .navbar {
     display: flex;
     flex-direction: row;
@@ -75,16 +71,16 @@ li {
     max-width: fit-content;
     padding: 1rem;
     gap: 1rem;
-    /* position: sticky;  */
 }
 
 .navbar-nav{
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: center;
     /* width: 100%; */
-}
+} 
+
 
 .nav-item {
     color: white !important;
@@ -172,6 +168,77 @@ li {
 .nav-dropdown li.active > a {
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+    .header {
+        position:static;
+        top: 0;
+    }
+    .navbar {
+        flex-direction: column;
+        max-width: 100%;
+        padding: 0.5rem;
+    }
+
+    .navbar-brand {
+        margin-top: 1rem;
+    }
+
+    .nav-item {
+        border-right: none;
+        border-bottom: 1px solid white;
+        width: 80%;
+    }
+
+    .nav-item:last-child {
+        border-bottom: none;
+    }
+
+    .nav-dropdown {
+        position: static;
+        display: none;
+        padding-left: 1rem;
+    }
+
+    .nav-dropdown li {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+}
+
+/* .sticky-sidebar {
+    position: sticky;
+    top: 10vh;
+    left:0;
+    height: 80vh;
+    width: 250px; 
+    background-color: #f8f9fa;
+    border-right: 1px solid black;
+    overflow-y: scroll;
+    z-index: 1;
+} */
+.sticky-sidebar {
+    flex-grow: 1;
+    flex-basis: 250px;
+    align-self: start;
+    position: sticky;
+    top: 15vh;
+    height: 80vh;
+    overflow-y: scroll;
+}
+
+.body-content {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: 40%;
 }
 
 table, td, th {

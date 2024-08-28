@@ -18,7 +18,7 @@ function compileAndSavePugFiles(pugDir, htmlDir) {
             if (file.isDirectory()) {
                 compileAndSavePugFiles(pugFilePath, path.join(htmlDir, file.name)); // Recursive call for subdirectories
             } else if (path.extname(pugFilePath) === '.pug') {
-                var html = pug.renderFile(pugFilePath);
+                var html = pug.renderFile(pugFilePath, options={'pretty':true});
                 fs.writeFile(htmlFilePath, html, (writeErr) => {
                     if (writeErr) throw writeErr;
                     console.log(`Compiled ${pugFilePath} to ${htmlFilePath}`);

@@ -1,30 +1,19 @@
-# New VELMA 2.2 Documentation Branch
+# New VELMA 2.2 Documentation 
 
-Process
+Process 
 
-- First convert pdfs for Velma 2.0 and 2.1 into HTML
-- Convert important content to Pug template
-- Served with Express
+- Files that will be compiled to static .html pages should be placed in the /views directory
+- Run the npm run build command to compile .html pages
+- GitHub actions will
 
-Run dev server with the following
+Run dev server with the following command to view .pug files in a local host
 
 ```
 npm run dev
 ```
 
-To turn .pug files into html simply run the following line
+To turn .pug files into html simply run the following line:
 
 ```
 node ./htmlify.js
 ```
-
-Sure your .pug files are in the standard **/views** directory
-
-
-
-
-// For future latex formula integrations
-
-// http://blog.dreasgrech.com/2009/12/jslatex-jquery-plugin-to-directly-embed.html
-
-// helpful link https://codebeautify.org/html-to-pug-converter
