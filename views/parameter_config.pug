@@ -5,7 +5,7 @@ block content
         div.body-content
             h1 VI. Steps for Configuring All Parameters TOC Sections 0.0 - 25.0
             hr
-            h2 Overview of the All Parameters Table of Contents (TOC)
+            h2#0-0 Overview of the All Parameters Table of Contents (TOC)
             hr
             p The "All Parameters Table of Contents" (TOC) provides users with a logical sequence of steps for creating a newsimulator configuration, or for quickly locating and calibrating parameters for existing configurations.
             p To access the All Parameter TOC, click the GUI's "All Parameters" tab, then click the drop-down button (<img width="19" height="24" alt="image" src="public/Image_028.gif" />) located on the right side of the4-window filter field (don't confuse this button with the one located next to the leftmost filter field):
@@ -1522,8 +1522,6 @@ block content
                     td TotalVolumetricSoilMoisture
                     td 
                     td Always
-            
-            table
                 tr
                     td Accessor
                     td VolumetricSoilMoistureLayer
@@ -1689,8 +1687,6 @@ block content
                     td NITRIFICATION
                     td YES
                     td Optional
-            
-            table
                 tr
                     td Direct
                     td NO3
@@ -1826,240 +1822,79 @@ block content
             p Sections 24.1 - 24.3 describe how to select a disturbance model type and specify parameter values to simulatewhere, when and how disturbances occur. You can set up as many disturbance types and events as you may require.
             
             p However, we first want to step through an example on the next four pages that illustrate how VELMA's newdisturbance models work. We've chosen the Harvest disturbance model for this example because it illustrates keyconcepts shared by most of the other disturbance models, particularly with regard to how disturbances can bekeyed to the LSR (Leaves-Stems-Root) plant biomass model. We recommend that you look over the details of thisexample before proceeding to sections 24.1 - 24.3.
-            img(width="585" height="24" alt="image" src="public/Image_125.jpg")
-            p 
-            p 
-            p Above Ground
-            img(width="175" height="5" alt="image" src="public/Image_126.png")
-            p 
-            p Below Ground
-            p ILEAIFBl OIMASS
-            img(width="289" height="467" alt="image" src="public/Image_127.jpg")
-            img(width="2" height="462" alt="image" src="public/Image_128.png")
-            img(width="2" height="462" alt="image" src="public/Image_129.png")
-            p AG STEM Bl OMASS
-            img(width="233" height="7" alt="image" src="public/Image_130.png")
-            p 
-            p BG STEM BIOMASS
-            p 
-            p ROOT Bl OMASS (Layered)
-            p Ha1rvest LSR Disturbance TransferDia1graim1
-            img(width="312" height="67" alt="image" src="public/Image_131.png")
-            p The harvestFraction parameters determinehow much of each biomass pool isremoved from thatbiomass pool.
-            p 
-            img(width="190" height="97" alt="image" src="public/Image_132.png")
-            p 
-            p Harvest AmountRemovedOffsite
-            p 
-            p The Harvest LSRDisturbance has 2 sets offraction parameters:harvest, and offsite.. Thereis one harvest and one    offsite parameterfor each pool, for atotal of 8individualparameters..Each parameter&#39;svalue must bein the range[0.0, :LOj.
-            img(width="244" height="162" alt="image" src="public/Image_133.png")
-            img(width="245" height="110" alt="image" src="public/Image_134.png")
-            img(width="245" height="73" alt="image" src="public/Image_135.png")
-            img(width="1" height="67" alt="image" src="public/Image_136.png")
-            p The offsiteFraction parametersdetermine how much of eachharvested amount is removed off site,and how much istransferred toDetritus.
-            img(width="149" height="54" alt="image" src="public/Image_137.jpg")
-            table
-                tr
-                    td Leaf Biomass
-                tr
-                    td AG Stem Biomass
-                tr
-                    td BG Stem Biomass
-                tr
-                    td Layer 1 Root            Biomass
-                tr
-                    td Layer 2 Root Biomass        
-                tr
-                    td Layer 3 Root            Biomass
-                tr
-                    td Layer 4 Root            Biomass
+            img(width="585" height="24" alt="image" src="public/Image_126.png")
+            h3 LEAF, STEM and ROOT Biomass Pool Arrangement
+            img(src="public/Image_126.png", alt="leaf, stem, and root biomass pool arrangement")
+            h3 Harvest LSR Disturbance Transfer Diagram
+            //- p The Harvest LSR Disturbance has 2 sets of fraction parameters: harvest and offsite.
+            //- p There is one harvest and one offsite parameter for each pool, for a total of 8 individual parameters. Each parameter's value must be in the range [0.0, 1.0].
+            img(src="public/Image_127.png")
+            h3 When and Where a Harvest LSR Disturbance Occurs: An Example
             
-            br
-            table
-                tr
-                    td Leaf Harvested
-                tr
-                    td AG Stem Harvested
-                tr
-                    td BG Stem Harvested
-                tr
-                    td Root Harvested
             
-            p 
-            table
-                tr
-                    td Leaf            Detritus        
-                tr
-                    td AG Stem Detritus
-                tr
-                    td Layer 1 BG Stem            Detritus
-                tr
-                    td Layer 2 BG Stem            Detritus
-                tr
-                    td Layer 3 BG Stem            Detritus
-                tr
-                    td Layer 4 BG Stem            Detritus
-                tr
-                    td Layer 1 Root Debitus
-                tr
-                    td Layer 2 Root Debitus
-                tr
-                    td Layer 3 Root Debitus
-                tr
-                    td Layer 4 Root Debitus
-            
-            p 
-            p bi omassleafNoff5itefraction
-            img(width="150" height="54" alt="image" src="public/Image_138.jpg")
-            p bi omassAgStemNoff5itefractiJn
-            p 
-            img(width="126" height="1" alt="image" src="public/Image_139.png")
-            p biomas.sllgStemNharvestFraction
-            img(width="124" height="1" alt="image" src="public/Image_140.png")
-            p 
-            p biomas temNoffsiteFractm
-            p ,, ,.
-            p OJ GI
-            img(width="245" height="132" alt="image" src="public/Image_141.png")
-            p -- OQ
-            p 
-            p biomassRootNoffsitef ract:ion
-            p 
-            p A- -
-            img(width="150" height="96" alt="image" src="public/Image_142.jpg")
-            p Whe1n and Where a Harvest LSR Disturbai1nce Occurs: An Examplle
-            
-            p 
-            p Harvest LSR Disturbances occur for each loo,p,,year and Julian day the userspecifies
+            p <b>Harvest LSR Disturbances occur for each loop, year and Julian day the user specifies</b>
             p in the initializeActiveloops,initializeActiveYears andinitiaHzeActiveJdaysparameters1values..The user may specify one ormore loops,years and Julian days, orranges of the same..
-            p At least one loop, year and Julianday must be specified..
-            p 
-            p Here is an example specification/or the tempoml scheduUng pammeters:
-            p initia]lizeActiveloops = 1, 3 (harvestwifloccurinloopsland3)initializeActiveYears = Jl!.969-1980, 1985 ( harvest occurs in years<i>1969through 1980</i>, <i>and </i>in <i>1985)</i>initia]lizeActiveJdays = 200(harvestoccursonthe2D0thJulianday)
-            img(width="198" height="234" alt="image" src="public/Image_143.png")
-            p 
-            p ncols 5
-            p nrows 5
-            p xl]lcorner 0.0000
-            p yl]lcorner 0.0000
-            p ce]llsize 10.0
-            p 
-            p ooverSpecieslndexFileMapName
-            p =examplCoverlDFile.asc
-            p 
-            img(width="3" height="271" alt="image" src="public/Image_144.png")
-            p The disturbance ,only ,occurs for the    co1ver types the user specifies
-            p in the initializeCoverids    parameter1s values;multiple cover Idnumbers may be specified,but not ranges ofnumbers.
-            img(width="119" height="73" alt="image" src="public/Image_145.jpg")
-            p The disturbance usesthe specified cover Ids,plus the data in thecover id map specifiedby the coverSpeciesindexFi]<u> </u>eMapNameparameterto determinewhich cells shouldbe harvested.
-            p 
-            table
-                tr
-                    td Here is an example specification/or the spatial/cov:er parameters:
-                    td 1
-                    td 1
-                    td 1
-                    td 3
-                    td 3
-                tr
-                    td initia]lizeCoverids = 3, 4
-                    td 2
-                    td 1
-                    td 1
-                    td 3
-                    td 3
-                tr
-                    td coverSpeciesindexFi]leMapName            = examp]<u> </u>eCoverIDFile.asc
-                    td 2
-                    td 2
-                    td 2
-                    td 2
-                    td 1
-                tr
-                    td 
-                    td 4
-                    td 4
-                    td 2
-                    td 
-                    td 
-                tr
-                    td With the above            parameterization,            and the                exampleCoverlo:File.asc contents at            right, harvest will occur in the cells highliglnted in                green.
-                    td 4
-                    td 4
-                    td 1
-                    td 
-                    td 
+            p At least one loop, year and Julianday must be specified.
             
-            img(width="55" height="3" alt="image" src="public/Image_146.png")
-            p 
-            p The disturbance ,occurs.,o,nlyfor the .specifiedco,ver types at ,o,r above aspecified age.
-            p The user specifies    this &quot;lowest age limit&quot; in theageThresho ]ld parameter value.The value must be an positiveinteger, or zero- zero specifies any age is acceptable.
-            p 
-            p Here is an example specification/or the ,ag.e limitparameter:
-            p age Th re sh old = 13 5 ( harvest wifl occur only forcells whose cover is 135 or more years old.)
-            p Fillteri1ng:Additio:na1IICo1ntroll For Wherea1Harvest LSR Disturbance Occurs
-            p 
+            p Here is an example specification/or the temporal scheduling pammeters:
+            code initializeActiveloops = 1, 3 (harvestwifloccurinloopsland3)
+            br
+            code initializeActiveYears = 1969-1980, 1985 ( harvest occurs in years 1969 through 1980, and in 1985)
+            br
+            code initializeActiveJdays = 200 (harvest occurs on the 200th Julian day)
+
+            p <b>The disturbance only occurs for the cover types the user specifies</b>
+            p in the initializeCoverids parameters values; multiple cover Id numbers may be specified,but not ranges of numbers.
+            p The disturbance uses the specified cover Ids, plus the data in the cover id map specified by the <code>coverSpeciesIndexFileMapName</code> parameter to determine which cells should be harvested.
+            p Here is an example specification/or the spatial/cover parameters:
+            code initializeCoverIds = 3, 4
+            br
+            code coverSpeciesIndexFileMapName = exampleCoverIDFile.asc 
+            p With the aboe parameterization and the exampleCoverIDFile.asc contents below, harvest will occur in the cells highlighted in blue.
+            div.textbox
+                p ncols 5
+                p nrows 5
+                p xllcorner 0.0000
+                p yllcorner 0.0000
+                p cellsize 10.0
+                p 1 1 1 
+                    span.blue-light 3 3
+                p 2 1 1 
+                    span.blue-light 3 3
+                p 2 2 2 2 1
+                p 
+                    span.blue-light 4 4 
+                    | 2 1 1
+                p 
+                    span.blue-light 4 4 
+                    | 1 2 2 
+
+            p The disturbance uses the specified cover Ids, plus the data in the cover id map specified by the coverSpeciesindexFileMapNameparameter to determine which cells should be harvested.
+            
+            p The disturbance occurs only for the specified cover types at or above a specified age.
+            p The user specifies this &quot;lowest age limit&quot; in the <code>ageThreshold</code> parameter value. The value must be a positive integer, or zero -- zero specifies any age is acceptable.
+             
+            p Here is an example specification for the age limit parameter:
+            p <code>ageThreshold = 135</code> ( harvest will occur only for cells whose cover is 135 or more years old.)
+            h3 Filltering: Additional Control For Where a Harvest LSR Disturbance Occurs
+            
             p Harvest LSR Disturbancesmay (o,p,tionally) belimited t,o    specific.areasbyspecifying aFilter Map,
-            p In order i\:o usefiltering, the usermust have define aFilter Map: aGrid Ascii map withID numbers for celldata values. The userspecifies this map&#39;s name as thefiJ ..terMapFu llNameparametervalue..
-            p (!Leaving the f H terMap FuJI.JI.Na1111e unspecifiedindicates &quot;No!Filtering&quot; to theHarvest ILSRDisturbance.}
-            p 
-            p When a filter file isspecified thedisturbance,only ,occurs forthe filterIdscellsthe userspecifies
-            p in the initializeFil te rld sparameter&#39;s values;multiple filter    Id values may bespecified, but not numberranges. Thedisturbance uses thespecified filterIds, plus the data inthe filter mapspecified by the f i I terMap Fu jJ_IN a1TI1eparameter to determinewhich cells areeligible forharvested..
-            p 
-            p Her:e js an example    spedficationfor the spatial/coiterparameters:
-            p initializeFilterlds =1, 2 filterMapFuUNa1111e =exampleFilterIDFi]l.e.asc
-            p Note: these examplefilter Id vafues,and the vafues in theexampfeFifter1DFife have norefation to the covertds.
-            p Using this filtering schemeand the co,ver IDexamp,le from theprevious slide, theselection logic is(:[} IFind the subsetof cells in the filtermap that match thefilter ids specifiedbyinitializeFilterlds. Consider other spatial-selection (e.g..coverIds) based only on that subset of cells.
-            img(width="194" height="280" alt="image" src="public/Image_147.png")
-            p 
-            p ncojJ_s 5
-            p nrmoJs 5
-            p xllco rner 0. 0000
-            p yllcorner 0.0000
-            p celJl.size 10.0
-            p 0 0 0 0 0
-            p 0 1 1 1 0
-            p 0 2 2 2 O
-            p 0 1 1 1 0
-            p 
-            p filterMapFullName
-            p = examplFilerlDFile.asc
-            p 
-            img(width="263" height="277" alt="image" src="public/Image_148.png")
-            p nco]l.s 5
-            p nroioJs 5
-            p xllcorner 0.0000
-            p yllcorner 0.0000
-            p cel]l.size 10 .0
-            p 
-            p 1 1
-            p 2 1
-            p 2 2
-            p 4 4
-            p 4 4
-            p 
-            p 1
-            p 1
-            p 2
-            p 2
-            p 1
-            p 
-            p 3 3
-            p 3 3
-            p 2 1
-            p 1
-            p 
-            p ooverSpecieslndexFileMapName
-            
-            p examplCoverlDFile.asc
-            
-            p The Map files to the right show the example:
+            p In order to use filtering, the user must have define a Filter Map: a Grid Ascii map with ID numbers for cell data values. The user specifies this map&#39;s name as <code>FilterMapFullName</code> parameter value.
+            p (Leaving the <code>FilterMapFullName</code> unspecified indicates &quot;No Filtering&quot; to the Harvest LSR Disturbance.)
+             
+            p When a filter file is specified the disturbance only occurs for the filter Ids cells the user specifies in the <code>initializeFilterIds</code> parameter&#39;s values;multiple filter Id values may be specified, but not number ranges. The disturbance uses the specified filter Ids, plus the data in the filter map specified by the <code>filterMapFullName</code> parameter to determine which cells are eligible for harvested.
+             
+            p Here is an example spedfication for the spatial/cover parameters:
+            code initializeFilterlds = 1, 2 
+            code filterMapFullName = exampleFilterIDFile.asc
+            p Note: these example filter Id values,and the values in the exampleFilterIDFile have no relation to the cover Ids.
+            p Using this filtering scheme and the cover ID example from the previous slide, the selection logic is: 
             ol 
-                li Cells eligible forconsideration based    on the filter map andspecified filterIds are highlightedin reen.
-                li That subset of    cells is then examined    via the cover Id map andspecified cover Ids.
-            p Cells eligible forharvest based onfiltering,foll<u>o</u>w<u>e</u>d <u>by </u>cov<u>e</u>r idselection are further hi hli htedi blue.
-            p Note: Othercriteria (Le..age) might also applyafter filtering to thefiltered subset ofcells..
-            p Note: Remember! Idnumbers in the filtermap are not related toId numbers in thecover map. (i.e. filterid 2 is not equal tocover id 2)
+                li Find the subset of cells in the filter map that match the filter ids specified by initializeFilterlds.
+                li Consider other spatial-selection (e.g cover Ids) based only on that subset of cells.
+            
+            img(src="public/Image_147.png")
+            
             h3#24-1 24.1 - Disturbance Items by Model Type
             p To begin, you need to select the disturbance model you want by clicking Edit  Disturbances  Add aDisturbance:
             img(width="467" height="252" alt="image" src="public/Image_149.jpg")
@@ -2153,161 +1988,215 @@ block content
             p For example, if you want to adjust VELMA's "Annual Plot" display for soil humus, you would find "Annual Plot"under the "Display Selector Name" column in the table below, copy "maxHumusDayDisplay" and paste it inthe "Parameter" search window in the VELMA GUI's All Parameters view. Hit your keyboard's "Enter" key and youshould see "maxHumusDayDisplay" under "Parameter column. Specify the value you want. Repeat for theprocess for the "minHumusDayDisplay" parameter. [Note: you cannot change the display parameterizationsduring a simulation run. Currently, the VELMA GUI does not allow runtime display scales to change dynamicallyduring simulation runs. Prior to starting a simulation, you must set the display parameters for any chart youwill use during a simulation.]
             p 
             table
-                tr
-                    td Display Selector Name
-                    td MIN Display Setting
-                    td MAX Display Setting
+                thead
+                    th Display Selector Name
+                    th MIN Display Setting
+                    th MAX Display Setting
                 tr
                     td &lt;cover&gt; + Denitrification Daily-Linear
-                    td ( always zero )
-                    td maxDenitrificationDaySpatialDis play
-                tr
-                    td ( always zero )
-                    td maxNo3DenitDaySpatialDisplay
-                tr
-                    td ( always zero )
-                    td maxCo2DenitDaySpatialDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td
+                        | maxDenitrificationDaySpatialDisplay
+                        br 
+                        | maxNo3DenitDaySpatialDisplay
+                        br 
+                        | maxCo2DenitDaySpatialDisplay
                 tr
                     td Annual Plot
-                    td ( always zero )
-                    td maxDonLossYearFinalDisplay
-                tr
-                    td ( always zero )
-                    td maxDocLossYearFinalDisplay
-                tr
-                    td ( always zero )
-                    td maxNppYearSumDisplay
-                tr
-                    td minBiomassYearFinalDisplay
-                    td maxBiomassYearFinalDisplay
-                tr
-                    td minHumusDayDisplay
-                    td maxHumusDayDisplay
-                tr
-                    td minLitterDayDisplay
-                    td maxLitterDayDisplay
-                tr
-                    td minNepYearSumDisplay
-                    td maxNepYearSumDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minBiomassYearFinalDisplay
+                        br 
+                        | minHumusDayDisplay
+                        br 
+                        | minLitterDayDisplay
+                        br 
+                        | minNepYearSumDisplay
+                    td 
+                        | maxDonLossYearFinalDisplay
+                        br 
+                        | maxDocLossYearFinalDisplay
+                        br 
+                        | maxNppYearSumDisplay
+                        br 
+                        | maxBiomassYearFinalDisplay
+                        br 
+                        | maxHumusDayDisplay
+                        br 
+                        | maxLitterDayDisplay
+                        br 
+                        | maxNepYearSumDisplay
+                
+                
                 tr
                     td Burn Spatial Data
-                    td minBiomassAgStemDayDisplay
-                    td maxBiomassAgStemDayDisplay
-                tr
-                    td minBiomassLeafDayDisplay
-                    td maxBiomassLeafDayDisplay
-                tr
-                    td minDetritusAgStemDayDisplay
-                    td maxDetritusAgStemDayDisplay
-                tr
-                    td minDetritusLeafDayDisplay
-                    td maxDetritusLeafDayDisplay
-                tr
-                    td minHumusDayDisplay
-                    td maxHumusDayDisplay
-                tr
-                    td minLitterDayDisplay
-                    td maxLitterDayDisplay
-            br
-            table
+                    td 
+                        | minBiomassAgStemDayDisplay
+                        br 
+                        | minBiomassLeafDayDisplay
+                        br 
+                        | minDetritusAgStemDayDisplay
+                        br 
+                        | minDetritusLeafDayDisplay
+                        br 
+                        | minHumusDayDisplay
+                        br 
+                        | minLitterDayDisplay
+                    td 
+                        | maxBiomassAgStemDayDisplay
+                        br 
+                        | maxBiomassLeafDayDisplay
+                        br 
+                        | maxDetritusAgStemDayDisplay
+                        br 
+                        | maxDetritusLeafDayDisplay
+                        br 
+                        | maxHumusDayDisplay
+                        br 
+                        | maxLitterDayDisplay
                 tr
                     td Calibration Annual Nutrients
-                    td ( always zero )
-                    td maxNh4LossYearSumDisplay
-                tr
-                    td ( always zero )
-                    td maxNo3LossYearSumDisplay
-                tr
-                    td ( always zero )
-                    td maxDonLossYearSumDisplay
-                tr
-                    td minDocLossYearSumDisplay
-                    td maxDocLossYearSumDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minDocLossYearSumDisplay
+                        
+                    td 
+                        | maxNh4LossYearSumDisplay
+                        br 
+                        | maxNo3LossYearSumDisplay
+                        br 
+                        | maxDonLossYearSumDisplay
+                        br 
+                        | maxDocLossYearSumDisplay
                 tr
                     td Calibration Daily Nutrients
-                    td ( always zero )
-                    td maxNh4LossDayDisplay
-                tr
-                    td ( always zero )
-                    td maxNo3LossDayDisplay
-                tr
-                    td ( always zero )
-                    td maxDonLossDayDisplay
-                tr
-                    td ( always zero )
-                    td maxDocLossDayDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxNh4LossDayDisplay
+                        br 
+                        | maxNo3LossDayDisplay
+                        br 
+                        | maxDonLossDayDisplay
+                        br 
+                        | maxDocLossDayDisplay
                 tr
                     td Calibration Hydrology
-                    td ( always zero )
-                    td maxRainDayDisplay
-                tr
-                    td ( always zero )
-                    td maxRunoffDayDisplay
-                tr
-                    td ( always zero )
-                    td maxSubRunoffDayDisplay
-                tr
-                    td ( always zero )
-                    td maxEtDayDisplay
-                tr
-                    td minHydroYearSumDisplay
-                    td maxHydroYearSumDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minHydroYearSumDisplay
+                    td 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRunoffDayDisplay
+                        br 
+                        | maxSubRunoffDayDisplay
+                        br 
+                        | maxEtDayDisplay
+                        br 
+                        | maxHydroYearSumDisplay
                 tr
                     td CO2 Pool Spatial
                     td ( always zero )
                     td maxCo2DaySpatialDisplay
                 tr
                     td Daily Nitrogen Fixation
-                    td ( always zero )
-                    td maxNinDayDisplay
-                tr
-                    td ( always zero )
-                    td maxPlantUptakeSpatialDisplay
-                tr
-                    td ( always zero )
-                    td maxSymbioticNfixedDayDisplay
-                tr
-                    td ( always zero )
-                    td maxAsymbioticNfixedDayDisplay
-                tr
-                    td ( always zero )
-                    td maxDonLossDayDisplay
-                tr
-                    td ( always zero )
-                    td maxTotalNLossDayDisplay
-                tr
-                    td ( always zero )
-                    td maxNitrificationDaySpatialDispl ay
-                tr
-                    td ( always zero )
-                    td maxDenitrificationDaySpatialDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxNinDayDisplay
+                        br 
+                        | maxPlantUptakeSpatialDisplay
+                        br 
+                        | maxSymbioticNfixedDayDisplay
+                        br 
+                        | maxAsymbioticNfixedDayDisplay
+                        br 
+                        | maxDonLossDayDisplay
+                        br 
+                        | maxTotalNLossDayDisplay
+                        br 
+                        | maxNitrificationDaySpatialDisplay
+                        br 
+                        | maxDenitrificationDaySpatialDisplay
                 tr
                     td Default Layer 1 - 4
-                    td ( always zero )
-                    td maxDonLossDayDisplay
-                tr
-                    td ( always zero )
-                    td maxDocLossDayDisplay
-                tr
-                    td ( always zero )
-                    td maxRainDayDisplay
-                tr
-                    td ( always zero )
-                    td maxRunoffDayDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxDonLossDayDisplay
+                        br 
+                        | maxDocLossDayDisplay
+                        br 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRunoffDayDisplay
                 tr
                     td Denitrification Daily-Spatial
                     td ( always zero )
                     td maxDenitrificationDaySpatialDisplay
                 tr
                     td Denitrification Daily-Spatial 1 - 4
-                    td ( always zero )
-                    td maxDenitrificationDaySpatialDis play
-                tr
-                    td ( always zero )
-                    td maxNo3DenitDaySpatialDisplay
-                tr
-                    td ( always zero )
-                    td maxCo2DaySpatialDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxDenitrificationDaySpatialDisplay
+                        br 
+                        | maxNo3DenitDaySpatialDisplay
+                        br 
+                        | maxCo2DaySpatialDisplay
                 tr
                     td DOC Pool Spatial
                     td ( always zero )
@@ -2322,68 +2211,88 @@ block content
                     td maxEtDayDisplay
                 tr
                     td Harvest Spatial Data
-                    td minBiomassDayDisplay
-                    td maxBiomassDayDisplay
-                tr
-                    td minHumusDayDisplay
-                    td maxHumusDayDisplay
-            
-            table
-                tr
                     td 
-                    td minLitterDayDisplay
-                    td maxLitterDayDisplay
+                        | minBiomassDayDisplay
+                        br 
+                        | minHumusDayDisplay
+                        br 
+                        | minLitterDayDisplay
+                    td 
+                        | maxBiomassDayDisplay
+                        br 
+                        | maxHumusDayDisplay
+                        br 
+                        | maxLitterDayDisplay
                 tr
                     td Leaf Stem Root Daily Data
-                    td minBiomassAgStemDayDisplay
-                    td maxBiomassAgStemDayDisplay
-                tr
-                    td minBiomassBgStemDayDisplay
-                    td maxBiomassBgStemDayDisplay
-                tr
-                    td minBiomassLeafDayDisplay
-                    td maxBiomassLeafDayDisplay
-                tr
-                    td minBiomassRootDayDisplay
-                    td maxBiomassRootDayDisplay
-                tr
-                    td minDetritusAgStemDayDisplay
-                    td maxDetritusAgStemDayDisplay
-                tr
-                    td minDetritusBgStemDayDisplay
-                    td maxDetritusBgStemDayDisplay
-                tr
-                    td minDetritusLeafDayDisplay
-                    td maxDetritusLeafDayDisplay
-                tr
-                    td minDetritusRootDayDisplay
-                    td maxDetritusRootDayDisplay
+                    td 
+                        | minBiomassAgStemDayDisplay
+                        br 
+                        | minBiomassBgStemDayDisplay
+                        br 
+                        | minBiomassLeafDayDisplay
+                        br 
+                        | minBiomassRootDayDisplay
+                        br 
+                        | minDetritusAgStemDayDisplay
+                        br 
+                        | minDetritusBgStemDayDisplay
+                        br 
+                        | minDetritusLeafDayDisplay
+                        br 
+                        | minDetritusRootDayDisplay
+                    td 
+                        | maxBiomassAgStemDayDisplay
+                        br 
+                        | maxBiomassBgStemDayDisplay
+                        br 
+                        | maxBiomassLeafDayDisplay
+                        br 
+                        | maxBiomassRootDayDisplay
+                        br 
+                        | maxDetritusAgStemDayDisplay
+                        br 
+                        | maxDetritusBgStemDayDisplay
+                        br 
+                        | maxDetritusLeafDayDisplay
+                        br 
+                        | maxDetritusRootDayDisplay
                 tr
                     td Leaf Stem Root Layer Details Daily Data
-                    td minBiomassRootLayersDayDisplay
-                    td maxBiomassRootLayersDayDisplay
-                tr
-                    td minDetritusBgStemLayersDayDisplay
-                    td maxDetritusBgStemLayersDayDispl ay
-                tr
-                    td minDetritusRootLayersDayDisplay
-                    td maxDetritusRootLayersDayDisplay
-                tr
-                    td minHumusLayersDayDisplay
-                    td maxHumusLayersDayDisplay
+                    td 
+                        | minBiomassRootLayersDayDisplay
+                        br 
+                        | minDetritusBgStemLayersDayDisplay
+                        br 
+                        | minDetritusRootLayersDayDisplay
+                        br 
+                        | minHumusLayersDayDisplay
+                    td 
+                        | maxBiomassRootLayersDayDisplay
+                        br 
+                        | maxDetritusBgStemLayersDayDisplay
+                        br 
+                        | maxDetritusRootLayersDayDisplay
+                        br 
+                        | maxHumusLayersDayDisplay
                 tr
                     td LSR Summary Spatial
-                    td ( always zero )
-                    td maxNppDayDisplay
-                tr
-                    td minBiomassDayDisplay
-                    td maxBiomassDayDisplay
-                tr
-                    td minHumusDayDisplay
-                    td maxHumusDayDisplay
-                tr
-                    td minLitterDayDisplay
-                    td maxLitterDayDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | minBiomassDayDisplay
+                        br 
+                        | minHumusDayDisplay
+                        br 
+                        | minLitterDayDisplay
+                    td 
+                        | maxNppDayDisplay
+                        br 
+                        | maxBiomassDayDisplay
+                        br 
+                        | maxHumusDayDisplay
+                        br 
+                        | maxLitterDayDisplay
                 tr
                     td NH4 Pool Spatial
                     td ( always zero )
@@ -2394,11 +2303,14 @@ block content
                     td maxNitrificationDaySpatialDisplay
                 tr
                     td Nitrogen Fixation Daily- Spatial
-                    td ( always zero )
-                    td maxSymbioticNfixedDayDisplay
-                tr
-                    td ( always zero )
-                    td maxAsymbioticNfixedDayDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxSymbioticNfixedDayDisplay
+                        br 
+                        | maxAsymbioticNfixedDayDisplay
                 tr
                     td NO3 Pool Spatial
                     td ( always zero )
@@ -2409,102 +2321,135 @@ block content
                     td maxPlantUptakeSpatialDisplay
                 tr
                     td Productivity Spatial
-                    td ( always zero )
-                    td maxNppDayDisplay
-                tr
-                    td ( always zero )
-                    td maxNh4SpatialDisplay
-                tr
-                    td ( always zero )
-                    td maxNo3SpatialDisplay
-                tr
-                    td minBiomassDayDisplay
-                    td maxBiomassDayDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minBiomassDayDisplay
+                    td 
+                        | maxNppDayDisplay
+                        br 
+                        | maxNh4SpatialDisplay
+                        br 
+                        | maxNo3SpatialDisplay
+                        br 
+                        | maxBiomassDayDisplay
                 tr
                     td Snow Dynamics Spatial
-                    td ( always zero )
-                    td maxRainSpatialDisplay
-                tr
-                    td ( always zero )
-                    td maxSnowSpatialDisplay
-                tr
-                    td ( always zero )
-                    td maxSnowDepthSpatialDisplay
-                tr
-                    td ( always zero )
-                    td maxSnowMeltSpatialDisplay
-                tr
-                    td minAirTSpatialDisplay
-                    td maxAirTSpatialDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minAirTSpatialDisplay
+                    td 
+                        | maxRainSpatialDisplay
+                        br 
+                        | maxSnowSpatialDisplay
+                        br 
+                        | maxSnowDepthSpatialDisplay
+                        br 
+                        | maxSnowMeltSpatialDisplay
+                        br 
+                        | maxAirTSpatialDisplay
                 tr
                     td Standing Water
-                    td ( always zero )
-                    td maxRainDayDisplay
-                tr
-                    td ( always zero )
-                    td maxRunoffDayDisplay
-                tr
-                    td ( always zero )
-                    td maxStandingWaterDayDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRunoffDayDisplay
+                        br 
+                        | maxStandingWaterDayDisplay
                 tr
                     td Temperature Data
                     td minAirTDayDisplay
                     td maxAirTDayDisplay
-            br
-            table
                 tr
                     td Time Series
-                    td ( always zero )
-                    td maxDonLossDayDisplay
-                tr
-                    td ( always zero )
-                    td maxDocLossDayDisplay
-                tr
-                    td ( always zero )
-                    td maxRainDayDisplay
-                tr
-                    td ( always zero )
-                    td maxRunoffDayDisplay
-                tr
-                    td minAirTDayDisplay
-                    td maxAirTDayDisplay
-                tr
-                    td minBiomassDayDisplay
-                    td maxBiomassDayDisplay
-                tr
-                    td minHumusDayDisplay
-                    td maxHumusDayDisplay
-                tr
-                    td minLitterDayDisplay
-                    td maxLitterDayDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minAirTDayDisplay
+                        br 
+                        | minBiomassDayDisplay
+                        br 
+                        | minHumusDayDisplay
+                        br 
+                        | minLitterDayDisplay
+                    td 
+                        | maxDonLossDayDisplay
+                        br 
+                        | maxDocLossDayDisplay
+                        br 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRunoffDayDisplay
+                        br 
+                        | maxAirTDayDisplay
+                        br 
+                        | maxBiomassDayDisplay
+                        br 
+                        | maxHumusDayDisplay
+                        br 
+                        | maxLitterDayDisplay
                 tr
                     td VSA Spatial and Hydro Linear
-                    td ( always zero )
-                    td maxRainDayDisplay
-                tr
-                    td ( always zero )
-                    td maxRunoffDayDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRunoffDayDisplay
                 tr
                     td Weather Summary Spatial
-                    td ( always zero )
-                    td maxRainDayDisplay
-                tr
-                    td ( always zero )
-                    td maxRainSpatialDisplay
-                tr
-                    td ( always zero )
-                    td maxSnowSpatialDisplay
-                tr
-                    td ( always zero )
-                    td maxSnowMeltSpatialDisplay
-                tr
-                    td minAirTDayDisplay
-                    td maxAirTDayDisplay
-                tr
-                    td minAirTSpatialDisplay
-                    td maxAirTSpatialDisplay
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minAirTDayDisplay
+                        br 
+                        | minAirTSpatialDisplay
+                    td 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRainSpatialDisplay
+                        br 
+                        | maxSnowSpatialDisplay
+                        br 
+                        | maxSnowMeltSpatialDisplay
+                        br 
+                        | maxAirTDayDisplay
+                        br 
+                        | maxAirTSpatialDisplay
+
         aside.sticky-sidebar.blue-light-1
-            h2#0-0 All Parameters Table of Contents
+            h2 All Parameters Table of Contents
             h3 Click an underlined hyperlink to jump to configuration instructions
             ul 
                 li <a href="#0-0" class="a">0.0 All Configuration Parameters</a>

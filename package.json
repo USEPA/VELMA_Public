@@ -11,6 +11,7 @@
     "build-html": "node htmlify.js",
     "build-info": "md-pug-to-html DeveloperInfo -o docs -t views",
     "build-utils": "md-pug-to-html DeveloperUtils -o docs -t views",
+    "md-to-pug": "node md_to_pug.js",
     "prestart": "npm run build",
     "predev": "npm run build"
   },

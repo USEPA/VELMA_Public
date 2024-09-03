@@ -1,1 +1,611 @@
-<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width"><meta name="charset" content="utf-8"><link rel="stylesheet" type="text/css" href="/style.css"><title> </title></head><body class="bg-primary"><div class="header blue-base"><nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="/index.html">VELMA 2.2 HOME</a><ul class="navbar-nav no-bullets"><li class="nav-item"><a class="nav-link" href="/intro.html"><span>I. Intro</span></a></li><li class="nav-item"><a class="nav-link" href="/changes.html"><span>II. Changes from 1.0</span></a></li><li class="nav-item"><a class="nav-link" href="/about.html"><span>III. About</span></a></li><li class="nav-item"><a class="nav-link" href="/input_files.html"><span>IV. Input Files </span></a></li><li class="nav-item"><a class="nav-link" href="/new_sim_config.html"><span>V. Sim Config</span></a></li><li class="nav-item"><a class="nav-link" href="/parameter_config.html"><span>VI. Parameter Config</span></a></li><li class="nav-item dropdown">Appendicies<ul class="nav-dropdown blue-light"><li class="nav-item"><a class="nav-link" href="/appendix_1.html"><span>Appendix 1</span></a></li><li class="nav-item"><a class="nav-link" href="/appendix_2.html"><span>Appendix 2</span></a></li><li class="nav-item"><a class="nav-link" href="/appendix_3.html"><span>Appendix 3</span></a></li><li class="nav-item"><a class="nav-link" href="/appendix_4.html"><span>Appendix 4</span></a></li><li class="nav-item"><a class="nav-link" href="/appendix_5.html"><span>Appendix 5</span></a></li><li class="nav-item"><a class="nav-link" href="/appendix_6.html"><span>Appendix 6</span></a></li><li class="nav-item"><a class="nav-link" href="/appendix_7.html"><span>Appendix 7</span></a></li></ul></li><li class="nav-item dropdown">Supplemental <ul class="nav-dropdown blue-light"><li class="nav-item"><a class="nav-link" href="/supplement-a1.html"><span>Supplement A1</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-a2.html"><span>Supplement A2</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-a3.html"><span>Supplement A3</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-a4.html"><span>Supplement A4</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-b1.html"><span>Supplement B1</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-b2.html"><span>Supplement B2</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-b3.html"><span>Supplement B3</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-b4.html"><span>Supplement B4</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-b5.html"><span>Supplement B5</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-b6.html"><span>Supplement B6</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-b7.html"><span>Supplement B7</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-b8.html"><span>Supplement B8</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-b9.html"><span>Supplement B9</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-b10.html"><span>Supplement B10</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-c1.html"><span>Supplement C1</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-c2.html"><span>Supplement C2</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-c3.html"><span>Supplement C3</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-d1.html"><span>Supplement D1</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-d2.html"><span>Supplement D2</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-d3.html"><span>Supplement D3</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-d4.html"><span>Supplement D4</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-d5.html"><span>Supplement D5</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-d6.html"><span>Supplement D6</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-d7a.html"><span>Supplement D7a</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-d7b.html"><span>Supplement D7b</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-d8.html"><span>Supplement D8</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-d9.html"><span>Supplement D9</span></a></li><li class="nav-item"><a class="nav-link" href="/supplement-d10.html"><span>Supplement D10</span></a></li></ul></li><li class="nav-item dropdown"> <a class="nav-link" href="/dev_info.html"><span>Developer Info</span></a><ul class="nav-dropdown blue-light"><li class="nav-item"><a class="nav-link" href="/GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li><li class="nav-item"><a class="nav-link" href="/CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li><li class="nav-item"><a class="nav-link" href="/Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li><li class="nav-item"><a class="nav-link" href="/DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li><li class="nav-item"><a class="nav-link" href="/Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li><li class="nav-item"><a class="nav-link" href="/ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li><li class="nav-item"><a class="nav-link" href="/JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li><li class="nav-item"><a class="nav-link" href="/MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li><li class="nav-item"><a class="nav-link" href="/ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li><li class="nav-item"><a class="nav-link" href="/ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li><li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li><li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li><li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracter Config Guide</span></a></li><li class="nav-item"><a class="nav-link" href="/ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li><li class="nav-item"><a class="nav-link" href="/SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li><li class="nav-item"><a class="nav-link" href="/TopoFiles_Output_Summary.html"><span>Topo Files Output Summary </span></a></li><li class="nav-item"><a class="nav-link" href="/VelmaParallel_Error_Reports.html"><span>Velma Parallel Error Reports</span></a></li><li class="nav-item"><a class="nav-link" href="/VelmaParallel_With_Multiple_Maps.html"><span>Velma Parallel With Multiple Maps </span></a></li><li class="nav-item"><a class="nav-link" href="/WaterDrainDisturbanceModel_Overview.html"><span>Water Drain Disturbance Model</span></a></li><li class="nav-item"><a class="nav-link" href="/VelmaSimulatorCmdLine_Overview.html"><span>Velma Sim Cmd Line Guide</span></a></li><li class="nav-item"><a class="nav-link" href="/VelmaSimulatorAltCmdLine_Overview.html"><span>Velma Sim Alt Cmd Line Guide</span></a></li><li class="nav-item"><a class="nav-link" href="/SurfaceEvaporation_Overview.html"><span>Surface Evaporation Overview</span></a></li></ul></li><li class="nav-item dropdown"> <a class="nav-link" href="/dev_utils.html"><span>Developer Utils</span></a><ul class="nav-dropdown blue-light"><li class="nav-item"><a class="nav-link" href="/AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li><li class="nav-item"><a class="nav-link" href="/AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li><li class="nav-item"><a class="nav-link" href="/MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li><li class="nav-item"><a class="nav-link" href="/NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li><li class="nav-item"><a class="nav-link" href="/NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li><li class="nav-item"><a class="nav-link" href="/VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li><li class="nav-item"><a class="nav-link" href="/VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li></ul></li></ul></nav></div><div class="main_body container"><h1>D.7b | Statistical Climate Addendum: Development of Statistical Models Based on Monthly PRISM / Daymet Data</h1><div class="info blue-light-1"><p>Overview <i>(Tutorial D.7b - Addendum to Spatial Climate Statistics)</i></p><p>VELMA requires daily temperature and precipitation climate data to accurately simulate hydrologic processes in watersheds, such as runoff and soil moisture dynamics. Therefore, the accuracy of hydrologic predictions will largely depend upon the proximity of climate a station(s) to the simulated watershed or portions therein. Especially for large watersheds having steep climatic gradients - mountains and coastal areas, for example - climate data need to be at relatively fine spatial resolution (e.g., 1 km2) to accurately capture snow dynamics, runoff and other processes.</p><p>This document describes methods for dealing with sparse climate station data. New methods are introduced for improving the estimation of statistical parameters for the VELMA Spatial Weather Model previously described in Appendix 5 of McKane et al. (2014). These new methods include generating daily pseudo weather station driver data for areas of interest that lack ground-based weather stations.</p><p>Reference:</p><p>McKane, R.; Brookes, A.; Djang, K.; Stieglitz, M.; Abdelnour, A.; Pan, F.; Halama, J.; Pettus, P.; Phillips, D. (2014) Velma User Manual and Technical Documentation, 2nd ed.; U.S. Environmental Protection Agency Office of Research and Development National Health and Environmental Effects Research Laboratory: Corvallis, OR.</p></div><h2>Procedure 1 - Generate statistical parameters</h2><p>Following the Spatial Weather Model methodology, correlation coefficients were generated from 800m resolution PRISM 30-year monthly temperature and precipitation normals for 1981- 2010 (PRISM, 2013). Correlation models were build based on a single independent variable, elevation. Gridded PRISM data were downscaled to match the 30m digital elevation modeled data. Relational models were then generated for each 30 year normal month cell to its corresponding elevation cell of the AOI. Monthly models were developed for both mean air temperature and precipitation, for each AOI. Revised intercept and slope values were used to complete both the "Air Temperature Coefficients File" and the "Precipitation Coefficients File", which are needed for the VELMA Spatial Weather Configuration. Unfitted parameters such as heat index and flow accumulation were set to zero, since they were unmodeled. The results are summarized in Table 1 and Table 2. All regression equations were created using R statistics package (Appendix 1).</p><h4>Table 1. Mashel River Basin, WA</h4><table><thead><th>Parameter</th><th>Intercept</th><th>Slope</th><th>R^2</th></thead><tr><td>X01_ppt</td><td>131.1239</td><td>0.165175</td><td>0.626577</td></tr><tr><td>X02_ppt</td><td>86.67763</td><td>0.086708</td><td>0.61712</td></tr><tr><td>X03_ppt</td><td>115.3467</td><td>0.08018</td><td>0.531575</td></tr><tr><td>X04_ppt</td><td>87.67271</td><td>0.069019</td><td>0.714808</td></tr><tr><td>X05_ppt</td><td>64.68459</td><td>0.077026</td><td>0.848851</td></tr><tr><td>X06_ppt</td><td>42.64319</td><td>0.077571</td><td>0.881703</td></tr><tr><td>X07_ppt</td><td>17.00757</td><td>0.036384</td><td>0.874514</td></tr><tr><td>X08_ppt</td><td>25.5493</td><td>0.017223</td><td>0.763215</td></tr><tr><td>X09_ppt</td><td>33.77266</td><td>0.050396</td><td>0.850796</td></tr><tr><td>X11_ppt</td><td>151.339</td><td>0.157905</td><td>0.62436</td></tr><tr><td>X12_ppt</td><td>128.1081</td><td>0.110864</td><td>0.534228</td></tr><tr><td>X01_mt</td><td>5.306282</td><td>-0.00422</td><td>0.87001</td></tr><tr><td>X02_mt</td><td>5.815265</td><td>-0.00429</td><td>0.889654</td></tr><tr><td>X03_mt</td><td>7.904366</td><td>-0.0051</td><td>0.919949</td></tr><tr><td>X04_mt</td><td>10.30037</td><td>-0.00507</td><td>0.9252</td></tr><tr><td>X05_mt</td><td>13.6444</td><td>-0.00504</td><td>0.924011</td></tr><tr><td>X06_mt</td><td>16.35791</td><td>-0.00495</td><td>0.925487</td></tr><tr><td>X07_mt</td><td>18.90406</td><td>-0.004</td><td>0.907101</td></tr><tr><td>X08_mt</td><td>19.22824</td><td>-0.00397</td><td>0.893755</td></tr><tr><td>X09_mt</td><td>16.23177</td><td>-0.00365</td><td>0.870096</td></tr><tr><td>X10_mt</td><td>11.42558</td><td>-0.00365</td><td>0.872491</td></tr><tr><td>X11_mt</td><td>7.16671</td><td>-0.00427</td><td>0.88421</td></tr><tr><td>X12_mt</td><td>4.495029</td><td>-0.00412</td><td>0.866289</td></tr></table><table> <tr> <td>Parameter</td><td>Intercept</td><td>Slope</td><td>R^2</td></tr><tr><td>X01_ppt</td><td>156.8465</td><td>0.340983</td><td>0.873725</td></tr><tr><td>X02_ppt</td><td>104.9198</td><td>0.209417</td><td>0.867981</td></tr><tr><td>X03_ppt</td><td>118.9242</td><td>0.241798</td><td>0.878695</td></tr><tr><td>X04_ppt</td><td>101.0095</td><td>0.174351</td><td>0.876515</td></tr><tr><td>X05_ppt</td><td>91.96905</td><td>0.123868</td><td>0.854035</td></tr><tr><td>X06_ppt</td><td>70.32923</td><td>0.10755</td><td>0.854376</td></tr><tr><td>X07_ppt</td><td>32.10464</td><td>0.059888</td><td>0.86893</td></tr><tr><td>X08_ppt</td><td>28.56578</td><td>0.062882</td><td>0.872201</td></tr><tr><td>X09_ppt</td><td>59.68145</td><td>0.114886</td><td>0.865976</td></tr><tr><td>X10_ppt</td><td>115.1068</td><td>0.198013</td><td>0.87521</td></tr><tr><td>X11_ppt</td><td>194.4334</td><td>0.356659</td><td>0.874651</td></tr><tr><td>X12_ppt</td><td>152.0708</td><td>0.273897</td><td>0.868276</td></tr><tr><td>X01_mt</td><td>4.973876</td><td>-0.00426</td><td>0.889799</td></tr><tr><td>X02_mt</td><td>5.770962</td><td>-0.00439</td><td>0.900742</td></tr><tr><td>X03_mt</td><td>7.638908</td><td>-0.00501</td><td>0.918905</td></tr><tr><td>X04_mt</td><td>9.851594</td><td>-0.00459</td><td>0.907267</td></tr><tr><td>X05_mt</td><td>13.03208</td><td>-0.00482</td><td>0.921168</td></tr><tr><td>X06_mt</td><td>15.6836</td><td>-0.00476</td><td>0.920645</td></tr><tr><td>X07_mt</td><td>18.31654</td><td>-0.00379</td><td>0.912681</td></tr><tr><td>X08_mt</td><td>18.68841</td><td>-0.00389</td><td>0.916803</td></tr><tr><td>X09_mt</td><td>15.68156</td><td>-0.00357</td><td>0.896509</td></tr><tr><td>X10_mt</td><td>11.23656</td><td>-0.00382</td><td>0.911043</td></tr><tr><td>X11_mt</td><td>6.95446</td><td>-0.00444</td><td>0.89201</td></tr><tr><td>X12_mt</td><td>4.201191</td><td>-0.00419</td><td>0.884903</td></tr></table><h2>Procedure 2 - Daily weather drivers</h2><p>Pseudo weather stations were created to solve the problem of when there is no ground observational climate data within AOI. These data are also need to properly parametrize the regression driver data of the VELMA spatial weather model. Daily Gridded Weather Data (Daymet) is a national climate data set that was developed in part from NASA funding, for the years of 1980 - 2014, and is widely used in the scientific community (Thorton et al., 2014). It models daily air temperature and precipitation at a higher 1 km x 1 km spatial resolution, compared to the 4 km x 4 km spatial resolution climate data that is publicly available from the PRISM group (PRISM, 2013).</p><p>Pseudo weather stations were created by choosing a semi homogenous elevation area within the AOI that was overlaid by one 1 km Daymet cell. Using the latitude and longitude of the cell, daily precipitation and air temperature data was downloaded for the temporal period of interest. This daily Daymet modeled data was then used as an observed "weather station" within the AOI. This cell location would be used as the "Prime Cell" by its center DEM cell x- and-y coordinates as part of the Spatial Weather Model's parameterization.</p><img width="625" height="391" alt="image" src="public/suppImage_225.png"><p>As an example, the Mowich SNOTEL weather station that is several KM north and east of the Mashel river basin in Washington was used to explore the effectiveness of this process. 1998 - 2014 SNOTEL from this station along with Daymet modeled climate for these days was plotted to explore fit ground observations vs modeled climate. Results are summarized in Figure 1 and Figure 2.</p><p>Figure 17 Daymet modeled air temperature vs overserved Mowich, WA SNOTEL data.</p><img width="625" height="448" alt="image" src="public/suppImage_226.png"><p>Figure 18. Daymet modeled precipitation vs overserved Mowich, WA SNOTEL data.</p><h2>Addendum - Procedure 2 - Daily weather drivers</h2><p>Pseudo station Daymet climate data for water years 1995 and 1999 were compared to two observed SNOTEL climate sites in the Tolt river basin, Alpine Meadows and Skookum. Daily observations of precipitation (mm / day) were accumulated over the water year starting at October 1st and plotted out against Daymet model data at Longitude and Latitudes 1km cells at the location each SNOTEL site. 10 day moving average lines were added to daily comparisons of mean air temperature observations and Daymet models temperatures at those locations.</p><p>The same mean daily average temperature and precipitation comparison were made between the two SNOTEL sites.</p><img width="621" height="240" alt="Figure 3" title="Figure 3" src="public/suppImage_227.jpg"><p>Figure 19 Accumulated precipitation, Daymet vs Alpine Meadows SNOTEL.</p><img width="621" height="240" alt="figure 4" title="figure 4" src="public/suppImage_228.jpg"><p>Figure 20 Accumulated precipitation, Daymet vs Skookum SNOTEL.</p><img width="620" height="240" alt="figure 5" title="figure 5" src="public/suppImage_229.jpg"><p>Figure 21 Accumulated precipitation, Alpine Meadows vs Skookum SNOTEL</p><img width="624" height="240" alt="figure 6" title="figure 6" src="public/suppImage_230.jpg"><p>Figure 22 Daily air temperature, Daymet vs Alpine Meadows</p><img width="624" height="240" alt="figure 7" title="figure 7" src="public/suppImage_231.jpg"><p>Figure 23 Daily air temperature, Daymet vs Skookum</p><img width="624" height="240" alt="figure 8" title="figure 8" src="public/suppImage_232.jpg"><p>Figure 24 Daily air temperature, Skookum vs Alpine Meadows SNOTEL</p><h4>References</h4><p><a href="http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf">PRISM Climate Group (2013) Descriptions of PRISM Spatial Climate Datasets for the Conterminous United States. In. PRISM Climate Group, Oregon State University, Corvallis, Oregon, http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf</a></p><p>Thornton, P.E., M.M. Thornton, B.W. Mayer, N. Wilhelmi, Y. Wei, R. Devarakonda, and R.B. Cook. 2014. Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 2. Data set. Available on-line [https://daac.ornl.gov] from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, USA.</p><p><a href="http://www.wcc.nrcs.usda.gov/snow/snotel-precip-reports.html">United States Department of Agriculture, National Water and Climate Center. SNOTEL Precipitation Products. http://www.wcc.nrcs.usda.gov/snow/snotel-precip-reports.html</a></p><h2>Appendix</h2><p># Regression model between the weather variables (temperature and precipitation) and the # physiographic variables</p><p>climate&lt;-read.csv(&quot;D:/Temp/Tolt/ToltClimate.csv&quot;,header=TRUE) climVar&lt;-names(climate)</p><p># Retrieve the site names</p><p>for (i in climVar) { print(i)</p><p>}</p><p>ln&lt;-length(names(climate))</p><p># Simple plotting of each site, temp vs date</p><p># Modify output/create output directory for plots m &lt;- list()</p><p>for (i in 1:ln) {</p><p>fit &lt;- lm(climate[,i] ~ climate[,25])</p><p>fit &lt;- lm(X01_ppt~ele, data = climate) fitAtt&lt;-summary(fit) models$climVar[i]&lt;-fitAtt</p><p>directory=&quot;D:/Temp/Tolt/&quot;</p><p>r2&lt;- = round(fitAtt$adj.r.squared)</p><p>outname&lt;-paste(directory,climVar[i],&quot;.jpg&quot;,sep=&quot;&quot;)</p><p>jpeg(filename=outname,width=675,height=675,quality=100) #newdata&lt;-subset(wqdata, Site==i)</p><p>ylabel &lt;- paste(climVar[i],&quot; (mm)&quot;, sep=&quot;&quot;)</p><p>plot(climate[,i] ~ climate[,25],ylab=ylabel,xlab=&quot;Elevation (m)&quot;) abline(coef(fit)[1:2],col=&quot;red&quot;)</p><p>## rounded coefficients for better output cf &lt;- round(coef(fit), 3)</p><p>## sign check to avoid having plus followed by minus for negative coefficients eq &lt;- paste0(climVar[i], &quot; = &quot;, cf[1],</p><p>ifelse(sign(cf[2])==1, &quot; + &quot;, &quot; - &quot;), abs(cf[2]), &quot; ele R^2: &quot;, round(r2,3) mtext(eq, 3, line=1)</p><p>dev.off()</p><p>}</p><p># SNOTEL_Daymet_Climate_Comparison.r # Author: Paul Pettus</p><p># Purpose:</p><p># Compare Daymet modeled and SNOTEL ground station # observations of precipitation and mean air temperature #</p><p>################################################################ # Plots 1995 1999</p><p># Skookum</p><p>inFile&lt;-&quot;E:/SNOTEL/NRCS_Daymet_Daily_Skookum_Alpine_1995_1999.csv&quot;</p><p>dfdmNRCS = read.csv(inFile,header=TRUE,sep=&quot;,&quot;)</p><p>dfdmNRCS$Date &lt;- as.Date(dfdmNRCS$Date, format=&quot;%m/%d/%Y&quot;)</p><p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Daymet_Daily_TAVG_1995_1999.jpg&quot;</p><p>jpeg(filename=jpegFile,width=2000,height=800,quality=100) yLab &lt;- &quot;Mean Temperature (c)&quot;</p><p>xLab &lt;- &quot;Date&quot; mainTitle &lt;- &quot;Skookum&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p><p>f21 &lt;- rep(1/11,11)</p><p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_DM, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p><p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p><p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p><p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Skookum_PPT_Accumulation_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p><p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p><p>mainTitle &lt;- &quot;Skookum&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)</p><p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p><p># Alpine Meadows</p><p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Alpine_Daymet_Daily_TAVG_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p><p>yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;</p><p>mainTitle &lt;- &quot;Alpine Meadows&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p><p>f21 &lt;- rep(1/11,11)</p><p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Alp_DM, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p><p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p><p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p><p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Alpine_PPT_Accumulation_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p><p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p><p>mainTitle &lt;- &quot;Alpine Meadows&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle)</p><p>lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2) legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p><p># Apline Meadows vs Skookum</p><p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_Daily_TAVG_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p><p>yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;</p><p>mainTitle &lt;- &quot;SNOTEL Sites&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p><p>f21 &lt;- rep(1/11,11)</p><p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p><p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p><p>legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()</p><p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_PPT_Accumulation_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p><p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p><p>mainTitle &lt;- &quot;SNOTEL Sites&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)</p><p>legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()</p><p>#######################################################3</p><p># Plots 1994 2015</p><p>inFile&lt;-&quot;E:/SNOTEL/NRCS_Daymet_Daily_Skookum_Alpine_1995_2015.csv&quot; dfdmNRCS = read.csv(inFile,header=TRUE,sep=&quot;,&quot;)</p><p>dfdmNRCS$Date &lt;- as.Date(dfdmNRCS$Date, format=&quot;%m/%d/%Y&quot;)</p><p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Daymet_Daily_TAVG_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p><p>yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;</p><p>mainTitle &lt;- &quot;Skookum&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p><p>f21 &lt;- rep(1/11,11)</p><p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_DM, f21, sides=2)</p><p>lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p><p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p><p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p><p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Skookum_PPT_Accumulation_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p><p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p><p>mainTitle &lt;- &quot;Skookum&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)</p><p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p><p># Alpine Meadows</p><p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Alpine_Daymet_Daily_TAVG_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p><p>yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;</p><p>mainTitle &lt;- &quot;Alpine Meadows&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p><p>f21 &lt;- rep(1/11,11)</p><p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Alp_DM, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p><p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p><p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p><p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Alpine_PPT_Accumulation_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p><p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p><p>mainTitle &lt;- &quot;Alpine Meadows&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)</p><p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p><p># Apline Meadows vs Skookum</p><p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_Daily_TAVG_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p><p>yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;</p><p>mainTitle &lt;- &quot;SNOTEL Sites&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p><p>f21 &lt;- rep(1/11,11)</p><p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p><p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p><p>legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()</p><p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_PPT_Accumulation_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p><p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p><p>mainTitle &lt;- &quot;SNOTEL Sites&quot;</p><p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)</p><p>legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()</p><p># tolt_plot_8-11-2016.r # Author: Paul Pettus</p><p># Purpose:</p><p># Create Daymet 30 year normal regressions of Mean air temperature # and precipitaion in the Greater Tolt river basin, WA</p><p>#</p><p>#climate&lt;-read.csv(&quot;D:/Temp/Mashel/MashelClimate.csv&quot;,header=TRUE)</p><p>climate&lt;-read.csv(&quot;C:/Temp/Daymet_Tolt/Tolt_Beyond_Climate.csv&quot;,header=TRUE)</p><p>#climate&lt;-read.csv(&quot;C:/Temp/Daymet_Tolt/Tolt_Beyond_Climate_Mean_Elevation.csv&quot;,header=TRUE)</p><p>#directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Over_1000m/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Under_1000m/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Over_500m/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Under_500m/&quot;</p><p>directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean/&quot;</p><p>climVar&lt;-names(climate) head(climate)</p><p>##################################################################</p><p># Climate subsets</p><p>#climate &lt;- subset(climate, ele &gt;= 1000) #climate &lt;- subset(climate, ele &lt; 1000) #climate2 &lt;- subset(climate, ele &gt;= 500) #climate2 &lt;- subset(climate, ele &lt; 500)</p><p>head(climate)</p><p># Calapooia site temperature date times # Retrieve the site names</p><p>for (i in climVar) {</p><p>print(i)</p><p>}</p><p>ln&lt;-length(names(climate))</p><p># Simple plotting of each site, temp vs date</p><p># Modify output/create output directory for plots</p><p>#################################################</p><p>models &lt;- list() for (i in 1:ln) {</p><p>fit &lt;- lm(climate[,i] ~ climate[,25])</p><p>#fit &lt;- lm(X01_ppt~ele, data = climate) val&lt;-climVar[i]</p><p>models[[val]]&lt;-fit fitAtt&lt;-summary(fit)</p><p>#directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions/&quot; r2&lt;- round(fitAtt$adj.r.squared,3)</p><p>#print(r2) #</p><p>outname&lt;-paste(directory,climVar[i],&quot;.jpg&quot;,sep=&quot;&quot;)</p><p>jpeg(filename=outname,width=675,height=675,quality=100) #newdata&lt;-subset(wqdata, Site==i)</p><p>ylabel &lt;- paste(climVar[i],&quot; (mm)&quot;, sep=&quot;&quot;) xlabel&lt;- &quot;Elevation (m)&quot;</p><p>plot(climate[,i] ~ climate[,25],ylab=ylabel,xlab=xlabel) abline(coef(fit)[1:2],col=&quot;red&quot;)</p><p>## rounded coefficients for better output cf &lt;- round(coef(fit), 3)</p><p># r2 &lt;- round(r2, 2)</p><p>## sign check to avoid having plus followed by minus for negative coefficients eq &lt;- paste0(climate[i], &quot; = &quot;, cf[1],</p><p>ifelse(sign(cf[2])==1, &quot; + &quot;, &quot; - &quot;), abs(cf[2]), &quot; ele R^2: &quot;, r2)</p><p>eq</p><p>mtext(eq, 3, line=1) dev.off()</p><p>}</p><p>#outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Over_1000m/Tolt_Model_Summary_Beyond_Over_1000m.csv&quot; #outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Under_1000m/Tolt_Model_Summary_Beyond_Under_1000m.csv&quot; #outFile2&lt;- &quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Over_500m/Tolt_Model_Summary_Elevation_Mean_Over_500m.csv&quot; #outFile2&lt;- &quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Under_500m/Tolt_Model_Summary_Elevation_Mean_Under_500m.csv&quot;</p><p>outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond/Tolt_Model_Summary_Beyond.csv&quot;</p><p>#outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean/Tolt_Model_Summary_Beyond_Elevation_Mean.csv&quot;</p><p>for (i in 1:length(models)) { modname &lt;-names(models[i]) cf&lt;-coef(models[[i]])</p><p>rsq&lt;-summary(models[[i]])$adj.r.squared cat( paste(modname,cf[1],cf[2],rsq,sep=&#39;,&#39;)</p><p>,&#39;\n&#39;,file=outFile2,append=TRUE)</p><p>}</p></div></body><footer id="footer"><p>VELMA 2.2 DOCUMENTATION</p></footer></html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="/index.html">VELMA 2.2 HOME</a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item dropdown">VELMA 2.0 Manual
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/intro.html"><span>I. Intro</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/changes.html"><span>II. Changes from 1.0</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/about.html"><span>III. About</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/input_files.html"><span>IV. Input Files </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/new_sim_config.html"><span>V. Sim Config</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/parameter_config.html"><span>VI. Parameter Config</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Appendicies
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/appendix_1.html"><span>Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_2.html"><span>Initializing a Spatial Data Pool Using an ASCII Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_3.html"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_4.html"><span>Overview of VELMA Simulator Output</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_5.html"><span>Generating daily temperature and precipitation grids for running VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_6.html"><span>Hydrological and Biochemical Model Descriptions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_7.html"><span>Creating Flat-Processed DEM Data For The VELMA Simulator</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Supplemental Info (VELMA 2.1)
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/supplement-a1.html"><span>Organic Contaminant Modeling Using VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-a2.html"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-a3.html"><span>VELMA Contaminant Modeling Demonstration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-a4.html"><span>Adding Stormwater Drains for Urban &amp; Mixed-Use Watershed Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b1.html"><span>Creating Flat-Processed DEM Data for the VELMA Simulator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b2.html"><span>JPDEM Cell Highlighter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b3.html"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b4.html"><span>JPDEM Flow Test Tool</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b5.html"><span>JPDEM Saving Data to Files</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b6.html"><span>JPDEM User-Specified Map Borders</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b7.html"><span>JPDEM User-Specified Border Mask</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b8.html"><span>JPDEM for Viewing Map Differences</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b9.html"><span>JPDEM Sub-Reach Delineations</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b10.html"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-c1.html"><span>VELMA Reach Mapping</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-c2.html"><span>How to Run VELMA in Parallel Mode</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-c3.html"><span>Rationale for Parallel Velma and Reach Segmentation</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d1.html"><span>Acquisition &amp; Generation of VELMA Input Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d2.html"><span>Soil Data Mapping and Parameter Initialization</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d3.html"><span>Initialize a Spatial Data Pool Using an Ascii Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d4.html"><span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d5.html"><span>Create Land-zoning Maps for a VELMA Application</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d6.html"><span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d7a.html"><span>Create Multiple-Location Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d7b.html"><span>Development of Statistical Models Based on Monthly PRISM / Daymet Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d8.html"><span>Cell Data Writer Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d9.html"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d10.html"><span>Default Tidewater Model Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e1.html"><span>Mapping Surface Layer Permeabilities</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e2.html"><span>VELMA Surface Chemistry Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e3.html"><span>Deposition of Surface Chemicals</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e4.html"><span>Implementing Green Roof Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e5.html"><span>Irrigation Disturbance</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e6.html"><span>Groundwater Storage Mechanism</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e7.html"><span>Spatial Data Writer Key Words for Generating ASCII VELMA Outputs for Data Visualization</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="/dev_info.html"><span>Developer Info</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracter Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/TopoFiles_Output_Summary.html"><span>Topo Files Output Summary </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaParallel_Error_Reports.html"><span>Velma Parallel Error Reports</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaParallel_With_Multiple_Maps.html"><span>Velma Parallel With Multiple Maps </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/WaterDrainDisturbanceModel_Overview.html"><span>Water Drain Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimulatorCmdLine_Overview.html"><span>Velma Sim Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimulatorAltCmdLine_Overview.html"><span>Velma Sim Alt Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/SurfaceEvaporation_Overview.html"><span>Surface Evaporation Overview</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="/dev_utils.html"><span>Developer Utils</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="main_body container">
+      <h1>D.7b | Statistical Climate Addendum: Development of Statistical Models Based on Monthly PRISM / Daymet Data</h1>
+      <div class="info blue-light-1">
+        <p>Overview <i>(Tutorial D.7b - Addendum to Spatial Climate Statistics)</i></p>
+        <p>VELMA requires daily temperature and precipitation climate data to accurately simulate hydrologic processes in watersheds, such as runoff and soil moisture dynamics. Therefore, the accuracy of hydrologic predictions will largely depend upon the proximity of climate a station(s) to the simulated watershed or portions therein. Especially for large watersheds having steep climatic gradients - mountains and coastal areas, for example - climate data need to be at relatively fine spatial resolution (e.g., 1 km2) to accurately capture snow dynamics, runoff and other processes.</p>
+        <p>This document describes methods for dealing with sparse climate station data. New methods are introduced for improving the estimation of statistical parameters for the VELMA Spatial Weather Model previously described in Appendix 5 of McKane et al. (2014). These new methods include generating daily pseudo weather station driver data for areas of interest that lack ground-based weather stations.</p>
+        <p>Reference:</p>
+        <p>McKane, R.; Brookes, A.; Djang, K.; Stieglitz, M.; Abdelnour, A.; Pan, F.; Halama, J.; Pettus, P.; Phillips, D. (2014) Velma User Manual and Technical Documentation, 2nd ed.; U.S. Environmental Protection Agency Office of Research and Development National Health and Environmental Effects Research Laboratory: Corvallis, OR.</p>
+      </div>
+      <h2>Procedure 1 - Generate statistical parameters</h2>
+      <p>Following the Spatial Weather Model methodology, correlation coefficients were generated from 800m resolution PRISM 30-year monthly temperature and precipitation normals for 1981- 2010 (PRISM, 2013). Correlation models were build based on a single independent variable, elevation. Gridded PRISM data were downscaled to match the 30m digital elevation modeled data. Relational models were then generated for each 30 year normal month cell to its corresponding elevation cell of the AOI. Monthly models were developed for both mean air temperature and precipitation, for each AOI. Revised intercept and slope values were used to complete both the "Air Temperature Coefficients File" and the "Precipitation Coefficients File", which are needed for the VELMA Spatial Weather Configuration. Unfitted parameters such as heat index and flow accumulation were set to zero, since they were unmodeled. The results are summarized in Table 1 and Table 2. All regression equations were created using R statistics package (Appendix 1).</p>
+      <h4>Table 1. Mashel River Basin, WA</h4>
+      <table>
+        <thead>
+          <th>Parameter</th>
+          <th>Intercept</th>
+          <th>Slope</th>
+          <th>R^2</th>
+        </thead>
+        <tr>
+          <td>X01_ppt</td>
+          <td>131.1239</td>
+          <td>0.165175</td>
+          <td>0.626577</td>
+        </tr>
+        <tr>
+          <td>X02_ppt</td>
+          <td>86.67763</td>
+          <td>0.086708</td>
+          <td>0.61712</td>
+        </tr>
+        <tr>
+          <td>X03_ppt</td>
+          <td>115.3467</td>
+          <td>0.08018</td>
+          <td>0.531575</td>
+        </tr>
+        <tr>
+          <td>X04_ppt</td>
+          <td>87.67271</td>
+          <td>0.069019</td>
+          <td>0.714808</td>
+        </tr>
+        <tr>
+          <td>X05_ppt</td>
+          <td>64.68459</td>
+          <td>0.077026</td>
+          <td>0.848851</td>
+        </tr>
+        <tr>
+          <td>X06_ppt</td>
+          <td>42.64319</td>
+          <td>0.077571</td>
+          <td>0.881703</td>
+        </tr>
+        <tr>
+          <td>X07_ppt</td>
+          <td>17.00757</td>
+          <td>0.036384</td>
+          <td>0.874514</td>
+        </tr>
+        <tr>
+          <td>X08_ppt</td>
+          <td>25.5493</td>
+          <td>0.017223</td>
+          <td>0.763215</td>
+        </tr>
+        <tr>
+          <td>X09_ppt</td>
+          <td>33.77266</td>
+          <td>0.050396</td>
+          <td>0.850796</td>
+        </tr>
+        <tr>
+          <td>X11_ppt</td>
+          <td>151.339</td>
+          <td>0.157905</td>
+          <td>0.62436</td>
+        </tr>
+        <tr>
+          <td>X12_ppt</td>
+          <td>128.1081</td>
+          <td>0.110864</td>
+          <td>0.534228</td>
+        </tr>
+        <tr>
+          <td>X01_mt</td>
+          <td>5.306282</td>
+          <td>-0.00422</td>
+          <td>0.87001</td>
+        </tr>
+        <tr>
+          <td>X02_mt</td>
+          <td>5.815265</td>
+          <td>-0.00429</td>
+          <td>0.889654</td>
+        </tr>
+        <tr>
+          <td>X03_mt</td>
+          <td>7.904366</td>
+          <td>-0.0051</td>
+          <td>0.919949</td>
+        </tr>
+        <tr>
+          <td>X04_mt</td>
+          <td>10.30037</td>
+          <td>-0.00507</td>
+          <td>0.9252</td>
+        </tr>
+        <tr>
+          <td>X05_mt</td>
+          <td>13.6444</td>
+          <td>-0.00504</td>
+          <td>0.924011</td>
+        </tr>
+        <tr>
+          <td>X06_mt</td>
+          <td>16.35791</td>
+          <td>-0.00495</td>
+          <td>0.925487</td>
+        </tr>
+        <tr>
+          <td>X07_mt</td>
+          <td>18.90406</td>
+          <td>-0.004</td>
+          <td>0.907101</td>
+        </tr>
+        <tr>
+          <td>X08_mt</td>
+          <td>19.22824</td>
+          <td>-0.00397</td>
+          <td>0.893755</td>
+        </tr>
+        <tr>
+          <td>X09_mt</td>
+          <td>16.23177</td>
+          <td>-0.00365</td>
+          <td>0.870096</td>
+        </tr>
+        <tr>
+          <td>X10_mt</td>
+          <td>11.42558</td>
+          <td>-0.00365</td>
+          <td>0.872491</td>
+        </tr>
+        <tr>
+          <td>X11_mt</td>
+          <td>7.16671</td>
+          <td>-0.00427</td>
+          <td>0.88421</td>
+        </tr>
+        <tr>
+          <td>X12_mt</td>
+          <td>4.495029</td>
+          <td>-0.00412</td>
+          <td>0.866289</td>
+        </tr>
+      </table>
+      <table> 
+        <tr> 
+          <td>Parameter</td>
+          <td>Intercept</td>
+          <td>Slope</td>
+          <td>R^2</td>
+        </tr>
+        <tr>
+          <td>X01_ppt</td>
+          <td>156.8465</td>
+          <td>0.340983</td>
+          <td>0.873725</td>
+        </tr>
+        <tr>
+          <td>X02_ppt</td>
+          <td>104.9198</td>
+          <td>0.209417</td>
+          <td>0.867981</td>
+        </tr>
+        <tr>
+          <td>X03_ppt</td>
+          <td>118.9242</td>
+          <td>0.241798</td>
+          <td>0.878695</td>
+        </tr>
+        <tr>
+          <td>X04_ppt</td>
+          <td>101.0095</td>
+          <td>0.174351</td>
+          <td>0.876515</td>
+        </tr>
+        <tr>
+          <td>X05_ppt</td>
+          <td>91.96905</td>
+          <td>0.123868</td>
+          <td>0.854035</td>
+        </tr>
+        <tr>
+          <td>X06_ppt</td>
+          <td>70.32923</td>
+          <td>0.10755</td>
+          <td>0.854376</td>
+        </tr>
+        <tr>
+          <td>X07_ppt</td>
+          <td>32.10464</td>
+          <td>0.059888</td>
+          <td>0.86893</td>
+        </tr>
+        <tr>
+          <td>X08_ppt</td>
+          <td>28.56578</td>
+          <td>0.062882</td>
+          <td>0.872201</td>
+        </tr>
+        <tr>
+          <td>X09_ppt</td>
+          <td>59.68145</td>
+          <td>0.114886</td>
+          <td>0.865976</td>
+        </tr>
+        <tr>
+          <td>X10_ppt</td>
+          <td>115.1068</td>
+          <td>0.198013</td>
+          <td>0.87521</td>
+        </tr>
+        <tr>
+          <td>X11_ppt</td>
+          <td>194.4334</td>
+          <td>0.356659</td>
+          <td>0.874651</td>
+        </tr>
+        <tr>
+          <td>X12_ppt</td>
+          <td>152.0708</td>
+          <td>0.273897</td>
+          <td>0.868276</td>
+        </tr>
+        <tr>
+          <td>X01_mt</td>
+          <td>4.973876</td>
+          <td>-0.00426</td>
+          <td>0.889799</td>
+        </tr>
+        <tr>
+          <td>X02_mt</td>
+          <td>5.770962</td>
+          <td>-0.00439</td>
+          <td>0.900742</td>
+        </tr>
+        <tr>
+          <td>X03_mt</td>
+          <td>7.638908</td>
+          <td>-0.00501</td>
+          <td>0.918905</td>
+        </tr>
+        <tr>
+          <td>X04_mt</td>
+          <td>9.851594</td>
+          <td>-0.00459</td>
+          <td>0.907267</td>
+        </tr>
+        <tr>
+          <td>X05_mt</td>
+          <td>13.03208</td>
+          <td>-0.00482</td>
+          <td>0.921168</td>
+        </tr>
+        <tr>
+          <td>X06_mt</td>
+          <td>15.6836</td>
+          <td>-0.00476</td>
+          <td>0.920645</td>
+        </tr>
+        <tr>
+          <td>X07_mt</td>
+          <td>18.31654</td>
+          <td>-0.00379</td>
+          <td>0.912681</td>
+        </tr>
+        <tr>
+          <td>X08_mt</td>
+          <td>18.68841</td>
+          <td>-0.00389</td>
+          <td>0.916803</td>
+        </tr>
+        <tr>
+          <td>X09_mt</td>
+          <td>15.68156</td>
+          <td>-0.00357</td>
+          <td>0.896509</td>
+        </tr>
+        <tr>
+          <td>X10_mt</td>
+          <td>11.23656</td>
+          <td>-0.00382</td>
+          <td>0.911043</td>
+        </tr>
+        <tr>
+          <td>X11_mt</td>
+          <td>6.95446</td>
+          <td>-0.00444</td>
+          <td>0.89201</td>
+        </tr>
+        <tr>
+          <td>X12_mt</td>
+          <td>4.201191</td>
+          <td>-0.00419</td>
+          <td>0.884903</td>
+        </tr>
+      </table>
+      <h2>Procedure 2 - Daily weather drivers</h2>
+      <p>Pseudo weather stations were created to solve the problem of when there is no ground observational climate data within AOI. These data are also need to properly parametrize the regression driver data of the VELMA spatial weather model. Daily Gridded Weather Data (Daymet) is a national climate data set that was developed in part from NASA funding, for the years of 1980 - 2014, and is widely used in the scientific community (Thorton et al., 2014). It models daily air temperature and precipitation at a higher 1 km x 1 km spatial resolution, compared to the 4 km x 4 km spatial resolution climate data that is publicly available from the PRISM group (PRISM, 2013).</p>
+      <p>Pseudo weather stations were created by choosing a semi homogenous elevation area within the AOI that was overlaid by one 1 km Daymet cell. Using the latitude and longitude of the cell, daily precipitation and air temperature data was downloaded for the temporal period of interest. This daily Daymet modeled data was then used as an observed "weather station" within the AOI. This cell location would be used as the "Prime Cell" by its center DEM cell x- and-y coordinates as part of the Spatial Weather Model's parameterization.</p><img width="625" height="391" alt="image" src="public/suppImage_225.png">
+      <p>As an example, the Mowich SNOTEL weather station that is several KM north and east of the Mashel river basin in Washington was used to explore the effectiveness of this process. 1998 - 2014 SNOTEL from this station along with Daymet modeled climate for these days was plotted to explore fit ground observations vs modeled climate. Results are summarized in Figure 1 and Figure 2.</p>
+      <p>Figure 17 Daymet modeled air temperature vs overserved Mowich, WA SNOTEL data.</p><img width="625" height="448" alt="image" src="public/suppImage_226.png">
+      <p>Figure 18. Daymet modeled precipitation vs overserved Mowich, WA SNOTEL data.</p>
+      <h2>Addendum - Procedure 2 - Daily weather drivers</h2>
+      <p>Pseudo station Daymet climate data for water years 1995 and 1999 were compared to two observed SNOTEL climate sites in the Tolt river basin, Alpine Meadows and Skookum. Daily observations of precipitation (mm / day) were accumulated over the water year starting at October 1st and plotted out against Daymet model data at Longitude and Latitudes 1km cells at the location each SNOTEL site. 10 day moving average lines were added to daily comparisons of mean air temperature observations and Daymet models temperatures at those locations.</p>
+      <p>The same mean daily average temperature and precipitation comparison were made between the two SNOTEL sites.</p><img width="621" height="240" alt="Figure 3" title="Figure 3" src="public/suppImage_227.jpg">
+      <p>Figure 19 Accumulated precipitation, Daymet vs Alpine Meadows SNOTEL.</p><img width="621" height="240" alt="figure 4" title="figure 4" src="public/suppImage_228.jpg">
+      <p>Figure 20 Accumulated precipitation, Daymet vs Skookum SNOTEL.</p><img width="620" height="240" alt="figure 5" title="figure 5" src="public/suppImage_229.jpg">
+      <p>Figure 21 Accumulated precipitation, Alpine Meadows vs Skookum SNOTEL</p><img width="624" height="240" alt="figure 6" title="figure 6" src="public/suppImage_230.jpg">
+      <p>Figure 22 Daily air temperature, Daymet vs Alpine Meadows</p><img width="624" height="240" alt="figure 7" title="figure 7" src="public/suppImage_231.jpg">
+      <p>Figure 23 Daily air temperature, Daymet vs Skookum</p><img width="624" height="240" alt="figure 8" title="figure 8" src="public/suppImage_232.jpg">
+      <p>Figure 24 Daily air temperature, Skookum vs Alpine Meadows SNOTEL</p>
+      <h4>References</h4>
+      <p><a href="http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf">PRISM Climate Group (2013) Descriptions of PRISM Spatial Climate Datasets for the Conterminous United States. In. PRISM Climate Group, Oregon State University, Corvallis, Oregon, http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf</a></p>
+      <p>Thornton, P.E., M.M. Thornton, B.W. Mayer, N. Wilhelmi, Y. Wei, R. Devarakonda, and R.B. Cook. 2014. Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 2. Data set. Available on-line [https://daac.ornl.gov] from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, USA.</p>
+      <p><a href="http://www.wcc.nrcs.usda.gov/snow/snotel-precip-reports.html">United States Department of Agriculture, National Water and Climate Center. SNOTEL Precipitation Products. http://www.wcc.nrcs.usda.gov/snow/snotel-precip-reports.html</a></p>
+      <h2>Appendix</h2>
+      <p># Regression model between the weather variables (temperature and precipitation) and the # physiographic variables</p>
+      <p>climate&lt;-read.csv(&quot;D:/Temp/Tolt/ToltClimate.csv&quot;,header=TRUE) climVar&lt;-names(climate)</p>
+      <p># Retrieve the site names</p>
+      <p>for (i in climVar) { print(i)</p>
+      <p>}</p>
+      <p>ln&lt;-length(names(climate))</p>
+      <p># Simple plotting of each site, temp vs date</p>
+      <p># Modify output/create output directory for plots m &lt;- list()</p>
+      <p>for (i in 1:ln) {</p>
+      <p>fit &lt;- lm(climate[,i] ~ climate[,25])</p>
+      <p>fit &lt;- lm(X01_ppt~ele, data = climate) fitAtt&lt;-summary(fit) models$climVar[i]&lt;-fitAtt</p>
+      <p>directory=&quot;D:/Temp/Tolt/&quot;</p>
+      <p>r2&lt;- = round(fitAtt$adj.r.squared)</p>
+      <p>outname&lt;-paste(directory,climVar[i],&quot;.jpg&quot;,sep=&quot;&quot;)</p>
+      <p>jpeg(filename=outname,width=675,height=675,quality=100) #newdata&lt;-subset(wqdata, Site==i)</p>
+      <p>ylabel &lt;- paste(climVar[i],&quot; (mm)&quot;, sep=&quot;&quot;)</p>
+      <p>plot(climate[,i] ~ climate[,25],ylab=ylabel,xlab=&quot;Elevation (m)&quot;) abline(coef(fit)[1:2],col=&quot;red&quot;)</p>
+      <p>## rounded coefficients for better output cf &lt;- round(coef(fit), 3)</p>
+      <p>## sign check to avoid having plus followed by minus for negative coefficients eq &lt;- paste0(climVar[i], &quot; = &quot;, cf[1],</p>
+      <p>ifelse(sign(cf[2])==1, &quot; + &quot;, &quot; - &quot;), abs(cf[2]), &quot; ele R^2: &quot;, round(r2,3) mtext(eq, 3, line=1)</p>
+      <p>dev.off()</p>
+      <p>}</p>
+      <p># SNOTEL_Daymet_Climate_Comparison.r # Author: Paul Pettus</p>
+      <p># Purpose:</p>
+      <p># Compare Daymet modeled and SNOTEL ground station # observations of precipitation and mean air temperature #</p>
+      <p>################################################################ # Plots 1995 1999</p>
+      <p># Skookum</p>
+      <p>inFile&lt;-&quot;E:/SNOTEL/NRCS_Daymet_Daily_Skookum_Alpine_1995_1999.csv&quot;</p>
+      <p>dfdmNRCS = read.csv(inFile,header=TRUE,sep=&quot;,&quot;)</p>
+      <p>dfdmNRCS$Date &lt;- as.Date(dfdmNRCS$Date, format=&quot;%m/%d/%Y&quot;)</p>
+      <p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Daymet_Daily_TAVG_1995_1999.jpg&quot;</p>
+      <p>jpeg(filename=jpegFile,width=2000,height=800,quality=100) yLab &lt;- &quot;Mean Temperature (c)&quot;</p>
+      <p>xLab &lt;- &quot;Date&quot; mainTitle &lt;- &quot;Skookum&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p>
+      <p>f21 &lt;- rep(1/11,11)</p>
+      <p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_DM, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p>
+      <p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p>
+      <p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p>
+      <p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Skookum_PPT_Accumulation_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p>
+      <p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p>
+      <p>mainTitle &lt;- &quot;Skookum&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)</p>
+      <p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p>
+      <p># Alpine Meadows</p>
+      <p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Alpine_Daymet_Daily_TAVG_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p>
+      <p>yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;</p>
+      <p>mainTitle &lt;- &quot;Alpine Meadows&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p>
+      <p>f21 &lt;- rep(1/11,11)</p>
+      <p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Alp_DM, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p>
+      <p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p>
+      <p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p>
+      <p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Alpine_PPT_Accumulation_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p>
+      <p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p>
+      <p>mainTitle &lt;- &quot;Alpine Meadows&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle)</p>
+      <p>lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2) legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p>
+      <p># Apline Meadows vs Skookum</p>
+      <p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_Daily_TAVG_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p>
+      <p>yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;</p>
+      <p>mainTitle &lt;- &quot;SNOTEL Sites&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p>
+      <p>f21 &lt;- rep(1/11,11)</p>
+      <p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p>
+      <p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p>
+      <p>legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()</p>
+      <p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_PPT_Accumulation_1995_1999.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p>
+      <p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p>
+      <p>mainTitle &lt;- &quot;SNOTEL Sites&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)</p>
+      <p>legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()</p>
+      <p>#######################################################3</p>
+      <p># Plots 1994 2015</p>
+      <p>inFile&lt;-&quot;E:/SNOTEL/NRCS_Daymet_Daily_Skookum_Alpine_1995_2015.csv&quot; dfdmNRCS = read.csv(inFile,header=TRUE,sep=&quot;,&quot;)</p>
+      <p>dfdmNRCS$Date &lt;- as.Date(dfdmNRCS$Date, format=&quot;%m/%d/%Y&quot;)</p>
+      <p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Daymet_Daily_TAVG_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p>
+      <p>yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;</p>
+      <p>mainTitle &lt;- &quot;Skookum&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p>
+      <p>f21 &lt;- rep(1/11,11)</p>
+      <p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_DM, f21, sides=2)</p>
+      <p>lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p>
+      <p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p>
+      <p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p>
+      <p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Skookum_PPT_Accumulation_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p>
+      <p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p>
+      <p>mainTitle &lt;- &quot;Skookum&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)</p>
+      <p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p>
+      <p># Alpine Meadows</p>
+      <p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Alpine_Daymet_Daily_TAVG_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p>
+      <p>yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;</p>
+      <p>mainTitle &lt;- &quot;Alpine Meadows&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_DM,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p>
+      <p>f21 &lt;- rep(1/11,11)</p>
+      <p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Alp_DM, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p>
+      <p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p>
+      <p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p>
+      <p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Daymet_Alpine_PPT_Accumulation_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p>
+      <p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p>
+      <p>mainTitle &lt;- &quot;Alpine Meadows&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_DM,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)</p>
+      <p>legend(&#39;topright&#39;, legend=c(&quot;Daymet&quot;,&quot;SNOTEL&quot;), lwd=c(2.5,2.5), col=c(&quot;blue&quot;,&quot;red&quot;)) dev.off()</p>
+      <p># Apline Meadows vs Skookum</p>
+      <p>jpegFile&lt;-&quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_Daily_TAVG_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p>
+      <p>yLab &lt;- &quot;Mean Temperature (c)&quot; xLab &lt;- &quot;Date&quot;</p>
+      <p>mainTitle &lt;- &quot;SNOTEL Sites&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Alp_SN,type=&quot;p&quot;,col=&quot;red&quot;,pch=1,xlab=xLab, ylab=yLab,main=mainTitle) points(dfdmNRCS$Date,dfdmNRCS$TAVG_c_Skook_SN,type=&quot;p&quot;,col=&quot;blue&quot;,pch=2)</p>
+      <p>f21 &lt;- rep(1/11,11)</p>
+      <p>y_sym2 &lt;- filter(dfdmNRCS$TAVG_c_Skook_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym2, col=&quot;blue&quot;,lwd=2)</p>
+      <p>y_sym &lt;- filter(dfdmNRCS$TAVG_c_Alp_SN, f21, sides=2) lines(dfdmNRCS$Date, y_sym, col=&quot;red&quot;,lwd=2)</p>
+      <p>legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()</p>
+      <p>jpegFile &lt;- &quot;E:/SNOTEL/Plots/SNOTEL_Skookum_Alpine_PPT_Accumulation_1995_2015.jpg&quot; jpeg(filename=jpegFile,width=2000,height=800,quality=100)</p>
+      <p>yLab &lt;- &quot;Precipitaion Accumulation (mm)&quot; xLab &lt;- &quot;Date&quot;</p>
+      <p>mainTitle &lt;- &quot;SNOTEL Sites&quot;</p>
+      <p>plot(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Alp_SN,type=&quot;l&quot;,col=&quot;red&quot;,pch=1, xlab=xLab, ylab=yLab,main=mainTitle) lines(dfdmNRCS$Date,dfdmNRCS$acc_PPT_mm_Skook_SN,type=&quot;l&quot;,col=&quot;blue&quot;,pch=2)</p>
+      <p>legend(&#39;topright&#39;, legend=c(&quot;Alpine&quot;,&quot;Skookum&quot;), lwd=c(2.5,2.5), col=c(&quot;red&quot;,&quot;blue&quot;)) dev.off()</p>
+      <p># tolt_plot_8-11-2016.r # Author: Paul Pettus</p>
+      <p># Purpose:</p>
+      <p># Create Daymet 30 year normal regressions of Mean air temperature # and precipitaion in the Greater Tolt river basin, WA</p>
+      <p>#</p>
+      <p>#climate&lt;-read.csv(&quot;D:/Temp/Mashel/MashelClimate.csv&quot;,header=TRUE)</p>
+      <p>climate&lt;-read.csv(&quot;C:/Temp/Daymet_Tolt/Tolt_Beyond_Climate.csv&quot;,header=TRUE)</p>
+      <p>#climate&lt;-read.csv(&quot;C:/Temp/Daymet_Tolt/Tolt_Beyond_Climate_Mean_Elevation.csv&quot;,header=TRUE)</p>
+      <p>#directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Over_1000m/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Under_1000m/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Over_500m/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Under_500m/&quot;</p>
+      <p>directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond/&quot; #directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean/&quot;</p>
+      <p>climVar&lt;-names(climate) head(climate)</p>
+      <p>##################################################################</p>
+      <p># Climate subsets</p>
+      <p>#climate &lt;- subset(climate, ele &gt;= 1000) #climate &lt;- subset(climate, ele &lt; 1000) #climate2 &lt;- subset(climate, ele &gt;= 500) #climate2 &lt;- subset(climate, ele &lt; 500)</p>
+      <p>head(climate)</p>
+      <p># Calapooia site temperature date times # Retrieve the site names</p>
+      <p>for (i in climVar) {</p>
+      <p>print(i)</p>
+      <p>}</p>
+      <p>ln&lt;-length(names(climate))</p>
+      <p># Simple plotting of each site, temp vs date</p>
+      <p># Modify output/create output directory for plots</p>
+      <p>#################################################</p>
+      <p>models &lt;- list() for (i in 1:ln) {</p>
+      <p>fit &lt;- lm(climate[,i] ~ climate[,25])</p>
+      <p>#fit &lt;- lm(X01_ppt~ele, data = climate) val&lt;-climVar[i]</p>
+      <p>models[[val]]&lt;-fit fitAtt&lt;-summary(fit)</p>
+      <p>#directory=&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions/&quot; r2&lt;- round(fitAtt$adj.r.squared,3)</p>
+      <p>#print(r2) #</p>
+      <p>outname&lt;-paste(directory,climVar[i],&quot;.jpg&quot;,sep=&quot;&quot;)</p>
+      <p>jpeg(filename=outname,width=675,height=675,quality=100) #newdata&lt;-subset(wqdata, Site==i)</p>
+      <p>ylabel &lt;- paste(climVar[i],&quot; (mm)&quot;, sep=&quot;&quot;) xlabel&lt;- &quot;Elevation (m)&quot;</p>
+      <p>plot(climate[,i] ~ climate[,25],ylab=ylabel,xlab=xlabel) abline(coef(fit)[1:2],col=&quot;red&quot;)</p>
+      <p>## rounded coefficients for better output cf &lt;- round(coef(fit), 3)</p>
+      <p># r2 &lt;- round(r2, 2)</p>
+      <p>## sign check to avoid having plus followed by minus for negative coefficients eq &lt;- paste0(climate[i], &quot; = &quot;, cf[1],</p>
+      <p>ifelse(sign(cf[2])==1, &quot; + &quot;, &quot; - &quot;), abs(cf[2]), &quot; ele R^2: &quot;, r2)</p>
+      <p>eq</p>
+      <p>mtext(eq, 3, line=1) dev.off()</p>
+      <p>}</p>
+      <p>#outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Over_1000m/Tolt_Model_Summary_Beyond_Over_1000m.csv&quot; #outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond_Under_1000m/Tolt_Model_Summary_Beyond_Under_1000m.csv&quot; #outFile2&lt;- &quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Over_500m/Tolt_Model_Summary_Elevation_Mean_Over_500m.csv&quot; #outFile2&lt;- &quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean_Under_500m/Tolt_Model_Summary_Elevation_Mean_Under_500m.csv&quot;</p>
+      <p>outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Beyond/Tolt_Model_Summary_Beyond.csv&quot;</p>
+      <p>#outFile2&lt;-&quot;C:/Temp/Daymet_Tolt/Daymet_Regressions_Elevation_Mean/Tolt_Model_Summary_Beyond_Elevation_Mean.csv&quot;</p>
+      <p>for (i in 1:length(models)) { modname &lt;-names(models[i]) cf&lt;-coef(models[[i]])</p>
+      <p>rsq&lt;-summary(models[[i]])$adj.r.squared cat( paste(modname,cf[1],cf[2],rsq,sep=&#39;,&#39;)</p>
+      <p>,&#39;\n&#39;,file=outFile2,append=TRUE)</p>
+      <p>}</p>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA 2.2 DOCUMENTATION</p>
+  </footer>
+</html>

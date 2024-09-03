@@ -1,7 +1,6 @@
 extends layout.pug
 block content
-    h1 Appendix 2:
-    h2 Initializing a Spatial Data Pool Using an ASCII Grid
+    h1 Appendix 2: Initializing a Spatial Data Pool Using an ASCII Grid
     br 
     VELMA Simulator spatial data pools may be initialized by specifying "Set SpatialData By Map" disturbances as part of a simulator run's simulation configuration. Each spatial data pool (andeach layer of that pool for multi- layer pools) that is initialized must have a separate disturbancespecified for it, and its own Grid ASCII (.asc) map file available for the disturbance to use as a datasource3.
     p Assuming an otherwise already configured simulation configuration is loaded into JVelma, here is how toinitialize a spatial data pool (using the leaf biomass pool as our example) by adding a Set Spatial By Mapdisturbance event to the configuration:

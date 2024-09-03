@@ -6,7 +6,7 @@ const port = 3000
 
 
 app.set('view engine', 'pug');
-app.use(express.static(path.join(__dirname, 'docs/public')))
+app.use(express.static(path.join(__dirname, 'docs', 'public')))
 //app.use('docs', 'views')
 
 app.get('/', (req, res) => {

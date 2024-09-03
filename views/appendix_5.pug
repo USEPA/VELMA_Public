@@ -1,7 +1,6 @@
 extends layout.pug
 block content
-    h1 Appendix 5:
-    h2 Generating daily temperature and precipitation grids for running VELMA
+    h1 Appendix 5: Generating daily temperature and precipitation grids for running VELMA
     h3 Introduction
     p The VELMA model runs at a daily time step on a spatial grid covering the study area of interest. The grid isscalable but is often desired to be at a fairly fine scale of resolution, e.g., 30-m cells. The model requiresdaily values of precipitation and mean temperature for each cell. Historic daily temperature and precipitationrecords can be obtained from weather stations in the National Weather Service or other networks. A simplisticapproach would be to assign temperature and precipitation values to each cell equal to those at the nearestweather station (Thiessen polygons). However, this would lead to a very “blocky” spatial data set with sharpdiscontinuities along lines equidistant from two weather stations.
     p Smoother surfaces could be obtained by using algorithms such as inverse distance weighting to calculate valuesfor each cell depending on their distance from multiple weather stations. Both of these approaches ignorespatial variation in weather variables that are related to physiographic characteristics other than distancefrom a data source. Elevation is often a strong driver of both temperature gradients due to adiabatic coolingand precipitation gradients due to orographic effects produced as the rising air cools, lowering itsmoisture-holding capacity and causing precipitation of the excess.

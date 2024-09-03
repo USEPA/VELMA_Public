@@ -1,7 +1,6 @@
 extends layout.pug
 block content
-    h1 Appendix 3:
-    h2 Creating Initial ASCII Grid Chemistry Spatial Data Pools
+    h1 Appendix 3: Creating Initial ASCII Grid Chemistry Spatial Data Pools
     p Initial chemistry or nutrient pools are created through a series of transformations of above ground Biomass to each of the respective spatial data pools. These transformations are defined by relationship ratios (fractions) each pool has to "real" or estimated measurements of Biomass (g/m²) for the study area.
     p 37 VELMA Simulator spatial data pools will be created from this one raster grid Biomass layer. See Table 1 for the complete list of initial layers that will be created. Each spatial data pool layer will have its own corresponding Grid ASCII (.asc) map file upon completion of the Python script. These Grid ASCII (.asc) map files will be used as inputs to VELMA for initializing the map disturbance events.
     p Figure 1 describes the internal processing flow, inputs, and outputs of the script. Figure 2 describes the calculations and quality control of the internal Python processing.

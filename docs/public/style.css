@@ -173,7 +173,7 @@ li {
 /* Responsive styles for small screens */
 @media (max-width: 768px) {
     .header {
-        position:static;
+        position:sticky;
         top: 0;
     }
     .navbar {
@@ -230,9 +230,10 @@ li {
     flex-basis: 250px;
     align-self: start;
     position: sticky;
-    top: 15vh;
+    top: 20vh;
     height: 80vh;
     overflow-y: scroll;
+    z-index: 0;
 }
 
 .body-content {
