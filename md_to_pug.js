@@ -31,3 +31,5 @@ function convertMdToPug() {
     });
   });
 }
+
+convertMdToPug()

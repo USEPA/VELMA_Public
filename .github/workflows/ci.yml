@@ -30,7 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@develop
+        uses: actions/checkout@v4
+        with:
+            ref: develop
       - name: Use Node.js
         uses: actions/setup-node@main
         with:
@@ -40,7 +42,7 @@ jobs:
           npm install
           npm run build
       - name: Push git subdirectory as branch
-        uses: s0/git-publish-subdir-action@v2.6.0
+        uses: TravisH18/git-publish-subdir-action
         env:
           REPO: git@github.com:USEPA/VELMA_Public.git
           BRANCH: master
