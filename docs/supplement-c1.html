@@ -130,7 +130,7 @@
         <thead> 
           <th>enableReachMapping value is …</th>
           <th>initialReachOutlets value is …</th>
-          <th>VELNA Simulator behavior is …</th>
+          <th>VELMA Simulator behavior is …</th>
           <th>Notes</th>
         </thead>
         <tr> 
@@ -157,7 +157,15 @@
           <td>No sub-outlets, single watershed.</td>
           <td>Most common mode for JVelma runs.</td>
         </tr>
-      </table>
+      </table><br>
+      <div class="info warning-base">
+        <h4>Advisory/Warning: </h4>
+        <p>
+          When enableReachMapping is set to MULTI_MODE, every cell location specified for initialReachOutlets must be within the delineation of the final outlet.(The final outlet is the location specified by the configuration's outx and outy coordinate parameters, shows as "Outlet X" and "Outlet Y" in JVelma's "Run Parameters" tab.)
+          Failure to satisfy this requirement will cause the simulation run to crash at the end of the first simulation year.
+          This requirement may seem self-evident, but an easy way to violate it is to set the final outlet to the coordinates of one of the smaller sub-reach outlets listed in the initialReachOutlets parameter, in order run a smaller (faster-running) portion of a larger watershed.  Relocating the final outlet to one of the sub-reach outlets will (almost always) result in one or more of the other sub-reach outlets not being within the (new, sub-reach) final outlet's delineation, thus violating the requirement.
+        </p>
+      </div>
       <h2>Setting the Reach Mapping Parameters in JVelma GUI</h2>
       <p>You can set both of the reach mapping parameters in either JVelma's "Run Parameters" or from the "All Parameters" tab.</p>
       <p>In the "Run Parameters" tab, underneath the label "Sub-Reach Mapping Controls" there is a drop-down selector for the enableReachMapping mode value, and a text field for the initialReachOutlets:</p><img width="596" height="218" alt="screenshot" title="screenshot" src="public/suppImage_168.jpg">
