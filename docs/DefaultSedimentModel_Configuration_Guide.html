@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="/index.html">VELMA 2.2 HOME</a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item dropdown">VELMA 2.0 Manual
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/intro.html"><span>I. Intro</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/changes.html"><span>II. Changes from 1.0</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/about.html"><span>III. About</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/input_files.html"><span>IV. Input Files </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/new_sim_config.html"><span>V. Sim Config</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/parameter_config.html"><span>VI. Parameter Config</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Appendicies
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/appendix_1.html"><span>Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_2.html"><span>Initializing a Spatial Data Pool Using an ASCII Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_3.html"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_4.html"><span>Overview of VELMA Simulator Output</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_5.html"><span>Generating daily temperature and precipitation grids for running VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_6.html"><span>Hydrological and Biochemical Model Descriptions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_7.html"><span>Creating Flat-Processed DEM Data For The VELMA Simulator</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Supplemental Info (VELMA 2.1)
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/supplement-a1.html"><span>Organic Contaminant Modeling Using VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-a2.html"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-a3.html"><span>VELMA Contaminant Modeling Demonstration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-a4.html"><span>Adding Stormwater Drains for Urban &amp; Mixed-Use Watershed Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b1.html"><span>Creating Flat-Processed DEM Data for the VELMA Simulator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b2.html"><span>JPDEM Cell Highlighter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b3.html"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b4.html"><span>JPDEM Flow Test Tool</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b5.html"><span>JPDEM Saving Data to Files</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b6.html"><span>JPDEM User-Specified Map Borders</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b7.html"><span>JPDEM User-Specified Border Mask</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b8.html"><span>JPDEM for Viewing Map Differences</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b9.html"><span>JPDEM Sub-Reach Delineations</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b10.html"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-c1.html"><span>VELMA Reach Mapping</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-c2.html"><span>How to Run VELMA in Parallel Mode</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-c3.html"><span>Rationale for Parallel Velma and Reach Segmentation</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d1.html"><span>Acquisition &amp; Generation of VELMA Input Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d2.html"><span>Soil Data Mapping and Parameter Initialization</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d3.html"><span>Initialize a Spatial Data Pool Using an Ascii Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d4.html"><span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d5.html"><span>Create Land-zoning Maps for a VELMA Application</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d6.html"><span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d7a.html"><span>Create Multiple-Location Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d7b.html"><span>Development of Statistical Models Based on Monthly PRISM / Daymet Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d8.html"><span>Cell Data Writer Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d9.html"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d10.html"><span>Default Tidewater Model Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e1.html"><span>Mapping Surface Layer Permeabilities</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e2.html"><span>VELMA Surface Chemistry Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e3.html"><span>Deposition of Surface Chemicals</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e4.html"><span>Implementing Green Roof Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e5.html"><span>Irrigation Disturbance</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e6.html"><span>Groundwater Storage Mechanism</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e7.html"><span>Spatial Data Writer Key Words for Generating ASCII VELMA Outputs for Data Visualization</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="/dev_info.html"><span>Developer Info</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracter Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/TopoFiles_Output_Summary.html"><span>Topo Files Output Summary </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaParallel_Error_Reports.html"><span>Velma Parallel Error Reports</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaParallel_With_Multiple_Maps.html"><span>Velma Parallel With Multiple Maps </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/WaterDrainDisturbanceModel_Overview.html"><span>Water Drain Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimulatorCmdLine_Overview.html"><span>Velma Sim Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimulatorAltCmdLine_Overview.html"><span>Velma Sim Alt Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/SurfaceEvaporation_Overview.html"><span>Surface Evaporation Overview</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="/dev_utils.html"><span>Developer Utils</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="main_body container">
+      <h1>Configuring the Default Sediment Model</h1>
+      <h2>Overview</h2>
+      <p>Starting with version 2.1.0.36 the VELMA simulator contains an implementation of Bob McKane's Prototype Sediment Model for VELMA. Like the model, the implementation is a prototype, albeit functional within its limitations.</p>
+      <p>Simulation configurations that include a sediment model parameterization model computes and reports "Loss" amounts simulating sediment movement from ridge to stream, corresponding to amounts "lost" at the watershed outlet on a per-day basis. The model also provides a variety of spatially-explicit, cell-specific data results.<br> See the <a>Sediment Output Data Summary</a> for details.</p>
+      <p>The sediment mechanism changes the spatial distribution of detrius leaf and top-layer humus amounts over the course a simulation run relative to a simulation run of the same configuration without the sediment mechanism. Those differences directly affect VELMA cover, soil (for humus) and chemistry calculations, and through them, indirectly affect water flow.</p>
+      <h2>Limitations</h2>
+      <p>Be aware of the following limitations regarding the sediment model and its use.</p>
+      <ul>
+        <li>
+          <p>The sediment model only simulates cell-to-cell movement of detritus leaf and humus amounts <em>in solution</em>. It does not simulate soil particulates.</p>
+        </li>
+        <li>
+          <p>The sediment model is not currently supported by VELMA's Water Drains disturbance mechanism.<br> If you configure a simulation to include both a the sediment model and a water drains disturbance, the water drains disturbance will ignore sediment amounts during transport. Because of this "disconnect", <strong>do not configure a simulation for both water drains and sediment</strong>.</p>
+        </li>
+        <li>
+          <p>If you configure a multiple-map simulation configuration that utilizes the sediment model, <em>all</em> simulation configurations that are part of the overall multiple-map simulation effort must be configured with the same set of cover and soil parameterizations, and all must use the same <code>uniqueId</code> and <code>uniqueName</code> values within those parameterizations.</p>
+        </li>
+        <li>
+          <p>Sediment model Loss results suffer the same reduction in accuracy under (multiple-map + multiple-scale) simulation configurations that runoff and contaminant and chemisty loss results do.</p>
+        </li>
+      </ul>
+      <h2>Requirements</h2>
+      <ul>
+        <li>VELMA v2.1.0.36 or later.</li>
+        <li>A simulation configuration that <strong>does not</strong> include a Water Drains Disturbance parameterization (per <a>Limitations</a> above).</li>
+      </ul>
+      <h2>Adding and Configuring the Sediment Model</h2>
+      <p>In JVelma, click the <code>Edit</code> --> <code>Set Sediment Model</code> --> <code>Default Sediment Model</code> menu item.<br> This adds the sediment parameterization group to the configuration, shifts to JVelma's GUI to display "All Parameters" tab, and sets the selector-filter to "sediment".<br> The sediment group's parameters initially have these default values:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Item</th>
+            <th>Parameter</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>enableCategorizedLossTransfersReport</td>
+            <td>false</td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>modelClass</td>
+            <td>gov.epa.velmasimulator.DefaultSedimentModel</td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>setBiomassLeafTransportScalarB</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>setDetritusLeafCtoNcorrectionConstant</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>setDetritusLeafDryWeight</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>setDetritusLeafMmPerH2Omm</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>setDetritusLeafToHumusTransportRatioKs</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>setDetritusLeafTransportScalarB</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>setFaccTransportScalarA</td>
+            <td>1.0</td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>setFaccTransportScalarB</td>
+            <td>0.5</td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>setHumusMmPerH2Omm</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>setSlopeTransportScalarA</td>
+            <td>1.0</td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>setSlopeTransportScalarB</td>
+            <td>0.5</td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>uniqueId</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>sediment</td>
+            <td>DefaultSedimentModel</td>
+            <td>uniqueName</td>
+            <td>DefaultSedimentModel</td>
+          </tr>
+        </tbody>
+      </table>
+      <ul>
+        <li><strong>No parameter values may be left blank</strong> (even though several parameter values default as blank).<br> Blank default values indicate parameters that JVelma does not know how to provide a default for.</li>
+        <li>The Facc and Slope parameters' default values should be treated as placeholders: they are almost certain to require adjustment for proper calibration of a specific simulation site.</li>
+      </ul>
+      <h3>Cover and Soil Specific Parameters</h3>
+      <p>Several sediment model parameters require the specification of distinct values for <em>each and every</em> cover or soil type specified in the simulation configuration.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Requires a value for each ...</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>setBiomassLeafTransportScalarB</td>
+            <td>cover uniqueId</td>
+          </tr>
+          <tr>
+            <td>setDetritusLeafCtoNcorrectionConstant</td>
+            <td>cover uniqueId</td>
+          </tr>
+          <tr>
+            <td>setDetritusLeafDryWeight</td>
+            <td>cover uniqueId</td>
+          </tr>
+          <tr>
+            <td>setDetritusLeafMmPerH2Omm</td>
+            <td>cover uniqueId</td>
+          </tr>
+          <tr>
+            <td>setDetritusLeafToHumusTransportRatioKs</td>
+            <td>cover (<em>not</em> soil) uniqueId</td>
+          </tr>
+          <tr>
+            <td>setDetritusLeafTransportScalarB</td>
+            <td>cover uniqueId</td>
+          </tr>
+          <tr>
+            <td>setHumusMmPerH2Omm</td>
+            <td>soil uniqueId</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Multiple parameter values are specified for these parameters as a sequence of whitespace-separated <code>ID:value</code> pairs.</p>
+      <blockquote>
+        <p><em>Example</em><br> Suppose a simulation configuration has 3 cover types, with <code>uniqueId</code> parameters <code>1</code>, <code>3</code>, and <code>501</code>.<br> A valid parameterization for the <code>setBiomassLeafTransportScalarB</code> parameter might be specified as: <code>1:0.40 3:075 501:0.05</code></p>
+      </blockquote>
+      <p>The <code>ID:value</code> notation must be used even when only one cover and/or soil type are specified.</p>
+      <blockquote>
+        <p><em>Example</em><br> Suppose a simulation configuration specifies only one soil type, with <code>uniqueId</code> of <code>7</code>.<br> A valid parameter value for <code>setHumusMmPerH2Omm</code> might be <code>7:0.30</code>, however simply specifying <code>0.30</code> instead would be <strong>invalid</strong>.</p>
+      </blockquote>
+      <p>JVelma's "All Parameters" tab can be used to determine the simulation configuration's cover and soil uniqueId values:</p>
+      <ul>
+        <li>Click the "All Parameters" tab.</li>
+        <li>Click-select "cover" (or "soil") in the drop-selection filter.</li>
+        <li>Type "uniqueId" (case sensitive) into the middle ("Parameter" column) text-selection filter textbox and press either the "Tab" or "Enter" key.<br> <em>Example</em><br> <img></li>
+      </ul>
+      <h3>Parameter Details</h3>
+      <p><strong>enableCategorizedLossTransfersReport</strong><br> Determines whether the sediment model emits <a>additional detailed loss data</a> as part of the simulation results.<br> When set <code>true</code> per-step counts and amounts for sediment loss transfers are reported as csv data rows in the simulation's global trace log file.<br> The csv data rows are identified by a keytext column: <code>LOSS_TRANSFER_REPORT</code>.<br> Each data row reports sediment transfer counts and amounts for the cell-to-cell transfer categories that comprise daily sediment loss values.<br> This parameter's default value is <code>false</code>.</p>
+      <p><strong>modelClass</strong><br> This parameter's value is the actual Java class name of this sediment model.<br> It should be set to the correct value (<code>gov.epa.velmasimulator.DefaultSedimentModel</code>) by default.<br> Do not change this parameter's value unless it is not set to the default value -- if it is not, then setting it to the default value is not only allowed, but required.</p>
+      <p><strong>setBiomassLeafTransportScalarB</strong><br> The base ("B") parameter used to compute Biomass Leaf transport scalar values via the following exponential equation:</p>
+      <pre><code>gNm2BiomassLeafAmount
+biomassLeafTransportScalar = biomassLeafTransportScalarB^</code></pre>
+      <p>Each "B" parameter specified must be within the range (0.0, 1.0).<br> This parameter is <a>cover-specific</a>.<br> Specify a <code>uniqueId:biomassLeafTransportScalarB</code> pair for each cover type specfied for this simulation. Specify the pairs as a whitespace-delineated sequence for this parameter.</p>
+      <blockquote>
+        <p><em>Example</em><br> A simulation with 3 cover types, and uniqueId values of 1, 7, and 23 might specify the following for this parameter: <code>1:0.40 7:0.15 23:0.58</code></p>
+      </blockquote>
+      <p><strong>setDetritusLeafCtoNcorrectionConstant</strong> Correction-constant multiplier for the C/N ratio of DetritusLeaf.<br> Corrects the C/N ratio for:</p>
+      <ul>
+        <li>The presence of fine wood (high C/N) in forest floor.</li></li>
+        <li>VELMA's lack of live foliage retranslocation prior to litterfall.</li></li>
+      </ul>
+      <p>This parameter is <a>cover-specific</a>.<br> Specify a <code>uniqueId:detritusLeafCtoNcorrectionConstant</code> pair for each cover type specfied for this simulation. Specify the pairs as a whitespace-delineated sequence for this parameter.<br> Each <code>uniqueId:detritusLeafCtoNcorrectionConstant</code> pair specified must have <code>detritusLeafCtoNcorrectionConstant</code> value greater than 0.</p>
+      <blockquote>
+        <p><em>Example</em><br> A simulation with 3 cover types, and uniqueId values of 1, 7, and 23 might specify the following for this parameter: <code>1:1.0 7:1.5 23:2.0</code></p>
+      </blockquote>
+      <p><strong>setDetritusLeafDryWeight</strong><br> Detritus Leaf Dry Weight values (in units of cm3/g).<br> Known detritus Leaf Dry Weight values are required for conversion between gN/m2 and mm amounts: these must be provided from appropriate literature or user-experience.<br> This parameter is <a>cover-specific</a>.<br> Specify a <code>uniqueId:dryWeightValue</code> pair for each cover type specfied for this simulation. Specify the pairs as a whitespace-delineated sequence for this parameter.</p>
+      <blockquote>
+        <p><em>Example</em><br> A simulation with 3 cover types, and uniqueId values of 1, 7, and 23 might specify the following for this parameter: <code>1:0.20 7:0.15 23:0.48</code></p>
+      </blockquote>
+      <p><strong>setDetritusLeafMmPerH2Omm</strong><br> The number of mm of Detritus Leaf that can be transported by 1 mm of scalar-adjusted lateral-out water movement.<br> This parameter is <a>cover-specific</a>.<br> Specify a <code>uniqueId:detritusLeafMmPerH2Omm</code> pair for each cover type specfied for this simulation. Specify the pairs as a whitespace-delineated sequence for this parameter. Each <code>detritusLeafMmPerH2Omm</code> value specified must be greater than zero.</p>
+      <blockquote>
+        <p><em>Example</em><br> A simulation with 3 cover types, and uniqueId values of 1, 7, and 23 might specify the following for this parameter: <code>1:1.8 7:1.5 23:2.0</code></p>
+      </blockquote>
+      <p><strong>setDetritusLeafToHumusTransportRatioKs</strong><br> The ("Ks") parameter of the Detritus Leaf-to-Humus transport ratio equation.<br> The ratio is computed in terms of Detritus Leaf alone, using a Monod equation with the form:</p>
+      <pre><code>ratio = ratioMax * (mm of detritus leaf) / (detritus leaf Ks + mm of detritus leaf))</code></pre>
+      <p>Note: <code>ratio</code>'s value must not exceed 1.0, so <code>ratioMax</code> is fixed at 1.0, never changes, and is omitted from the actual calculation.<br> This parameter is <a>cover-specific</a>.<br> Specify a <code>uniqueId:Ks</code> pair for each cover type specfied for this simulation. Specify the pairs as a whitespace-delineated sequence for this parameter. Each "Ks" parameter value must be zero or greater."</p>
+      <blockquote>
+        <p><em>Example</em><br> A simulation with 3 cover types, and uniqueId values of 1, 7, and 23 might specify the following for this parameter: <code>1:2.00 7:1.50 23:0.80</code></p>
+      </blockquote>
+      <p><strong>setDetritusLeafTransportScalarB</strong><br> The base ("B") parameter used to compute Detritus Leaf transport scalar values via the following exponential equation:</p>
+      <pre><code>detritusLeafTransportScalar = detritusLeafTransportScalarB^gNm2DetritusLeafAmount</code></pre>
+      <p>This parameter is <a>cover-specific</a>.<br> Specify a <code>uniqueId:detritusLeafTransportScalarB</code> pair for each cover type specfied for this simulation. Specify the pairs as a whitespace-delineated sequence for this parameter.<br> Each "B" parameter specified must be within the range (0.0, 1.0)</p>
+      <blockquote>
+        <p><em>Example</em><br> A simulation with 3 cover types, and uniqueId values of 1, 7, and 23 might specify the following for this parameter: <code>1:0.65 7:0.70 23:0.40</code></p>
+      </blockquote>
+      <p><strong>setFaccTransportScalarA</strong><br> The ("a") parameter of the flow accumulation (facc) transport scalar's equation.<br> The slope transporation scalar is computed using a logistic equation with the form:</p>
+      <pre><code>y = exp(-a + b * faccValue) / (1 + exp(-a + b * faccValue))</code></pre>
+      <p>The function will negate the provided "a" value: do NOT set "a" as a negative value.</p>
+      <p><strong>setFaccTransportScalarB</strong><br> The ("b") parameter of the flow accumulation (facc) transport scalar's equation.<br> The slope transporation scalar is computed using a logistic equation with the form:</p>
+      <pre><code>y = exp(-a + b * faccValue) / (1 + exp(-a + b * faccValue))</code></pre>
+      <p>The "b" parameter's value must be in the range [0, 1), and 0 is deprecated.<br> VELMA logs a warning when "b" equals 0, but permits the simulation to run.</p>
+      <p><strong>setHumusMmPerH2Omm</strong><br> The number of mm of Humus that can be transported by 1 mm of scalar-adjusted lateral-out water movement. This parameter is <a>soil-specific</a>.<br> Specify a <code>uniqueId:HumusMmPerH2Omm</code> pair for each cover type specfied for this simulation. Specify the pairs as a whitespace-delineated sequence for this parameter. Each <code>humusMmPerH2Omm</code> value specified must be greater than zero."</p>
+      <blockquote>
+        <p><em>Example</em><br> A simulation with 2 soil types, and uniqueId values of 2 and 8 might specify the following for this parameter: <code>2:2.5 8:4.0</code></p>
+      </blockquote>
+      <p><strong>setSlopeTransportScalarA</strong><br> The ("a") parameter of the slope transport scalar's equation.<br> The slope transporation scalar is computed using a logistic equation with the form:</p>
+      <pre><code>y = exp(-a + b * slopePercent) / (1 + exp(-a + b * slopePercent))</code></pre>
+      <p>The function will negate the provided "a" value: do NOT set "a" as a negative value.</p>
+      <p><strong>setSlopeTransportScalarB</strong><br> The "b" parameter of the slope transport scalar's equation.<br> The slope transporation scalar is computed using a logistic equation with the form:</p>
+      <pre><code>y = exp(-a + b * slopePercent) / (1 + exp(-a + b * slopePercent))</code></pre>
+      <p>The "b" parameter's value must be in the range [0, 1), and 0 is deprecated. VELMA logs a warning when "b" == 0, but permits the simulation to run.</p>
+      <p><strong>uniqueId</strong><br> The unique identification index number for this sediment model instance.<br> JVelma sets this parameter to a valid default value automatically: if this contaminant group is added via JVelma's GUI, there should be no need to modify the existing value for this parameter.<br> If you modify the default value, you must abide by the following:</p>
+      <ul>
+        <li>The <code>uniqueId</code> value must be unique among all sediment models specified for a given simulation configuration.</li>
+        <li>Do NOT assign <code>uniqueId</code> a value less than zero; doing so signals "not initialized" to the VELMA Simulator.</li>
+      </ul>
+      <p><strong>uniqueName</strong><br> The unique name for this sediment model instance.<br> JVelma sets this parameter to a valid default value automatically: if this contaminant group is added via JVelma's GUI, there should be no need to modify the existing value for this parameter. Changing <code>uniqueName</code>'s value <em>is</em> permitted, but is also discouraged.<br> If you modify the default value, you must abide by the following:</p>
+      <ul>
+        <li>The value text must contain only alphabet characters, digits, and the underscore and hyphen characters.</li>
+        <li>Do NOT set <code>uniqueName</code> blank (""); doing so signals "not initialized" to the VELMA Simulator.</li>
+      </ul>
+      <h2>Removing the Sediment Model from a Simulation Configuration</h2>
+      <p>To remove the sediment model parameterization from simulation configuration,<br> in JVelma, click the <code>Edit</code> --> <code>Set Sediment Model</code> --> <code>NO Sediment Model</code> menu item.<br> Warning: this will <em><strong>immediately</strong></em> remove the sediment parameterization group from the configuration!<br> If you want to retain the sediment parameterization values for future reference, consider saving a copy of the configuration under a different name prior to removing the sediment group.</p>
+      <h2>Appendix A: Configuration Tips</h2>
+      <h3>Shutting Off Either the Slope or Facc Transport Scalar</h3>
+      <p>Although not recommended, it is possible to "shut off" the effect of either the slope or facc transport scalar by setting the "a" and "b" parameters so that the logistic equation evaluates to zero regardless of the respective slope-percent or flow-accumulation value. Due to the nature of IEEE floating-point arithmetic, the following parameterization ensures the slope or facc transport scalar will always evaluate to zero:</p>
+      <ol>
+        <li>Choose either the slope or facc transport scalar to "shut off".</li>
+        <li>Set that scalar's "a" parameter to "9999.0".</li>
+        <li>Set that scalar's "b" parameter to "0.0".</li>
+      </ol>
+      <p>The sediment transport calculation uses <code>min((slopeTransportScalar + faccTransportScalar), 1.0)</code> as a multiplicative factor, so when either the slope or facc scalar is zero, the other, non-zero scalar has sole effect.<br> (This is why zeroing <em>both</em> slope and facc scalars is "wrong": <code>min((0.0 + 0.0), 1.0)</code> would have the effect of always "maxing out" the slope+facc scalar factor.</p>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA 2.2 DOCUMENTATION</p>
+  </footer>
+</html>

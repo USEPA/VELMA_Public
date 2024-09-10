@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="/index.html">VELMA 2.2 HOME</a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item dropdown">VELMA 2.0 Manual
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/intro.html"><span>I. Intro</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/changes.html"><span>II. Changes from 1.0</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/about.html"><span>III. About</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/input_files.html"><span>IV. Input Files </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/new_sim_config.html"><span>V. Sim Config</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/parameter_config.html"><span>VI. Parameter Config</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Appendicies
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/appendix_1.html"><span>Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_2.html"><span>Initializing a Spatial Data Pool Using an ASCII Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_3.html"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_4.html"><span>Overview of VELMA Simulator Output</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_5.html"><span>Generating daily temperature and precipitation grids for running VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_6.html"><span>Hydrological and Biochemical Model Descriptions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/appendix_7.html"><span>Creating Flat-Processed DEM Data For The VELMA Simulator</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Supplemental Info (VELMA 2.1)
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/supplement-a1.html"><span>Organic Contaminant Modeling Using VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-a2.html"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-a3.html"><span>VELMA Contaminant Modeling Demonstration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-a4.html"><span>Adding Stormwater Drains for Urban &amp; Mixed-Use Watershed Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b1.html"><span>Creating Flat-Processed DEM Data for the VELMA Simulator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b2.html"><span>JPDEM Cell Highlighter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b3.html"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b4.html"><span>JPDEM Flow Test Tool</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b5.html"><span>JPDEM Saving Data to Files</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b6.html"><span>JPDEM User-Specified Map Borders</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b7.html"><span>JPDEM User-Specified Border Mask</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b8.html"><span>JPDEM for Viewing Map Differences</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b9.html"><span>JPDEM Sub-Reach Delineations</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-b10.html"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-c1.html"><span>VELMA Reach Mapping</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-c2.html"><span>How to Run VELMA in Parallel Mode</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-c3.html"><span>Rationale for Parallel Velma and Reach Segmentation</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d1.html"><span>Acquisition &amp; Generation of VELMA Input Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d2.html"><span>Soil Data Mapping and Parameter Initialization</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d3.html"><span>Initialize a Spatial Data Pool Using an Ascii Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d4.html"><span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d5.html"><span>Create Land-zoning Maps for a VELMA Application</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d6.html"><span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d7a.html"><span>Create Multiple-Location Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d7b.html"><span>Development of Statistical Models Based on Monthly PRISM / Daymet Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d8.html"><span>Cell Data Writer Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d9.html"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-d10.html"><span>Default Tidewater Model Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e1.html"><span>Mapping Surface Layer Permeabilities</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e2.html"><span>VELMA Surface Chemistry Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e3.html"><span>Deposition of Surface Chemicals</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e4.html"><span>Implementing Green Roof Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e5.html"><span>Irrigation Disturbance</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e6.html"><span>Groundwater Storage Mechanism</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/supplement-e7.html"><span>Spatial Data Writer Key Words for Generating ASCII VELMA Outputs for Data Visualization</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="/dev_info.html"><span>Developer Info</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracter Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/TopoFiles_Output_Summary.html"><span>Topo Files Output Summary </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaParallel_Error_Reports.html"><span>Velma Parallel Error Reports</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaParallel_With_Multiple_Maps.html"><span>Velma Parallel With Multiple Maps </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/WaterDrainDisturbanceModel_Overview.html"><span>Water Drain Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimulatorCmdLine_Overview.html"><span>Velma Sim Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimulatorAltCmdLine_Overview.html"><span>Velma Sim Alt Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/SurfaceEvaporation_Overview.html"><span>Surface Evaporation Overview</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="/dev_utils.html"><span>Developer Utils</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="/AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="main_body container">
+      <h1>Running a VELMA Simulation From a Command Line</h1>
+      <h2>Overview</h2>
+      <p>Most VELMA simulation results (excluding Parallel runs) are generated via the JVelma GUI environment (henceforth referred to as "VelmaGUI"). However, you can also start a VELMA simulation directly from a command-line console prompt via VelmaSimulatorCmdLine (henceforth referred to as "VelmaSim").</p>
+      <p>You may be thinking, "JVelma starts from a command-line console prompt". While that it true, what is starting is VELMA's GUI environment (VelmaGUI). After VelmaGUI starts, you load a simulation configuration .xml file, possibly edit it, and then click the "Run" button to start it running <em>all within VELMA GUI</em>.<br> In contrast, when you start VelmaSimulatorCmdLine (VelmaSim) from a command-line console prompt, it <em>immediately</em> loads and starts running the simulation configuration .xml file that you specify. Tracing/log statements that would have appeared in VelmaGUI's Console tab instead appear directly in the command-line console's window.</p>
+      <p>Both VelmaGUI and VelmaSim use the same simulation engine, and generate the same results for a given simulation configuration, but they provide different benefits:</p>
+      <p><strong>VelmaGUI</strong>:</p>
+      <ul>
+        <li>Provides a way to review and edit the simulation configuration .xml properties.</li>
+        <li>Provides a display allowing (limited) runtime visualization of results.</li>
+      </ul>
+      <p><strong>VelmaSim</strong>:</p>
+      <ul>
+        <li>Uses a bit less memory VelmaGUI.</li>
+        <li>May run a bit faster than VelmaGUI.</li>
+        <li>Can be invoked by other user-written (e.g. Python, Powershell) scripts to batch-start multiple VELMA simulations.</li>
+        <li>Command-lines used to start VelmaSim runs can be copied and kept to easily document exactly how the run was invoked.</li>
+      </ul>
+      <p>Use whichever suits your need for a given simulation run.</p>
+      <h2>Quickstart Guide</h2>
+      <h3>Requirements</h3>
+      <p>To run a Velma simulation configuration using VelmaSimulatorCmdLine, you must have the following installed and available:</p>
+      <ul>
+        <li>A 64-bit Java JRE, version 1.8 or later, installed and available from your computer's command line.</li>
+        <li>A command line console.<br> Under Windows, we recommend PowerShell (usually pre-installed as a standard part of Windows 10).<br> It is possible to run VELMA in other Windows consoles (e.g. Windows Command Prompt), or even on other operating systems (e.g. Linux), but we focus on Windows 10 and PowerShell in this document, because it is by far the most common combination VELMA is run under.</li>
+        <li>A VELMA <code>JVelma.jar</code> file.</li>
+      </ul>
+      <p>You must also know the following information:</p>
+      <ul>
+        <li>The fully-qualified path name for the location of your JVelma.jar file.</li>
+        <li>The fully-qualified path name for the location of the VELMA simulation configuration .xml file you wish to run.</li>
+        <li>How much runtime memory (computer RAM, <em>not</em> disk space) to allocate for the simulation run.</li>
+      </ul>
+      <h3>Running a Simulation via VelmaSimulatorCmdLine in PowerShell</h3>
+      <h4><strong>Open a PowerShell Console</strong></h4>
+      <p>If you are familiar with Windows Powershell, open a console window as you normally do.<br> If you are unfamiliar with Windows Powershell, you can open a Powershell window via the following steps:</p>
+      <ol>
+        <li>Press the Windows Start Key + the R key to open the "Run" dialog box.</li>
+        <li>Type "powershell" in the Run dialog's textbox.</li>
+        <li>Click the Run dialog's OK button.</li>
+      </ol>
+      <h4><strong>Verify the Java JRE</strong></h4>
+      <p>If this is the first time you are running a VELMA simulation on a particular computer, verify that it has a suitable Java JRE available.<br> In the PowerShell console, type the command <code>java --version</code>, then press the <code>Enter</code> key.<br> Here is an example:</p>
+      <pre><code>PS C:\Users\meep> java -version
+java version "1.8.0_291"
+Java(TM) SE Runtime Environment (build 1.8.0_291-b10)
+Java HotSpot(TM) 64-Bit Server VM (build 25.291-b10, mixed mode)
+PS C:\Users\meep></code></pre>
+      <p>In the example above <code>PS C:\Users\meep></code> is PowerShell's command prompt (yours may look different).<br> If your <code>java -version</code> command result reports a version number lower than 1.8, or does not report "64-bit", your VELMA simulations may not start or run successfully (for either VelmaSim or VelmaGUI).<br> If your <code>java -version</code> command result is an error message that begins like this ...</p>
+      <pre><code>java : The term 'java' is not recognized as the name of a cmdlet, function, script file, or operable program.</code></pre>
+      <p>... your computer does not have a Java JRE installed, or PowerShell does not know where to find it.</p>
+      <h4><strong>Start a Simulation With VelmaSimulatorCmdLine</strong></h4>
+      <p>This is the format for the PowerShell command line required to run a VELMA simulation.</p>
+      <pre><code>java -Xmx<mem> -cp <jarfullpath>\JVelma.jar gov.epa.velmasimulator.VelmaSimulatorCmdLine <xmlfullpath>\<simconfig.xml></code></pre>
+      <p>The items above must appear as shown, in the order shown:</p>
+      <ul>
+        <li><code>java</code> invokes the Java JRE installed on your computer</li>
+        <li><code>-Xmx<mem></code> allocates <code><mem></code> amount of runtime memory to run the simulation.</li>
+        <li><code>-cp</code> identifies the item that follows it to the Java JRE as the file containing Java code to run.</li>
+        <li><code><jarfullpath>\JVelma.jar</code> represents the fully-qualified path and name of your JVelma.jar (which contains VelmaSim).</li>
+        <li><code>gov.epa.velmasimulator.VelmaSimulatorCmdLine</code> is the fully-qualified Java program name of VelmaSim.</li>
+        <li><code><xmlfullpath>\<simconfig.xml></code> represents the fully-qualified path and name of the simulation configuration .xml file to run.</li>
+      </ul>
+      <p>Here is an example of an actual command line in the format outlined above:</p>
+      <pre><code>PS C:\Users\meep> java -Xmx1g -cp C:\Users\meep\VELMA\JVelma.jar gov.epa.velmasimulator.VelmaSimulatorCmdLine C:Users\meep\VelmaConfigs\OR_BlueRiver_ws10.xml</code></pre>
+      <p>Here is how the items in the specific example command line map back to the general command line format:</p>
+      <ul>
+        <li><code>PS C:\Users\meep></code> is a typical PowerShell command prompt (yours may look different).</li>
+        <li>The <code><mem></code> specified is <code>1g</code>: <code>-Xmx1g</code> means "allocate 1 Gigabyte of RAM for this simulation run".</li>
+        <li>The fully-qualified JVelma.jar location (<code><jarfullpath>\JVelma.jar</code>) is: <code>C:\Users\meep\VELMA\JVelma.jar</code></li>
+        <li>The fully-qualified simulation configuration .xml file (<code><xmlfullpath>\<simconfig.xml></code>) is: <code>C:Users\meep\VelmaConfigs\OR_BlueRiver_ws10.xml</code></li>
+      </ul>
+      <p>All other items are unchanged, and appear exactly as they are specified in the general command line format.</p>
+      <p>Once you have typed a command line in the format above into your PowerShell console, press the <code>Enter</code> key to start the simulation running.</p>
+      <p>Runtime logging statements that would have appeared in the VelmaGUI's "Console" tab panel will instead appear in the console.</p>
+      <h2>Usage Message and Command Line Options</h2>
+      <p>When you run VelmaSim without specifying a VELMA simulation configuration .xml file, VelmaSim displays a usage message to the console.<br> The message provides the VELMA version, reminds you that a VELMA simulation configuration .xml file is required, and lists optional command-line arguments that are available.</p>
+      <p>Here is an example:</p>
+      <pre><code>PS C:\Users\meep> java -Xmx1g -cp C:\Users\meep\VELMA\JVelma.jar gov.epa.velmasimulator.VelmaSimulatorCmdLine
+VELMA_2.1.0.39
+Usage: VelmaSimulatorCmdLine <fullName_simulationConfiguration.xml> [--lint] [--kv="<key>,<val>"]
+Where:
+ 
+Required arguments are:
+ 
+  <fullName_simulationConfiguration.xml>
+    The fully-qualified path and name of a valid VELMA simulation configuration (.xml) file.
+    Exactly ONE simulation configuration file fullName must appear in the command line.
+ 
+Optional arguments are:
+ 
+  --lint
+    Performs the initialization step, but does not actually run the simulation.
+    Warnings or errors encountered during initialization are reported to console.
+    No results folder or files are created.
+ 
+  --kv="<key>,<val>"
+    <key> is the full (/group/item/name) text of a VELMA Simulation Configuration parameter.
+    <val> is the value to set for that <key>.
+    Multiple --kv arguments may occur in the command line.
+    No two --kv arguments may specify the same <key>
+    The --kv pairs are set or added to the Simulation Configuration at simulator initialization.
+    (The original fullName_simulationConfiguration.xml file is NOT modified)</code></pre>
+      <blockquote>
+        <p>Note: the text of the usage message varies between different VELMA versions. If you are using an older-version JVelma.jar, some or most of the usage message text shown above may be missing. Options that are not displayed are unavailable.</p>
+      </blockquote>
+      <h3>Command Line Options</h3>
+      <p>Command line options are exactly that: optional. If you choose to use them, we recommend placing them at the end of your command line. That way, you can recall the command (via the up-arrow key in Windows PowerShell) and easily backspace over them to run the same command with the optional argurments removed or changed.</p>
+      <h4><strong>The --lint Option</strong></h4>
+      <p>When the <code>--lint</code> option is added to a command line, VelmaSim starts the simulator engine and performs initialization, but then stops and does not actually run the simulation. No results folder or output files are created. Additionally, console output is filtered down to only WARNING and SEVERE messages.</p>
+      <p>Running VelmaSim with <code>--lint</code> allows you to confirm that your simulation configuration .xml file will initialize properly. The console filtering emphasizes any WARNING or SEVERE log messagese that occur. Without <code>--lint</code> they can be missed amongst the many <code>CONFIG</code> and <code>INFO</code> messages that normally echo to the console.</p>
+      <p>A peculiarity regarding warnings is that a VelmaSim started with <code>--lint</code> <em>always</em> echoes at least two warnings to the console. This is because <code>--lint</code> suppresses all results folder and file output, and in punctilious fashion, issues warnings to call attention to that suppression.<br> The two warnings look like this:</p>
+      <pre><code>WARNING VelmaSimulatorEngine runLinter: VELMA Lint Mode Enabled: startups parameter suppressAllOutputFiles overridden and set == true
+WARNING GlobalState setOutputDataLocationDir: All File Output is suppressed: ignoring Output Data Location</code></pre>
+      <p>Even if you simulation configuration .xml initializes correctly and has no "real" warnings, you will see the two messages listed above when you add the <code>--lint</code> option to your VelmaSim command line.</p>
+      <p>If you see other, additional warnings, pay attention to them. Your simulation may run to completion even if WARNING messages appear during initialization, but it may not produce trustworthy results.<br> For example, the following WARNING message ...</p>
+      <pre><code>WARNING GlobalState initializeCoverSpeciesForRun: CoverSpecies uniqueId=10 uniqueName="LowShrub" referenced in: dem=NO sid=NO inSidCount=0</code></pre>
+      <p>... indicates that your simulation configuration .xml contains a CoverSpecies parameterization that is not referenced anywhere in the specified cover id map. This might be fine -- there's no harm (apart from using some memory) in specifying but not referencing CoverSpecies that you wish to ignore. However, if "LowShrub" is a CoverSpecies that you definitely expected to be part of your simulation run, this warning indicates that your should check the CoverSpecies parameterization for typos or the correctness of your cover id map.</p>
+      <p>If you see a SEVERE error message, it indicates that VelmaSim was unable to successfully complete initializing. You will need to correct the error message's cause before your simulation will successfully initialize and run.</p>
+      <blockquote>
+        <p>An aside: the <code>--lint</code> option name is due to <a>historical precendent</a>, although <code>--lint</code>'s capabilities are minimal compared to "real" linter tools.</p>
+      </blockquote>
+      <h4><strong>The --kv Option</strong></h4>
+      <p>The <code>--kv</code> option allows you to override the value of a parameter in the simulation configuration .xml file, replacing it with a value specified on the VelmaSim command line.</p>
+      <p>Multiple <code>--kv</code> arguments may be specified for a single command line, to change multiple parameters (one parameter per <code>--kv</code> argument) for a given VelmaSim run.</p>
+      <p>The <code>--kv</code> option cannot add or remove a parameter, it can only change an existing parameter's value, but it can change <em>any</em> parameter with <em>no</em> validation of the new value, so employ it with considerable caution and care.</p>
+      <p>A <code>--kv</code> option must indicate what parameter it will override, and the new value for that parameter.<br> The <code>--kv</code> option is informally called the "kv-override", because it provides a key (the parameter) and a value (to -- i.e. override -- the existing value) to the VELMA simulator engine.</p>
+      <p>The syntax for a <code>--kv</code> option, used to indicate the parameter and assocated value is:</p>
+      <pre><code>--kv="<key>,<val>"</code></pre>
+      <ul>
+        <li>Specify the <em>fully qualified name</em> of the parameter (the <code><key></code>) to change.</li>
+        <li>A valid value (the <code><val></code>) to assign to the parameter.</li>
+        <li>Separate the <code><key></code> and <code><val></code> with a comma (<code>,</code>) character.</li>
+        <li>Enclose the <code><key>,<val></code> pair in double-quotes (<code>"</code>).</li>
+        <li>Do not use whitespace around the comma, or around the equals (<code>=</code>) character.</li>
+      </ul>
+      <p>A fully-qualified parameter name is VELMA's internal identifier for a given configuration parameter.<br> VELMA parameters are commonly referred to via their "short" name (e.g. <code>run_index</code>), but every "short" parameter name actually corresponds to a longer fully-qualified name.<br> Fully-qualified parameter names have this form:</p>
+      <pre><code>/<group_key>/<item_key>/<parameter_key></code></pre>
+      <p>The <code><parameter_key></code> portion of the fully-qualified name corresponds to what is colloquially the "short" parameter name.<br> For example, the fully qualified parameter name corresponding to the "short" parameter name <code>run_index</code> is:</p>
+      <pre><code>/calibration/VelmaInputs.properties/run_index</code></pre>
+      <p>The forward-slash (<code>/</code>) characters are required as separators, but are not themselves part of the key names.</p>
+      <p>You can determine the fully-qualified prefix for a "short" parameter name in a number of ways, but the two simplest and most common methods are to look in the VelmaGUI ("JVelma") Parameter's tab, or look in the SimulationConfiguration.csv file of an existing simulation result generated with the same simulation configuration .xml file you're planning to modify via a <code>--kv</code> option.</p>
+      <h4><em>Finding a fully-qualified parameter name using VelmaGUI</em></h4>
+      <ol>
+        <li>Start the VelmaGUI ("JVelma") running</li>
+        <li>Load your simulation configuration .xml file</li>
+        <li>Click to the "Parameters" tab.</li>
+        <li>Scroll through the table's rows until you find the parameter "short" name in the "Parameter" column of the table<br> OR Enter the "short" name in the middle of the 3 filter text-entry-boxes above the table and press Enter or Tab to filter down to the appropriate row.</li>
+      </ol>
+      <p>The column names of the Parameters tab's table of parameters indicate column values that match components of a fully-qualified parameter name.<br> Here is our <code>run_index</code> example again, to make the correspondence explicit:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter name component</th>
+            <th><code><group_key></code></th>
+            <th><code><item_key></code></th>
+            <th><code><parameter_key></code></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>VelmaGUI Parameters Column Name</td>
+            <td>Group</td>
+            <td>Item</td>
+            <td>Parameter</td>
+          </tr>
+          <tr>
+            <td><code>run_index</code> example</td>
+            <td>calibration</td>
+            <td>VelmaInputs.properties</td>
+            <td>run_index</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4><em>Finding a fully-qualified parameter name in a SimulationConfiguration.csv file</em></h4>
+      <p>When a VELMA simulation run generates results, one of the files written to the results folder is the SimulationConfiguration.csv file. The file lists every fully-qualified parameter name specified for the simulation run in column A, and the value specified for the parameter in column B (SimulationConfiguration.csv files have no header row). The rows are in asscending order, sorted alphabetically by fully-qualified name.<br> Here are a few rows at the top of a SimulationConfiguration.csv file, as and example:</p>
+      <pre><code>/calibration/VelmaCalibration.properties/DDs, 3.0
+/calibration/VelmaCalibration.properties/Tmlt, 2.0
+/calibration/VelmaCalibration.properties/Tsn, 0.0
+/calibration/VelmaCalibration.properties/avgAT, 13.0
+/calibration/VelmaCalibration.properties/avgGST, 12.4
+/calibration/VelmaCalibration.properties/be, 6.33974
+/calibration/VelmaCalibration.properties/co2RespirationFraction, 0.98
+/calibration/VelmaCalibration.properties/deg_lat, 38.867914
+[ ... ]</code></pre>
+      <p>The easiest way to search a SimulationConfiguration.csv file is with the find or search feature of Excel or a text editor:</p>
+      <ol>
+        <li>Open the SimulationConfiguration.csv file in an editor or in Excel.</li>
+        <li>Using the editor or Excel's search function, search for the parameter's short name. Doing so should locate the row of the SimulationConfiguration.csv file containing the fully-qualified name (since the short name is always part of the fully-qualified name).</li>
+        <li>Use the fully-qualified name in place of the short name when you specify your --kv option.</li>
+      </ol>
+      <p>You can also search a SimulationConfiguration.csv file directly from a PowerShell console, using the <a>Select-String cmdlet</a>.<br> Here is an example:</p>
+      <pre><code>PS C:\Users\meep> Select-String -Pattern "/be," C:\Users\meep\Velma_Results\MD_ws109\SimulationConfiguration.csv</code></pre>
+      <p>The above command line searches the SimulationCongfiguration.csv file partially display above, for the fully-qualified name of the <code>be</code> parameter.<br> Always include the leading forward-slash (<code>/</code>) and trailing comma (<code>,</code>) with the parameter short name you're looking for -- e.g. search for "<code>/be,</code>", <em>not</em> "<code>be</code>".<br> Select-String is a general-purpose text search tool, and it may return many lines that you don't care about if you omit the <code>/</code> and <code>,</code>, or add space between them and the parameter name. Adding space before the <code>/</code> or after the <code>,</code> will also throw off the search results. As just two examples among many, neither "<code>/ be,</code>" nor "<code>/be,</code> " would return any result if we tried them on our SimulationConfiguration.csv file.</p>
+      <p>Select-String outputs its results to the console.<br> The output for the example search above looks like this:</p>
+      <pre><code>C:\Users\meep\Velma_Results\MD_ws109\SimulationConfiguration.csv:6:/calibration/VelmaCalibration.properties/be, 6.33974</code></pre>
+      <p>This is Select-String's default results format. for line in the file containing <code>/be,</code>, it reports the file's path/name, the line number, and the line itself, using <code>:</code> as a separator.<br> The following example repeats the search with a bit of syntax that forces Select-String to report the lines it finds without the file or line number information:</p>
+      <pre><code>PS C:\Users\meep> (Select-String -Pattern "/be," C:\Users\meep\Velma_Results\MD_ws109\SimulationConfiguration.csv).Line</code></pre>
+      <p>This variation of the search command returns the following result to the console:</p>
+      <pre><code>/calibration/VelmaCalibration.properties/be, 6.33974</code></pre>
+      <p>Notice that this is almost exactly what the <code>--kv</code> switch requires to specify its <code><key>,<val></code> pair.<br> You could ...</p>
+      <ol>
+        <li>Copy the above search result.</li>
+        <li>Enclose it in double-quotes (<code>"</code>).</li>
+        <li>Remove the whitespace after the comma.</li>
+        <li>Change the old value to a new, different value.</li>
+        <li>Prefix it with <code>--kv=</code></li>
+      </ol>
+      <p>... and you'd have a correctly-specified <code>--kv</code> option item:</p>
+      <pre><code>--kv="/calibration/VelmaCalibration.properties/be,3.125"</code></pre>
+      <p>As a final example, the full command line below invokes VelmaSim and includes two <code>--kv</code> options.<br> The first <code>--kv</code> option sets a new <code>be</code> value, and the second changes the <code>run_index</code> name. In this example when VelmaSim initializes and runs, it will set <code>be</code>=3.125 regardless of its value in OR_BlueRiver_ws10.xml, and will write the results to a results folder named "new_be-OR_BlueRiver_ws10" (at the output location specified in OR_BlueRiver_ws10.xml -- the output root directory path has not been overridden in this example).<br> This example also illustrates a useful feature of the PowerShell command line: using the backtick (`) character to split a long command across multiple lines:</p>
+      <pre><code>PS C:\Users\meep> java -Xmx1g -cp C:\Users\meep\VELMA\JVelma.jar `
+>> gov.epa.velmasimulator.VelmaSimulatorCmdLine `
+>> C:Users\meep\VelmaConfigs\OR_BlueRiver_ws10.xml `
+>> --kv="/calibration/VelmaCalibration.properties/be,3.125" `
+>> --kv="/calibration/VelmaInputs.properties/run_index,new_be-OR_BlueRiver_ws10"</code></pre>
+      <p>When you type a command into the PowerShell console at the command prompt (<code>></code>), if you end the line with a backtick character (`), then instead of running your (incomplete) command, PowerShell opens a new line, displays the prompt (<code>>></code>) and waits for you to type more of the command. PowerShell will continue to do this until you end a line without a backtick character. It will then run your command.</p>
+      <p>Using the backtick character for command-line continuation makes it easier review long commands before running them, however, it can be tricky to get right. Remember the following rules:</p>
+      <ul>
+        <li>Do not end a line with a single-quote character instead of the backtick character; they are <em>not</em> equivalent or interchangeable in this context.</li>
+        <li>Only split a command line at whitespace locations, never in the middle of a "word" on the command line.</li>
+        <li>As a special restriction of the above, always keep <code>-cp</code> and <code><jarfullpath>\JVelma.jar</code> on one line: do not split between at the whitespace between them.</li>
+        <li>Be aware of what you are doing. It's easy to forget the backtick character about halfway through a multi-line command, at which point PowerShell start the incomplete portion you've typed up to that point.</li>
+        <li>Always inlcude a whitespace character just <em>before</em> the backtick character.</li>
+      </ul>
+      <h2>Appendix A: Common Command-Line Errors</h2>
+      <p>The VelmaSim command line is easily broken by mistyped commands, and because commands can easily become long, they can be easy to mistype.<br> Moreover, VelmaSim is terse and abrupt when it encounters a command line that it does not understand, which can make it difficult to determine the cause of an error.</p>
+      <p>This appendix contains an ad-hoc collection of common command line error descriptions as a cautionary quick-reference.</p>
+      <h3>Java Errors</h3>
+      <p>The arguments on the command line after <code>java</code> and before <code>gov.epa.velmasimulator.VelmaSimulatorCmdLine</code> are used by the Java runtime engine, not by VelmaSim.</p>
+      <h4><strong>Ommiting the -Xmx size suffix</strong></h4>
+      <p>The <code>-Xmx</code> argument allows you to specify a memory amount. Typically, VelmaSim likes at least a Gigabyte of memory, and that is specified as <code>-Xmx1g</code> -- "1" with "g" indicating "Gigabyte". If the "g" is ommitted, the following is likely to happen:</p>
+      <pre><code>PS C:\Users\meep> java -Xmx1 -cp C:\Users\meep\VELMA\JVelma.jar gov.epa.velmasimulator.VelmaSimulatorCmdLine
+Error occurred during initialization of VM
+Too small initial heap
+PS C:\Users\kdjang\Velma_GitHub>                                                                                         </code></pre>
+      <h4><strong>Misspelling VelmaSim's fully-qualified name</strong></h4>
+      <p>In this example, VelmaSim's fully-qualified name is misspelled:</p>
+      <pre><code>PS C:\Users\meep> java -Xmx1 -cp C:\Users\meep\VELMA\JVelma.jar gov.epa.velmasimulator.VelmaSimulatorCmdLine
+Error: Could not find or load main class gov.epa.velmasimualtor.VelmaSimulatorCmdLine
+PS C:\Users\kdjang\Velma_GitHub>                                                                                         </code></pre>
+      <p>This is self-explanatory, but very easy to do, and surprisingly difficult to catch before Java complains about it.</p>
+      <h4><strong>Specifying a missing or inaccessible .jar file</strong></h4>
+      <p>The following example misspells the .jar file name:</p>
+      <pre><code>PS C:\Users\meep> java -Xmx1 -cp C:\Users\meep\VELMA\JVelm.jar gov.epa.velmasimulator.VelmaSimulatorCmdLine
+Error: Could not find or load main class gov.epa.velmasimualtor.VelmaSimulatorCmdLine</code></pre>
+      <p>The error message is the same as for the previous error, but in this case, VelmaSim's fully-qualified name is spelled correctly.</p>
+      <h4><strong>Omitting <code>-cp</code></strong></h4>
+      <p>An example is the clearest way to describe this situation:</p>
+      <pre><code>PS C:\Users\meep> java -Xmx1 -cp C:\Users\meep\VELMA\JVelm.jar gov.epa.velmasimulator.VelmaSimulatorCmdLine
+Error: Could not find or load main class C:\Users\meep\VELMA\JVelm.jar</code></pre>
+      <p>This looks a lot like the two previous error messages, but notice that the "main class" is specified as the name of the JVelma.jar file. Without the <code>-cp</code> argument, Java has assumed that the fully-qualified "class" we want to run is the .jar file itself, which is incorrect, we want to run the <code>gov.epa.velmasimulator.VelmaSimulatorCmdLine</code> code contained <em>inside</em> the .jar file. (In effect, the <code>-cp</code> argument indicates to Java, "look in what follows me to run what follows it: <code>-cp <place_to_look> <thing_to_run></code>.)</p>
+      <h3>VelmaSim Errors</h3>
+      <p>Everything on the command line after <code>gov.epa.velmasimulator.VelmaSimulatorCmdLine</code> is used by VelmaSim.</p>
+      <h4><strong>Specifying a missing or inaccessible simulation configuration.xml file</strong></h4>
+      <p>When VelmaSim cannot find or open the simulation configuration .xml file you specify, it stops abruptly.</p>
+      <h4><strong>Omitting the simulation configuration .xml file, but including options</strong></h4>
+      <p>When you provide <em>no</em> arguments after <code>
+          gov.epa.velmasimulator.VelmaSimulatorCmdLine
+          , VelmaSim displays the usage message.</code><br> However, if you provide <em>any</em> arguments, exactly one of them <em>must</em> be a valid simulation configuration .xml file.<br> Here's an example that specifies the --lint option, but does not specify an .xml file:</p>
+      <pre><code>PS C:\Users\meep> java -Xmx1g -cp C:\Users\meep\VELMA\JVelma.jar gov.epa.velmasimulator.VelmaSimulatorCmdLine --lint
+FAIL! exception="java.lang.IllegalArgumentException: No simulation configuration .xml file specified."
+FAIL! message="No simulation configuration .xml file specified."
+FAIL! VELMA simulation run halted, configuration="null"
+java.lang.IllegalArgumentException: No simulation configuration .xml file specified.
+        at gov.epa.velmasimulator.VelmaSimulatorCmdLine.main(VelmaSimulatorCmdLine.java:93)</code></pre>
+      <h4><strong>Misspelling an option name</strong></h4>
+      <p>Understandably, VelmaSim will not run if you specify an option and misspell its name.<br> However, the error message it reports for this situation may be surprising and confusing.<br> Here is an (PowerShell multi-cmdline) example with <code>--kv</code> misspelled as <code>kc</code>:</p>
+      <pre><code>>> PS C:\Users\meep> java -Xmx1g -cp C:\Users\meep\VELMA\JVelma.jar `
+>> gov.epa.velmasimulator.VelmaSimulatorCmdLine `
+>> C:Users\meep\VelmaConfigs\OR_BlueRiver_ws10.xml `
+>> --kc="/calibration/VelmaInputs.properties/run_index,new_be-OR_BlueRiver_ws10" `
+>> --lint
+>>
+FAIL! exception="java.lang.IllegalArgumentException: Multiple simulation configuration .xml files specified."
+FAIL! message="Multiple simulation configuration .xml files specified."
+FAIL! VELMA simulation run halted, configuration="C:Users\meep\VelmaConfigs\OR_BlueRiver_ws10.xml"
+java.lang.IllegalArgumentException: Multiple simulation configuration .xml files specified.
+        at gov.epa.velmasimulator.VelmaSimulatorCmdLine.main(VelmaSimulatorCmdLine.java:86)</code></pre>
+      <p>VelmaSim catches the misspelling, but identifies it as a second simulation configuration .xml file. This happens because VelmaSim assumes everything on the command line (after <code>
+          gov.velmasimulator.VelmaSimulatorCmdLine
+          ) that isn't identified as an option is a simulation configuration .xml file (even if it doesn't end in ".xml") The same error message occurs (less confusingly) for a command line with no options but two or more simulation configuration .xml files. So, when you see the "Multiple simulation configuration .xml files specified." failure message, but your command line only contains one .xml file, check any options for spelling errors.</code></p>
+      <h4><strong>Providing an invalid parameter key for a <code>
+            --kv
+             option</code></strong></h4>
+      <p>VelmaSim also will not run when a <code>--kv</code> option's fully-qualified parameter name is mispelled, or when that name does not exist in the specified simulation configuration.xml.<br> Here is an example with a slight misspelling ("propertie" instead of "properties"):</p>
+      <pre><code>>> PS C:\Users\meep> java -Xmx1g -cp C:\Users\meep\VELMA\JVelma.jar `
+>> gov.epa.velmasimulator.VelmaSimulatorCmdLine `
+>> C:Users\meep\VelmaConfigs\OR_BlueRiver_ws10.xml `
+>> --kv="/calibration/VelmaInputs.propertie/run_index,new_be-OR_BlueRiver_ws10" `
+>> --lint
+>>
+Applying: key=|/calibration/VelmaInputs.propertie/run_index| val=|new_be-OR_BlueRiver_ws10|
+FAIL! exception="java.lang.NullPointerException"
+FAIL! VELMA simulation run halted, configuration="C:Users\meep\VelmaConfigs\OR_BlueRiver_ws10.xml"
+java.lang.NullPointerException
+        at gov.epa.velmasimulator.SimulationConfiguration.setProperty(SimulationConfiguration.java:864)
+        at gov.epa.velmasimulator.VelmaSimulatorCmdLine.main(VelmaSimulatorCmdLine.java:102)</code></pre>
+      <p>Unhelpfully, VelmaSim does not explicitly identify the problem as a misspelled parameter name, and a "java.lang.NullPointerException" can be caused by other errors.<br> However, when you see a FAIL! exception="java.lang.NullPointerException" message shortly after an "Applying: key=..." message, carefully check the spelling of that key name, and verify that it exists in the simulation configuration .xml file.</p>
+      <h4><strong>Omitting part of the full syntax for a <code>--kv</code> option</strong></h4>
+      <p>If you omit part of a <code>--kv</code> option's syntax, VelmaSim <em>may or may not</em> fail to run: what happens depends on what you omit.<br> Here is an example that is only missing the <code><val></code> portion:</p>
+      <pre><code>>> PS C:\Users\meep> java -Xmx1g -cp C:\Users\meep\VELMA\JVelma.jar `
+>> gov.epa.velmasimulator.VelmaSimulatorCmdLine `
+>> C:Users\meep\VelmaConfigs\OR_BlueRiver_ws10.xml `
+>> --kv="/calibration/VelmaCalibration.properties/be," `
+>> --lint
+Applying: key=|/calibration/VelmaCalibration.properties/be| val=||
+VELMA LINTER: started at 2021-10-29 15:23:57
+WARNING VelmaSimulatorEngine runLinter: VELMA Lint Mode Enabled: startups parameter suppressAllOutputFiles overridden and set == true
+SEVERE GlobalState initializeCalibration: Model Calibration Initialization FAILED
+SEVERE GlobalState initializeCalibration: Please check the status of the VelmaCalibration.properties file.
+SEVERE GlobalState initializeCalibration: Exception was:
+SEVERE GlobalState initializeCalibration: empty String
+SEVERE VelmaSimulatorEngine initForSetup: FAIL! Cannot initialize Global State Object.
+SEVERE VelmaSimulatorEngine runLinter: FAIL! The linter itself experienced an error: exception=java.lang.RuntimeException: FAIL! Cannot initialize Global State Object.
+VELMA LINTER: done at 2021-10-29 15:23:57</code></pre>
+      <p>In this case, VelmaSim got to the comma separator after the (valid) <code><key></code> and found an empty string <em>which it accepts as a parameter value</em>. But, when VelmaSim initialization code starts, it rejects the empty string as a value for the <code>be</code> parameter, and at that point, and error occurs.</p>
+      <p>In contrast, suppose the comma between the <code><key></code> and <code><val></code> is omitted:</p>
+      <pre><code>--kv="/calibration/VelmaCalibration.properties/be 2.5"</code></pre>
+      <p>You might expect that substituting this into the comand line above would produce a similar sort of error. In fact, it produces no error at all. Instead, VelmaSim takes this to mean you want to set a parameter with the short name "be 2.5" equal to "". The attempt fails, <em>but VelmaSim does not mention it</em>.</p>
+      <p>Finally, suppose you forgot one of the paired double-quotes (typically, the right-side d-quote gets dropped). This situation is usually caught by PowerShell itself: it will won't consider your command line input complete until you add the missing double-quote. Pressing the Enter key in the meantime simply returns a new (<code>>></code>) prompt.</p>
+      <h4><strong>Providing an invalid value for a <code>--kv</code> option</strong></h4>
+      <p>VelmaSim does not provide any special validation for the values specified in <code>--kv</code> options. If you provide a valid parameter name, VelmaSim will replace that parameter's value with the value you specify regardless of how valid or appropriate it is for that parameter. Many invalid values are still caught just after the command line is processed, during initialization. (See the "Omitting part of the full syntax for a <code>--kv</code> option above for an example.) Some of these will cause initialization to fail, but some will only incur a WARNING log message -- your simulation will still start, and will either crash or run to completion with invalid results.<br> Using the --lint option to check for this sort of situation is highly encouraged.</p>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA 2.2 DOCUMENTATION</p>
+  </footer>
+</html>
