@@ -3,7 +3,9 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://requirejs.org/docs/release/2.3.7/minified/require.js"> </script>
+    <script src="js/search.js" type="module"> </script>
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -109,6 +111,9 @@
           </li>
         </ul>
       </nav>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+      </div>
     </div>
     <div class="main_body container">
       <h1>D.7b | Statistical Climate Addendum: Development of Statistical Models Based on Monthly PRISM / Daymet Data</h1>
