@@ -42,7 +42,7 @@ jobs:
           npm install
           npm run build
       - name: Push git subdirectory as branch
-        uses: TravisH18/git-publish-subdir-action
+        uses: TravisH18/git-publish-subdir-action@develop
         env:
           REPO: git@github.com:USEPA/VELMA_Public.git
           BRANCH: master
