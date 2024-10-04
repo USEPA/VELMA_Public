@@ -379,7 +379,6 @@ pre code {
     padding: 1em;
 }
 
-/* styles.css */
 .suggesstion-box {
     position: relative;
     padding: 20px;
@@ -389,13 +388,13 @@ pre code {
 }
 
 .plus-sign {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-    background-color: #007bff;
+    /* display: none; */
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: orange;
     color: white;
     border-radius: 50%;
     display: flex;
@@ -403,6 +402,11 @@ pre code {
     justify-content: center;
     font-size: 14px;
     cursor: pointer;
+}
+
+.plus-sign p {
+    color: white;
+    align-self: center;
 }
 
 .modal {
@@ -438,6 +442,23 @@ pre code {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+#suggestionForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.suggesstion_textbox {
+    width: 100%;
+    padding: 10px 5px;
+}
+
+.submit_btn {
+    background-color: #4f97d1;
+    color: white;
+    padding: 10px 5px;
+    margin-top: 10px;
 }
 
 footer {

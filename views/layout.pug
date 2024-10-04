@@ -6,13 +6,17 @@ html
     link(rel='stylesheet', type='text/css', href='css/style.css')
     script(src="https://requirejs.org/docs/release/2.3.7/minified/require.js") 
     script(src="js/search.js" type='module') 
+    script(src="js/suggestion.js" type='module') 
     title #{pageTitle} 
   body.bg-primary
     div.header.blue-base
       include partials/_nav 
       include partials/_search
-      include partials/_suggestion_modal
-    div.main_body.container
+    include partials/_suggestion_modal
+    div#main_body.main_body.container
+      div.plus-sign
+        p +
       block content
   footer#footer
     p VELMA 2.2 DOCUMENTATION
+    

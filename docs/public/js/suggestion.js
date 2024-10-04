@@ -1,20 +1,30 @@
 // suggestion box modal
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("Suggestion box loaded")
     const suggestionModal = document.getElementById('suggestionModal');
     const modalContent = document.querySelector('.modal-content');
     const closeBtn = document.querySelector('.close');
     const suggestionForm = document.getElementById('suggestionForm');
     const suggestionText = document.getElementById('suggestionText');
+    const plusSign = document.getElementsByClassName('plus-sign');
+    const main_div = document.getElementById('main_body');
+    console.log(plusSign[0])
+    plusSign.item(0).addEventListener('click', function() {
+        console.log(main_div)
+        openModal(main_div);
+    });
 
     // Function to show the plus sign
     function showPlusSign(event) {
         const div = event.target;
+        console.log("Adding plus sign to --", div);
         const plusSign = document.createElement('div');
         plusSign.className = 'plus-sign';
         plusSign.textContent = '+';
         div.appendChild(plusSign);
 
         plusSign.addEventListener('click', function() {
+            
             openModal(div.id);
         });
     }
@@ -41,11 +51,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add event listeners to suggestion boxes
-    const suggestionBoxes = document.querySelectorAll('.suggesstion-box');
-    suggestionBoxes.forEach(box => {
-        box.addEventListener('mouseenter', showPlusSign);
-        box.addEventListener('mouseleave', hidePlusSign);
-    });
+    // const suggestionBoxes = document.querySelectorAll('.suggesstion-box');
+    // const divs = document.getElementsByTagName('div');
+    // console.log(divs)
+    // Array.from(divs).forEach(box => {
+    //     console.log("added listener to", box);
+    //     box.addEventListener('mouseenter', showPlusSign);
+    //     box.addEventListener('mouseleave', hidePlusSign);
+    // });
 
     // Close the modal when the user clicks outside of it
     window.addEventListener('click', function(event) {
@@ -77,7 +90,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to save the suggestion to a JSON file
     async function saveSuggestion(suggestionData) {
         try {
-            const response = await fetch('suggestions.json', {
+            const json_url = 'https://raw.githubusercontent.com/USEPA/VELMA_Public/refs/heads/develop/docs/public/js/suggestions.json'
+            const response = await fetch(json_url, {
                 method: 'GET'
             });
             let suggestions = await response.json();
@@ -88,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             suggestions.push(suggestionData);
 
-            await fetch('suggestions.json', {
+            await fetch(json_url, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
