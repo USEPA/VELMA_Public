@@ -1,0 +1,468 @@
+/* Generic Styles */
+/* https://www.epa.gov/themes/epa_theme/pattern-lab/?p=global-color */
+.bg-primary {
+    background-color: #edeff0; /* gray-1*/
+}
+
+.blue-base {
+    background-color: #005ea2;
+}
+
+.blue-light {
+    background-color: #4f97d1;
+}
+
+.blue-light-1 {
+    background-color: #aacdec;
+}
+
+.blue-dark {
+    background-color: #1a4480;
+}
+
+.blue-dark-1 {
+    background-color: #162e51;
+}
+
+.warning-base {
+    background-color: #ffbe2e;
+}
+
+.info-light {
+    background-color: #99deea;
+}
+
+.container {
+    background-color: white;
+    border: 1px solid black;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+p {
+    font-family: "Source Sans Pro Web", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    /* padding: .2em .4em; */
+    margin-bottom: 16px;
+}
+
+h1, h2, h3{
+    text-align: center;
+}
+
+
+ul.no-bullets {
+    list-style-type: none;
+}
+
+li {
+    padding: .2em .4em;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+}
+
+/* Nav Styles */
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    max-width: fit-content;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.navbar-nav{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* width: 100%; */
+} 
+
+
+.nav-item {
+    color: white !important;
+    text-decoration: none;
+    /* display: block; */
+    padding: 0.5rem 1.2rem;
+    border-right: 1px solid white
+}
+
+.nav-child {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-brand,
+.nav-link {
+    color: white !important;
+    text-decoration: none;
+    /* display: block; 
+    padding: 0.5rem 1rem; */
+}
+
+.navbar-brand {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-right: none;
+    align-self: center;
+}
+
+
+
+/* Dropdown Styles */
+
+/* .nav-dropdown {
+    display: none;
+    position: relative;
+    background-color: lightblue;
+    min-width: 100%;
+} */
+
+.nav-dropdown {
+    display: none;
+    position: absolute; 
+    top: 4rem; 
+    text-align: left;
+    padding-inline-start: 0px;
+    /* min-width: 100%; */
+    z-index: 2; /* Places the dropdown on a higher layer */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); /* Optional: For a shadow effect */
+}
+
+/* Show dropdown on hover */
+/* .nav-item:hover > .nav-dropdown {
+    display: block; 
+} */
+
+.nav-item.dropdown:hover > .nav-link, 
+.nav-item.dropdown:hover > .nav-dropdown {
+    display: block; /* Show dropdown when either .nav-item or dropdown is hovered */
+}
+
+.nav-dropdown {
+    visibility: hidden; /* Initially hidden */
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out; /* Smooth transition */
+}
+
+.nav-item.dropdown:hover > .nav-dropdown {
+    visibility: visible; /* Becomes visible on hover */
+    opacity: 1;
+    z-index: 3
+}
+
+.nav-dropdown li {
+    margin-bottom: 0;
+    display: block;
+}
+
+.nav-dropdown .nav-link {
+    border-right: none; 
+}
+
+/* Active state for nav items */
+.nav-item.active > a,
+.nav-dropdown li.active > a {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+    .header {
+        position:sticky;
+        top: 0;
+    }
+    .navbar {
+        flex-direction: column;
+        max-width: 100%;
+        padding: 0.5rem;
+    }
+
+    .navbar-brand {
+        margin-top: 1rem;
+    }
+
+    .nav-item {
+        border-right: none;
+        border-bottom: 1px solid white;
+        width: 80%;
+    }
+
+    .nav-item:last-child {
+        border-bottom: none;
+    }
+
+    .nav-dropdown {
+        position: static;
+        display: none;
+        padding-left: 1rem;
+    }
+
+    .nav-dropdown li {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+}
+
+.search-bar input {
+    width: 50%;
+    min-width: 300px;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 16px;
+    border: 0px;
+    outline: none;
+}
+
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+}
+
+/* .sticky-sidebar {
+    position: sticky;
+    top: 10vh;
+    left:0;
+    height: 80vh;
+    width: 250px; 
+    background-color: #f8f9fa;
+    border-right: 1px solid black;
+    overflow-y: scroll;
+    z-index: 1;
+} */
+.sticky-sidebar {
+    flex-grow: 1;
+    flex-basis: 250px;
+    align-self: start;
+    position: sticky;
+    top: 20vh;
+    height: 80vh;
+    overflow-y: scroll;
+    z-index: 0;
+}
+
+.body-content {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: 40%;
+}
+
+table, td, th {
+    border: 1px solid black;
+}
+
+table {
+    box-sizing: border-box;
+    display: table-cell;
+    /* padding: 8px 16px; */
+    border-collapse: collapse;
+}
+
+thead{
+    box-sizing: border-box;
+    display: table-header-group;
+    background-color: rgb(164, 164, 164);
+    /* border: 1px solid black; */
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+td {
+    padding: 4px 8px;
+}
+
+.param_def {
+    border: 1px solid black;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.param_row {
+    width: 100%;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+}
+
+.param_name {
+    text-align: start;
+    max-width: 25%;
+    min-width: fit-content;
+    padding: .2rem;
+    font-weight: 500;
+}
+.param_desc {
+    width: 75%;
+    text-align: center;
+    padding: .2rem;
+}
+
+.code {
+    border: 1px solid black;
+}
+pre {
+    overflow-x: scroll;
+    background-color: #6e768166;
+    /* color: white; */
+    tab-size: 4;
+    padding: 20px;
+    max-width: 70%;
+    min-width: 100px;
+    /* white-space: pre-wrap; */
+    word-break: keep-all;
+    border-radius: 6px;
+}
+
+code {
+    font-family: 'Roboto Mono Web', monospace;
+    /* font-weight: 300; */
+    background-color: #6e768166;
+    border-radius: 3px;
+    margin: 0;
+    font-size: 90%;
+}
+
+pre code {
+    background-color: transparent;
+}
+
+.math {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.math_formula {
+    text-align: center;
+}
+
+.textbox {
+    border: 1px solid black;
+    max-width: max-content;
+    padding: 4px 8px;
+}
+
+.csv_textarea {
+    border: 1px solid black;
+    max-width: max-content;
+}
+
+.caution_box {
+    border: 1px solid black;
+    /* background-color: warning-base; */
+    padding: 1em;
+    width: 90%;
+    margin: 1em auto;
+    align-items: center;
+}
+
+.info {
+    border: 1px solid black;
+    width: 90%;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+.suggesstion-box {
+    position: relative;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.plus-sign {
+    /* display: none; */
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: orange;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.plus-sign p {
+    color: white;
+    align-self: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#suggestionForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.suggesstion_textbox {
+    width: 100%;
+    padding: 10px 5px;
+}
+
+.submit_btn {
+    background-color: #4f97d1;
+    color: white;
+    padding: 10px 5px;
+    margin-top: 10px;
+}
+
+footer {
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+}

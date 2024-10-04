@@ -1,0 +1,24 @@
+name: Merge Docs Folder
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  merge-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        ref: develop
+
+    - name: Copy docs folder to master
+      run: |
+        git checkout master
+        git checkout develop -- docs
+        git add docs
+        git commit -m "Merge docs folder from develop branch" || echo "No changes to commit"
+        git push origin master

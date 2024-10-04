@@ -3,7 +3,10 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://requirejs.org/docs/release/2.3.7/minified/require.js"> </script>
+    <script src="js/search.js" type="module"> </script>
+    <script src="js/suggestion.js" type="module"> </script>
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -109,10 +112,25 @@
           </li>
         </ul>
       </nav>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+      </div>
     </div>
-    <div class="main_body container">
+    <div class="modal" id="suggestionModal">
+      <div class="modal-content"> <span class="close">&times;</span>
+        <h2>Submit a Suggestion </h2>
+        <form id="suggestionForm"> 
+          <textarea class="suggestion_textbox" id="suggestionText" name="suggestionText" require="True" placeholder="Enter your suggestion here ..."> </textarea>
+          <button class="submit_btn" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="main_body container" id="main_body">
+      <div class="plus-sign">
+        <p>+</p>
+      </div>
       <h1>Appendix 2: Initializing a Spatial Data Pool Using an ASCII Grid</h1><br>
-      <VELMA>Simulator spatial data pools may be initialized by specifying "Set SpatialData By Map" disturbances as part of a simulator run's simulation configuration. Each spatial data pool (andeach layer of that pool for multi- layer pools) that is initialized must have a separate disturbancespecified for it, and its own Grid ASCII (.asc) map file available for the disturbance to use as a datasource3.</VELMA>
+      <VELMA>Simulator spatial data pools may be initialized by specifying "Set SpatialData By Map" disturbances as part of a simulator run's simulation configuration. Each spatial data pool (andeach layer of that pool for multi- layer pools) that is initialized must have a separate disturbancespecified for it, and its own Grid ASCII (.asc) map file available for the disturbance to use as a data source3.</VELMA>
       <p>Assuming an otherwise already configured simulation configuration is loaded into JVelma, here is how toinitialize a spatial data pool (using the leaf biomass pool as our example) by adding a Set Spatial By Mapdisturbance event to the configuration:</p>
       <h6>Note</h6>
       <p>It's assumed that before configuring the simulation, you've already created a Grid ASCII map file (.asc) for thedisturbance to use. How you create the map is up to you, but it must in standard Grid ASCII format, and have thesame dimensions as the Grid ASCII map of DEM data that the simulation will use.</p>
@@ -127,7 +145,7 @@
       <h3>Configure the New Disturbance Parameters</h3>
       <p>The parameters for the Set Spatial Data By Map disturbance tell the disturbance When it should occur, What itsdata source is, and Which Spatial Data Pool to apply that data source to.</p><br>
       <div class="info blue-light-1"> 
-        <p>3 Two or more Set Spatial Data By Map disturbances may be set to use the same Grid ASCII map file as their inputdata source, but it's more likely that a given spatial data pool to have its own unique input datasource.</p>
+        <p>3 Two or more Set Spatial Data By Map disturbances may be set to use the same Grid ASCII map file as their inputdata source, but it's more likely that a given spatial data pool to have its own unique input data source.</p>
       </div>
       <p>The initializeActiveLoops, initializeActiveYears" and initializeActiveJdays parameters, plusthe occursAtStepStart parameter specify when this disturbance should occur. To initialize the leafbiomass pool before any simulation steps occur, set them as follows:</p><br>
       <table>

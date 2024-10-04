@@ -3,7 +3,10 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://requirejs.org/docs/release/2.3.7/minified/require.js"> </script>
+    <script src="js/search.js" type="module"> </script>
+    <script src="js/suggestion.js" type="module"> </script>
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -109,8 +112,23 @@
           </li>
         </ul>
       </nav>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+      </div>
     </div>
-    <div class="main_body container">
+    <div class="modal" id="suggestionModal">
+      <div class="modal-content"> <span class="close">&times;</span>
+        <h2>Submit a Suggestion </h2>
+        <form id="suggestionForm"> 
+          <textarea class="suggestion_textbox" id="suggestionText" name="suggestionText" require="True" placeholder="Enter your suggestion here ..."> </textarea>
+          <button class="submit_btn" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="main_body container" id="main_body">
+      <div class="plus-sign">
+        <p>+</p>
+      </div>
       <h1>Appendix 3: Creating Initial ASCII Grid Chemistry Spatial Data Pools</h1>
       <p>Initial chemistry or nutrient pools are created through a series of transformations of above ground Biomass to each of the respective spatial data pools. These transformations are defined by relationship ratios (fractions) each pool has to "real" or estimated measurements of Biomass (g/m²) for the study area.</p>
       <p>37 VELMA Simulator spatial data pools will be created from this one raster grid Biomass layer. See Table 1 for the complete list of initial layers that will be created. Each spatial data pool layer will have its own corresponding Grid ASCII (.asc) map file upon completion of the Python script. These Grid ASCII (.asc) map files will be used as inputs to VELMA for initializing the map disturbance events.</p>
