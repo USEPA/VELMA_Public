@@ -2,7 +2,7 @@
 
 This is the develop branch for the VELMA documentation GitHub Pages website.
 
-## Background
+## Overview
 
 - PDF documentation were converted to .pug files and placed in the /views directory
 - Run the `npm run build` command to compile .html pages
