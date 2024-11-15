@@ -1,9 +1,9 @@
-// const fs = require('fs');
-// const path = require('path');
-// const cheerio = require('cheerio');
-const fs = require(['fs']);
-const path = require(['path']);
-const cheerio = require(['cheerio']);
+const fs = require('fs');
+const path = require('path');
+const cheerio = require('cheerio');
+// const fs = require(['fs']);
+// const path = require(['path']);
+// const cheerio = require(['cheerio']);
 // import {path} from '../../../node_modules/path-parse';
 // import {fs} from '../../../node_modules/fs.realpath';
 // import {cheerio} from '../../../node_modules/cheerio';
