@@ -129,6 +129,8 @@ li {
     padding-inline-start: 0px;
     /* min-width: 100%; */
     z-index: 2; /* Places the dropdown on a higher layer */
+    max-height: 60vh;
+    overflow-y: scroll;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); /* Optional: For a shadow effect */
 }
 

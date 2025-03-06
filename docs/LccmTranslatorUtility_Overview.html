@@ -1,162 +1,167 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta name="viewport" content="width=device-width">
-  <meta name="charset" content="utf-8">
-  <link rel="stylesheet" type="text/css" href="public/css/style.css">
-  <script src="https://requirejs.org/docs/release/2.3.7/minified/require.js"> </script>
-  <script src="public/js/search.js" type="module"> </script>
-  <script src="public/js/suggestion.js" type="module"> </script>
-  <title> </title>
-</head>
-
-<body class="bg-primary">
-  <div class="header blue-base">
-    <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="./index.html">VELMA 2.2 HOME</a>
-      <ul class="navbar-nav no-bullets">
-        <li class="nav-item dropdown">VELMA 2.0 Manual<ul class="nav-dropdown blue-light">
-            <li class="nav-item"><a class="nav-link" href="./intro.html"><span>I. Intro</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./changes.html"><span>II. Changes from 1.0</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./about.html"><span>III. About</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./input_files.html"><span>IV. Input Files </span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./new_sim_config.html"><span>V. Sim Config</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./parameter_config.html"><span>VI. Parameter Config</span></a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">Appendicies<ul class="nav-dropdown blue-light">
-            <li class="nav-item"><a class="nav-link" href="./appendix_1.html"><span>Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./appendix_2.html"><span>Initializing a Spatial Data Pool Using an ASCII Grid</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./appendix_3.html"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./appendix_4.html"><span>Overview of VELMA Simulator Output</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./appendix_5.html"><span>Generating daily temperature and precipitation grids for running VELMA</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./appendix_6.html"><span>Hydrological and Biochemical Model Descriptions</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./appendix_7.html"><span>Creating Flat-Processed DEM Data For The VELMA Simulator</span></a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">Supplemental Info (VELMA 2.1)<ul class="nav-dropdown blue-light">
-            <li class="nav-item"><a class="nav-link" href="./supplement-a1.html"><span>Organic Contaminant Modeling Using VELMA</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-a2.html"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-a3.html"><span>VELMA Contaminant Modeling Demonstration</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-a4.html"><span>Adding Stormwater Drains for Urban &amp; Mixed-Use Watershed Applications</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-b1.html"><span>Creating Flat-Processed DEM Data for the VELMA Simulator</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-b2.html"><span>JPDEM Cell Highlighter</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-b3.html"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-b4.html"><span>JPDEM Flow Test Tool</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-b5.html"><span>JPDEM Saving Data to Files</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-b6.html"><span>JPDEM User-Specified Map Borders</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-b7.html"><span>JPDEM User-Specified Border Mask</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-b8.html"><span>JPDEM for Viewing Map Differences</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-b9.html"><span>JPDEM Sub-Reach Delineations</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-b10.html"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-c1.html"><span>VELMA Reach Mapping</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-c2.html"><span>How to Run VELMA in Parallel Mode</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-c3.html"><span>Rationale for Parallel Velma and Reach Segmentation</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-d1.html"><span>Acquisition &amp; Generation of VELMA Input Data</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-d2.html"><span>Soil Data Mapping and Parameter Initialization</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-d3.html"><span>Initialize a Spatial Data Pool Using an Ascii Grid</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-d4.html"><span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-d5.html"><span>Create Land-zoning Maps for a VELMA Application</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-d6.html"><span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-d7a.html"><span>Create Multiple-Location Weather Drivers</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-d7b.html"><span>Development of Statistical Models Based on Monthly PRISM / Daymet Data</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-d8.html"><span>Cell Data Writer Configuration</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-d9.html"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-d10.html"><span>Default Tidewater Model Configuration</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-e1.html"><span>Mapping Surface Layer Permeabilities</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-e2.html"><span>VELMA Surface Chemistry Pools</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-e3.html"><span>Deposition of Surface Chemicals</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-e4.html"><span>Implementing Green Roof Applications</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-e5.html"><span>Irrigation Disturbance</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-e6.html"><span>Groundwater Storage Mechanism</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./supplement-e7.html"><span>Spatial Data Writer Key Words for Generating ASCII VELMA Outputs for Data Visualization</span></a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown"> <a class="nav-link" href="./dev_info.html"><span>Developer Info</span></a>
-          <ul class="nav-dropdown blue-light">
-            <li class="nav-item"><a class="nav-link" href="./GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracer Config Guide</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./TopoFiles_Output_Summary.html"><span>Topo Files Output Summary </span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./VelmaParallel_Error_Reports.html"><span>Velma Parallel Error Reports</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./VelmaParallel_With_Multiple_Maps.html"><span>Velma Parallel With Multiple Maps </span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./WaterDrainDisturbanceModel_Overview.html"><span>Water Drain Disturbance Model</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorCmdLine_Overview.html"><span>Velma Sim Cmd Line Guide</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorAltCmdLine_Overview.html"><span>Velma Sim Alt Cmd Line Guide</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./SurfaceEvaporation_Overview.html"><span>Surface Evaporation Overview</span></a></li>
-            <li class="nav-item"> <a class="nav-link" href="./LccmTranslatorUtility_Overview.html"><span>LCCM-to-VELMA Translator Utility</span></a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown"> <a class="nav-link" href="./dev_utils.html"><span>Developer Utils</span></a>
-          <ul class="nav-dropdown blue-light">
-            <li class="nav-item"><a class="nav-link" href="./AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </div>
-  <div class="modal" id="suggestionModal">
-    <div class="modal-content"> <span class="close">&times;</span>
-      <h2>Submit a Suggestion </h2>
-      <form id="suggestionForm"> <textarea class="suggestion_textbox" id="suggestionText" name="suggestionText" require="True" placeholder="Enter your suggestion here ..."> </textarea><button class="submit_btn" type="submit">Submit</button></form>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <script src="https://requirejs.org/docs/release/2.3.7/minified/require.js"> </script>
+    <script src="public/js/search.js" type="module"> </script>
+    <script src="public/js/suggestion.js" type="module"> </script>
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="./index.html">VELMA 2.2 HOME</a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item dropdown">VELMA 2.0 Manual
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./intro.html"><span>I. Intro</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./changes.html"><span>II. Changes from 1.0</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./about.html"><span>III. About</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./input_files.html"><span>IV. Input Files </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./new_sim_config.html"><span>V. Sim Config</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./parameter_config.html"><span>VI. Parameter Config</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Appendicies
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./appendix_1.html"><span>Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_2.html"><span>Initializing a Spatial Data Pool Using an ASCII Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_3.html"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_4.html"><span>Overview of VELMA Simulator Output</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_5.html"><span>Generating daily temperature and precipitation grids for running VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_6.html"><span>Hydrological and Biochemical Model Descriptions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_7.html"><span>Creating Flat-Processed DEM Data For The VELMA Simulator</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Supplemental Info (VELMA 2.1)
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./supplement-a1.html"><span>Organic Contaminant Modeling Using VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a2.html"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a3.html"><span>VELMA Contaminant Modeling Demonstration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a4.html"><span>Adding Stormwater Drains for Urban &amp; Mixed-Use Watershed Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b1.html"><span>Creating Flat-Processed DEM Data for the VELMA Simulator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b2.html"><span>JPDEM Cell Highlighter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b3.html"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b4.html"><span>JPDEM Flow Test Tool</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b5.html"><span>JPDEM Saving Data to Files</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b6.html"><span>JPDEM User-Specified Map Borders</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b7.html"><span>JPDEM User-Specified Border Mask</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b8.html"><span>JPDEM for Viewing Map Differences</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b9.html"><span>JPDEM Sub-Reach Delineations</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b10.html"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c1.html"><span>VELMA Reach Mapping</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c2.html"><span>How to Run VELMA in Parallel Mode</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c3.html"><span>Rationale for Parallel Velma and Reach Segmentation</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d1.html"><span>Acquisition &amp; Generation of VELMA Input Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d2.html"><span>Soil Data Mapping and Parameter Initialization</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d3.html"><span>Initialize a Spatial Data Pool Using an Ascii Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d4.html"><span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d5.html"><span>Create Land-zoning Maps for a VELMA Application</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d6.html"><span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7a.html"><span>Create Multiple-Location Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7b.html"><span>Development of Statistical Models Based on Monthly PRISM / Daymet Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d8.html"><span>Cell Data Writer Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d9.html"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d10.html"><span>Default Tidewater Model Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e1.html"><span>Mapping Surface Layer Permeabilities</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e2.html"><span>VELMA Surface Chemistry Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e3.html"><span>Deposition of Surface Chemicals</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e4.html"><span>Implementing Green Roof Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e5.html"><span>Irrigation Disturbance</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e6.html"><span>Groundwater Storage Mechanism</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e7.html"><span>Spatial Data Writer Key Words for Generating ASCII VELMA Outputs for Data Visualization</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_info.html"><span>Developer Info</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracer Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./TopoFiles_Output_Summary.html"><span>Topo Files Output Summary </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_Error_Reports.html"><span>Velma Parallel Error Reports</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_With_Multiple_Maps.html"><span>Velma Parallel With Multiple Maps </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./WaterDrainDisturbanceModel_Overview.html"><span>Water Drain Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorCmdLine_Overview.html"><span>Velma Sim Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorAltCmdLine_Overview.html"><span>Velma Sim Alt Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SurfaceEvaporation_Overview.html"><span>Surface Evaporation Overview</span></a></li>
+              <li class="nav-item"> <a class="nav-link" href="./LccmTranslatorUtility_Overview.html"><span>LCCM-to-VELMA Translator Utility</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_utils.html"><span>Developer Utils</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
     </div>
-  </div>
-  <div class="main_body container" id="main_body">
-    <div class="plus-sign">
-      <p>+</p>
+    <div class="modal" id="suggestionModal">
+      <div class="modal-content"> <span class="close">&times;</span>
+        <h2>Submit a Suggestion </h2>
+        <form id="suggestionForm"> 
+          <textarea class="suggestion_textbox" id="suggestionText" name="suggestionText" require="True" placeholder="Enter your suggestion here ..."> </textarea>
+          <button class="submit_btn" type="submit">Submit</button>
+        </form>
+      </div>
     </div>
-    <h1>LCCM-to-VELMA Translator Utility</h1>
-    <h2>Overview</h2>
-    <h3 class="warning-base">THIS IS A DRAFT DOCUMENT: ITS CONTENTS MAY CHANGE</h3>
-    <p>The LCCM-to-VELMA (“L2V”) Translator utility automates some of the steps required to generate a modifications .csv file for a Modify Landcover disturbance to use as driver data.</p>
-    <p>The L2V Translator requires its own set of driver data files as input Some of these are provided directly by LCCM output, and others must be created based on the LCCM output. All the files the L2V Translator requires must exist and be specified to the LV2 Translator via the L2V Translator's own “configInfo.csv” file when the L2V Translator is run.</p>
-    <p>The L2V Translator can generate modification data for the LCCM output data from a single simulation date or for multiple simulation dates depending upon whether it is run in “single-date” or “multi-date” mode.</p>
-    <p>The <code>--multidate</code> command-line argument flag specifies which mode is use:</p>
-    <table>
-      <thead>
-        <tr>
-          <th><code>--multidate</code> set?</th>
-          <th>configInfo specifies …</th>
-          <th>generates driver data file for …</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>NO (single-date)</td>
-          <td>LCCM map and table files for one simulation date</td>
-          <td><code>ModifyLandcoverDisturbanceModel</code></td>
-        </tr>
-        <tr>
-          <td>YES (multi-date)</td>
-          <td>Locations of LCCM map and table files for multiple simulation dates</td>
-          <td><code>ModifyLandcoverMultiDateDisturbanceModel</code></td>
-        </tr>
-      </tbody>
-    </table>
-    <p>L2V multi-date mode can be thought of as a way to automate calling the L2V Translator multiple times in single-date mode. Instead of preparing multiple single-date configInfo.csv files, you only have to prepare one multi-date configInfo.csv file (and ensure all the necessary Lccm modification .asc map and .csv table files are in the locations specifed by the multi-date configInfo.csv file).</p>
-    <h2>Running the L2V Translator Utility</h2>
-    <h3>Invoking the L2V Translator</h3>
-    <p>Currently, the L2V Translator is only available as a command-line utility, accessible from VELMA's JVelma .jar file.</p>
-    <p>If you invoke the L2V Translator utility without any arguments, it prints a usage message, and does nothing else. Here is an example using Windows PowerShell:</p>
-    <pre><code> 
+    <div class="main_body container" id="main_body">
+      <div class="plus-sign">
+        <p>+</p>
+      </div>
+      <h1>LCCM-to-VELMA Translator Utility</h1>
+      <h2>Overview</h2>
+      <h3 class="warning-base">THIS IS A DRAFT DOCUMENT: ITS CONTENTS MAY CHANGE</h3>
+      <p>The LCCM-to-VELMA (“L2V”) Translator utility automates some of the steps required to generate a modifications .csv file for a Modify Landcover disturbance to use as driver data.</p>
+      <p>The L2V Translator requires its own set of driver data files as input Some of these are provided directly by LCCM output, and others must be created based on the LCCM output. All the files the L2V Translator requires must exist and be specified to the LV2 Translator via the L2V Translator's own “configInfo.csv” file when the L2V Translator is run.</p>
+      <p>The L2V Translator can generate modification data for the LCCM output data from a single simulation date or for multiple simulation dates depending upon whether it is run in “single-date” or “multi-date” mode.</p>
+      <p>
+        The <code>--multidate</code>  command-line argument flag specifies which mode is use:</p>
+      <table>
+        <thead>
+          <tr>
+            <th><code>--multidate</code>  set?</th>
+            <th>configInfo specifies …</th>
+            <th>generates driver data file for …</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NO (single-date)</td>
+            <td>LCCM map and table files for one simulation date</td>
+            <td><code>ModifyLandcoverDisturbanceModel</code></td>
+          </tr>
+          <tr>
+            <td>YES (multi-date)</td>
+            <td>Locations of LCCM map and table files for multiple simulation dates</td>
+            <td><code>ModifyLandcoverMultiDateDisturbanceModel</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>L2V multi-date mode can be thought of as a way to automate calling the L2V Translator multiple times in single-date mode. Instead of preparing multiple single-date configInfo.csv files, you only have to prepare one multi-date configInfo.csv file (and ensure all the necessary Lccm modification .asc map and .csv table files are in the locations specifed by the multi-date configInfo.csv file).</p>
+      <h2>Running the L2V Translator Utility</h2>
+      <h3>Invoking the L2V Translator</h3>
+      <p>Currently, the L2V Translator is only available as a command-line utility, accessible from VELMA's JVelma .jar file.</p>
+      <p>If you invoke the L2V Translator utility without any arguments, it prints a usage message, and does nothing else. Here is an example using Windows PowerShell:</p>
+      <pre><code> 
 PS C:\Users\Me> java -Xmx1g -cp C:\Users\Me\VELMA\JVelma.jar gov.epa.velmasimulator.LccmTranslatorCmdLine
 VELMA_2.2.0.0
 Usage: LccmTranslatorCmdLine <fullName_configInfo.csv> [--kv="<key>,<val>"] [--list]
@@ -194,35 +199,38 @@ Optional arguments are:
  
 L2V Log CONFIG 2024-10-02 13:28:21 LccmTranslatorCmdLine: Missing required command line arguments.
 PS C:\Users\Me></code></pre>
-    <blockquote>
-      <p><strong></strong><em>Note: the first line of the LccmTranslatorCmdLine's usage message identifies the .jar file's VELMA version. Your command line may display a different version than the example above.</em></p>
-    </blockquote>
-    <blockquote>
-      <p><strong></strong><em>Note: the last line of the LccmTranslatorCmdLine's usage message might look ominous, but it's simply the LccmTranslator telling you that it cannot proceed unless the required argument (a configInfo.csv file) is provided as part of the command line.</em></p>
-    </blockquote>
-    <p>As the usage message above shows, running the L2V Translator “for real” requires specifying a .csv file containing configuration data. Optionally, you may also include one or more <code>--kv=...</code> arguments, and the
-      <code>--multidate</code> argument to switch the L2V Translator into multi-date mode.
-    </p>
-    <p><strong>An Example: This command line invokes the L2V Translator with a multi-date configInfo.csv file, and overrides the </strong><code>resultsFileName</code> parameter's value:</p>
-    <pre class="hljs"><code>PS C:\Users\Me> java -Xmx1g -cp C:\Users\Me\VELMA\JVelma.jar gov.epa.velmasimulator.LccmTranslatorCmdLine `
+      <blockquote>
+        <p><strong></strong><em>Note:  the first line of the LccmTranslatorCmdLine's usage message identifies the .jar file's VELMA version. Your command line may display a different version than the example above.</em></p>
+      </blockquote>
+      <blockquote>
+        <p><strong></strong><em>Note:  the last line of the LccmTranslatorCmdLine's usage message might look ominous, but it's simply the LccmTranslator telling you that it cannot proceed unless the required argument (a configInfo.csv file) is provided as part of the command line.</em></p>
+      </blockquote>
+      <p>
+        As the usage message above shows, running the L2V Translator “for real” requires specifying a .csv file containing configuration data. Optionally, you may also include one or more <code>--kv=...</code>  arguments, and the 
+<code>--multidate</code>  argument to switch the L2V Translator into multi-date mode.
+      </p>
+      <p><strong>An Example: This command line invokes the L2V Translator with a multi-date configInfo.csv file, and overrides the </strong><code>resultsFileName</code>  parameter's value:</p>
+      <pre class="hljs"><code>PS C:\Users\Me> java -Xmx1g -cp C:\Users\Me\VELMA\JVelma.jar gov.epa.velmasimulator.LccmTranslatorCmdLine `
 C:Users\Me\L2v\mdConfig.csv `
 --multiDate `
 --kv="resultsFileName,C:\Users\Me\md_modifyData.csv"
 </code></pre>
-    <blockquote>
-      <p><strong></strong><em>Note: The command line above is broken into multiple lines to emphasize each argument passed to the LccmTranslatorCmdLine. Each line ends in a <space>
-            <backtick> character sequence, the Microsoft Powershell “line continuation” indicator. The above example could really be typed into a Powershell console as multiple “line continued” lines. Linux console shells provide the same line-continuation feature, but use different syntax. Consult your shell documentation if you are running on Linux.</em></p>
-    </blockquote>
-    <h3>The L2V's Configuration Parameters</h3>
-    <p>The <code>fullname_configInfo.csv</code> contains the information about the LCCM data files (for single-date mode) or data locations (for multi-date mode) that the L2V Translator uses as input.</p>
-    <p>Add the <code>--list</code> argument to an L2V Translator command line to see a list of the parameter key names that can be set in an L2V configInfo.csv file. The
-      <code>--list</code> argument is context-sensitive: when the
-      <code>--multidate</code> argument is also specified, the list will be for an L2V multi-date configInfo.csv file. Otherwise, it will be for an L2V single-date configInfo.csv file. When the
-      <code>--list</code> argument is included on an L2V Translator command line, the L2V Translator ignores any other argumenets, and performs actions apart from listing the relevant parameter key names.
-    </p>
-    <h4>L2V Single-Date Configuration Parmeters</h4>
-    <p>This Windows PowerShell example shows L2V single-date <code>--list</code> output:</p>
-    <pre class="hljs"><code>PS C:\Users\Me> java -Xmx1g -cp C:\Users\Me\VELMA\JVelma.jar gov.epa.velmasimulator.LccmTranslatorCmdLine --list
+      <blockquote>
+        <p><strong></strong><em>Note:  The command line above is broken into multiple lines to emphasize each argument passed to the LccmTranslatorCmdLine. Each line ends in a <space><backtick> character sequence, the Microsoft Powershell “line continuation” indicator. The above example could really be typed into a Powershell console as multiple “line continued” lines. Linux console shells provide the same line-continuation feature, but use different syntax. Consult your shell documentation if you are running on Linux.</em></p>
+      </blockquote>
+      <h3>The L2V's Configuration Parameters</h3>
+      <p>
+        The <code>fullname_configInfo.csv</code>  contains the information about the LCCM data files (for single-date mode) or data locations (for multi-date mode) that the L2V Translator uses as input.</p>
+      <p>
+        Add the <code>--list</code>  argument to an L2V Translator command line to see a list of the parameter key names that can be set in an L2V configInfo.csv file. The 
+<code>--list</code>  argument is context-sensitive: when the 
+<code>--multidate</code>  argument is also specified, the list will be for an L2V multi-date configInfo.csv file. Otherwise, it will be for an L2V single-date configInfo.csv file. When the 
+<code>--list</code>  argument is included on an L2V Translator command line, the L2V Translator ignores any other argumenets, and performs actions apart from listing the relevant parameter key names.
+      </p>
+      <h4>L2V Single-Date Configuration Parmeters</h4>
+      <p>
+        This Windows PowerShell example shows L2V single-date <code>--list</code>  output:</p>
+      <pre class="hljs"><code>PS C:\Users\Me> java -Xmx1g -cp C:\Users\Me\VELMA\JVelma.jar gov.epa.velmasimulator.LccmTranslatorCmdLine --list
 Valid LccmTranslator configInfo Parameter Key Names
 (Replace placeholder "???" text with valid values.)
 coverMapFileName,???
@@ -240,253 +248,259 @@ jdayPrefix,???
 appendResults,???
 PS C:\Users\Me>
 </code></pre>
-    <p>Here is a summary of the valid (single-date) parameter key names and their corresponding values:</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameter Key Name</th>
-          <th>Parameter Value</th>
-          <th>Parameter's Purpose</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>coverMapFileName</code></td>
-          <td>.asc Map filename</td>
-          <td>LccmId-to-cellId mapping for Cover Types.</td>
-        </tr>
-        <tr>
-          <td><code>coverLastMapFileName</code></td>
-          <td>.asc Map filename</td>
-          <td>The previous <code>coverMapFileName</code> file (if it exists); used as a delta file.</td>
-        </tr>
-        <tr>
-          <td><code>coverTableFileName</code></td>
-          <td>.csv cover-lookup table filename</td>
-          <td>LccmId-to-CoverId + <spatialChangeText>
-          </td>
-        </tr>
-        <tr>
-          <td><code>soilMapFileName</code></td>
-          <td>.asc Map filename</td>
-          <td>LccmId-to-cellId mapping for Soil Types.</td>
-        </tr>
-        <tr>
-          <td><code>soilLastMapFileName</code></td>
-          <td>.asc Map filename</td>
-          <td>The previous <code>soilMapFileName</code> file (if it exists); used as a delta file.</td>
-        </tr>
-        <tr>
-          <td><code>soilTableFileName</code></td>
-          <td>.csv soi-lookup table filename</td>
-          <td>LccmId-to-CoverId + <spatialChangeText>
-          </td>
-        </tr>
-        <tr>
-          <td><code>ageLastMapFileName</code></td>
-          <td>.asc Map filename</td>
-          <td>The previous <code>ageMapFileName</code> file (if it exists); used as a delta file.</td>
-        </tr>
-        <tr>
-          <td><code>ageMapFileName</code></td>
-          <td>.asc Map filename</td>
-          <td>LccmId-to-cellId mapping for age values.</td>
-        </tr>
-        <tr>
-          <td><code>ageTableFileName</code></td>
-          <td>.csv age-lookup table filename</td>
-          <td>LccmId-to-CoverId + <ageModification>
-          </td>
-        </tr>
-        <tr>
-          <td><code>resultsFileName</code></td>
-          <td>Modify Landcover driver data .csv filename</td>
-          <td>The file L2V uses for output.</td>
-        </tr>
-        <tr>
-          <td><code>yearPrefix</code></td>
-          <td>An integer year value</td>
-          <td>Optional; when present, prefixed to each row of output.</td>
-        </tr>
-        <tr>
-          <td><code>jdayPrefix</code></td>
-          <td>An integer Julian day (of the year) value</td>
-          <td>Optional; when present, prefixed to each row of output.</td>
-        </tr>
-        <tr>
-          <td><code>appendResults</code></td>
-          <td>“true” or “false”</td>
-          <td>Optional; when present and set “true”, L2V appends to resultsFileName instead of overwriting.</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Each parameter's value is the name of a file. Each file name must be fully-qualified (i.e. include the full path for its location).</p>
-    <p>The <code>resultsFileName</code> parameter specifies the file that L2V uses for output, and which can then be provided as the value of the
-      <code>modificationDataFilename</code> parameter for a Modify Landcover Disturbance.
-    </p>
-    <h4>Map and Table Pairing Rules</h4>
-    <p>The six *Map and *Table parameters are paired: each pair provide a map and lookup table for cover, soil, or age modifications. These six parameters <em>must be specified as pairs: it is an error, for example, to specify </em><code>soilMapFileName</code> without specifying
-      <code>soilTableFileName</code> , or vice-versa.
-    </p>
-    <p>However, all 3 pairs of map + lookup files are not required. Users must specify <em>at least a cover </em><em>or soil map + lookup pair of files, but the L2V Translator does not require both. Also, the age map + lookup pair of files is always optional.</em></p>
-    <p>The three *LastMap parameters are always optional. When specified, they provide the name of the previous (i.e. “Last”) cover, soil, or age map used to generate modification data. The L2V translator uses the paired Map and LastMap to reduce the amount of modification data it generates. When a cell has the same value in both a Map and its corresponding LastMap for a given type of modification, L2V does not write modification data for that cell (for that modification type).</p>
-    <p>Note that the same cell's other modification types' Maps that either don't have a corresponding LastMap or (don't show the same value for the cell when they do) will still cause L2V to generate and output a modification data row for that cell. The only way a cell will not generate a modification data row at all is when three *Map files have corresponding *LastMap files <em>and all three of the cell's modification types have the same Map and LastMap value.</em></p>
-    <p><strong>An Example: This chart shows LCCM values at a specific cell for the LV2 driver data maps (or “n/p” if the map is not provided) and whether L2V generates a modification row or not. (The chart indicates a modification type as ignored by showing “n/p” for </strong><em>both the LastMap and the Map: the corresponding Table file is assumed to be “n/p” in this case as well.)</em></p>
-    <table>
-      <thead>
-        <tr>
-          <th>soilLastMap</th>
-          <th>soilMap</th>
-          <th>coverLastMap</th>
-          <th>coverMap</th>
-          <th>ageLastMap</th>
-          <th>ageMap</th>
-          <th>Result?</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>200</td>
-          <td>200</td>
-          <td>5</td>
-          <td>5</td>
-          <td>10</td>
-          <td>10</td>
-          <td>NO modification row output</td>
-        </tr>
-        <tr>
-          <td>200</td>
-          <td>200</td>
-          <td>5</td>
-          <td>5</td>
-          <td>n/p</td>
-          <td>10</td>
-          <td>Modification row IS output</td>
-        </tr>
-        <tr>
-          <td>200</td>
-          <td>200</td>
-          <td>5</td>
-          <td>9</td>
-          <td>10</td>
-          <td>10</td>
-          <td>Modification row IS output</td>
-        </tr>
-        <tr>
-          <td>n/p</td>
-          <td>n/p</td>
-          <td>5</td>
-          <td>5</td>
-          <td>5</td>
-          <td>5</td>
-          <td>NO Modification row IS output</td>
-        </tr>
-        <tr>
-          <td>n/p</td>
-          <td>n/p</td>
-          <td>5</td>
-          <td>9</td>
-          <td>5</td>
-          <td>5</td>
-          <td>Modification row IS output</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>The map files are generated by LCCM, contain LCCM ID values and are assumed to be the values “to change to”. (I.e. the LCCM ID values that LCCM changed to when the map was generated by LCCM.) Each LCCM ID in a map file indicates the LCCM ID of a cover, soil, or age change at that location.</p>
-    <p>The lookup tables must be created manually, by the LV2 user, based on an understanding of how to translate the LCCM IDs provided in the map files into corresponding VELMA cover, soil, or age IDs, along with any spatial data changes or age modifications that should be made for a given VELMA ID.</p>
-    <h4>Map File Format</h4>
-    <p>Any map files specified must be in ASCII grid format. All the header values (ncols, nrows, cellsize, etc.) must match the header values of the DEM (parameter <code>input_dem</code> ) map file specified for in VELMA simulation configuration that the L2V Translator is generating a Modify Landcover disturbance driver data file for.</p>
-    <p>Map files are assumed to contain LCCM ID (integer) values; the user must determine the correspondence between those LCCM ID values VELMA cover and soil ID values. Those correspondences are made explicit in the lookup table files.</p>
-    <h4>Lookup Table File Format</h4>
-    <p>Regardless of whether it is for cover, soil, or age data, an L2V lookup table .csv file consists of rows of comma-separated data fields. Each row maps an LCCM ID to an VELMA ID, followed by the spatial changes (cover and soil) or age modification (age) associated with transition to the specified VELMA ID.</p>
-    <p>Specific formats are:</p>
-    <table>
-      <thead>
-        <tr>
-          <th>File for …</th>
-          <th>Row format:</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>coverTableFileName</code></td>
-          <td><code>LCCM_coverID,VELMA_coverID,&lt;spatialChangeText&gt;</code></td>
-        </tr>
-        <tr>
-          <td><code>soilTableFileName</code></td>
-          <td><code>LCCM_soilID,VELMA_soilID,&lt;spatialChangeText&gt;</code></td>
-        </tr>
-        <tr>
-          <td><code>ageTableFileName</code></td>
-          <td><code>LCCM_agedID,VELMA_coverID,&lt;ageModification&gt;</code></td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Notice that age lookup tables expect to use VELMA_coverID values. In VELMA age is associated with cover types, and does not have separate, independent age IDs. The L2V translator permits different age-specific LCCM_ageID values, but in practice we expect age LCCM_ageID == LCCM_coverID.</p>
-    <p>The <code>&lt;spatialChangeText&gt;</code> format is the same as Modify Landcover disturbance driver data files use. (It is in fact, directly copied and output by the L2V translator.) The
-      <code>&lt;ageModification&gt;</code> format is a Modify Landcover
-      <code>ModificationOp</code> . Details for both of these are available in the <a href="./ModifyLandcoverDisturbanceModel_Overview.md/#Parameters-That-Determine-Which-Cells-are-Modiifed-and-How-They-Are-Modified"></a><em>Parameters That Determine Which Cells are Modiifed and How They Are Modified section of the Modify Landcover Disturbance overview document.</em>
-    </p>
-    <p>Any and all of the LCCM ID values specified in a map file must be present in the corresponding lookup table file. More than one LCCM ID value may correspond to one VELMA ID value, but each and every LCCM ID from a map file must appear in exactly one row of the corresponding lookup table file.</p>
-    <h4>Example rows for Lookup Tables</h4>
-    <p><strong>A row for a </strong><code>coverTableFileName</code> lookup table file</p>
-    <pre class="hljs"><code>25,7,BIOMASS_LEAF_N,0,BIOMASS_AG_STEM,*0.5,HUMUS:4,*0.1
+      <p>Here is a summary of the valid (single-date) parameter key names and their corresponding values:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter Key Name</th>
+            <th>Parameter Value</th>
+            <th>Parameter's Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>coverMapFileName</code></td>
+            <td>.asc Map filename</td>
+            <td>LccmId-to-cellId mapping for Cover Types.</td>
+          </tr>
+          <tr>
+            <td><code>coverLastMapFileName</code></td>
+            <td>.asc Map filename</td>
+            <td>
+              The previous <code>coverMapFileName</code>  file (if it exists); used as a delta file.</td>
+          </tr>
+          <tr>
+            <td><code>coverTableFileName</code></td>
+            <td>.csv cover-lookup table filename</td>
+            <td>LccmId-to-CoverId + <spatialChangeText></td>
+          </tr>
+          <tr>
+            <td><code>soilMapFileName</code></td>
+            <td>.asc Map filename</td>
+            <td>LccmId-to-cellId mapping for Soil Types.</td>
+          </tr>
+          <tr>
+            <td><code>soilLastMapFileName</code></td>
+            <td>.asc Map filename</td>
+            <td>
+              The previous <code>soilMapFileName</code>  file (if it exists); used as a delta file.</td>
+          </tr>
+          <tr>
+            <td><code>soilTableFileName</code></td>
+            <td>.csv soi-lookup table filename</td>
+            <td>LccmId-to-CoverId + <spatialChangeText></td>
+          </tr>
+          <tr>
+            <td><code>ageLastMapFileName</code></td>
+            <td>.asc Map filename</td>
+            <td>
+              The previous <code>ageMapFileName</code>  file (if it exists); used as a delta file.</td>
+          </tr>
+          <tr>
+            <td><code>ageMapFileName</code></td>
+            <td>.asc Map filename</td>
+            <td>LccmId-to-cellId mapping for age values.</td>
+          </tr>
+          <tr>
+            <td><code>ageTableFileName</code></td>
+            <td>.csv age-lookup table filename</td>
+            <td>LccmId-to-CoverId + <ageModification></td>
+          </tr>
+          <tr>
+            <td><code>resultsFileName</code></td>
+            <td>Modify Landcover driver data .csv filename</td>
+            <td>The file L2V uses for output.</td>
+          </tr>
+          <tr>
+            <td><code>yearPrefix</code></td>
+            <td>An integer year value</td>
+            <td>Optional; when present, prefixed to each row of output.</td>
+          </tr>
+          <tr>
+            <td><code>jdayPrefix</code></td>
+            <td>An integer Julian day (of the year) value</td>
+            <td>Optional; when present, prefixed to each row of output.</td>
+          </tr>
+          <tr>
+            <td><code>appendResults</code></td>
+            <td>“true” or “false”</td>
+            <td>Optional; when present and set “true”, L2V appends to resultsFileName instead of overwriting.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Each parameter's value is the name of a file. Each file name must be fully-qualified (i.e. include the full path for its location).</p>
+      <p>
+        The <code>resultsFileName</code>  parameter specifies the file that L2V uses for output, and which can then be provided as the value of the 
+<code>modificationDataFilename</code> parameter for a Modify Landcover Disturbance.
+      </p>
+      <h4>Map and Table Pairing Rules</h4>
+      <p>The six *Map and *Table parameters are paired: each pair provide a map and lookup table for cover, soil, or age modifications. These six parameters <em>must  be specified as pairs: it is an error, for example, to specify </em><code>soilMapFileName</code>  without specifying 
+<code>soilTableFileName</code> , or vice-versa.
+      </p>
+      <p>However, all 3 pairs of map + lookup files are not required. Users must specify <em>at least  a cover </em><em>or  soil map + lookup pair of files, but the L2V Translator does not require both. Also, the age map + lookup pair of files is always optional.</em></p>
+      <p>The three *LastMap parameters are always optional. When specified, they provide the name of the previous (i.e. “Last”) cover, soil, or age map used to generate modification data. The L2V translator uses the paired Map and LastMap to reduce the amount of modification data it generates. When a cell has the same value in both a Map and its corresponding LastMap for a given type of modification, L2V does not write modification data for that cell (for that modification type).</p>
+      <p>Note that the same cell's other modification types' Maps that either don't have a corresponding LastMap or (don't show the same value for the cell when they do) will still cause L2V to generate and output a modification data row for that cell. The only way a cell will not generate a modification data row at all is when three *Map files have corresponding *LastMap files <em>and  all three of the cell's modification types have the same Map and LastMap value.</em></p>
+      <p><strong>An Example: This chart shows LCCM values at a specific cell for the LV2 driver data maps (or “n/p” if the map is not provided) and whether L2V generates a modification row or not. (The chart indicates a modification type as ignored by showing “n/p” for </strong><em>both  the LastMap and the Map: the corresponding Table file is assumed to be “n/p” in this case as well.)</em></p>
+      <table>
+        <thead>
+          <tr>
+            <th>soilLastMap</th>
+            <th>soilMap</th>
+            <th>coverLastMap</th>
+            <th>coverMap</th>
+            <th>ageLastMap</th>
+            <th>ageMap</th>
+            <th>Result?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>200</td>
+            <td>200</td>
+            <td>5</td>
+            <td>5</td>
+            <td>10</td>
+            <td>10</td>
+            <td>NO modification row output</td>
+          </tr>
+          <tr>
+            <td>200</td>
+            <td>200</td>
+            <td>5</td>
+            <td>5</td>
+            <td>n/p</td>
+            <td>10</td>
+            <td>Modification row IS output</td>
+          </tr>
+          <tr>
+            <td>200</td>
+            <td>200</td>
+            <td>5</td>
+            <td>9</td>
+            <td>10</td>
+            <td>10</td>
+            <td>Modification row IS output</td>
+          </tr>
+          <tr>
+            <td>n/p</td>
+            <td>n/p</td>
+            <td>5</td>
+            <td>5</td>
+            <td>5</td>
+            <td>5</td>
+            <td>NO Modification row IS output</td>
+          </tr>
+          <tr>
+            <td>n/p</td>
+            <td>n/p</td>
+            <td>5</td>
+            <td>9</td>
+            <td>5</td>
+            <td>5</td>
+            <td>Modification row IS output</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The map files are generated by LCCM, contain LCCM ID values and are assumed to be the values “to change to”. (I.e. the LCCM ID values that LCCM changed to when the map was generated by LCCM.) Each LCCM ID in a map file indicates the LCCM ID of a cover, soil, or age change at that location.</p>
+      <p>The lookup tables must be created manually, by the LV2 user, based on an understanding of how to translate the LCCM IDs provided in the map files into corresponding VELMA cover, soil, or age IDs, along with any spatial data changes or age modifications that should be made for a given VELMA ID.</p>
+      <h4>Map File Format</h4>
+      <p>
+        Any map files specified must be in ASCII grid format. All the header values (ncols, nrows, cellsize, etc.) must match the header values of the DEM (parameter <code>input_dem</code> ) map file specified for in VELMA simulation configuration that the L2V Translator is generating a Modify Landcover disturbance driver data file for.</p>
+      <p>Map files are assumed to contain LCCM ID (integer) values; the user must determine the correspondence between those LCCM ID values VELMA cover and soil ID values. Those correspondences are made explicit in the lookup table files.</p>
+      <h4>Lookup Table File Format</h4>
+      <p>Regardless of whether it is for cover, soil, or age data, an L2V lookup table .csv file consists of rows of comma-separated data fields. Each row maps an LCCM ID to an VELMA ID, followed by the spatial changes (cover and soil) or age modification (age) associated with transition to the specified VELMA ID.</p>
+      <p>Specific formats are:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>File for …</th>
+            <th>Row format:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>coverTableFileName</code></td>
+            <td><code>LCCM_coverID,VELMA_coverID,&lt;spatialChangeText&gt;</code></td>
+          </tr>
+          <tr>
+            <td><code>soilTableFileName</code></td>
+            <td><code>LCCM_soilID,VELMA_soilID,&lt;spatialChangeText&gt;</code></td>
+          </tr>
+          <tr>
+            <td><code>ageTableFileName</code></td>
+            <td><code>LCCM_agedID,VELMA_coverID,&lt;ageModification&gt;</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Notice that age lookup tables expect to use VELMA_coverID values. In VELMA age is associated with cover types, and does not have separate, independent age IDs. The L2V translator permits different age-specific LCCM_ageID values, but in practice we expect age LCCM_ageID == LCCM_coverID.</p>
+      <p>
+        The <code>&lt;spatialChangeText&gt;</code>  format is the same as Modify Landcover disturbance driver data files use. (It is in fact, directly copied and output by the L2V translator.) The 
+<code>&lt;ageModification&gt;</code>  format is a Modify Landcover 
+<code>ModificationOp</code> . Details for both of these are available in the <a href="./ModifyLandcoverDisturbanceModel_Overview.md/#Parameters-That-Determine-Which-Cells-are-Modiifed-and-How-They-Are-Modified"></a><em>Parameters That Determine Which Cells are Modiifed and How They Are Modified  section of the Modify Landcover Disturbance overview document.</em>
+      </p>
+      <p>Any and all of the LCCM ID values specified in a map file must be present in the corresponding lookup table file. More than one LCCM ID value may correspond to one VELMA ID value, but each and every LCCM ID from a map file must appear in exactly one row of the corresponding lookup table file.</p>
+      <h4>Example rows for Lookup Tables</h4>
+      <p><strong>A row for a </strong><code>coverTableFileName</code>  lookup table file</p>
+      <pre class="hljs"><code>25,7,BIOMASS_LEAF_N,0,BIOMASS_AG_STEM,*0.5,HUMUS:4,*0.1
 -- - --------------------------------------------------
 | | |
 | | <spatialChangeText>
 | VELMA coverID
 LCCM coverID 
 </code></pre>
-    <p>Description: When a cell location in the <code>coverMapFileName</code> has the LCCM ID value 25, create (or include in) a Modify Landcover driver data record changing the VELMA cover ID to 7 at that cell location, and include the spatial data changes specified by the
-      <code>&lt;spatialChangeText&gt;</code> in the driver data record.
-    </p>
-    <p><strong>A row for a </strong><code>soilTableFileName</code> lookup table file</p>
-    <pre class="hljs"><code>110,5,GROUNDWATER_FRACTION,0.15
+      <p>
+        Description: When a cell location in the <code>coverMapFileName</code>  has the LCCM ID value 25, create (or include in) a Modify Landcover driver data record changing the VELMA cover ID to 7 at that cell location, and include the spatial data changes specified by the 
+<code>&lt;spatialChangeText&gt;</code>  in the driver data record.
+      </p>
+      <p><strong>A row for a </strong><code>soilTableFileName</code>  lookup table file</p>
+      <pre class="hljs"><code>110,5,GROUNDWATER_FRACTION,0.15
 --- - -------------------------
 |  | |
 |  | <spatialChangeText>
 |  VELMA coverID
 LCCM coverID 
 </code></pre>
-    <p>Description: When a cell location in the <code>soilMapFileName</code> has the LCCM ID value 110, create (or include in) a Modify Landcover driver data record changing the VELMA soil ID to 5 at that cell location, and include the spatial data changes specified by the
-      <code>&lt;spatialChangeText&gt;</code> in the driver data record.
-    </p>
-    <p><strong>A row for an </strong><code>ageTableFileName</code> lookup table file</p>
-    <pre class="hljs"><code>25,7,*0.5
+      <p>
+        Description: When a cell location in the <code>soilMapFileName</code>  has the LCCM ID value 110, create (or include in) a Modify Landcover driver data record changing the VELMA soil ID to 5 at that cell location, and include the spatial data changes specified by the 
+<code>&lt;spatialChangeText&gt;</code>  in the driver data record.
+      </p>
+      <p><strong>A row for an </strong><code>ageTableFileName</code>  lookup table file</p>
+      <pre class="hljs"><code>25,7,*0.5
 -- - ----
 | | |
 | | <ageModification>
 | VELMA coverID (VELMA age is ID'ed by coverID)
 LCCM coverID (In this example, assumes LCCM ageID == LCCM coverID)
 </code></pre>
-    <p>Description: When a cell location in the <code>ageMapFileName</code> has the LCCM ID value 25, create (or include in) a Modify Landcover driver data record changing the VELMA age value (ID'd by coverID == 5) at that cell location per the specified
-      <code>&lt;ageModification&gt;</code> .
-    </p>
-    <p>Suppose cell location 1753 in the LCCM-provided maps have these LCCM ID values:</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Map File</th>
-          <th>LCCM ID at icell 1735</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>coverTableFileName</code></td>
-          <td>25</td>
-        </tr>
-        <tr>
-          <td><code>soilTableFileName</code></td>
-          <td>110</td>
-        </tr>
-        <tr>
-          <td><code>ageTableFileName</code></td>
-          <td>25</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Based on the lookup table data examples above, the L2V Translator would output this Modify Landcover driver data row for cell location 1735:</p>
-    <pre class="hljs"><code>1735,5,7,*0.5,GROUNDWATER_FRACTION,0.15,BIOMASS_LEAF_N,0,BIOMASS_AG_STEM,*0.5,HUMUS:4,*0.1
+      <p>
+        Description: When a cell location in the <code>ageMapFileName</code>  has the LCCM ID value 25, create (or include in) a Modify Landcover driver data record changing the VELMA age value (ID'd by coverID == 5) at that cell location per the specified 
+<code>&lt;ageModification&gt;</code> .
+      </p>
+      <p>Suppose cell location 1753 in the LCCM-provided maps have these LCCM ID values:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Map File</th>
+            <th>LCCM ID at icell 1735</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>coverTableFileName</code></td>
+            <td>25</td>
+          </tr>
+          <tr>
+            <td><code>soilTableFileName</code></td>
+            <td>110</td>
+          </tr>
+          <tr>
+            <td><code>ageTableFileName</code></td>
+            <td>25</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Based on the lookup table data examples above, the L2V Translator would output this Modify Landcover driver data row for cell location 1735:</p>
+      <pre class="hljs"><code>1735,5,7,*0.5,GROUNDWATER_FRACTION,0.15,BIOMASS_LEAF_N,0,BIOMASS_AG_STEM,*0.5,HUMUS:4,*0.1
 ---- - - ---- ------------------------- -------------------------------------------------- 
   | | | |    |                         |
   | | | |    |                         cover lookup <spatialChangeText>
@@ -496,11 +510,12 @@ LCCM coverID (In this example, assumes LCCM ageID == LCCM coverID)
   | VELMA soilID (from the soil lookup)
   Map location
 </code></pre>
-    <h3>L2V Multi-Date Configuration Parmeters</h3>
-    <p>This Windows PowerShell example shows L2V multi-date <code>--list</code>
-      <code>--multidate</code> output:
-    </p>
-    <pre class="hljs"><code>PS C:\Users\Me> java -Xmx1g -cp C:\Users\Me\VELMA\JVelma.jar gov.epa.velmasimulator.LccmTranslatorCmdLine --list --multidate
+      <h3>L2V Multi-Date Configuration Parmeters</h3>
+      <p>
+        This Windows PowerShell example shows L2V multi-date <code>--list</code>  
+<code>--multidate</code>  output:
+      </p>
+      <pre class="hljs"><code>PS C:\Users\Me> java -Xmx1g -cp C:\Users\Me\VELMA\JVelma.jar gov.epa.velmasimulator.LccmTranslatorCmdLine --list --multidate
 Valid LccmTranslator multidate configInfo Parameter Key Names
 (Replace placeholder "???" text with valid values.)
 coverMapLocation,???
@@ -513,66 +528,66 @@ resultsFileName,???
 appendResults,???
 PS C:\Users\Me>
 </code></pre>
-    <p>Here is a summary of the valid (single-date) parameter key names and their corresponding values:</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameter Key Name</th>
-          <th>Parameter Value</th>
-          <th>Parameter's Purpose</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>coverMapLocation</code></td>
-          <td>fully qualified directory path</td>
-          <td>Specifies the location of LccmId-to-cellId cover-mapping .asc map files.</td>
-        </tr>
-        <tr>
-          <td><code>coverTableLocation</code></td>
-          <td>fully qualified directory path</td>
-          <td>Specifies the location of cover-lookup table .csv files.</td>
-        </tr>
-        <tr>
-          <td><code>soilMapLocation</code></td>
-          <td>fully qualified directory path</td>
-          <td>Specifies the location of LccmId-to-cellId soil-mapping .asc map files.</td>
-        </tr>
-        <tr>
-          <td><code>soilTableLocation</code></td>
-          <td>fully qualified directory path</td>
-          <td>Specifies the location of soil-lookup table .csv files.</td>
-        </tr>
-        <tr>
-          <td><code>ageMapLocation</code></td>
-          <td>fully qualified directory path</td>
-          <td>Specifies the location of LccmId-to-cellId age-mapping .asc map files.</td>
-        </tr>
-        <tr>
-          <td><code>ageTableLocation</code></td>
-          <td>fully qualified directory path</td>
-          <td>Specifies the location of age-lookup table .csv files.</td>
-        </tr>
-        <tr>
-          <td><code>resultsFileName</code></td>
-          <td>Modify Landcover driver data .csv filename</td>
-          <td>The file L2V uses for output.</td>
-        </tr>
-        <tr>
-          <td><code>appendResults</code></td>
-          <td>“true” or “false”</td>
-          <td>Optional; when missing, defaults to “true”, when “true”, L2V appends to resultsFileName instead of overwriting.</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>The parameters for a multi-date configInfo.csv are similar to a single-date configInfo.csv, but specify the <em>locations of LCCM data files instead of the files themselves. Within those specified locations, the </em><a href="#map-and-table-pairing-rules">pairing rules and </a><a href="#map-file-format">map and </a><a href="#lookup-table-file-format">table requirements specified for single-date mode are all applicable.</a></p>
-    <p>Unless you have a specific reason to include it, <strong>do NOT include </strong><code>appendResults</code> in your multi-date configInfo.csv file. The
-      <code>appendResults</code> parameter always defaults to “true” if it is omitted from a multi-date configInfo.csv file. Setting
-      <code>appendResults=false</code> is possible, but <em>not recommended.</em>
-    </p>
-    <h4>Multi-Date Map and Table File Naming Formats</h4>
-    <p>When running in multi-date mode, the L2V Translator requires specific filename formats for the LCCM map .asc and table .csv files within the directory locations specified in its configInfo.csv file. The filename formats allow it to select the specific types of files it uses, and gather date information from them.</p>
-    <pre class="hljs"><code>This the file naming convention for the input map and table data files:
+      <p>Here is a summary of the valid (single-date) parameter key names and their corresponding values:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter Key Name</th>
+            <th>Parameter Value</th>
+            <th>Parameter's Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>coverMapLocation</code></td>
+            <td>fully qualified directory path</td>
+            <td>Specifies the location of LccmId-to-cellId cover-mapping .asc map files.</td>
+          </tr>
+          <tr>
+            <td><code>coverTableLocation</code></td>
+            <td>fully qualified directory path</td>
+            <td>Specifies the location of cover-lookup table .csv files.</td>
+          </tr>
+          <tr>
+            <td><code>soilMapLocation</code></td>
+            <td>fully qualified directory path</td>
+            <td>Specifies the location of LccmId-to-cellId soil-mapping .asc map files.</td>
+          </tr>
+          <tr>
+            <td><code>soilTableLocation</code></td>
+            <td>fully qualified directory path</td>
+            <td>Specifies the location of soil-lookup table .csv files.</td>
+          </tr>
+          <tr>
+            <td><code>ageMapLocation</code></td>
+            <td>fully qualified directory path</td>
+            <td>Specifies the location of LccmId-to-cellId age-mapping .asc map files.</td>
+          </tr>
+          <tr>
+            <td><code>ageTableLocation</code></td>
+            <td>fully qualified directory path</td>
+            <td>Specifies the location of age-lookup table .csv files.</td>
+          </tr>
+          <tr>
+            <td><code>resultsFileName</code></td>
+            <td>Modify Landcover driver data .csv filename</td>
+            <td>The file L2V uses for output.</td>
+          </tr>
+          <tr>
+            <td><code>appendResults</code></td>
+            <td>“true” or “false”</td>
+            <td>Optional; when missing, defaults to “true”, when “true”, L2V appends to resultsFileName instead of overwriting.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The parameters for a multi-date configInfo.csv are similar to a single-date configInfo.csv, but specify the <em>locations of LCCM data files instead of the files themselves. Within those specified locations, the </em><a href="#map-and-table-pairing-rules">pairing rules  and </a><a href="#map-file-format">map  and </a><a href="#lookup-table-file-format">table requirements specified for single-date mode are all applicable.</a></p>
+      <p>Unless you have a specific reason to include it, <strong>do NOT include  </strong><code>appendResults</code>  in your multi-date configInfo.csv file. The 
+<code>appendResults</code>  parameter always defaults to “true” if it is omitted from a multi-date configInfo.csv file. Setting 
+<code>appendResults=false</code>  is possible, but <em>not  recommended.</em>
+      </p>
+      <h4>Multi-Date Map and Table File Naming Formats</h4>
+      <p>When running in multi-date mode, the L2V Translator requires specific filename formats for the LCCM map .asc and table .csv files within the directory locations specified in its configInfo.csv file. The filename formats allow it to select the specific types of files it uses, and gather date information from them.</p>
+      <pre class="hljs"><code>This the file naming convention for the input map and table data files:
   <LCCM_ID><sep><yyyy><sep><jjj><sep><type_name><sep><optional_text><dot_ext>
 Where:
   <LCCM_ID> = "LCCM" = A hardwired prefix; any filename used by the L2V translator must begin with this text.
@@ -599,32 +614,38 @@ Where:
     |    <yyyy>    
     <LCCM_ID>  
 </code></pre>
-    <p>Any files within the diretory locations specified by a multi-date configInfo.csv file that do not match this filename format are ignored by the L2V Translator.</p>
-    <h3>L2V Translator Log Messages</h3>
-    <p>When you run the L2V Translator from the command line, it provides information about the translator run to the console, and (if possible) copies the same output to a file. Logger message lines always start with the prefix <code>L2V</code> , to make them easier to identify within the console.</p>
-    <p>Logger messages are copied to a log file named <code>LccmTranslatorRunlog.txt</code> .</p>
-    <ul>
-      <li>The L2V Translator tries to place the log file into the same directory as the output file specified by the <code>resultsFileName</code> parameter.</li>
-      <li>If the <code>resultsFileName</code> parameter isn't specified, the log file is placed in your home directory (e.g. on Windows 11, under
-        <code>C:\Users\&lt;your_user_name&gt;</code> ).
-      </li>
-      <li>If the L2V Translator cannot write messages to a log file at all, it will warn you by logging a message (only to the console) that looks like this:<code>L2V Log WARNING [...] Cannot log to file: logging messages only to console.</code> If you see the warning above on your console, you'll still get logging messages on the console, but they won't be recorded in a file.</li>
-    </ul>
-    <blockquote>
-      <p><strong></strong><em>Implementation Note: the L2V Translator uses </em><em>only Java's </em><code>java.utils.Logger</code> class. It does <em>NOT use Apache's </em><code>Log4j</code> logger framework. The
-        <code>Log4j</code> package is <em>not included in VELMA code.</em>
+      <p>Any files within the diretory locations specified by a multi-date configInfo.csv file that do not match this filename format are ignored by the L2V Translator.</p>
+      <h3>L2V Translator Log Messages</h3>
+      <p>
+        When you run the L2V Translator from the command line, it provides information about the translator run to the console, and (if possible) copies the same output to a file. Logger message lines always start with the prefix <code>L2V</code> , to make them easier to identify within the console.</p>
+      <p>
+        Logger messages are copied to a log file named <code>LccmTranslatorRunlog.txt</code> .</p>
+      <ul>
+        <li>
+          The L2V Translator tries to place the log file into the same directory as the output file specified by the <code>resultsFileName</code>  parameter.</li>
+        <li>
+          If the <code>resultsFileName</code>  parameter isn't specified, the log file is placed in your home directory (e.g. on Windows 11, under 
+<code>C:\Users\&lt;your_user_name&gt;</code> ).
+        </li>
+        <li>
+          If the L2V Translator cannot write messages to a log file at all, it will warn you by logging a message (only to the console) that looks like this:<code>L2V Log WARNING [...] Cannot log to file: logging messages only to console.</code> If you see the warning above on your console, you'll still get logging messages on the console, but they won't be recorded in a file.</li>
+      </ul>
+      <blockquote>
+        <p><strong></strong><em>Implementation Note:  the L2V Translator uses </em><em>only  Java's </em><code>java.utils.Logger</code>  class. It does <em>NOT  use Apache's </em><code>Log4j</code>  logger framework. The 
+<code>Log4j</code>  package is <em>not  included in VELMA code.</em>
+        </p>
+      </blockquote>
+      <h2>Appendix A: Common Questions</h2>
+      <h4>Can I specify one LCCM ID file for multiple L2V configInfo map parameters?</h4>
+      <p>Answer: Yes, but you must provide the corresponding lookup table file for each use of the (single) map file.</p>
+      <p>
+        A common, expected case is using the LCCM ID cover map file as the value for both the <code>coverMapFileName</code>  and the 
+<code>ageMapFileName</code>  in an L2V Translator's configInfo parameterization. In this situation, you must still provide and specify two, separate lookup table files, one for 
+<code>coverTableFileName</code> , and another for 
+<code>ageTableFileName</code> . However, the contents of each of the two lookup table files would have rows corresponding to the same LCCM ID values from the one LCCM ID map file.
       </p>
-    </blockquote>
-    <h2>Appendix A: Common Questions</h2>
-    <h4>Can I specify one LCCM ID file for multiple L2V configInfo map parameters?</h4>
-    <p>Answer: Yes, but you must provide the corresponding lookup table file for each use of the (single) map file.</p>
-    <p>A common, expected case is using the LCCM ID cover map file as the value for both the <code>coverMapFileName</code> and the
-      <code>ageMapFileName</code> in an L2V Translator's configInfo parameterization. In this situation, you must still provide and specify two, separate lookup table files, one for
-      <code>coverTableFileName</code> , and another for
-      <code>ageTableFileName</code> . However, the contents of each of the two lookup table files would have rows corresponding to the same LCCM ID values from the one LCCM ID map file.
-    </p>
-    <p><strong>Example: Here's a tiny LCCM ID cover map file, named “LCCM_Tiny_Cover.asc”:</strong></p>
-    <pre class="hljs"><code>ncols 7
+      <p><strong>Example: Here's a tiny LCCM ID cover map file, named “LCCM_Tiny_Cover.asc”:</strong></p>
+      <pre class="hljs"><code>ncols 7
 nrows 5
 xllcorner 707561.39803805
 yllcorner 4327118.0852998
@@ -636,62 +657,70 @@ nodata_value -9999
 5 5 5 5 4 4 4
 5 5 4 4 4 4 4 
 </code></pre>
-    <p>Here is an L2V Translator lookup table file coded for the values in LCCM_Tiny_Cover. File “Tiny_Cover_Lookup.csv”:</p>
-    <pre class="hljs"><code>1,20,BIOMASS_LEAF_N,0,BIOMASS_AG_STEM,*0.5,HUMUS:4,*0.1
+      <p>Here is an L2V Translator lookup table file coded for the values in LCCM_Tiny_Cover. File “Tiny_Cover_Lookup.csv”:</p>
+      <pre class="hljs"><code>1,20,BIOMASS_LEAF_N,0,BIOMASS_AG_STEM,*0.5,HUMUS:4,*0.1
 2,25,BIOMASS_LEAF_N,+10,DETRITUS_LEAF_N,*0.1,HUMUS:1,*0.2,HUMUS:2,*0.2
 3,30,BIOMASS_LEAF_N,+10,DETRITUS_LEAF_N,*0.1,HUMUS:1,*0.2,HUMUS:2,*0.2
 4,20,
 5,40,DETRITUS_LEAF_N,*0.25
 </code></pre>
-    <p>Noteworthy in the example cover lookup table file contents above:</p>
-    <ul>
-      <li>Every LCCM ID must be specified exactly once.</li>
-      <li>Multiple LCCM ID value can correspond to a single VELMA ID (LCCM IDs 1 and 4 map to VELMA ID 20).</li>
-      <li>The lookup table <code>&lt;spatialChangeText&gt;</code> can be omitted, or duplicated in multiple rows; whatever is appropriate for the VELMA ID.</li>
-    </ul>
-    <p>Here is an L2V Translator lookup table file coded for the same “LCCM_Tiny_Cover.asc” file's values. File “Tiny_Age_Lookup.csv”:</p>
-    <pre class="hljs"><code>1,20,0
+      <p>Noteworthy in the example cover lookup table file contents above:</p>
+      <ul>
+        <li>Every LCCM ID must be specified exactly once.</li>
+        <li>Multiple LCCM ID value can correspond to a single VELMA ID (LCCM IDs 1 and 4 map to VELMA ID 20).</li>
+        <li>
+          The lookup table <code>&lt;spatialChangeText&gt;</code>  can be omitted, or duplicated in multiple rows; whatever is appropriate for the VELMA ID.</li>
+      </ul>
+      <p>Here is an L2V Translator lookup table file coded for the same “LCCM_Tiny_Cover.asc” file's values. File “Tiny_Age_Lookup.csv”:</p>
+      <pre class="hljs"><code>1,20,0
 2,25,*1.1
 3,30,*1.1
 4,20,+0
 5,40,*0.1
 </code></pre>
-    <p>Notes about the age lookup tabe data above:</p>
-    <ul>
-      <li>The LCCM_ID,VELMA_ID pairings duplicate the cover lookup table; but here, they specify <code>&lt;ageModification&gt;</code> values.</li>
-      <li>The <code>1,20</code> row's
-        <code>&lt;ageModification&gt;</code> is
-        <code>0</code> – there is no operator prefix, so this means: set the age to zero.
-      </li>
-      <li>The <code>4,20</code> row's
-        <code>&lt;ageModification&gt;</code> is
-        <code>+0</code> , this is the preferred idiom for: “don't modify the current age value”.
-      </li>
-    </ul>
-    <p>And finally, given the example files above, the relevant lines in the L2V Translator's configInfo.csv file could look like this:</p>
-    <pre class="hljs"><code>coverMapFileName,C:\Users\Me\L2V_Files\LCCM_Tiny_Cover.asc
+      <p>Notes about the age lookup tabe data above:</p>
+      <ul>
+        <li>
+          The LCCM_ID,VELMA_ID pairings duplicate the cover lookup table; but here, they specify <code>&lt;ageModification&gt;</code>  values.</li>
+        <li>
+          The <code>1,20</code>  row's 
+<code>&lt;ageModification&gt;</code>  is 
+<code>0</code>  – there is no operator prefix, so this means: set the age to zero.
+        </li>
+        <li>
+          The <code>4,20</code>  row's 
+<code>&lt;ageModification&gt;</code>  is 
+<code>+0</code> , this is the preferred idiom for: “don't modify the current age value”.
+        </li>
+      </ul>
+      <p>And finally, given the example files above, the relevant lines in the L2V Translator's configInfo.csv file could look like this:</p>
+      <pre class="hljs"><code>coverMapFileName,C:\Users\Me\L2V_Files\LCCM_Tiny_Cover.asc
 coverTableFileName,C:\Users\Me\L2V_Files\Tiny_Cover_lookup.csv
 ageMapFileName,C:\Users\Me\L2V_Files\LCCM_Tiny_Cover.asc
 ageTableFileName,C:\Users\Me\L2V_Files\Tiny_Age_lookup.csv
 </code></pre>
-    <h4>Can I specify the same VELMA ID as the target of multiple LCCM ID values?</h4>
-    <p>Answer: Yes, multiple rows of an L2V lookup table can specify the same VELMA ID. But, each row in the lookup table must specify a different LCCM ID, and each LCCM ID from the lookup table's corresponding map file must appear in the lookup table.</p>
-    <h4>Can I specify only the age map and lookup pair of files?</h4>
-    <p>Answer: No. You must specify <em>at least one other pair of files: either for soil or for cover. Typically, age and cover file pairs are specified more often than age and soil file pairs, but that's not a hard-and-fast rule.</em></p>
-    <h4>Can the L2V Translator create more than one modification data driver file at a time?</h4>
-    <p>Answer: No. If Multiple LCCM changes are available for a simulation run, you must run the L2V Translator once for each set of LCCM changes (.asc map files), and configure a separate Modify Landcover disturbance for in your VELMA simulation for each modification driver data .csv file generated by the multiple L2V Translator runs. If you find yourself in this situation, consider running the L2V Translator in multi-date mode. You will still generate a single modification data driver file, but it will be for a <code>ModifyLandcoverMultiDateDisturbanceModel</code> , and contain the modification data for all of the LCCM changes for that simulation run.</p>
-    <h4>Can I use the <code>--kv</code> command line argument to “override” a parameter that isn't in my configInfo.csv file?</h4>
-    <p>Answer: Yes! In fact, there is at least one common use-case:</p>
-    <ol>
-      <li>Create a configInfo.csv without the <code>resultsFileName</code> ,</li>
-      <li>Set/add the results filename on the command line via a <code>--kv</code> argument.</li>
-    </ol>
-    <p>The advantage of the above is that you don't have to edit the configInfo.csv file if you want to change the results filename (or want to generate two different files with the same data). The disadvantage is that the configInfo.csv does not “document” what the results file's name was.</p>
-    <p>You can also “set” key,value pairs with <code>--kv</code> arguments that are not valid L2V Translator parameters. These are ignored by the L2V Translator, but it's a bad practice to specify invalid parameter names.</p>
-  </div>
-</body>
-<footer id="footer">
-  <p>VELMA 2.2 DOCUMENTATION</p>
-</footer>
-
+      <h4>Can I specify the same VELMA ID as the target of multiple LCCM ID values?</h4>
+      <p>Answer: Yes, multiple rows of an L2V lookup table can specify the same VELMA ID. But, each row in the lookup table must specify a different LCCM ID, and each LCCM ID from the lookup table's corresponding map file must appear in the lookup table.</p>
+      <h4>Can I specify only the age map and lookup pair of files?</h4>
+      <p>Answer: No. You must specify <em>at least  one other pair of files: either for soil or for cover. Typically, age and cover file pairs are specified more often than age and soil file pairs, but that's not a hard-and-fast rule.</em></p>
+      <h4>Can the L2V Translator create more than one modification data driver file at a time?</h4>
+      <p>
+        Answer: No. If Multiple LCCM changes are available for a simulation run, you must run the L2V Translator once for each set of LCCM changes (.asc map files), and configure a separate Modify Landcover disturbance for in your VELMA simulation for each modification driver data .csv file generated by the multiple L2V Translator runs. If you find yourself in this situation, consider running the L2V Translator in multi-date mode. You will still generate a single modification data driver file, but it will be for a <code>ModifyLandcoverMultiDateDisturbanceModel</code> , and contain the modification data for all of the LCCM changes for that simulation run.</p>
+      <h4>
+        Can I use the <code>--kv</code>  command line argument to “override” a parameter that isn't in my configInfo.csv file?</h4>
+      <p>Answer: Yes! In fact, there is at least one common use-case:</p>
+      <ol>
+        <li>
+          Create a configInfo.csv without the <code>resultsFileName</code> ,</li>
+        <li>
+          Set/add the results filename on the command line via a <code>--kv</code>  argument.</li>
+      </ol>
+      <p>The advantage of the above is that you don't have to edit the configInfo.csv file if you want to change the results filename (or want to generate two different files with the same data). The disadvantage is that the configInfo.csv does not “document” what the results file's name was.</p>
+      <p>
+        You can also “set” key,value pairs with <code>--kv</code>  arguments that are not valid L2V Translator parameters. These are ignored by the L2V Translator, but it's a bad practice to specify invalid parameter names.</p>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA 2.2 DOCUMENTATION</p>
+  </footer>
 </html>
