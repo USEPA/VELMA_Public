@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const markdownToPug = require('markdown-to-pug');
+//const markdownToPug = require('markdown-to-pug');
+var md2pug = new (require('markdown-to-pug'))();
 
 function convertMdToPug() {
   const viewsDir = './views/markdown'; // path.join(__dirname, 'views', 'markdown')
@@ -14,17 +15,19 @@ function convertMdToPug() {
         const filePath = path.join(viewsDir, file);
         fs.readFile(filePath, 'utf8', (err, data) => {
           if (err) throw err;
+          var pug = md2pug.render(data);
           
           // add pug template to beginning of markdown data
           const pugContent = [
             'extends layout.pug',
             'block content',
-            markdownToPug(data)
+            pug
+            //markdownToPug(data)
           ].join('\n');
 
           // write new pug data to views dir, file has same name but we change the extension
           fs.writeFile(
-            path.join(viewsDir, `${file.replace(/\.md$/, '')}.pug`),
+            path.join(__dirname, 'views', `${file.replace(/\.md$/, '')}.pug`),
             pugContent,
             err => {
               if (err) throw err;

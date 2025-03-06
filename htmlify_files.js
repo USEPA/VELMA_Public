@@ -31,7 +31,7 @@ function compileAndSavePugFiles(pugDir, htmlDir, files) {
 
 const pugDir = './views';
 const htmlDir = './docs';
-const files = ['appendix_1.pug', 'appendix_6.pug', 'intro.pug']
+const files = ['LccmTranslatorUtility_Overview.pug']
 compileAndSavePugFiles(pugDir, htmlDir, files);
 console.log("Finished compiling pug files");
 // fs.copyFile('./public/style.css', './docs', (err) => {
