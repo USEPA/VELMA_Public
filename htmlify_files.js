@@ -33,7 +33,7 @@ const pugDir = './views';
 const htmlDir = './docs';
 const files = ['LccmTranslatorUtility_Overview.pug']
 compileAndSavePugFiles(pugDir, htmlDir, files);
-console.log("Finished compiling pug files");
+console.log("Finished compiling pug files", files);
 // fs.copyFile('./public/style.css', './docs', (err) => {
 //     if (err) throw err;
 //     console.log("Style file copied to public!")

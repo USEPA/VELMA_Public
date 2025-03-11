@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <script src="https://requirejs.org/docs/release/2.3.7/minified/require.js"> </script>
+    <script src="public/js/search.js" type="module"> </script>
+    <script src="public/js/suggestion.js" type="module"> </script>
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="./index.html">VELMA 2.2 HOME</a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item dropdown">VELMA 2.0 Manual
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./intro.html"><span>I. Intro</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./changes.html"><span>II. Changes from 1.0</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./about.html"><span>III. About</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./input_files.html"><span>IV. Input Files </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./new_sim_config.html"><span>V. Sim Config</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./parameter_config.html"><span>VI. Parameter Config</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Appendicies
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./appendix_1.html"><span>Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_2.html"><span>Initializing a Spatial Data Pool Using an ASCII Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_3.html"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_4.html"><span>Overview of VELMA Simulator Output</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_5.html"><span>Generating daily temperature and precipitation grids for running VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_6.html"><span>Hydrological and Biochemical Model Descriptions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_7.html"><span>Creating Flat-Processed DEM Data For The VELMA Simulator</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Supplemental Info (VELMA 2.1)
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./supplement-a1.html"><span>Organic Contaminant Modeling Using VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a2.html"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a3.html"><span>VELMA Contaminant Modeling Demonstration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a4.html"><span>Adding Stormwater Drains for Urban &amp; Mixed-Use Watershed Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b1.html"><span>Creating Flat-Processed DEM Data for the VELMA Simulator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b2.html"><span>JPDEM Cell Highlighter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b3.html"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b4.html"><span>JPDEM Flow Test Tool</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b5.html"><span>JPDEM Saving Data to Files</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b6.html"><span>JPDEM User-Specified Map Borders</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b7.html"><span>JPDEM User-Specified Border Mask</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b8.html"><span>JPDEM for Viewing Map Differences</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b9.html"><span>JPDEM Sub-Reach Delineations</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b10.html"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c1.html"><span>VELMA Reach Mapping</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c2.html"><span>How to Run VELMA in Parallel Mode</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c3.html"><span>Rationale for Parallel Velma and Reach Segmentation</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d1.html"><span>Acquisition &amp; Generation of VELMA Input Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d2.html"><span>Soil Data Mapping and Parameter Initialization</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d3.html"><span>Initialize a Spatial Data Pool Using an Ascii Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d4.html"><span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d5.html"><span>Create Land-zoning Maps for a VELMA Application</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d6.html"><span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7a.html"><span>Create Multiple-Location Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7b.html"><span>Development of Statistical Models Based on Monthly PRISM / Daymet Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d8.html"><span>Cell Data Writer Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d9.html"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d10.html"><span>Default Tidewater Model Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e1.html"><span>Mapping Surface Layer Permeabilities</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e2.html"><span>VELMA Surface Chemistry Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e3.html"><span>Deposition of Surface Chemicals</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e4.html"><span>Implementing Green Roof Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e5.html"><span>Irrigation Disturbance</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e6.html"><span>Groundwater Storage Mechanism</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e7.html"><span>Spatial Data Writer Key Words for Generating ASCII VELMA Outputs for Data Visualization</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_info.html"><span>Developer Info</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracer Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./TopoFiles_Output_Summary.html"><span>Topo Files Output Summary </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_Error_Reports.html"><span>Velma Parallel Error Reports</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_With_Multiple_Maps.html"><span>Velma Parallel With Multiple Maps </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./WaterDrainDisturbanceModel_Overview.html"><span>Water Drain Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorCmdLine_Overview.html"><span>Velma Sim Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorAltCmdLine_Overview.html"><span>Velma Sim Alt Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SurfaceEvaporation_Overview.html"><span>Surface Evaporation Overview</span></a></li>
+              <li class="nav-item"> <a class="nav-link" href="./LccmTranslatorUtility_Overview.html"><span>LCCM-to-VELMA Translator Utility</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_utils.html"><span>Developer Utils</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="modal" id="suggestionModal">
+      <div class="modal-content"> <span class="close">&times;</span>
+        <h2>Submit a Suggestion </h2>
+        <form id="suggestionForm"> 
+          <textarea class="suggestion_textbox" id="suggestionText" name="suggestionText" require="True" placeholder="Enter your suggestion here ..."> </textarea>
+          <button class="submit_btn" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="main_body container" id="main_body">
+      <div class="plus-sign">
+        <p>+</p>
+      </div>
+      <h1>D.2 | Soil Data Mapping and Parameter Initialization</h1>
+      <div class="info blue-light-1">
+        <p>Overview (Tutorial D.2 - Soil Data Mapping and Parameter Initialization)</p>
+        <p>This tutorial describes the minimum data input files required to run the VELMA simulator, where to acquire them, and steps to prepare them for a VELMA simulation.</p>
+      </div>
+      <h2>Soil Data Sources</h2>
+      <ul> 
+        <li><a href="https://gdg.sc.egov.usda.gov/">gSSURGO</a>
+          <ul> 
+            <li>gSSURGO User Guide (PDF; 10.7 MB) Soil Survey Staff. Gridded Soil Survey Geographic (gSSURGO) Database for Washington. United States Department of Agriculture, Natural Resources Conservation Service.</li>
+          </ul>
+        </li>
+        <li><a href="https://gdg.sc.egov.usda.gov/">STATSGO2</a>
+          <ul> 
+            <li>Soil Survey Staff. Gridded Soil Survey Geographic (STATSGO2) Database for Washington. United States Department of Agriculture, Natural Resources Conservation Service.</li>
+          </ul>
+        </li>
+      </ul>
+      <h2>Soil Data Pre-Processing</h2>
+      <p>To create a thematic soil texture map for either the gSSURGO, SSURGO, or STATSGO2 data sets the one too many to many hierarchies of relationships must be resolved with spatial map units and tabular data. Both soil tabular and spatial data tables are included when any of the data sets are downloaded from the USDA. For a complete overview of relationships, refer to the SSURGO/STATSGO2 documentation "SSURGO 2.2 Data Model - Diagram 1 of 2". To link the spatial map units to their textures a series of joins must be made between the tabular text file and the Shapefiles (Figure 1).</p><img width="693" height="258" alt="screenshot" title="screenshot" src="public/suppImage_180.png">
+      <p>Figure 3. Spatial join process</p>
+      <h3>Example: Tolt River Watershed Soil Data Pre-Processing</h3>
+      <ol> 
+        <li>Within ArcGIS, load the STATSGO2 shapefile "gsmsoilmu_a_wa.shp"</li>
+        <li>Using the "Join Field" (Data Management) tool set:
+          <ul>
+            <li>Input Table = "gsmsoilmu_a_wa.shp"</li>
+            <li>Input Join Field = "MUKEY"</li>
+            <li>Join Table = PATH + "component"</li>
+            <li>Output Join Field = "mukey"</li>
+            <li>Join Fields (optional) = CHECK "cokey"</li>
+          </ul>
+        </li>
+        <li>Repeat "Join Field" for the C horizon, chtexturegrp, and chtexture tables to the final texture column.</li>
+      </ol>
+      <ul> 
+        <li>Dataset 1.
+          <ul> 
+            <li>In cases where the gSSURGO soil textures were initially classified under subclass, the soil textures need to be re-classified to their parent class of the USDA Soil Survey Manual, Chapter 3 (USDA, 2017) of the soil triangle textures that are used by VELMA (Figure 2).
+              <ul> 
+                <li>Sands &lt;- Coarse Sand, Sand, Fine Sand, Very Fine Sand</li>
+                <li>Loamy Sand &lt;- Loamy Coarse Sand, Loamy Sand, Loamy Fine Sand, Loamy Very Find Sand</li>
+                <li>Sandy Loams &lt;- Coarse Sandy Loam, Sandy Loam, Fine Sandy Loam, Very Fine Sandy Loam</li>
+                <li>Silt Loam = Silt</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul><img width="480" height="435" alt="screenshot" title="screenshot" src="public/suppImage_181.jpg">
+      <p>Figure 4. USDA Soil texture triangle</p>
+      <p>Replaced all missing gSSURGO soils texture cells with STATSGO soil textures, creating a merged high- and low-resolution soils data layer (Table 1, Figure 4, Figure 5, and Figure 6).</p>
+      <h3>Table 1. Soil texture key for VELMA</h3><img width="222" height="240" alt="image" src="public/suppImage_182.png">
+      <h4>File Name tolt_ssurgo_statsgo_soil.tif</h4>
+      <table> 
+        <thead> 
+          <th>Key</th>
+          <th>value</th>
+        </thead>
+        <tr> 
+          <td>1</td>
+          <td>sand</td>
+        </tr>
+        <tr> 
+          <td>2</td>
+          <td>loamy sand</td>
+        </tr>
+        <tr> 
+          <td>3</td>
+          <td>sandy loam</td>
+        </tr>
+        <tr> 
+          <td>4</td>
+          <td>loam</td>
+        </tr>
+        <tr> 
+          <td>5</td>
+          <td>silt loam</td>
+        </tr>
+        <tr> 
+          <td>6</td>
+          <td>sandy clay loam</td>
+        </tr>
+        <tr> 
+          <td>7</td>
+          <td>clay loam</td>
+        </tr>
+        <tr> 
+          <td>8</td>
+          <td>silty clay loam</td>
+        </tr>
+        <tr> 
+          <td>9</td>
+          <td>sandy clay</td>
+        </tr>
+        <tr> 
+          <td>10</td>
+          <td>silty clay</td>
+        </tr>
+        <tr> 
+          <td>11</td>
+          <td>clay</td>
+        </tr>
+      </table>
+      <h2>Software Requirements and Processing</h2>
+      <p>To run and produce the merged soil texture map (ASCII), you will need the following:</p>
+      <ol> 
+        <li>Python version 2.x: Current release is 2.7.11
+          <ol> 
+            <li>Python comes pre-packaged within ArcGIS, so it is likely you already have it installed on your computer. For example, a default install is currently here: C:\Python27\ArcGIS10.2\python.exe. Check to see if you have Python installed before installing a new version. If Python is not installed, you can obtain a copy here: </a>https://www.python.org/download/releases/2.7/ Note that Python 2.7 is currently considered safe for use on U.S. EPA network and non-network computers.</li>
+          </ol>
+        </li>
+        <li>ASCII Map requirements:
+          <ol> 
+            <li>gSSURGO ASCII format (.asc) for the AOI and a STATSGO2 ASCII format (.asc) for the AOI.
+              <ul> 
+                <li>Cell values set to match the soil texture key for VELAM (Table 1).</li>
+                <li>No-data cells values set to -9999, which is the default ERSI ASCII no data value.</li>
+                <li>These map(s) should match the exact extent and resolution of the AOI / DEM ASCII regardless if they are higher resolution.</li>
+              </ul>
+            </li>
+            <li>Output filename to be determined by the user, ASCII format (.asc).</li>
+          </ol>
+        </li>
+        <li><i>"Soil_merger.py"</i> and can be run on the Command Prompt line with Python. This script requires at a minimum a gSSURGO map, one STATSGO2 map, and one output file name. The script will output an intermediate merged file map with No-data values. The merged soil texture values will assign values to the output map from the higher resolution gSSURGO map first and then from the STATSGO2 map. The final output map will fill No-data values with soil texture values. The technique uses a nearest neighbor search algorithm that will radiate out in one cell radius increments searching for the nearest cell with a valid texture value which will then be assigned to the No-data cell.</li>
+      </ol>
+      <h4>Command prompt input example:</h4><code>"python .\soils_merger.py -SUR D:\Temp\ssurgo_aoi_texture_reclass.asc -STA D:\Temp\statsgo_aoi_texture_reclass.asc -OUT D:\Temp\Merged_output.asc" "python C:\Path\To\soils_merger.py -help"</code>
+      <h5>for exact arguments (Figure 4).</h5><img width="653" height="105" alt="screenshot" title="screenshot" src="public/suppImage_183.jpg">
+      <h5>Figure 5. Windows PowerShell python example</h5><img width="620" height="466" alt="screenshot" title="screenshot" src="public/suppImage_184.jpg">
+      <p>Figure 4. gSSURGO Soils texture and NODATA</p><img width="621" height="464" alt="screenshot" title="screenshot" src="public/suppImage_185.jpg">
+      <p>Figure 5. STATSGO Soils texture and NODATA</p><img width="633" height="476" alt="screenshot" title="screenshot" src="public/suppImage_186.jpg">
+      <p>Figure 6. Merged soils, gSSURGO and STATSGO.</p>
+      <h4>References</h4>
+      <p>Soil Science Division Staff. 2017. Soil survey manual. C. Ditzler, K. Scheffe, and H.C. Monger (eds.). USDA Handbook 18. Government Printing Office, Washington, D.C.</p>
+      <h3>Scripts</h3>
+      <h4>soils_merger.py</h4>
+      <pre> <code> # Author: Paul Pettus # Date: 10-20-2017
+# Description: Merge STATSGO2 and gSSURGO soil texture ASCII Maps #
+# Output is a single ASCII map that will have an assigned soil texture value # for every cell
+# 
+# By default, cell values will be first assigned the value of the higher
+# resolution gSSURGO and if no data exists in the gSSURGO map values # will be assigned to the output from the lower resolution STATSGO2. #
+# If no values are found in either soil input maps, nodata cells will
+# be assigned a nearest neighbor value from a circling radial stepping
+# algorithm. The stepping algorithm steps one cell radius per iteration until # it finds a soil texture cell value. The algorithm ignores border cells.
+#
+# Last updated: 11-16-2017
+import os, sys, numpy, re, argparse, itertools
+# Error message class 
+class Usage(Exception):
+    def __init__(self, msg):
+        self.msg = msg 
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv
+    try:
+        parser = argparse.ArgumentParser(description=&#39;Output is a single ASCII ma        that will&#39;+ &#39; have an assigned soil texture value for every cell&#39;)
+        parser.add_argument(&#39;-SUR&#39;, action=&#39;store&#39;, dest=&#39;surFILE&#39;,default=&#39;D:/GIS/Nisqually/Soil/ssurgo_aoi_texture_reclass.tif.asc&#39;, help=&#39;Fully-qualified path + name of &quot;.asc&quot; gSSURGO soil texture file.&#39;)
+        parser.add_argument(&#39;-STA&#39;, action=&#39;store&#39;, dest=&#39;staFILE&#39;,default=&#39;D:/GIS/Nisqually/Soil/statsgo_aoi_texture_reclass.asc&#39;, help=&#39;Fully-qualified path + name of &quot;.asc&quot; STATSGO2 soil texture file.&#39;)
+        parser.add_argument(&#39;-OUT&#39;, action=&#39;store&#39;, dest=&#39;outFILE&#39;,default=&#39;D:/GIS/Nisqually/Soil/build_old_timey_mudButt_6.asc&#39;, help=&#39;Fully-qualified path + name of &quot;.asc&quot; output file.&#39;)
+        args = parser.parse_args() # args parsing
+        ssurgoAsc = os.path.abspath(args.surFILE)
+        statsgoAsc = os.path.abspath(args.staFILE)
+        buildFile = os.path.abspath(args.outFILE)
+        # Check that files exists
+        if not os.path.exists(ssurgoAsc):
+            raise Usage(&#39;Cannot find AOI file &quot;&#39; + ssurgoAsc + &#39;&quot;&#39;)
+        if not os.path.exists(statsgoAsc):
+            raise Usage(&#39;Cannot find AOI file &quot;&#39; + statsgoAsc + &#39;&quot;&#39;)
+        # do the work 
+        mergeSoils(ssurgoAsc,statsgoAsc,buildFile)
+        except Usage as e:
+            print(e.msg)
+    
+    return 2
+except Exception as e:
+    # STUB exception handler
+    # Warning: poor programming style.
+    # Catches almost any exception (but not KeyboardInterrupt -- which is a Good Thing) 
+    raise e
+ 
+# Return an ascii file header 
+def readHeader(asciiFile):
+    if not os.path.exists(asciiFile):
+        raise Usage(&#39;Cannot find ASCII &quot;&#39; + asciiFile + &#39;&quot;&#39;) 
+    # Open file and read in header info
+    readFile = open(asciiFile)
+    header = readFile.readline() #ncols
+    header += readFile.readline() #nrows
+    header += readFile.readline() #xllcorner
+    header += readFile.readline() #yllcorner
+    header += readFile.readline() #cellsize
+    header += readFile.readline() #NODATA_value
+    readFile.close()
+    return header
+ 
+# Loop by one + one cell radius of surrounding cells to find nearest neighbor cell value 
+def lookAround(passRow,passCol,inArray):
+    inRow, inCol = inArray.shape
+    # Initial search radius at one cell radius = 1
+    found = False # found a value
+    # Loop by one + one cell radius of surrounding cells to find nearest neighbor cell value 
+    while found != True:
+        rowList = [0] 
+        colList = [0]
+    # Create search box of one cell distance
+    if radius == 1:
+        for i in xrange(radius):
+            for j in xrange(radius):
+                rowList.append((i + 1) * -1)
+                rowList.append(i + 1)
+                colList.append((i + 1) * -1)
+                colList.append(i + 1)
+        # creates a list of the relative coordinates which to search around the missing value cell 
+        setList = list(itertools.product(rowList, colList))
+    # Else cell radius is larger than one cell 
+    else:
+        rowList = [0]
+        colList = [0]
+        # Create an inner one radius cell shorter search box 
+        # Keeps track of already searched cells in radius
+        for i in xrange((radius-1)):
+            for j in xrange((radius-1)):
+                rowList.append((i + 1) * -1)
+                rowList.append(i + 1)
+                colList.append((i + 1) * -1)
+                colList.append(i + 1)
+        minusList = list(itertools.product(rowList, colList))
+        rowList = [0]
+        colList = [0]
+    # Create an full radius cell search box around the missing value cell 
+        for i in xrange(radius):
+            for j in xrange(radius):
+                rowList.append((i + 1) * -1)
+                rowList.append(i + 1)
+                colList.append((i + 1) * -1)
+                colList.append(i + 1)
+        fullList = list(itertools.product(rowList, colList))
+        # Select only the out radius cells from full box list
+        setList = list(set(fullList) - set(minusList))
+    for item in setList:
+        # Check that searched cells are not out of array bounds
+        if ((passRow + item[0]) &gt;= 0) and ((passRow + item[0]) &lt; inRow) and ((passCol + item[1]) &gt;= 0) and ((passCol + item[1]) &lt; inCol):
+        # nearest neighbor cell value and return it
+        value = inArray[(passRow + item[0]),(passCol + item[1])]
+        if value != -9999:
+            found = True 
+            return value
+    # Increase radius by a cell if NA / no values are found 
+    radius = radius + 1
+# Merge SSUGO STATSGO Soils, then replace nodata values 
+def mergeSoils(ssurgoAsc,statsgoAsc,buildFile):        # Load ssrgo array file
+    ssgoArray = numpy.loadtxt(ssurgoAsc, skiprows=6) # Load statsgo array file
+    statsArray = numpy.loadtxt(statsgoAsc, skiprows=6)
+    row, col = ssgoArray.shape # Create new merge array
+    mergeArray = numpy.zeros((row,col))
+    print(&quot;Starting texture ma        merge.&quot;) 
+    for i in xrange(row):
+        for j in xrange(col):
+            # Get soil values
+            ssgoValue = ssgoArray[i,j] statsValue = statsArray[i,j]
+            # Assign higher resolution ssurgo values first 
+            if ssgoValue != -9999:
+                mergeArray[i,j] = ssgoValue
+            # Assign lower resolution statsgo next 
+            elif statsValue != -9999:
+                mergeArray[i,j] = statsValue
+            # Assign no data value if neither has a set has a value 
+            else:
+                mergeArray[i,j] = -9999
+    # Merged ssurgo statsgo, export complete ascii 
+    fileName, fileExtension = os.path.splitext(buildFile) 
+    mergeFile = fileName + &quot;_mergedFile&quot; + fileExtension header = readHeader(ssurgoAsc)
+    f = open(mergeFile, &quot;w&quot;)
+    f.write(header)
+    numpy.savetxt(f, mergeArray, fmt=&quot;%i&quot;) 
+    f.close()
+    print(&quot;Created intermediate merged gSSURGO and STATSGO2 file: &quot;, mergeFile)
+    reloadArray = numpy.loadtxt(mergeFile, skiprows=6)
+    noDataArray = numpy.zeros((row,col)) 
+    print(&quot;Starting NODATA fixes.&quot;)
+    # Replace nodata cells with search radius algorythm 
+    for i in xrange(row):
+        for j in xrange(col):
+            mergeValue = reloadArray[i,j]
+            # if nodata, send to search algorythm 
+            if mergeValue == -9999:
+                newValue = lookAround(i,j,reloadArray)
+                noDataArray[i,j] = newValue 
+                # else keep merged data value 
+            else:
+                noDataArray[i,j] = mergeValue
+    # Merged ssurgo statsgo and nodata filled, export complete ascii header = readHeader(ssurgoAsc)
+    outputFile = buildFile
+    f = open(outputFile, &quot;w&quot;) f.write(header)
+    numpy.savetxt(f, noDataArray, fmt=&quot;%i&quot;) f.close()
+    print(&quot;Completed texture file!&quot;)
+if __name__== &quot;__main__&quot;:
+    sys.exit(main())
+# Old code for internal testing only 
+################################################################################################       
+## Modify files and locations ################################################################################################ 
+## SSURGO ASCII file
+##ssurgoAsc = &quot;D:/GIS/Nisqually/Soil/ssurgo_aoi_texture_reclass.tif.asc&quot; ### STATSGO ASCII file
+##statsgoAsc = &quot;D:/GIS/Nisqually/Soil/statsgo_aoi_texture_reclass.asc&quot; ### SSURGO and STATSGO merged ASCII file, intermediate ##mergeFile = &quot;D:/GIS/Nisqually/Soil/merged_soils_5.asc&quot;
+### SSURGO and STATSGO merged ASCII file with nodata fixed, final output ##buildFile = &quot;D:/GIS/Nisqually/Soil/build_old_timey_mudButt_5.asc&quot;
+################################################################################################ ##
+### Call main function to merge and replace nodata values ##mergeSoils(ssurgoAsc,statsgoAsc,buildFile)</code></pre>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA 2.2 DOCUMENTATION</p>
+  </footer>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <script src="https://requirejs.org/docs/release/2.3.7/minified/require.js"> </script>
+    <script src="public/js/search.js" type="module"> </script>
+    <script src="public/js/suggestion.js" type="module"> </script>
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="./index.html">VELMA 2.2 HOME</a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item dropdown">VELMA 2.0 Manual
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./intro.html"><span>I. Intro</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./changes.html"><span>II. Changes from 1.0</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./about.html"><span>III. About</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./input_files.html"><span>IV. Input Files </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./new_sim_config.html"><span>V. Sim Config</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./parameter_config.html"><span>VI. Parameter Config</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Appendicies
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./appendix_1.html"><span>Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_2.html"><span>Initializing a Spatial Data Pool Using an ASCII Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_3.html"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_4.html"><span>Overview of VELMA Simulator Output</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_5.html"><span>Generating daily temperature and precipitation grids for running VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_6.html"><span>Hydrological and Biochemical Model Descriptions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_7.html"><span>Creating Flat-Processed DEM Data For The VELMA Simulator</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Supplemental Info (VELMA 2.1)
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./supplement-a1.html"><span>Organic Contaminant Modeling Using VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a2.html"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a3.html"><span>VELMA Contaminant Modeling Demonstration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a4.html"><span>Adding Stormwater Drains for Urban &amp; Mixed-Use Watershed Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b1.html"><span>Creating Flat-Processed DEM Data for the VELMA Simulator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b2.html"><span>JPDEM Cell Highlighter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b3.html"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b4.html"><span>JPDEM Flow Test Tool</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b5.html"><span>JPDEM Saving Data to Files</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b6.html"><span>JPDEM User-Specified Map Borders</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b7.html"><span>JPDEM User-Specified Border Mask</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b8.html"><span>JPDEM for Viewing Map Differences</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b9.html"><span>JPDEM Sub-Reach Delineations</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b10.html"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c1.html"><span>VELMA Reach Mapping</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c2.html"><span>How to Run VELMA in Parallel Mode</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c3.html"><span>Rationale for Parallel Velma and Reach Segmentation</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d1.html"><span>Acquisition &amp; Generation of VELMA Input Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d2.html"><span>Soil Data Mapping and Parameter Initialization</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d3.html"><span>Initialize a Spatial Data Pool Using an Ascii Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d4.html"><span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d5.html"><span>Create Land-zoning Maps for a VELMA Application</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d6.html"><span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7a.html"><span>Create Multiple-Location Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7b.html"><span>Development of Statistical Models Based on Monthly PRISM / Daymet Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d8.html"><span>Cell Data Writer Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d9.html"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d10.html"><span>Default Tidewater Model Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e1.html"><span>Mapping Surface Layer Permeabilities</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e2.html"><span>VELMA Surface Chemistry Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e3.html"><span>Deposition of Surface Chemicals</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e4.html"><span>Implementing Green Roof Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e5.html"><span>Irrigation Disturbance</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e6.html"><span>Groundwater Storage Mechanism</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e7.html"><span>Spatial Data Writer Key Words for Generating ASCII VELMA Outputs for Data Visualization</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_info.html"><span>Developer Info</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracer Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./TopoFiles_Output_Summary.html"><span>Topo Files Output Summary </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_Error_Reports.html"><span>Velma Parallel Error Reports</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_With_Multiple_Maps.html"><span>Velma Parallel With Multiple Maps </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./WaterDrainDisturbanceModel_Overview.html"><span>Water Drain Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorCmdLine_Overview.html"><span>Velma Sim Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorAltCmdLine_Overview.html"><span>Velma Sim Alt Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SurfaceEvaporation_Overview.html"><span>Surface Evaporation Overview</span></a></li>
+              <li class="nav-item"> <a class="nav-link" href="./LccmTranslatorUtility_Overview.html"><span>LCCM-to-VELMA Translator Utility</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_utils.html"><span>Developer Utils</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="modal" id="suggestionModal">
+      <div class="modal-content"> <span class="close">&times;</span>
+        <h2>Submit a Suggestion </h2>
+        <form id="suggestionForm"> 
+          <textarea class="suggestion_textbox" id="suggestionText" name="suggestionText" require="True" placeholder="Enter your suggestion here ..."> </textarea>
+          <button class="submit_btn" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="main_body container" id="main_body">
+      <div class="plus-sign">
+        <p>+</p>
+      </div>
+      <h1>VelmaSimRunner</h1>
+      <h2>Overview</h2>
+      <p><code>VelmaSimRunner</code> is a utility tool that helps automate running one or more VELMA simulations via VELMA's command line interface.<br> This guide explains its capabilities and how to use it.<br> (A separate <a>quick-reference</a> is available for experienced users.)</p>
+      <h2>Background</h2>
+      <p>The VELMA simulator is most often run via <code>JVelma</code>, an interactive GUI. However, a command line interface (<code>VelmaSimulatorCmdLine</code>) exists, and is useful when:</p>
+      <ul>
+        <li>You do not need to review or edit the simulation configuration .xml you intend to run.</li>
+        <li>You do not need to view the runtime display charts that <code>JVelma</code> provides.</li>
+        <li>You need the simulation to run as efficiently as possible: <code>VelmaSimulatorCmdLine</code> can usually run a VELMA simulation in a bit less time than <code>JVelma</code>, because <code>VelmaSimulatorCmdLine</code> does produce the afor-mentioned runtime display charts.</li>
+        <li>You need to automate the process of running several VELMA simulations in sequence.</li>
+        <li>You'd like to let a (perhaps fairly long) sequence of VELMA simulations run unattended, but later, you'd like know which runs succeeded and which failed without examining each and every simulation run's results directory's contents.</li>
+      </ul>
+      <p>Regarding the final two points above: you can automate starting a sequence of VELMA simulations just by putting the complete, individual command lines into a .bat or .ps batch file (depending upon whether you are using Windows' Command Prompt or PowerShell.) However, as a developer, working with the VELMA .class files in a workspace, running <code>VelmaSimulatorCmdLine</code> can involve a fair amount of typing per command line.<br> Here is an PowerShell example command line that runs a VELMA scenario whose simulation configuration is named OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml:</p>
+      <pre><code>PS C:\Users\kdjang\> java -Xmx4g -cp '.\Velma_GitHub\VelmaUtils\bin;.\Velma_GitHub\VelmaSimulator\bin' gov.epa.velmasimluator.VelmaSimulatorCmdLine F:\Users\kdjang\Velma_SiteData\OR_BlueRiver_Xml\OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml</code></pre>
+      <p>Confronted with the need to run, say, 25 or more simulations (one after the other), each using the same basic pattern as the example above, but with some more or less memory ('-Xmx') allocated, and each with a unique .xml file name, most developers would copy the original example command line as many times as needed into a .bat or .ps file, then edit differences for each line in the file.<br> Doing exactly this sort of batch file creation caused VELMA developers to write <code>VelmaSimRunner</code>.<br> <code>VelmaSimRunner</code> provides you with 'shorthand' you can use to simplify batch files. It also provides a way to start and run a batch of VELMA simulations, tracking which runs succeed and fail in a .log file.</p>
+      <h2>Platform Requirements</h2>
+      <p>You'll need the following to run (and make use of) <code>VelmaSimRunner</code>.</p>
+      <ul>
+        <li>Windows 10 -- no other operating systems have been tested.</li>
+        <li>Windows 10 PowerShell -- should be available on any Windows 10 system.</li>
+        <li>Python 3.7 -- version 2 will not work, and no earlier versions of version 3 have been tested.</li>
+        <li>Java 8 -- for running VELMA. Newer versions (e.g. Java 9) should be fine, but older versions (e.g. Java 7) will not do.</li>
+        <li>Either a current, valid VELMA workspace with all the .class files built, or a current, valid JVelma.jar file.<br> Note that the <code>VelmaSimRunner.py</code> utility tool is itself part of the fileset in a valid VELMA workspace, so you'll need that workspace even if you plan to invoke <code>VelmaSimulatorCmdLine</code> from a JVelma.jar file.</li>
+      </ul>
+      <h2>Tutorial: How <code>VelmaSimRunner</code> Works</h2>
+      <p>You start <code>VelmaSimRunner</code> from a PowerShell window with the following command:</p>
+      <pre><code>PS C:\Users\auser>py -3 C:\Users\asuer\Velma_Git\DeveloperUtils\VelmaSimRunner.py</code></pre>
+      <p>The above command drops you into <code>VelmaSimRunner</code>'s interpreter. ("C:\Users\auser\Velma_Git" is an example path to ) The interpreter has a set of commands that allow you to create a list of "CONFIGS". Each config item corresponds to one actual PowerShell command line that will start a VELMA simulation.</p>
+      <p>The interpretor's "ready" prompt is the '=' character.<br> Type the <code>list</code> <em>command</em> at the prompt and then press the Enter (i.e. Return) key:</p>
+      <pre><code>= list
+DEFAULTS:
+    vm_name : ['java']
+    vm_args : []
+    vm_classpath : []
+    tool_name : ['gov.epa.velmasimulator.VelmaSimulatorCmdLine']
+    tool_before_args : []
+    config_location : []
+    config_item : []
+    tool_after_args : []
+    results_prefix : []
+CONFIGS:
+=</code></pre>
+      <p>The <code>list</code> command lists the intepreter's current state.<br> The above output tells you what the current DEFAULTS are, and how many CONFIGS you have: (i.e. none, as yet).</p>
+      <p>To create a CONFIG item (i.e. a simulation command line to run) type the <code>add</code> command, followed by the <code>config_item</code> <em>
+          keyword
+          , and follow that with the name of the VELMA simulation configuration .xml file you want to run:</em></p>
+      <pre><code>= add config_item OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml</code></pre>
+      <p>When you "add config_item somefile.xml", the interpreter builds a new config and adds it to its configs list:</p>
+      <pre><code>= list
+DEFAULTS:
+    vm_name : ['java']
+    vm_args : []
+    vm_classpath : []
+    tool_name : ['gov.epa.velmasimulator.VelmaSimulatorCmdLine']
+    tool_before_args : []
+    config_location : []
+    config_item : []
+    tool_after_args : []
+    results_prefix : []
+CONFIGS:
+0 : ['java', 'gov.epa.velmasimulator.VelmaSimulatorCmdLine', 'OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml']
+=</code></pre>
+      <p>The interpreter builds the config entry by putting together all of the current DEFAULTS values in the order they're listed, before and after the config_item.<br> (Note: config_item is not a default -- you specified it in your add command -- but is listed as a placeholder amongst the defaults to remind you where it will occur in the config's sequence.)</p>
+      <p>The results of the <code>list</code> command above show that, apart from the config_item you <code>add</code>ed, only the vm_name and tool_name weren't blank, so your newly-added config entry consists of [vm_name, tool_name, config_item].</p>
+      <p>The <code>run</code> command runs each item in your CONFIGS list by passing each config item's list of values to the Windows PowerShell.<br> However, your single, current config might not run, because the command passed to PowerShell would literally be this:</p>
+      <pre><code>java gov.epa.velmasimulator.VelmaSimulatorCmdLine OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml</code></pre>
+      <p>If your PowerShell has a Java CLASSPATH set that covers all the necessary VELMA .jar and/or .class files, <em>and</em> the file OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml is located in the directory you are invoking <code>VelmaSimRunner</code> from, then the above command might run correctly.<br> However, a more common case for no CLASSPATH to be set and for the VELMA .xml file's location somewhere else. Here's an example of trying to run the above config without a proper CLASSPATH:</p>
+      <pre><code>= run
+Error: Could not find or load main class gov.epa.velmasimulator.VelmaSimulatorCmdLine</code></pre>
+      <p>Whenever <code>VelmaSimRunner</code> trys to run one or more CONFIGS items, it logs the attempt in a file named VelmaSimRunner_Log.txt. The file is created in your Users Home directory, and new log messages are appended to it whenever you use <code>VelmaSimRunner</code> to run CONFIG items. You can delete the VelmaSimRunner_log.txt file <em>if VelmaSimRunner is not currently running</em>, and it will be re-created the next time it is needed. Here's what gets written to the log file for the (failed) <code>run</code> command we tried:</p>
+      <pre><code>2019-02-27 09:03:03 INFO     Starting run: OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+2019-02-27 09:03:03 ERROR    FAILED run: OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+Traceback (most recent call last):
+  File ".\DeveloperUtils\VelmaSimRunner.py", line 211, in run_simulation
+    subprocess.run(cmd_args, shell=True, check=True)
+  File "C:\Users\auser\AppData\Local\Programs\Python\Python37\lib\subprocess.py", line 487, in run
+    output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['java', 'gov.epa.velmasimulator.VelmaSimulatorCmdLine', OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml']' returned non-zero exit status 1.
+2019-02-27 09:03:03 INFO     Elapsed Time=0.26074910163879395 seconds for OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml</code></pre>
+      <p>Unfortunately, once you add a config_item to the CONFIGS list, you can't modify its sequence of values.<br> Fortunately, it's easy to delete a CONFIGS item and re-add a modified version:</p>
+      <pre><code>= delete config_item 0
+= list
+DEFAULTS:
+    vm_name : ['java']
+    vm_args : []
+    vm_classpath : []
+    tool_name : ['gov.epa.velmasimulator.VelmaSimulatorCmdLine']
+    tool_before_args : []
+    config_location : []
+    config_item : []
+    tool_after_args : []
+    results_prefix : []
+CONFIGS:
+=</code></pre>
+      <p>The "<code>delete</code> <em>config_item</em> <n>" command removes the <em>n</em>th item (zero-base) from the CONFIGS list.</p>
+      <p>To re-<code>add</code> the config we want to run, including classpath and .xml file location values, we need to set the appropriate DEFAULTS:</p>
+      <pre><code>= set vm_classpath "C:\Users\auser\My Projects\Velma_Git\VelmaUtils\bin;C:\Users\auser\My Projects\Velma_Git\VelmaSimulator\bin"
+= set config_location "C:\users\auser\My Data\Blue River Xml"
+= list
+DEFAULTS:
+    vm_name : ['java']
+    vm_args : []
+    vm_classpath : ['C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaUtils\\bin;C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaSimulator\\bin']
+    tool_name : ['gov.epa.velmasimulator.VelmaSimulatorCmdLine']
+    tool_before_args : []
+    config_location : ['C:\\users\\auser\\My Data\\Blue River Xml']
+    config_item : []
+    tool_after_args : []
+    results_prefix : []
+CONFIGS:</code></pre>
+      <p>The "<code>set</code> <em>keytext</em> value" command sets the value of the specified DEFAULTS <em>keytext</em> to the specified value. Notice that we bounded the values we set with double-quote (") characters. This tells the interpreter to treat the text as a single value, even though the text includes whitespace.</p>
+      <p>Now, we re-<code>add</code> the config item with the same command we used previously.</p>
+      <pre><code>= add config_item OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+= list
+DEFAULTS:
+    vm_name : ['java']
+    vm_args : []
+    vm_classpath : ['C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaUtils\\bin;C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaSimulator\\bin']
+    tool_name : ['gov.epa.velmasimulator.VelmaSimulatorCmdLine']
+    tool_before_args : []
+    config_location : ['C:\\users\\auser\\My Data\\Blue River Xml']
+    config_item : []
+    tool_after_args : []
+    results_prefix : []
+CONFIGS:
+0 : ['java', 'C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaUtils\\bin;C:\\Users\\auser\\My Projects\\Velma_Git\\VelmaSimulator\\bin', 'gov.epa.velmasimulator.VelmaSimulatorCmdLine', 'C:\\users\\auser\\My Data\\Blue River Xml\\OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml']
+=</code></pre>
+      <p>However, notice how different the <code>list</code> command results are from the first time we added it. The vm_classpath and config_location have been included in the config's collection of command line values.</p>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA 2.2 DOCUMENTATION</p>
+  </footer>
+</html>

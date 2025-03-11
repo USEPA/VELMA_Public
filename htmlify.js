@@ -24,10 +24,11 @@ function compileAndSavePugFiles(pugDir, htmlDir) {
                     console.log(`Compiled ${pugFilePath} to ${htmlFilePath}`);
                 });
             } else {
-                fs.writeFile(htmlFilePath, file, (writeErr) => {
-                    if (writeErr) throw writeErr;
-                    console.log(`Compiled ${file} to ${htmlFilePath}`);
-                })
+                console.log("Else File", file);
+                // fs.writeFile(htmlFilePath, file, (writeErr) => {
+                //     if (writeErr) throw writeErr;
+                //     console.log(`Compiled ${file} to ${htmlFilePath}`);
+                // })
             }
         });
     });

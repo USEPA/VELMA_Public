@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <script src="https://requirejs.org/docs/release/2.3.7/minified/require.js"> </script>
+    <script src="public/js/search.js" type="module"> </script>
+    <script src="public/js/suggestion.js" type="module"> </script>
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="./index.html">VELMA 2.2 HOME</a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item dropdown">VELMA 2.0 Manual
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./intro.html"><span>I. Intro</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./changes.html"><span>II. Changes from 1.0</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./about.html"><span>III. About</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./input_files.html"><span>IV. Input Files </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./new_sim_config.html"><span>V. Sim Config</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./parameter_config.html"><span>VI. Parameter Config</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Appendicies
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./appendix_1.html"><span>Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_2.html"><span>Initializing a Spatial Data Pool Using an ASCII Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_3.html"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_4.html"><span>Overview of VELMA Simulator Output</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_5.html"><span>Generating daily temperature and precipitation grids for running VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_6.html"><span>Hydrological and Biochemical Model Descriptions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_7.html"><span>Creating Flat-Processed DEM Data For The VELMA Simulator</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Supplemental Info (VELMA 2.1)
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./supplement-a1.html"><span>Organic Contaminant Modeling Using VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a2.html"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a3.html"><span>VELMA Contaminant Modeling Demonstration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a4.html"><span>Adding Stormwater Drains for Urban &amp; Mixed-Use Watershed Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b1.html"><span>Creating Flat-Processed DEM Data for the VELMA Simulator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b2.html"><span>JPDEM Cell Highlighter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b3.html"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b4.html"><span>JPDEM Flow Test Tool</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b5.html"><span>JPDEM Saving Data to Files</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b6.html"><span>JPDEM User-Specified Map Borders</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b7.html"><span>JPDEM User-Specified Border Mask</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b8.html"><span>JPDEM for Viewing Map Differences</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b9.html"><span>JPDEM Sub-Reach Delineations</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b10.html"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c1.html"><span>VELMA Reach Mapping</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c2.html"><span>How to Run VELMA in Parallel Mode</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c3.html"><span>Rationale for Parallel Velma and Reach Segmentation</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d1.html"><span>Acquisition &amp; Generation of VELMA Input Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d2.html"><span>Soil Data Mapping and Parameter Initialization</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d3.html"><span>Initialize a Spatial Data Pool Using an Ascii Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d4.html"><span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d5.html"><span>Create Land-zoning Maps for a VELMA Application</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d6.html"><span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7a.html"><span>Create Multiple-Location Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7b.html"><span>Development of Statistical Models Based on Monthly PRISM / Daymet Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d8.html"><span>Cell Data Writer Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d9.html"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d10.html"><span>Default Tidewater Model Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e1.html"><span>Mapping Surface Layer Permeabilities</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e2.html"><span>VELMA Surface Chemistry Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e3.html"><span>Deposition of Surface Chemicals</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e4.html"><span>Implementing Green Roof Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e5.html"><span>Irrigation Disturbance</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e6.html"><span>Groundwater Storage Mechanism</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e7.html"><span>Spatial Data Writer Key Words for Generating ASCII VELMA Outputs for Data Visualization</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_info.html"><span>Developer Info</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracer Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./TopoFiles_Output_Summary.html"><span>Topo Files Output Summary </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_Error_Reports.html"><span>Velma Parallel Error Reports</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_With_Multiple_Maps.html"><span>Velma Parallel With Multiple Maps </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./WaterDrainDisturbanceModel_Overview.html"><span>Water Drain Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorCmdLine_Overview.html"><span>Velma Sim Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorAltCmdLine_Overview.html"><span>Velma Sim Alt Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SurfaceEvaporation_Overview.html"><span>Surface Evaporation Overview</span></a></li>
+              <li class="nav-item"> <a class="nav-link" href="./LccmTranslatorUtility_Overview.html"><span>LCCM-to-VELMA Translator Utility</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_utils.html"><span>Developer Utils</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="modal" id="suggestionModal">
+      <div class="modal-content"> <span class="close">&times;</span>
+        <h2>Submit a Suggestion </h2>
+        <form id="suggestionForm"> 
+          <textarea class="suggestion_textbox" id="suggestionText" name="suggestionText" require="True" placeholder="Enter your suggestion here ..."> </textarea>
+          <button class="submit_btn" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="main_body container" id="main_body">
+      <div class="plus-sign">
+        <p>+</p>
+      </div>
+      <h1>NseQuarts Guide</h1>
+      <h2>Overview</h2>
+      <p>As part of its results, the VELMA simulator generates a "final" Nash-Sutcliffe Efficiency value for runoff, as well as annual values. However, quarterly runoff NSE values have also proven useful in analyzing simulator runoff behavior during calibration efforts.</p>
+      <p>The VELMA simulator does not provide automatic generation of quarterly runoff NSE values, but the NseQuarts Python utility script can generate them from post-simulation results combined with the observed runoff used as part of the input data.</p>
+      <p><strong>Requirements</strong></p>
+      <ul>
+        <li>A Windows Powershell or Command Prompt.</li>
+        <li>Python 3 installed and available.</li>
+        <li>Python's Pandas library installed for Python 3.</li>
+        <li>The DailyResults.csv file from a VELMA simulator results.</li>
+        <li>The observed runoff .csv file provided as part of the same VELMA simulator results' input data.</li>
+        <li>The year to generate quarterly runoff NSE values for.</li>
+      </ul>
+      <p><strong>Limitations</strong></p>
+      <ul>
+        <li>You must specify a year, and the data for that year must be complete (all 365 or 366 days) within both the simulated (DailyResults) and observed .csv files.</li>
+        <li>The specified year's data cannot contain NaN values, either in the simulated or observed files.</li>
+        <li>The observed data file must be "MOEA formatted".</li>
+        <li>Output is only to console stdio (it may be redirected to a file using the console's commands).</li>
+      </ul>
+      <h2>Usage</h2>
+      <p>Open a Windows Powershell or Command Prompt and type the following command:</p>
+      <pre><code>py -3 NseQuarts.py --help</code></pre>
+      <p>Depending upon where the <code>NseQuarts.py</code> script is located, you may need to include full or partial path info as part of its name.<br> The command above assumes it is being run in the directory where <code>NseQuarts.py</code> is located.<br> Running the command above echoes <code>NseQuarts.py's</code> help message to your console:</p>
+      <pre><code>usage: NseQuarts.py [-h] simRunoffFilename obsRunoffFilename year
+ 
+Computes annual and quarterly runoff NSE values for specified VELMA data.
+ 
+positional arguments:
+  simRunoffFilename  The DailyResults.csv file from a VELMA simulator results folder (provides the simulated runoff
+                    values).
+  obsRunoffFilename  The MOEA-formatted .csv file containing the observed runoff values for same VELMA simulation run
+                    as simRunoffFilename.
+  year               The year within the VELMA simulator run's range to generate quarterly NSE values for.
+ 
+optional arguments:
+  -h, --help         show this help message and exit</code></pre>
+      <p>Per the help message above:</p>
+      <ol>
+        <li>
+          <p>You must specify the DailyResults.csv file from a VELMA simulator results folder as the source of your simulator runoff value.<br> The DailyResults.csv file must appear as the first argument of the command line.<br> You must include whatever path information is necessary to find the file.<br> The file <em>must</em> be a DailyResults.csv file -- no other .csv file or format is allowed.<br> (The <code>NseQuarts.py</code> script is hardwired to find runoff data by a specific column name.)</p>
+        </li>
+        <li>
+          <p>You must specify a file containing observed runoff data as the second argument of the command line.<br> The observed runoff file must be "MOEA formatted": i.e. a .csv file with 3 values per row.<br> The values in order are: <code>YEAR</code>, <code>DAY_OF_YEAR</code>, and <code>OBSERVED_VALUE</code>, where <code>YEAR</code> and <code>DAY_OF_YEAR</code> are integer values within valid respective ranges, and the <code>OBSERVED_VALUE</code> is a floating-point value representing an observed runoff amount in units of millimeters of water.</p>
+        </li>
+        <li>
+          <p>You must specify the simulation year you wish to generate quarterly NSE values for as the third argument of the command line.<br> The year must be an integer value, and the data for that year must exist and be complete (all 365 or 366 days) within both the simulated (DailyResults) and observed .csv files.</p>
+        </li>
+      </ol>
+      <h2>Example Usage</h2>
+      <p>Remember: you will typically need to include paths in the file names. Paths have been omitted in this example to keep the command line compact.</p>
+      <pre><code>PS C:\Users\Me\Velma\My_Results> py -3 NseQuarts.py DailyResults.csv My_Obs_Runoff.csv 2020
+Year,Q_Name,Jday_Range,NSE_Value
+2020,All,[1-366],0.7845631459960574
+2020,Q1,[1-92],0.7381363311608637
+2020,Q2,[93-183],0.7932735462074367
+2020,Q3,[184-274],0.5355080821221985
+2020,Q4,[275-366],0.8337491857897329</code></pre>
+      <p>As the example above shows, output is to the console (stdout) and is comma-separated (for easy copy-paste into a spreadhseet or .csv file).<br> After a header row, each row of output contains, in order:</p>
+      <ol>
+        <li>The year the NSE values are calculated for (the <code>Year</code> column).</li>
+        <li>The range name (the <code>Q_name</code> column).</li>
+        <li>The range as its actual pair of day-of-year inclusive bounds values (the <code>Jday_Range</code> column).</li>
+        <li>The actual NSE for that range (the <code>NSE_Value</code> column).</li>
+      </ol>
+      <h2>Output to Files</h2>
+      <p>The <code>NseQuarts.py</code> script outputs its results directly to your console. There is no option for saving the results directly to a file, however you can capture the output into a file using various console options.</p>
+      <p>For Windows PowerShell, we recommend capturing the output via a <a>pipeline</a> combined with the PowerShell <a>Out-File</a> cmdlet.<br> Here is the previous Usage example, plus the additional command line syntax to capture the output to a file named "my2020_quarts.csv" instead of to the console itself:</p>
+      <pre><code>PS C:\Users\Me\Velma\My_Results> py -3 NseQuarts.py DailyResults.csv My_Obs_Runoff.csv 2020 | Out-File -Encoding ASCII -FilePath my2020_quarts.csv</code></pre>
+      <p>The pipe ("<code>|</code>") symbol tells PowerShell to take the output of command on its left (the <code>NseQuarts.py</code> command) and pass it to the command its right (the Write-Output cmdlet).</p>
+      <p>The Out-File cmdlet can be used in various ways and for various situations, but what we want it to do here is:</p>
+      <ol>
+        <li>Force the output to be ASCII-encoded (so that Excel can unambiguously open our resulting file as .csv data).</li>
+        <li>Save the output to the file "my2020_quarts.csv" specified by the <code>-FilePath</code> argument.</li>
+      </ol>
+      <p>We force the output to be ASCII because <a>PowerShell's default encoding is Unicode</a>. If you omit the <code>-Encoding ASCII</code> argument, the output is written to the file as Unicode characters. If you then open the file in Excel, you may find Excel has interpreted the contents as 6 rows of 1 column each, instead of 6 rows of 4 columns each, because Excel did not auto-detect the comma ("<code>,</code>") character. Whether this actually happens depends on how your Excel and Windows enviroments are configured. If you find you don't need the <code>-Encoding ASCII</code> option, feel free to omit it.</p>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA 2.2 DOCUMENTATION</p>
+  </footer>
+</html>
