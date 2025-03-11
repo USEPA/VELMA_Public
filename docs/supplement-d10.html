@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <script src="https://requirejs.org/docs/release/2.3.7/minified/require.js"> </script>
+    <script src="public/js/search.js" type="module"> </script>
+    <script src="public/js/suggestion.js" type="module"> </script>
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="./index.html">VELMA 2.2 HOME</a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item dropdown">VELMA 2.0 Manual
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./intro.html"><span>I. Intro</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./changes.html"><span>II. Changes from 1.0</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./about.html"><span>III. About</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./input_files.html"><span>IV. Input Files </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./new_sim_config.html"><span>V. Sim Config</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./parameter_config.html"><span>VI. Parameter Config</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Appendicies
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./appendix_1.html"><span>Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_2.html"><span>Initializing a Spatial Data Pool Using an ASCII Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_3.html"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_4.html"><span>Overview of VELMA Simulator Output</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_5.html"><span>Generating daily temperature and precipitation grids for running VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_6.html"><span>Hydrological and Biochemical Model Descriptions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_7.html"><span>Creating Flat-Processed DEM Data For The VELMA Simulator</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Supplemental Info (VELMA 2.1)
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./supplement-a1.html"><span>Organic Contaminant Modeling Using VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a2.html"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a3.html"><span>VELMA Contaminant Modeling Demonstration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a4.html"><span>Adding Stormwater Drains for Urban &amp; Mixed-Use Watershed Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b1.html"><span>Creating Flat-Processed DEM Data for the VELMA Simulator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b2.html"><span>JPDEM Cell Highlighter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b3.html"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b4.html"><span>JPDEM Flow Test Tool</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b5.html"><span>JPDEM Saving Data to Files</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b6.html"><span>JPDEM User-Specified Map Borders</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b7.html"><span>JPDEM User-Specified Border Mask</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b8.html"><span>JPDEM for Viewing Map Differences</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b9.html"><span>JPDEM Sub-Reach Delineations</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b10.html"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c1.html"><span>VELMA Reach Mapping</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c2.html"><span>How to Run VELMA in Parallel Mode</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c3.html"><span>Rationale for Parallel Velma and Reach Segmentation</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d1.html"><span>Acquisition &amp; Generation of VELMA Input Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d2.html"><span>Soil Data Mapping and Parameter Initialization</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d3.html"><span>Initialize a Spatial Data Pool Using an Ascii Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d4.html"><span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d5.html"><span>Create Land-zoning Maps for a VELMA Application</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d6.html"><span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7a.html"><span>Create Multiple-Location Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7b.html"><span>Development of Statistical Models Based on Monthly PRISM / Daymet Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d8.html"><span>Cell Data Writer Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d9.html"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d10.html"><span>Default Tidewater Model Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e1.html"><span>Mapping Surface Layer Permeabilities</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e2.html"><span>VELMA Surface Chemistry Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e3.html"><span>Deposition of Surface Chemicals</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e4.html"><span>Implementing Green Roof Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e5.html"><span>Irrigation Disturbance</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e6.html"><span>Groundwater Storage Mechanism</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e7.html"><span>Spatial Data Writer Key Words for Generating ASCII VELMA Outputs for Data Visualization</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_info.html"><span>Developer Info</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracer Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./TopoFiles_Output_Summary.html"><span>Topo Files Output Summary </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_Error_Reports.html"><span>Velma Parallel Error Reports</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_With_Multiple_Maps.html"><span>Velma Parallel With Multiple Maps </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./WaterDrainDisturbanceModel_Overview.html"><span>Water Drain Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorCmdLine_Overview.html"><span>Velma Sim Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorAltCmdLine_Overview.html"><span>Velma Sim Alt Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SurfaceEvaporation_Overview.html"><span>Surface Evaporation Overview</span></a></li>
+              <li class="nav-item"> <a class="nav-link" href="./LccmTranslatorUtility_Overview.html"><span>LCCM-to-VELMA Translator Utility</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_utils.html"><span>Developer Utils</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="modal" id="suggestionModal">
+      <div class="modal-content"> <span class="close">&times;</span>
+        <h2>Submit a Suggestion </h2>
+        <form id="suggestionForm"> 
+          <textarea class="suggestion_textbox" id="suggestionText" name="suggestionText" require="True" placeholder="Enter your suggestion here ..."> </textarea>
+          <button class="submit_btn" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="main_body container" id="main_body">
+      <div class="plus-sign">
+        <p>+</p>
+      </div>
+      <h1>D.10 | Default Tidewater Model Configuration</h1>
+      <div class="info blue-light-1">
+        <p>Overview (Tutorial D.10 - Default Tidewater Model Configuration)</p>
+        <p>This document describes how to configure VELMA's Tidewater model for simulating the per cell daily amount of tidewater (millimeters of water) and marine nitrogen infiltration (grams nitrogen / meter2) for coastal watershed applications.</p>
+      </div>
+      <div class="caution_box warning-base"> 
+        <p>Warning: This model is still under early development. The functionality described here is likely to change or at least be modified in the future.</p>
+      </div>
+      <p>The Default Tidewater Model provides a way to mimic water and nitrogen deposition due to tidal</p>
+      <p>overtopping of cells within a VELMA simulation's delineated watershed. The model is currently very</p>
+      <p>simple, and subject to development changes.</p>
+      <h3>You Must Explicitly Set the Tidewater Model for use by a simulation configuration.</h3>
+      <p>In the VELMA GUI click Edit --> "Set Tidewater Model" --> "Default Tidewater Model") as shown below:</p><img width="607" height="210" alt="screenshot" title="screenshot" src="public/suppImage_263.jpg">
+      <p>Note the "NO Tidewater Model" menu option - clicking it removes the Default Tidewater Model from your simulation configuration.</p>
+      <p>After click-setting the Default Tidewater Model, the VELMA GUI should shift your view to the model's parameters in the "All Parameters" tab:</p><img width="617" height="161" alt="screenshot" title="screenshot" src="public/suppImage_264.jpg">
+      <p>Notice that the Group selector has "tidewater" selected; you can always return the parameters table to display only tidewater parameters by clicking "Clear Filters" and then selecting "tidewater" in the drop- down list of the Group selector.</p>
+      <h3>You Must Provide the Default Tidewater Model with a Driver Data File</h3>
+      <p>The Default Tidewater Model needs daily values for the following data:</p>
+      <ul>
+        <li>Highest High Tide Elevation (for the 24-hour period of the day, in meters)</li>
+        <li>Lowest Low Tide elevation (for the 24-hour period of the day, in meters)</li>
+        <li>Seawater NO3 Concentration Coefficient (in micro-mols N / liter)</li>
+        <li>Seawater NH4 Concentration Coefficient (in micro-mols N / liter)</li>
+        <li>Seawater DON Concentration Coefficient (in micro-mols N / liter)</li>
+      </ul>
+      <p>Set the name of the tidalDriverDataFileName to the name of a file that provides the above values. The name (or fully-qualified path + name) you provide must be a file of comma-separated values (.csv).</p>
+      <p>when presented with a file name without a path, the VELMA simulation engine's initialization code will assume the file is located in the directory specified by the inputDataLocationRootName/inputDataLocationDirName path.</p>
+      <p>Each row of the .csv file specifies one day's worth of tidewater driver data in the following field layout:</p>
+      <p>YEAR, JDAY, HIGH_TIDE, LOW_TIDE, NO3_K, NH4_K, DON_K</p>
+      <p>The year and jday fields must be integers, and the year field must be a full four-digit year.</p>
+      <p>VELMA assumes that first row in the file will have YEAR = forcing_start and JDAY = 1, and that the last row in the file will have YEAR = forcing_end and JDAY = 365 (or 366 if forcing_end is a leap year).</p>
+      <p>VELMA further assumes that there will be rows of data for every YEAR, JDAY combination in-between. That is, there can be no missing days in the driver data file.</p><img width="640" height="33" alt="image" src="public/suppImage_265.png">
+      <p>The YEAR, JDAY, HIGH_TIDE and LOW_TIDE values are all <b>required</b>, but any or all of the nitrogen concentration coefficients are optional and may be left blank. Any nitrogen concentration coefficient value left blank defaults to a value of zero.</p>
+      <h4>Here are the first four rows of a tidalDriverDataFileName .csv driver file as an example:</h4>
+      <table>
+        <tr>
+          <td>YEAR,</td>
+          <td>JDAY,</td>
+          <td>HIGH_TIDE,</td>
+          <td>LOW_TIDE,</td>
+          <td>NO3_K, NH4_K, DON_K</td>
+        </tr>
+        <tr>
+          <td>2008,</td>
+          <td>1,</td>
+          <td>2.1858504,</td>
+          <td>0.38152240,</td>
+          <td>7.0, 5.0, 3.0</td>
+        </tr>
+        <tr>
+          <td>2008,</td>
+          <td>2,</td>
+          <td>2.3199558,</td>
+          <td>0.36018744,</td>
+          <td>7.0, 5.0, 3.0</td>
+        </tr>
+        <tr>
+          <td>2008,</td>
+          <td>3,</td>
+          <td>2.5942624,</td>
+          <td>0.40285736,</td>
+          <td>7.0, 5.0, 3.0</td>
+        </tr>
+        <tr>
+          <td>2008,</td>
+          <td>4,</td>
+          <td>2.8990475,</td>
+          <td>0.60096769,</td>
+          <td>7.0, 5.0, 3.0</td>
+        </tr>
+      </table>
+      <p>Note that in the above example, whitespace has been introduced after the comma-separators to make the fields easier to identify. In practice, such whitespace is <i>not </i>required and <i>not </i>encouraged.</p>
+      <p>The example above contains a header row, which is acceptable but not required. However, if the header row is present, it must start with an alphabet character, not a numeral.</p>
+      <h3>The Default Tidewater Model's Tidewater and Nitrogen Infiltration Amounts are Reported by Cell and Spatial Data Writers</h3>
+      <p>When a DefaultTidewaterModel is part of a simulation configuration, any cell data writers specified automatically include columns reporting the following daily amounts for its specified cell location:</p>
+      <ul>
+        <li>Tidewater Added (in millimeters of water)</li>
+        <li>NO3-infiltration (in grams nitrogen / meter2)</li>
+        <li>NH4-infiltration (in grams nitrogen / meter2)</li>
+        <li>DON-infiltration (in grams nitrogen / meter2)</li>
+      </ul>
+      <p>Spatial Data Writers may be configured for the following Spatial Data keywords:</p>
+      <ul> 
+        <li>Tidewater</li>
+        <li>TidalNo3Infiltration</li>
+        <li>TidalDonInfiltration</li>
+        <li>TidalNh4Infiltration</li>
+        <li>TotalTidalNInfiltration</li>
+      </ul>
+      <p>Configure Spatial Data Writers with the keywords exactly as shown above (the mixed case must also be exact).</p>
+      <p>The Tidewater values reported in spatial data represent amounts of water (in millimeters) added "as if" they were part of the cell's rainfall on the given day.</p>
+      <p>All the nitrogen infiltration values reported in Spatial Data output files specified by the above keywords are in units of grams nitrogen / meter2 and represent amounts added at each cell in the map by the specific nitrogen infiltration type. The TotalTidalNInfiltration values are the sum (NO3 + NH4 + DON) of the cells nitrogen infiltration addition for the day.</p>
+      <p>A simulation configuration that includes Spatial Data Writer parameterizations for any of the above, but does not include the DefaultTidewaterModel parameterization should not crash, but all any spatial data based on the DefaultTidewaterModel will be all zeros.</p>
+      <h3>A Summary Description of the Default Tidewater Model's Behavior and Effects</h3>
+      <p>When a DefaultTidewaterModel is set for a simulation configuration, and provided with valid parameters from the tidal driver data file, the daily water balance code asks the tidewater model instance for a tidewater amount for each cell whose elevation falls below the HIGH_TIDE value for that day, and adds the (zero or more millimeters) resulting tidewater amount to the cell's total rain amount for that day. The tidewater amount added is simply:</p><code>Tidewater amount = (HIGH_TIDE * 1000) - (cell elevation * 1000)</code>
+      <p>The multiplication by 1000 converts meters to millimeters.</p>
+      <p>After water balance computes tidewater amounts, the plant soil model (Psm4dLsr) code asks the tidewater model for the NO3, NH4 and DON infiltration amounts of every cell. Cells with zero tidewater addition automatically receive zero infiltration amounts, and all cells will receive zero infiltration (regardless of their day's tidewater amount) for any concentration coefficient that was zero (either</p>
+      <p>explicitly or through omission of the concentration constant from the file) in the driver data for that day.</p>
+      <p>Cells with tidewater amounts &gt; zero, and with non-zero infiltration have their nitrogen infiltration computed as:</p><code>n-infiltration amount = (concentration coefficient * 0.000014) * tidewater amount</code>
+      <p>The conversion factor of 0.000014 converts from the coefficient's units of micro-mols/liter to grams/meter2.</p>
+      <p>Each of the three tidal infiltration amounts is computed by the equation above, but the amounts are assigned to different pools within VELMA.</p>
+      <ul>
+        <li>The NO3 infiltration amount is added to the NO3 pool's layer 1 amount.</li>
+        <li>The NH4 infiltration amount is added to the NH4 pool's layer 1 amount.</li>
+        <li>The DON infiltration amount is added to the DON pool's layer 1 amount.</li>
+      </ul>
+      <p>The amounts are added to their respective data pools prior to any daily nitrification and denitrification calculations. For example, the NO3 amount is added to the pool prior to denitrification, so the cell's layer 1 denitrification amount for the day will be computed from the NO3 pool's original amount + its tidal infiltration amount.</p>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA 2.2 DOCUMENTATION</p>
+  </footer>
+</html>
