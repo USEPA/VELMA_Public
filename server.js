@@ -6,7 +6,8 @@ const port = 3000
 
 
 app.set('view engine', 'pug');
-app.use(express.static(path.join(__dirname, 'docs', 'public')))
+app.use('/docs', express.static(path.join(__dirname, 'docs', 'public')))
+//console.log(path.join(__dirname, 'docs', 'public'))
 //app.use('docs', 'views')
 
 app.get('/index.html', (req, res) => {
@@ -332,6 +333,10 @@ app.get('/VelmaSimRunner_QuickRef.html', (req, res) => {
 
 app.get('/VelmaSimRunner.html', (req, res) => {
   res.render('VelmaSimRunner', { pageTitle: 'VelmaSimRunner'})
+})
+
+app.get('/VelmaParallel_Piecewise_Configs.html', (req, res) => {
+  res.render('VelmaParallel_Piecewise_Configs', {pageTitle: 'Velma Parallel Piecewise Configs'})
 })
 
 

@@ -1,10 +1,10 @@
 extends layout.pug
 block content
   h1 LCCM-to-VELMA Translator Utility
+  div.caution_box.warning-base
+    h2 THIS IS A DRAFT DOCUMENT: ITS CONTENTS MAY CHANGE
+
   h2 Overview
-
-  h3.warning-base THIS IS A DRAFT DOCUMENT: ITS CONTENTS MAY CHANGE
-
 
   p The LCCM-to-VELMA (“L2V”) Translator utility automates some of the steps required to generate a modifications .csv file for a Modify Landcover disturbance to use as driver data.
   p The L2V Translator requires its own set of driver data files as input Some of these are provided directly by LCCM output, and others must be created based on the LCCM output. All the files the L2V Translator requires must exist and be specified to the LV2 Translator via the L2V Translator's own “configInfo.csv” file when the L2V Translator is run.

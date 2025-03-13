@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <script src="https://requirejs.org/docs/release/2.3.7/minified/require.js"> </script>
+    <script src="public/js/search.js" type="module"> </script>
+    <script src="public/js/suggestion.js" type="module"> </script>
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="./index.html">VELMA 2.2 HOME</a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item dropdown">VELMA 2.0 Manual
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./intro.html"><span>I. Intro</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./changes.html"><span>II. Changes from 1.0</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./about.html"><span>III. About</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./input_files.html"><span>IV. Input Files </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./new_sim_config.html"><span>V. Sim Config</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./parameter_config.html"><span>VI. Parameter Config</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Appendicies
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./appendix_1.html"><span>Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_2.html"><span>Initializing a Spatial Data Pool Using an ASCII Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_3.html"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_4.html"><span>Overview of VELMA Simulator Output</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_5.html"><span>Generating daily temperature and precipitation grids for running VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_6.html"><span>Hydrological and Biochemical Model Descriptions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./appendix_7.html"><span>Creating Flat-Processed DEM Data For The VELMA Simulator</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">Supplemental Info (VELMA 2.1)
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./supplement-a1.html"><span>Organic Contaminant Modeling Using VELMA</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a2.html"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a3.html"><span>VELMA Contaminant Modeling Demonstration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-a4.html"><span>Adding Stormwater Drains for Urban &amp; Mixed-Use Watershed Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b1.html"><span>Creating Flat-Processed DEM Data for the VELMA Simulator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b2.html"><span>JPDEM Cell Highlighter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b3.html"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b4.html"><span>JPDEM Flow Test Tool</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b5.html"><span>JPDEM Saving Data to Files</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b6.html"><span>JPDEM User-Specified Map Borders</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b7.html"><span>JPDEM User-Specified Border Mask</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b8.html"><span>JPDEM for Viewing Map Differences</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b9.html"><span>JPDEM Sub-Reach Delineations</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-b10.html"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c1.html"><span>VELMA Reach Mapping</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c2.html"><span>How to Run VELMA in Parallel Mode</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-c3.html"><span>Rationale for Parallel Velma and Reach Segmentation</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d1.html"><span>Acquisition &amp; Generation of VELMA Input Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d2.html"><span>Soil Data Mapping and Parameter Initialization</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d3.html"><span>Initialize a Spatial Data Pool Using an Ascii Grid</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d4.html"><span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d5.html"><span>Create Land-zoning Maps for a VELMA Application</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d6.html"><span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7a.html"><span>Create Multiple-Location Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d7b.html"><span>Development of Statistical Models Based on Monthly PRISM / Daymet Data</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d8.html"><span>Cell Data Writer Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d9.html"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-d10.html"><span>Default Tidewater Model Configuration</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e1.html"><span>Mapping Surface Layer Permeabilities</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e2.html"><span>VELMA Surface Chemistry Pools</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e3.html"><span>Deposition of Surface Chemicals</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e4.html"><span>Implementing Green Roof Applications</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e5.html"><span>Irrigation Disturbance</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e6.html"><span>Groundwater Storage Mechanism</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./supplement-e7.html"><span>Spatial Data Writer Key Words for Generating ASCII VELMA Outputs for Data Visualization</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_info.html"><span>Developer Info</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./GetVelma_ForEclipse.html"><span>Clone Github to Local Machine</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./CellSpecificBurnDisturbance_Configuration_Guide.html"><span>Cell Specific Burn Disturbance Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./DefaultSedimentModel_Configuration_Guide.html"><span>Default Sediment Model Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./Sediment_Output_Data_Summary.html"><span>Sediment Output Data Summary</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ForestBurnLsrDisturbanceModel_Overview.html"><span>Forest Burn LSR Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./JPDEM_ReachMapping_Demonstration.html"><span>JPDEM Reaching Mapping Demo</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MinMaxAirT_WeatherDrivers.html"><span>Min Max Air Temp Weather Drivers</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ModifySpatialDataByMap_Guide.html"><span>Modify Spatial Data by Map Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ObsRunoff_and_NaNs.html"><span>OBS Runnoff and NaNs</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Overview.html"><span>Organic Contaminant Overview</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Remediation_Configuration_Guide.html"><span>Organic Contaminant Redemption Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./OrganicContaminant_Tracer_Configuration_Guide.html"><span>Organic Contaminant Tracer Config Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./ReachSpecificObservedRunnoff.html"><span>Reach Specific Observed Runnoff</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SnowDepth_Initialization_Guide.html"><span>Snow Depth Initialization Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./TopoFiles_Output_Summary.html"><span>Topo Files Output Summary </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_Error_Reports.html"><span>Velma Parallel Error Reports</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaParallel_With_Multiple_Maps.html"><span>Velma Parallel With Multiple Maps </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./WaterDrainDisturbanceModel_Overview.html"><span>Water Drain Disturbance Model</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorCmdLine_Overview.html"><span>Velma Sim Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimulatorAltCmdLine_Overview.html"><span>Velma Sim Alt Cmd Line Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./SurfaceEvaporation_Overview.html"><span>Surface Evaporation Overview</span></a></li>
+              <li class="nav-item"> <a class="nav-link" href="./LccmTranslatorUtility_Overview.html"><span>LCCM-to-VELMA Translator Utility</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown"> <a class="nav-link" href="./dev_utils.html"><span>Developer Utils</span></a>
+            <ul class="nav-dropdown blue-light">
+              <li class="nav-item"><a class="nav-link" href="./AscMapOct_Guide.html"><span>Ascii Map Oct Guide </span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./AscRangeMask_Guide.html"><span>Ascii Range Mask Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NashSutcliffeCalculator_Guide.html"><span>Tool for Computing Nash-Sutcliffe Coefficients</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./NseQuarts_Guide.html"><span>NseQuarts Guide</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner_QuickRef.html"><span>VelmaSimRunner Quick Reference</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="./VelmaSimRunner.html"><span>VelmaSimRunner Full Guide</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="modal" id="suggestionModal">
+      <div class="modal-content"> <span class="close">&times;</span>
+        <h2>Submit a Suggestion </h2>
+        <form id="suggestionForm"> 
+          <textarea class="suggestion_textbox" id="suggestionText" name="suggestionText" require="True" placeholder="Enter your suggestion here ..."> </textarea>
+          <button class="submit_btn" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="main_body container" id="main_body">
+      <div class="plus-sign">
+        <p>+</p>
+      </div>
+      <h1>Running Very Large Watershed VELMA Simulations in Piecewise Fashion</h1>
+      <div class="caution_box warning-base">
+        <h2>THIS IS A DRAFT DOCUMENT: ITS CONTENTS MAY CHANGE</h2>
+      </div>
+      <h2>Overview</h2>
+      <p>Large watersheds that require substantial time to run under JVelma or the VelmaSimulatorCmdLine can be configured to run under VelmaParallelCmdLine. However, some watersheds are so large that they take too long to run even with VelmaParallelCmdline.</p>
+      <p>When enough computing hardware is available, VelmaParallelCmdLine's <a href="./VelmaParallel_With_Multiple_Maps.html">multiple-map  option can be use to run separate pieces of the overall watershed as independent VelmaParallelCmdLine processes. Ideally, all of these except the last (final reach of the overall watershed) can be run independently and simultaneously. The last piece is run with the VelmaParallelCmdline </a><code>--relocationFile</code>  option, which provides the data necessary to use all of the other already completed results as part of the final, overall watershed result.</p>
+      <p>For this piecewise technique to work and provide running-time reduction, you will need enough hardware to run multiple VelmaParallelCmdLine processed independently. All of that harware must be able to read and write to a shared filesystem, or, the results of the independent pieces must be placed into a location that the final piece can access when it is run.</p>
+      <h2>Basic Piecewise Technique</h2>
+      <p>Running a VELMA watershed in piecewise VelmaParallel fashion is a specific use-case of VelmaParallelCmdLine's <a href="./VelmaParallel_With_Multiple_Maps.html">multiple-map  capability.</a></p>
+      <h4 id="preparing-piecewise-configurations">Preparing Piecewise Configurations</h4>
+      <ol>
+        <li>Start with a VELMA .xml file that provides a valid multiple-reach delineation of the full watershed. I.e., the .xml file you would run in a single VelmaParallelCmdLine process to simulate the full watershed (we'll refer to this as the "full .xml").</li>
+        <li>
+          Determine the full .xml's iOutlet location (the icell value corresponding to the full .xml's <code>outx</code>  and 
+<code>outy</code>  parameter values.).
+        </li>
+        <li>
+          Find the subset of reach outlets in the full .xml's <code>initialReachOutlets</code>  parameter value that are adjacent-contributors to the final outlet's reach, and are not themselves indepedent reaches (i.e. they have "upstream" independent contributors of their own).</li>
+        <li>
+          Create a new "piecewise .xml" file for the final reach copying the full .xml. In the new file … a. Change the run_index parameter value and file name. A handy naming scheme: prefix <code>i&lt;outlet#&gt;_</code>  to the original name, where 
+<code>&lt;outlet#&gt;</code>  is the ioutlet of the final reach. b. Change the 
+<code>initialReachOutlets</code>  parameter value to be the final reach's own iOutlet value plus <em>only  the adjacent-contributor reaches' outlets.</em>
+        </li>
+        <li>
+          Create new "piecewise .xml" files for each of the non-indenpendent reaches identified in step (3). As in step (4), copy the full .xml, and For these non-final piecewise .xml files … a. Change the run_index parameter value and file name to something unique for the reach. b. Change the <code>outx</code>  and 
+<code>outy</code>  parameter values to be the x and y coordinates corresponding to this reach's iOutlet value. c. Change the  
+<code>initialReachOutlets</code>  parameter value to be this reach's own iOutlet value plus <em>all  the reach outlets that this reach contains (i.e., all outlets upstream of this reach that either directly or indirectly flow to this reach).</em>
+        </li>
+      </ol>
+      <h4 id="running-the-independent-piecewise-configurations">Running the Independent Piecewise Configurations</h4>
+      <p>
+        After configuration, all but the final piecewise .xml can be run simultaneously, so long as there are enough hardeware resources to run them. Except for the final piecewise .xml, you can launch each piece as if it is a completely independent VelmaParallelCmdLine simulation run. Because of the preparatory steps, it <em> is</em>  a completely independent simulation run.</p>
+      <h4 id="running-the-final-piecewise-configuration">Running the Final Piecewise Configuration</h4>
+      <p>
+        The final piecewise .xml can only be run after all the other pieces have successfully completed. When it is run, it needs to know where to find the already-computed results from the other pieces. This information is provided to the final piece in the <code>--relocationFile</code>  file passed to the final-piece VelmaSimulation</p>
+      <p>The Relocation File's format is rows of comma-separated values (.csv data). There should be one row for each independent piecewise .xml that you ran. Each row must contain the following fields:</p>
+      <pre class="hljs"><code>iReach, iUseAs, iSource, sourceLocationData</code></pre>
+      <p>
+        The <code>iReach</code>  and 
+<code>iUseAs</code>  field values refer to the destination (i.e. final-piece). The 
+<code>iSource</code>  and 
+<code>sourceLocationData</code>  field values refer to the source (i.e. an upstream, contributor) piece. Each row of the relocation .csv file must contain four values:
+      </p>
+      <pre class="hljs"><code>iReach, iUseAs,  iSource, sourceLocationData
+|       |        |        |
+|       |        |        Fully-qualified path to a source sub-map simulation results directory.
+|       |        |        (Specifies the location of the source sub-map simulation run results.)
+|       |        |
+|       |        The iOutlet of a contributor reach 
+|       |
+|       The iOutlet of a contributor reach.
+|       (Each row's iUseAs value should be the same as its iSource value).
+|
+The iOutlet of the final reach.
+</code></pre>
+      <p>(Do not include whitespace after commas in your actual file.)</p>
+      <p>The sourceLocationData value on each row must be the fully-qualified path to the VELMA results of the independent contributor iOutlet (iUseAs, iSource) on that row. The path/location specified must be accessible and readable by the final-piece VelmaParallelCmdLine run.</p>
+      <p>
+        An example: suppose one of your independent contributor reach piecewise runs had: iOutlet = 2336 and <code>run_index</code>  value: 
+<code>i2336_MD_ws109_10m_mulD</code> , and the i2336 results were written to: 
+<code>C:\Users\Me\VelmaResults\MULTI_i2336_MD_ws109_10m_mulD</code> . Also suppose the final-piece reach's iOutlet = 1735. The row for the i2236 piecewise results in the relocation file for running the final i1735 piece would look like this:
+      </p>
+      <pre class="hljs"><code>1735,2336,2336,C:\Users\Me\VelmaResults\MULTI_i2336_MD_ws109_10m_mulD\Reach_2336</code></pre>
+      <p>
+        VelmaParallelCmdLine prefixes <code>MULTI_</code>  to the 
+        <code>run_index</code>  folder name it writes simulation results to. Reach results of a VelmaParallel are in subdirectiries of that 
+        <code>MULTI_</code> -prefixed root folder name. That is why the full path specified for sourceLocationData starts with 
+        <code>MULTI_</code>  and ends with 
+        <code>Reach_2336</code> .
+      </p>
+      <h2>The PdemOutletsInfo Utility</h2>
+      <p>
+        It can be difficult to manually determine the subset of a base .xml's <code>initialReachOutlets</code>  that are direct, non-independent contributors to the final reach's outlet. And, once found, it can also be diffcult determining the disjoint sets of a base .xml's 
+<code>initialReachOutlets</code>  contained (updatestream of and flowing into) for each of those non-independent contributor outlets.  The PdemOutletsInfo utility performs both of these tasks automatically.
+      </p>
+      <p>The PdemOutletsInfo utility "lives" in the JPDEM.jar file.</p>
+      <p>Here is an example run that uses it to report "depends_on" and "contains" data for every outlet in a small watershed:</p>
+      <p>In the base .xml:</p>
+      <pre class="hljs"><code> outx = 15
+ outy = 20
+ input_dem = ./m_1_DEM/elevation_10m_ws109_7-9-2014_nearest_aoi_std_flatProc.asc
+ initialReachOutlets = 2434 3236 3590 1735 2263</code></pre>
+      <p>The command line to run PdemOutletsInfo from a Microsoft Powershell for our data looks like this:</p>
+      <pre class="hljs"><code> PS C:\Users\me\Velma> 
+ java -Xmx2g -cp '.\Velma_Jars\JPDEM.jar' gov.epa.jpdem.PdemOutletsInfo `
+ C:\Users\me\Velma\MD_wS109\DataInputs\m_1_DEM\elevation_10m_ws109.asc `
+ 2434 3236 3590 1735 2263 `</code></pre>
+      <blockquote>
+        <p><strong> NOTE:</strong> The multiple lines above are actually a single command line. The backtick character ending each line is Powershell's way of escaping them into a single line when evaluated.</p>
+      </blockquote>
+      <p>The output of the above command line looks like this:</p>
+      <pre class="hljs"><code>INFO 2025-03-06 13:51:40 Outlets 1735 2263 2434 3236 3590
+START 2025-03-06 13:51:40 LOAD file=C:\Users\me\Velma\MD_wS109\DataInputs\m_1_DEM\elevation_10m_ws109.asc
+INFO 2025-03-06 13:51:40 Set computational domain from default border definition.
+DONE 2025-03-06 13:51:40 LOAD File loaded with default border.
+START 2025-03-06 13:51:40 FDIR Generating flow-direction data for map.
+DONE 2025-03-06 13:51:40 FDIR Generating flow-direction data for map.
+START 2025-03-06 13:51:40 DELN Generating relations data for 5 outlets.
+INFO 2025-03-06 13:51:40 i=1735 x=15 y=20 depends_on 2 outlets 2434 2263
+INFO 2025-03-06 13:51:40 i=1735 x=15 y=20 contains 4 outlets 2434 2263 3236 3590
+INFO 2025-03-06 13:51:40 i=2263 x=27 y=26 depends_on 1 outlets 3236
+INFO 2025-03-06 13:51:40 i=2263 x=27 y=26 contains 2 outlets 3236 3590
+INFO 2025-03-06 13:51:40 i=2434 x=26 y=28 depends_on 0 outlets
+INFO 2025-03-06 13:51:40 i=2434 x=26 y=28 contains 0 outlets
+INFO 2025-03-06 13:51:40 i=3236 x=54 y=37 depends_on 1 outlets 3590
+INFO 2025-03-06 13:51:40 i=3236 x=54 y=37 contains 1 outlets 3590
+INFO 2025-03-06 13:51:40 i=3590 x=64 y=41 depends_on 0 outlets
+INFO 2025-03-06 13:51:40 i=3590 x=64 y=41 contains 0 outlets
+DONE 2025-03-06 13:51:40 DELN Generating relations data for 5 outlets.
+PS C:\Users\me\Velma_GitHub> </code></pre>
+      <p>PdemOutletsInfo reports "depends_on" and "contains" information for each outlet listed on the command line. The "depends_on" line lists the directly adjacent outlets that flow into the specified "i, x, y" outlet. The "contains" line lists all the outlets that flow into the specified "i, x, y" outlet.</p>
+      <p>In the example above, the number of outlets is small, and it is possible to determine the final and contributor simulation configurations by examining the complete list of paired outlet-INFO lines.</p>
+      <p>When the number of outlets is large, the list of outlet-INFO lines can be difficult to review manually. In such cases, redirect the output of running PdemOutletsInfo to a file. That file can then be searched for specific lines with a text editor, or command-line search tools (e.g. grep and sed in Linux, Select-String in Microsoft Powershell, or Python in either.)</p>
+      <p>
+        When the number of outlets is very large, and when the final outlet has many directly adjacent contributors, editor or tool-assisted searches may still be cumbersome. In this case, PdemOutletsInfo's optional <code>--focus=</code>  and 
+<code>--onlyFocus</code>  arguments may help.
+      </p>
+      <p>
+        Use the <code>--focus=</code>  parameter to specify one of the outlets provided on the command line that PdemOutletsinfo should "focus" on. Use the 
+<code>--onlyFocus</code>  parameter to limit PdemOutletsInfo output to only "focus"-related output info.
+      </p>
+      <p>
+        PdemOutletsInfo computes additional information for the outlet specified by <code>--focus=</code>  and outputs it in lines prefixed with 'FOCUS'. The FOCUS lines report each non-independent outlet ("contains" line has > 0 outlets) directly adjacent to the focus-selected outlet, provide the 
+<code>outx</code> , 
+<code>outy</code> , and 
+<code>initialReachOutlets</code>  parameter values required to run that adjacent outlet in piecewise fashion. (i.e. the information required by <a href="#preparing-piecewise-configurations">Preparing Piecewise Configurations  step 5).</a>
+      </p>
+      <p>
+        Here is an example that uses <code>--focus=</code>  and 
+<code>--focusOnly</code>  to find the piecewise configuration data for an overall watershed with a large number (300) of reach outlets. (In this example, the outlet lists have been elided to help keep things readable: the actualy output does not "[ . . . ]" outlet lists.)
+      </p>
+      <pre class="hljs"><code>PS C:\Users\me\Velma> 
+java -Xmx2g -cp '.\Velma_Jars\JPDEM.jar' gov.epa.jpdem.PdemOutletsInfo `
+C:\Users\me\Velma\WA_Skagit_30m\DataInputs\m_1_DEM\Skagit_DredgeMask_EEX.asc `
+21560497 20947552 23291836 23146966 20104072 20033947 20288737 20921419 18566893 19684173 [ . . . ] `
+--focus=17119788 `
+--focusOnly `
+&gt;&gt;
+INFO 2025-03-06 15:09:05 300 outlet args 17119788 17224567 17264485 17324359 17434128 [ . . . ]
+START 2025-03-06 15:09:05 LOAD file=C:\Users\me\Velma\WA_Skagit_30m\DataInputs\m_1_DEM\Skagit_DredgeMask_EEX.asc
+INFO 2025-03-06 15:09:16 Set computational domain from default border definition.
+DONE 2025-03-06 15:09:16 LOAD File loaded with default border.
+START 2025-03-06 15:09:16 FDIR Generating flow-direction data for map.
+DONE 2025-03-06 15:09:18 FDIR Generating flow-direction data for map.
+START 2025-03-06 15:09:18 DELN Generating relations data for 300 outlets.
+DONE 2025-03-06 15:09:20 DELN Generating relations data for 300 outlets.
+FOCUS 2025-03-06 15:09:20 i17119788 Focused_Outlet depends_on 24 outlets delineates 83318 cells Xml_Params: outx=2529 outy=3431 initialReachOutlets=17119788 17224567 17264485 [ . . . ]
+FOCUS 2025-03-06 15:09:20 i17119788 Adjacent_Contributor: i18731290 contains 140 outlets delineates 986759 cells Xml_Params: outx=2584 outy=3754 initialReachOutlets=18731290 18736285 18831091 [ . . . ]
+FOCUS 2025-03-06 15:09:20 i17119788 Adjacent_Contributor: i18736278 contains 135 outlets delineates 994274 cells Xml_Params: outx=2583 outy=3755 initialReachOutlets=18736278 18771200 18821091 [ . . . ]</code></pre>
+      <p>The information provided by the "Focused_Outlet" and "Adjacent_Contributor" lines above permits a decomposition of the original .xml into three pieces.</p>
+      <p>Following the steps for <a href="#preparing-piecewise-configurations">preparing piecewise configurations :</a></p>
+      <ol>
+        <li>
+          <p>
+            The "full .xml" for the above example is "WA_Skagit_30m_mulD.xml". We get the <code>input_dem</code>  (DEM .asc map file) and 
+<code>initialReachOutlets</code>  values from the full .xml to use as arguments for PdemOutletsInfo.
+          </p>
+        </li>
+        <li>
+          <p>
+            The full .xml file also provides the final/overall watershed outlet's <code>outx</code>  and 
+<code>outy</code>  values. We want to PdemOutletsInfo to 
+<code>--focus=</code>  on this final outlet, but we need its i-value. To determine the i-value, we can use JVelma or JPDEM.
+          </p>
+          <ul>
+            <li>In JVelma, load the full .xml file and look at the field labelled "OutletI" in the "Run Parameters" tab pane.</li>
+            <li>
+              In JPDEM, load the map file specified by the full .xml's <code>input_dem</code>  parameter, then enter the 
+<code>outx</code>  and 
+<code>outy</code>  values into JPDEM's "X=" and "Y=" fields. the "I=" field will then display the corresponding i-value.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <p>Running PdemOutletsInfo, as shown in the example above generates all the information required by this step.</p>
+        </li>
+        <li>
+          <p>Using the information generated for step 3 by running PdemOutlets info, create the final piecewise .xml file by copying and renaming the full .xml and making these edits:</p>
+          <ul>
+            <li>Filename: i17119788_WA_Skagit_30m_mulD.xml</li>
+            <li>
+              The <code>outx</code>  and 
+<code>outy</code>  parameters remain unchanged.
+            </li>
+            <li>
+              Set <code>initialReachOutlets</code>  to "17119788" plust the "initialReachOutlets=" value from the "i17119788 Focused_Outlet" output line.</li>
+          </ul>
+        </li>
+        <li>
+          <p>Using the information generated for step 3 by running PdemOutlets info, create the two independent piecewise .xml files by copying and renaming the full .xml for each "i17119788 Adjacent_Contributor" output line.</p>
+          <ul>
+            <li>Provide each .xml file with a unique name (e.g. filename: i18731290_WA_Skagit_30m_mulD.xml).</li>
+            <li>
+              Set the <code>outx</code>  and 
+<code>outy</code>  parameter values based on the Adjacent_Contributor "outx=" and "outy=" values.
+            </li>
+            <li>
+              Set the <code>initialReachOutlets</code>  to the "Adjacent_Contributor: " value plus the "initialReachOutlets="</li>
+          </ul>
+        </li>
+      </ol>
+      <p>Upon completing the above, we have three copies of the original full .xml file:</p>
+      <ol>
+        <li>i17119788_WA_Skagit_30m_mulD.xml (<em>dependent  final configuration)</em></li>
+        <li>i18731290_WA_Skagit_30m_mulD.xml (independent configuration)</li>
+        <li>i18736278_WA_Skagit_30m_mulD.xml (independent configuration) The two independent configurations can be <a href="#running-the-independent-piecewise-configurations">started and run immediately </a>but the final configuration cannot be started <a href="#running-the-final-piecewise-configuration">until the independent configurations have successfully completed </a>and must include a properly formated <code>--relocationFile</code>  as a VelmaParallelCmdLine argument.</li>
+      </ol>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA 2.2 DOCUMENTATION</p>
+  </footer>
+</html>
