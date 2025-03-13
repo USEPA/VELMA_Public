@@ -325,8 +325,9 @@ pre {
     /* color: white; */
     tab-size: 4;
     padding: 20px;
-    max-width: 70%;
+    max-width: 90%;
     min-width: 100px;
+    margin: 5px;
     /* white-space: pre-wrap; */
     word-break: keep-all;
     border-radius: 6px;
