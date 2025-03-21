@@ -1,8 +1,10 @@
 const express = require('express');
 const pug = require('pug')
 const path = require('path');
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
+const routes_2_0 = require('./routes/2_0');
+
 
 
 app.set('view engine', 'pug');
@@ -340,7 +342,7 @@ app.get('/VelmaParallel_Piecewise_Configs.html', (req, res) => {
 })
 
 
-
+app.use('/2.0', routes_2_0);
 // use this as an example https://github.com/expressjs/express/blob/master/examples/ejs/index.js
 // already have express and pug installed just need to go from there.
 app.listen(port, () => {
