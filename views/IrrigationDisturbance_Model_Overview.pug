@@ -1,0 +1,190 @@
+extends layout.pug
+block content
+  h1 Irrigation Disturbance Model Overview
+  div.caution_box.warning-base
+    h2 THIS IS A DRAFT DOCUMENT: ITS CONTENTS MAY CHANGE
+
+  h2 Overview
+  p The Irrigation Disturbance Model provides a way to specify additional water input to a VELMA simulation run at specific locations and times. The VELMA simulator treats the added water as extra precipitation (although not reported as such in results files), which permits this ad-hoc water increase without breaking the simulator's core water balance mechanism.
+  p It is possible to add water to a running VELMA simulator via a Modify-by-Map Disturbance Model, but doing so 
+    em will
+    break the water balance mechanism. The Irrigation Disturbance Model exists precisely because Modify-by-Map is an unsuitable method for adding water.
+  p Because the Irrigation Disturbance Model water additions are treated as extra precipitation, they "arrive" on cell surfaces, and penetrate into cell soil layers just as "real" precipitation would. If a cell receiving irrigation water is saturated, none of the irrigation water will enter that cell's soil layers. Instead the irrigation water amount will travel laterally, downhill, on the surface.
+  p One distinction between real precipitation and irrigation water is that real precipitation figures into snow model melt calculations, but irrigation water does not.
+  h2 Configuration Steps
+  h3 Adding a Basic Modify Landcover Disturbance to a VELMA Configuration
+  p Begin by loading a pre-existing VELMA simulation configuration into JVelma, or by creating a new configuration from within JVelma (via the Edit -> "Create a New, Empty Configuration" menu item).
+  ol
+    li Click the Edit -> "Disturbances" -> "Add a Disturbance" menu item to open the pop-up dialog titled "Specify Disturbance Model Type and Name".
+    li Click the "Disturbance Type" field's drop-down selector list, scroll down the list to the "IrrigationDisturbanceModel" item and click it.
+    li Enter a name in the "Disturbance Name" field.The name you enter should use only alphanumeric characters and (optionally) the underbar character, "_".The name you enter must not be used by any other disturbance in your simulation configuration.
+    li Click the OK button to add the new disturbance to the configuration and to close the dialog window.
+  p When the Add a Disturbance pop-up dialog is closed by clicking the OK button, JVelma displays the "All Parameters" tab in the main panel and sets filtering to show only the parameters associated with the newly-added Modify Landcover disturbance.
+  h3 Setting Parameters
+  h4 Parameters That Can (Should!) be Left Alone
+  p The 
+    <code>modelClass</code>  parameter is set by JVelma when you add a Modify Landcover disturbance to the simulation configuration. Do Not Change this parameter's value.  
+    em Ever.
+  h4#parameters-that-determine-when-the-disturbance-occurs Parameters That Determine When the Disturbance Occurs
+  table
+    thead
+      tr
+        th Parameter Name
+        th Expected Value
+        th Description
+        th Can leave blank?
+    tbody
+      tr
+        td
+          <code>initializeActiveLoops</code>
+        td One-based Loop number(s)
+        td The disturbance occurs only in listed Loops
+        td NO
+      tr
+        td
+          <code>initializeActiveYears</code>
+        td Full-digits Year number(s)
+        td The disturbance occurs only in listed Years
+        td NO
+      tr
+        td
+          <code>initializeActiveJdays</code>
+        td Julian day(s) range=[1, 366]
+        td The disturbance occurs for every listed Jday
+        td NO
+  p The following rules apply to values for the Loop, Year, and Jdays parameters above:
+  ul
+    li All values must be positive integers.
+    li The parameter value as whole may consist of:
+      ul
+        li a single value (e.g. 1)
+        li a range (e.g. 1999-2010)
+        li or a list of values and/or ranges (e.g. 1, 32, 59, 100-205, 365, 366)
+    li Lists elements must be comma-separated.
+    li Loop values outside the range of the simulation configuration's [1, 
+      <code>numberOfLoops</code> ] are ignored.
+    li Year values must be full values (e.g. "99" would be identified as the year 99 CE, 
+      em not  the year 1999 CE).
+    li Year values outside the range of the simulation configuration's [
+      <code>syear</code> , 
+      <code>eyear</code> ] (start year and end year) parameter values are ignored.
+    li Jday values outside the range [1, 366] are ignored, and the value 366 is ignored in non-leap years.
+  h4
+    em Parameters That Specify the Amount of Water to Add
+  p The 
+    <code>setIrrigationThreshold</code>  parameter's value specifies the amount of water (in mm) that 
+    em may  added to each eligible cell.
+  p The 
+    <code>setIrrigationMode</code>  parameter's value specifies whether none, some, or all of the 
+    <code>setIrrigationThreshold</code>  amount is actually added.
+  p There are two allowable values for 
+    <code>setIrrigationMode</code> : 
+    <code>PRECIP_DIFF</code>  and 
+    <code>AS_SPECIFIED</code>  (for historical reasons, 
+    <code>PRECIP_DIFF</code>  is the default setting).
+  p Setting 
+    <code>AS_SPECIFIED</code>  directs the irrigation disturbance to add the amount specified by 
+    <code>setIrrigationThreshold</code>  to each eligible cell
+    a(href="#parameters-that-determine-when-the-disturbance-occurs") when the disturbance occurs .
+  p Setting 
+    <code>PRECIP_DIFF</code>  produces a more complicated irrigation behavior.
+    a(href="#parameters-that-determine-when-the-disturbance-occurs") When the disturbance occurs , each eligible cell receives an amount of water calculated in the following manner:
+  ol
+    li Determine the cell's "total current precipitation": this is the sum of all current precipitation 
+      em except  irrigation currently available the cell.  It includes rain, snow melt, and (possibly) tidal amounts.
+    li Determine the cell's "water difference":
+      <code>waterDiff = (setIrrigationThreshold - totalCurrentPrecipitation)</code>
+    li If 
+      <code>waterDiff</code>  is greater than zero, add 
+      <code>waterDiff</code>  as the irrigation amount to the cell, otherwise do not add any water to the cell.
+  h4
+    em Parameters That Specify Which Cells to Irrigate
+  p The Irrigation Disturbance Model provides two separate parameters for specifying which cells are eligible for irrigation. They can be used separately or together.
+  p The 
+    <code>initializeCoverIds</code>  identifies eligible cells by cover ID values. One or more cover ID values can be specified. Each must match the 
+    <code>uniqueId</code>  value of one of the cover parameterizations specified in the same configuration.
+  p The 
+    <code>initializeSpecificCells</code>  provides the path/name of .csv driver data file that explicitly lists eligible cells. The path can be full or relative, but if it is relative, it is assumed relative to the configuration's specified output location. The .csv driver file contents must be one linear-index (icell) location per line, optionally paired with a comma-separated specific 
+    <code>setIrrigationThreshold</code>  value. (The disturbance's own 
+    <code>setIrrigationThreshold</code>  value is used for any cells that do not have a paired value.)
+  p Here is are the lines from a .csv file whose path/name could be specified for a 
+    <code>setIrrigationThreshold</code>  value:
+  p iCell,irrigationThreshold 1735,10.5 1800 2301 2574,14.3
+  pre.hljs
+    code. 
+      The example above specifies four cells for irrigation: 1735, 1800, 2301, and 2574.
+      Two of these cells (1800 and 2301) do not have paired irrigation threshold values, 
+      so the distrbance will use whatever value is set for its own `setIrrigationThreshold` with them.
+      The other two cells are paired with explicit irrigation threshold values, and those values will be used for those cells.
+      
+      The example above has a header line: `iCell,irrigationThreshold`, but a header line is not required.
+      If a header line is present, it must _not_ start with a numeric character.
+      (Remember that "+" and "-" count as numeric characters, along with the digits 0-9.)
+      Cell locations _must_ be integer values, and lines in the file must _not_ end with a comma.
+      
+      #### _Cell Eligibity Examples_
+      
+      Suppose you have three cover types in your simulation: Conifer, Grass, and Scrub, with `uniqueId` values: 1, 2, and 3 respectively.
+      
+      Here are some examples of how you could use the eligibility parameters to specify which cells to irrigate:
+      
+      **Example 1:** Irrigate every Grass and Scrub cell, but no Conifer cells.  
+      * Set `initializeCoverIds` to `2, 3`.  
+      * Set `initializeSpecificCells` blank (i.e. no value at all).
+      
+      [When the disturbance occurs](#parameters-that-determine-when-the-disturbance-occurs), every Grass and Scrub cell will be eligible for irrigation.
+      The disturbance's `setIrrigationThreshold` value is used as the irrigation amount at each cell.
+      
+      **Example 2:** Irrigate specific cells with specific amounts of water.
+      * Set `initializeCoverIds` blank (i.e. no value at all).
+      * Set `initializeSpecificCells` to the path/name of a valid .csv file containing the cells to irrigate and their paired irrigation threshold values.
+      
+      [When the disturbance occurs](#parameters-that-determine-when-the-disturbance-occurs), each cell in the .csv file (and _only_ those cells) will be
+      eligible, and will be irrigated by the irrigation threshold paired with it.
+      If a cell in the file does not have a irrigation threshold paired with it, the disturbance's `setIrrigationThreshold` value is used.
+      
+      **Example 3:** Irrigate all Grass cells plus specific shrub cells, all by the "defaul" disturbance's `setIrrigationThreshold`.
+      * Set `initializeCoverIds` to `2`.
+      * Set `initializeSpecificCells` to the path/name of a valid .csv file containing the specific shrubs cells to irrigate.
+      Do _not_ include paired, specific irrigation threshold values in the file.
+      
+      Appendix A: Common Questions
+      ----------------------------
+      
+      #### Can I specify the same cell with `initializeCoverIds` and `initializeSpecificCells`?
+      
+      Answer: Yes.  
+      
+      You can specify a cover type for `initializeCoverIds` and then include one or more cells
+      of that cover type in the file specified for `initializeSpecificCells`.
+      If you do this, each "doubly specified" cell is updated once (not twice).
+      If the cell's `initializeSpecificCells` line contains a paired, specific irrigation threshold value,
+      that value is used for that cell, instead of the disturbance's default `setIrrigationThreshold` value.
+      
+      #### Can I specify the same cell more than once in the `initializeSpecificCells` .csv file?
+      
+      Answer: You may, but only the last mention is used.
+      
+      If you specify the same cell location multiple times in the `initializeSpecificCells` .csv file,
+      the cell is "registered" only once by the disturbance, and only by the last line specifying that cell location.
+      
+      Example:
+      
+  p 1735,2.80 1735,
+  pre.hljs
+    code. 
+      For the above .csv, the irrigation disturbance would "register" icell 1735 as eligible,
+      but use its `setIrrigationThreshold` value, not the `2.80` irrigation value in the ealier line.  
+      
+      Irrigation Disturbances write "Duplicate Irrigation Cell Location" warning
+      messages the Global State Log .txt file for each duplicate cell line found.
+      
+      
+      #### Does the `setIrrigationMode` affect all eligible cells?
+      
+      Answer: Yes.
+      
+      Regardless of whether a cell is eligible due to `initializeCoverIds` or `initializeSpecificCells`,
+      and regardless of whether its irrigation threshold value is specified by `setIrrigationThreshold`
+      or a paired value in the `initializeSpecificCells` .csv file, the `setIrrigationMode` setting is
+      always used to determine [the water addition](#parameters-that-specify-the-amount-of-water-to-add).
