@@ -1,0 +1,31 @@
+
+<nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="./index.html"><span>Home</span></a>
+  <ul class="navbar-nav no-bullets">
+    <li class="nav-item"><a class="nav-link" href="/getting_started.html"><span>Getting Started</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/getting_started.html"><span>Input/Output Files</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/getting_started.html"><span>JPDEM</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/getting_started.html"><span>Velma Parallel</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/getting_started.html"><span>Calibration </span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/getting_started.html"><span>Parameters </span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/getting_started.html"><span>Spatial Maps </span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/getting_started.html"><span>DEM </span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/getting_started.html"><span>Coverage </span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/getting_started.html"><span>Age </span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/getting_started.html"><span>Soils</span></a></li>
+    <li class="nav-item version-dropdown blue-dark">
+      <select id="version-dropdown" name="version-dropdown" data-current-path="#{currentPath}">
+        <option value="2_2">2.2 (current)</option>
+        <option value="2_1">2.1</option>
+        <option value="2_0">2.0 </option>
+      </select>
+    </li>
+  </ul>
+</nav>
+<script>
+    document.getElementById('version-dropdown').addEventListener('change', function(event) {
+    const selectedVersion = event.target.value;
+    const currentPath = event.target.getAttribute('data-current-path');
+    const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+    window.location.href = newPath;
+  });
+</script>

@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "build": "npm run md-to-pug && npm run build-html",
+    "build": "",
     "build-html": "node htmlify.js",
     "md-to-pug": "node md_to_pug.js",
     "prestart": "npm run build",

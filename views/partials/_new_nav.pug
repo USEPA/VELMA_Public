@@ -1,0 +1,52 @@
+nav.navbar.blue-base.navbar-expand
+    a.navbar-brand(href='../../../index.html')
+        span Home
+    ul.navbar-nav.no-bullets
+        li.nav-item
+            a.nav-link(href='/getting_started.html')
+                span Getting Started
+        li.nav-item
+            a.nav-link(href='/getting_started.html')
+                span Input/Output Files
+        li.nav-item
+            a.nav-link(href='/getting_started.html')
+                span JPDEM
+        li.nav-item
+            a.nav-link(href='/getting_started.html')
+                span Velma Parallel
+        li.nav-item
+            a.nav-link(href='/getting_started.html')
+                span Calibration 
+        li.nav-item
+            a.nav-link(href='/getting_started.html')
+                span Parameters 
+        li.nav-item
+            a.nav-link(href='/getting_started.html')
+                span Spatial Maps 
+        li.nav-item
+            a.nav-link(href='/getting_started.html')
+                span DEM 
+        li.nav-item
+            a.nav-link(href='/getting_started.html')
+                span Coverage 
+        li.nav-item
+            a.nav-link(href='/getting_started.html')
+                span Age 
+        li.nav-item
+            a.nav-link(href='/getting_started.html')
+                span Soils
+        li.nav-item.version-dropdown
+            select#version-dropdown.blue-dark(name="version-dropdown" data-current-path=currentPath)
+                option(value="2.2") 2.2 (current)
+                option(value="2.1") 2.1
+                option(value="2.0") 2.0 
+                
+script. 
+    document.getElementById('version-dropdown').addEventListener('change', function(event) {
+    const selectedVersion = event.target.value;
+    console.log(selectedVersion);
+    const currentPath = event.target.getAttribute('data-current-path');
+    const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+    console.log(newPath);
+    window.location.href = newPath;
+  });
