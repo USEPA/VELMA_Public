@@ -1,0 +1,65 @@
+extends ../../../layout.pug
+block content
+    div.flex-container
+        include ../../../partials/_parameters_side_nav.pug      
+        div.body-content
+            h1 Plant Mortality 
+            p VELMA v.2.0 has a new plant biomass mortality function, replacing the linear mortality function in v1.0(Abdelnour et al. 2011). The new mortality function was initially developed for forest vegetation but we havefound that it applies just as well to other cover types, including nonwoody species such as grasslands andagricultural crops.
+            p The mortality function is based on the following observations and assumptions:
+            ul
+                li The ratio of mortality/NPP during succession is nonlinear. For example, in regrowing forest stands, observedincreases in stem biomass require that stem NPP exceeds stem mortality until steady state is reached.
+                li A logistic function provides sufficient flexibility to capture temporal changes in the relationship betweenmortality and NPP during succession. Specifically, a logistic function is used to describe nonlinear changes ina tissue's litterfall/NPP ratio vs. stand age, where "tissue" can represent leaf, aboveground stem, belowgroundstem, or root biomass. In practice, total plant biomass (or aboveground stem biomass) serves as a proxy forstand age.
+                li For example, using VELMA's parameter naming convention, mortalityAgStemCarbon / nppAgStemCarbon = C / (1 + A * exp^(-B * plantBiomassCarbon))
+                li Rearranging, mortalityAgStemCarbon = nppAgStemCarbon * C / (1 + A * exp^(-B * plantBiomassCarbon))
+            p For example, the figures below show results obtained by applying the logistic mortality function to a riparianhardwood forest. The left figure shows changes in the ratio of belowground stem mortality/NPP vs. total stembiomass (proxy for stand age). The right figure shows simulated temporal changes in simulated belowground stembiomass and total plant biomass. Adjustment of the mortality function parameters can be used to flatten orsteepen the asymptotic trends in biomass, according to chronosequence data. The mortality function must beapplied to all four of VELMA's plant tissues (results for leaf, aboveground stem and fine root biomass are notshown here).
+            img(width="628" height="271" alt="image" src="public/Image_089.gif")
+            h3#12-1 12.1 - Plant Mortality Logistic or Linear?
+            p Select "12.1 Plant Mortality Logistic or Linear ?" from the All Parameters drop-down menu to specify whether youwish to use the logistic (recommended) or linear functions for simulating plant biomass mortality:
+            img(width="628" height="151" alt="image" src="public/Image_090.jpg")
+            h4 ///// IMPORTANT NOTE /////
+            p We <u>do not</u> recommend using the old linear model for simulating plant biomass mortality. Therefore, makesure all four of the parameters shown above are set = false. When that is the case, plant biomass mortality iscomputed using the logistic function. You will need to do this for all cover types included in your watershed.
+            
+            h3#12-1-1 12.1.1 - Plant Mortality Logistic Parameters
+            p Select "12.1.1 Plant Mortality Logistic Parameters" from the All Parameters drop-down menu to specify parametervalues affecting biomass mortality for each of VELMA's four plant tissue types. Parameter specifications arerequired for each cover type.
+            img(width="622" height="331" alt="image" src="public/Image_091.jpg")
+            div.math_formula
+                p.math Reference to mortality coefficients in the parameter definitions, below, refer to the following plant mortalitylogistic function. Using AgStem as an example:
+                p.math AgStem Mortality = AgStem NPP * C / (1 + A * exp^(-B * Tissue N)), where,
+                p.math AgStem Mortality &amp; AgStem NPP are computed internally by VELMA in g N m-2 d-1
+                p.math A = mortalityAgStemDenominatorCoefficient
+                p.math B = mortalityAgStemExponentialCoefficient
+                p.math C = mortalityAgStemNumeratorCoefficient
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name mortalityAgStemAnnualFraction
+                    td.param_desc The fraction of a tissue's simulated annual mortality that gets subtracted from the corresponding biomass pool per day during the specified period ofsenescence. The default value for this fraction is 1.0 (i.e. the full per-day amount) and the valid range is[0.0 to 1.0] Warning! Users unfamiliar with this parameter&#39;s behavior should leave it set to the defaultvalue of 1.0.
+                tr 
+                    td.param_name mortalityAgStemDenominatorCoefficient 
+                    td.param_descParameter "A" in the equation above.
+                tr 
+                    td.param_name mortalityAgStemExponentialCoefficient 
+                    td.param_descParameter "B" in the equation above.above.
+                tr 
+                    td.param_name mortalityAgStemNumeratorCoefficient 
+                    td.param_descParameter "C" in the equation above.
+            p Note: the 4 preceding parameters repeat for the other tissues - i.e., "Leaf", "BgStem" or "Root" appear in placeof "AgStem" in the parameter names above. These
+            h4 Calibration Notes
+            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate plant <a    href="mailto:mckane.bob@epa.gov">logistic mortality parameters for your site (please contact</a>mckane.bob@epa.gov if you have questions):
+            p Filename: VELMA 2.0_Biomass Mortality Calibrator_CHB_9-24-13 v3.xlsx Folder location:VELMA2.0Software/SupportingDocuments/ExcelCalibrationFiles
+            h3#12-1-1-1 12.1.1.1 through 12.1.1.4 - Plant Mortality Logistic Parameters for Leaf, AgStem, BgStem and Root Biomass
+            p See section 12.1, above, for mortality parameter definitions and calibration information. Although 12.1 completelist However, to avoid mistakes, we recommend that you use sections
+            p 12.1.1.1 through 12.1.1.4 in the All Parameters drop-down menu to specify tissue-specific mortalityparameters. For example, use the All Parameters drop-down menu to select section
+            p 12.1.1.1 to display and specify leaf logistic mortality parameters. Parameters for aboveground stem, belowgroundstem and roots appear under the following 3 subsections.
+            h3#12-2 12.2 - Plant Mortality Phenology
+            p Select "12.2 Plant Mortality Phenology" from the All Parameters drop-down menu to specify parameter values forthe beginning and end dates for plant biomass mortality.
+            img(width="621" height="116" alt="image" src="public/Image_092.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name jDaySenescenceOn
+                    td.param_desc The Julian Day of the year when this cover species biomass begins senescing. (Note: Set &gt;= 367 to &quot;deactivate&quot; senescence for this cover species.)
+                tr 
+                    td.param_name jDaySenescenceOff 
+                    td.param_desc The Julian Day of the year when this cover species biomass stops senescing (Note: any value &gt;= 367 results in biomass NOT senescing through the end of the year.
+            

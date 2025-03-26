@@ -1,0 +1,40 @@
+extends ../../../layout.pug
+block content
+    div.flex-container
+        include ../../../partials/_parameters_side_nav.pug      
+        div.body-content
+            h1 Simulation Run Schedule 
+            p To let VELMA know when to start and stop a simulation, you specify need to specify values for the followingparameters:
+            table
+                tr 
+                    td.param_name forcing_start 
+                    td.param_desc First year of driver (forcing) data available for the simulation model run
+                tr 
+                    td.param_name forcing_end
+                    td.param_desc Last year of driver (forcing) data available for the simulation model run
+                tr 
+                    td.param_name syear
+                    td.param_desc Starting year of simulation model run
+                tr 
+                    td.param_name eyear
+                    td.param_desc Ending year of simulation model run
+                tr 
+                    td.param_name numberOfLoops
+                    td.param_desc The number of times (loops) to repeat a simulation (syear
+            p to eyear will repeat for the specified number of loops)
+            h4 The Forcing Start and End Years Specify When a Simulation CAN Run
+            p The VELMA Simulator expects every driver and observed data file specified in the simulation configuration to have1 line of data for each day between the first day of the year specified for the forcing_start parameterand the last day of the year specified for the forcing_end parameter.
+            p For example, if forcing_start = 2000 and forcing_end = 2001, each driver or observed data file musthave 366 + 365 lines of data (one for each of the 731 days of years 2000 through 2001).
+            p The value specified by forcing_start must be less than or equal to the value of forcing_end.
+            h4 The Simulation Start and End Years Specify When a Simulation WILL Run
+            p The years that the VELMA Simulator actually runs a simulation for are specified by the syear (start year)and eyear (end year) simulation configuration parameters. It is an error for syear's value to begreater than eyear's, and for either value to lie outside the bounds of the years specified byforcing_start and forcing_end, however syear and eyear may specify a sub-rangewithin that range.
+            p For example, if [forcing_start, forcing_end] = [1995, 2010], [syear, eyear] may be [1997, 2010], oreven a single year, like [1998, 1998].
+            h4 The Loops Parameter Specifies How Many Times the Simulation Repeats a Run
+            p The numberOfLoops parameter defaults to "1", which tells the VELMA Simulator to run the specifiedsimulation from start year to end year once, and then stop. Setting the numberOfLoops parameter to<i>n</i>, (with &gt; 1) tells the VELMA simulator to run the simulation from start year to end year n times in arow, but to only initialize the simulation before the first start-to-end run. In this way, the numberOfLoopsparameter provides a (simplistic) spin-up mechanism. The second start- to-end run after the first willbegin with the simulation's data state where it was at the end of the first start-to-end run, and so on.
+            h4  Use the All Parameters Outline Selector to Focus on the Simulation Run Schedule Parameters 
+            You can filter the AllParameters tab's parameters table to focus on the simulation run schedule by selecting item "17.0 Simulation RunSchedule" in the outline dropdown selector:
+            img(width="614" height="178" alt="image" src="public/Image_108.jpg")
+            p You Can Also Review and Set Some of these Values in the Run Parameters Tab
+            p Compare circled fields in the Run Parameters tab below with the parameters circled in the All Parameters tableabove. Setting the "Run Simulator From" and "To" fields in the Run Parameters tab sets the values of the syearand eyear parameters. Setting the Run Parameters "Number of Loops" value sets the value of the numberOfLoopsparameter. Note however, that you can only set the forcing_start and forcing_end values in the All Parameterstable. These values are read-only fields in the Run Parameters tab. The screenshot above happens to specify 12loops - i.e. run the simulation [1999, 2003] x12 - that's a significant spin up. Generally speaking, find outhow long one simulation loop takes to run before embarking on that many multiple loops.
+            img(width="618" height="215" alt="image" src="public/Image_109.jpg")
+            

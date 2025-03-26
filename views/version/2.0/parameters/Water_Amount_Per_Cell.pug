@@ -1,0 +1,17 @@
+extends ../../../layout.pug
+block content
+    div.flex-container
+        include ../../../partials/_parameters_side_nav.pug      
+        div.body-content
+            h1 Initialize Uniform Water Amount per Cell </a><u>(link to All Parameters    TOC)</u> Because soil moisture can vary significantly in space and time, it would be extremely difficult tospecify realistic soil moisture amounts for every soil layer in every cell within a watershed. A
+            p more practical method is to specify a uniform amount of initial soil moisture for all layers and
+            p cells, and then allow these initial values to adjust to realistic levels during a "spin up" period of years priorto the simulated years of interest.
+            p By default, VELMA set the initial water content of all cells and layers to the field capacity value specified foreach soil type. , i.e., when the parameter initialUniformSoilMoisture is set to its default value of -1(if it is set to any other value, reset it to -1).
+            img(width="623" height="106" alt="image" src="public/Image_073.jpg")
+            h4 Calibration Notes
+            p We recommend using this default option, and that you also discard the first year of simulation results, andpossibly more, until soil moisture levels have sufficient time to "spin up" to your site's observed conditions.Shallow soils may adjust within a year or two, whereas deep soils may require decades before simulatedgroundwater tables reach observed levels. You will need to experiment with this to determine how many spin-upyears are required.
+            p To set up a spin-up period, you can instruct VELMA to perform one or more simulation "loops" for the set of yearsincluded in the climate input files. To do this, specify the desired "Number of Loops" in Run Parameters tab ofthe simulator's GUI. For the example shown below, 3 loops are specified, meaning that the 5 years (1999 - 2003)of available climate driver data will be repeated (looped) 3 times for this simulation.
+            img(width="622" height="168" alt="image" src="public/Image_074.jpg")
+            p Thus, VELMA will generate 3 loops x 5 years = 15 years of model output, for which the first 2 loops (10 spin-upyears) can be discarded.
+            p An alternative method to accomplish the same thing would be to edit the temperature and precipitation driverfiles, such that a copy of the years you want to use for spin-up purposes appears at the beginning of theoriginal climate record (remember to rename the edited climate driver files to reflect the spin-up number ofyears).
+            

@@ -2,10 +2,7 @@ const express = require('express');
 const pug = require('pug')
 const path = require('path');
 const app = express();
-const port = 3000;
-const routes_2_0 = require('./routes/2_0');
-
-
+const port = 8000;
 
 app.set('view engine', 'pug');
 app.use(express.static('public'))

@@ -1,0 +1,114 @@
+extends ../../../layout.pug
+block content
+    div.flex-container
+        include ../../../partials/_parameters_side_nav.pug      
+        div.body-content
+            h1 Plant Uptake 
+            p The VELMA v1.0 subroutine for plant nitrogen uptake is described by Abdelnour et al. (2011). VELMA v2.0 generallyfollows the same subroutine, but includes important changes to several components affecting nitrogen uptake:
+            ul
+                li Uptake of NH4 and NO3 is now modeled explicitly, using pool-specific Michaelis- Mentenequations.
+                li The temperature response function for plant N uptake is now based on a quadratic equation described byRastetter et al. (1991).
+                li In VELMA v1.0 a constant root fraction parameter was applied to total plant biomass to indirectlysimulate effects of successional changes in root biomass on N uptake. VELMA v2.0 includes a leaf-stem-root (LSR)subroutine that explicitly models root biomass dynamics and consequent effects on NH4 and NO3uptake.
+                li Simulated total N uptake per day is allocated to leaf, stem and root tissues according to specified fractionsper tissue.
+                li Phenological controls on plant nitrogen uptake constrain when nitrogen uptake can occur.
+                li The nonlinear (Weibull) function in VELMA v1.0 for simulating the effect of forest stand age on N uptake hasbeen removed. This and other age-related effects in VELMA v2.0 are now modeled as a consequence of successionalchanges in the availabilities of nitrogen and water.
+                li The VELMA v2.0 plant N uptake subroutine must be set up and calibrated for each cover species/types within awatershed.
+            p Details are provided in subsections 11.1 - 11.5.
+            h3#11-1 11.1 - Plant Uptake NH4-specific
+            p Select "11.1 Plant Uptake NH4-specific" from the All Parameters drop-down menu to specify parameter valuescontrolling NH4 uptake per cover species/type. Note that two cover types (forest and corn) are shown hereto emphasize that parameters must be specified for each cover type within a watershed (true for all of section11).
+            img(width="621" height="147" alt="image" src="public/Image_083.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name nh4MaximumUptakeRate
+                    td.param_desc Cover-specific maximum rate of NH4 uptake for biomass uptake equation.
+                tr 
+                    td.param_name nh4Kn 
+                    td.param_desc Half saturation constant kn for Michaelis Menton NH4 uptake in gN/m^2.
+            p See calibration notes for section 11.2.
+            h3#11-2 11.2 - Plant Uptake NO3-specific
+            p Select "11.2 Plant Uptake NO3-specific" from the All Parameters drop-down menu to specify parameter valuescontrolling NO3 uptake per cover species/type:
+            img(width="622" height="148" alt="image" src="public/Image_084.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name no3MaximumUptakeRate
+                    td.param_desc Cover-specific maximum rate of NO3 uptake for biomass uptake equation.
+                tr 
+                    td.param_name no3Kn 
+                    td.param_desc Half saturation constant, kn, for Michaelis-Menten NO3 uptake in gN/m^2.
+            h4 Calibration Notes
+            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate NH4 and <a    href="mailto:mckane.bob@epa.gov">NO3 plant uptake parameters for your site (please contact</a>mckane.bob@epa.gov if you have questions):
+            p Filename: VELMA 2.0_Nitrogen Uptake Calibrator (CHB Forest)_9-24-13.xlsx Folder location:VELMA2.0Software/SupportingDocuments/ExcelCalibrationFiles
+            h3#11-3 11.3 - Plant Uptake GEM Temperature Component
+            p Select "11.3 Plant Uptake GEM Temperature Component" from the All Parameters drop-down menu to specifyparameter values for the temperature response function affecting NH4 and NO3 uptake (specify percover type):
+            img(width="621" height="131" alt="image" src="public/Image_085.jpg")
+            h4 Parameter Definitions
+            p (see Rastetter et al. (1991) for a description of the General Ecosystem Model (GEM)temperature function and parameters for simulating plant nitrogen uptake):
+            table
+                tr 
+                    td.param_name uptakeOptimumT
+                    td.param_desc Optimal temperature (oC) plant uptake of NH4 and NO3 
+                tr 
+                    td.param_name uptakeMaximumTMaximum 
+                    td.param_desc temperature (oC) plant uptake of NH4 and NO3 
+                tr 
+                    td.param_name uptakeCurvatureCurvature
+                    td.param_desc parameter of GEM temperature function.
+            p An example:
+            img(width="502" height="260" alt="image" src="public/Image_086.png")
+            h4 Calibration Notes
+            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate temperatureresponse functions for plant N uptake and other temperature sensitive processes in <a    href="mailto:mckane.bob@epa.gov">VELMA. (please contact </a>mckane.bob@epa.gov if you havequestions):
+            p Filename: VELMA 2.0_Temperature &amp; Moisture Response Functions_9-8-14.xlsx Folder location:VELMA Model\Supporting Documents\Excel Calibration Files
+            p References
+            p Rastetter, E. B., Ryan, M. G., Shaver, G. R., Melillo, J. M., Nadelhoffer, K. J., Hobbie, J. E., &amp; Aber, J.D. (1991). A general biogeochemical model describing the responses of the C and N cycles in terrestrialecosystems to changes in CO2, climate, and N deposition. Tree Physiology, 9(1-2), 101-126.
+            h3#11-4 11.4 - Plant Uptake NPP Distribution Fractions
+            p Select "11.4 Plant Uptake NPP Distribution Fractions" from the All Parameters drop-down menu to specify parametervalues controlling how daily total N uptake (a.k.a, "NPP" in VELMA) is allocated to leaf, aboveground stem,belowground stem, and root biomass:
+            img(width="622" height="130" alt="image" src="public/Image_087.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name nppToBiomassRootNfraction
+                    td.param_desc The fraction (0.0 -1.0) of total plant uptake of nitrogen (NH4 + NO3) per day allocated to the root biomass N pool.
+                tr 
+                    td.param_name nppToBiomassLeafNfraction
+                    td.param_desc The fraction (0.0 -1.0) of total plant uptake of nitrogen (NH4 + NO3) per day allocated to the leaf biomass N pool.
+                tr 
+                    td.param_name nppToBiomassAgStemNfraction
+                    td.param_desc The fraction (0.0 -1.0) of total plant uptake of nitrogen (NH4 + NO3) per day allocated to the AgStem biomass N pool.
+            p Note that "nppToBiomassBgStemfraction" does not need to be specified because VELMA internally calculates it bydifference.
+            h4 Calibration Notes
+            p Figure 1 and Appendix 1 provides conceptual diagrams and equations describing how N uptake (NPP) is allocated among the four LSR plant tissues.
+            
+            p To calibrate the N allocation parameters described in this section, we recommend constructing an annual plantbiomass N budget(s) for all four LSR tissues per cover type. Observed data and estimates can usually be found inthe literature for this. For example:
+            ul
+                li Leaf litterfall data can be used to estimate annual leaf NPP, usually as dry weight or carbon, so you will alsoneed C/N data to calculate annual N uptake.
+                li Data for above- and belowground stem biomass growth can be obtained from tree- ring data and allometric biomassequations for forest cover types, or from "destructive" biomass harvest methods in grasslands or agriculturalplots.
+                li Production estimates for fine roots exist for many cover types, and are based on a variety of methods - e.g.,see Nadelhoffer, K. J., &amp; Raich, J. W. (1992).
+            p Please contact <a href="mailto:mckane.bob@epa.gov" target="_blank">mckane.bob@epa.gov</a> if you have questions. 
+            h4 References
+            p Nadelhoffer, K. J., &amp; Raich, J. W. (1992). Fine root production estimates and belowground carbon allocationin forest ecosystems. Ecology, 1139-1147
+            h3#11-5 11.5 - Plant Uptake Phenology
+            p Select "11.5 Plant Uptake Phenology" from the All Parameters drop-down menu to specify parameter values affectingwhen plant N uptake begins and ends during the year (per cover type):
+            img(width="621" height="177" alt="image" src="public/Image_088.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name jDayUptakeFirstAllowed
+                    td.param_desc The first Julian day of the year on which uptake is possible for this Cover. Uptake will NEVER happen before the specified day. Use this parameter to delay uptake until the dailyphotoperiod is sufficient for the given Cover. This parameter specifies the first day of the year when uptakecan occur not necessarily the first day when uptake will occur. On and after the day specified by this parameteruptake will occur whenever the degree day parameterization allows it to begin.
+                tr 
+                    td.param_name jDaySenescenceOff 
+                    td.param_desc The Julian Day of the year when this cover species biomass stops senescing (Note: any value &gt;= 367 results in biomass NOT senescing through the end of theyear.nppToBiomassAgStemNfraction The fraction (0.0 -1.0) of total plant uptake of nitrogen(NH4 + NO3) per day allocated to the AgStem biomass N pool.
+                tr 
+                    td.param_name insulationEfficiency 
+                    td.param_desc Insulating efficiency of available litter range [0.0 1.0] (this affects soil temperature and, therefore, plant N uptake). NOTE: Set this value to zero to disable insulationeffects on degree- day calculation.
+                tr 
+                    td.param_name insulationCarbonUpperBound 
+                    td.param_desc Quantity of above-ground litter beyond which there is no additional insulating effect in gC/m^2 (this affects soil temperature and, therefore, plant N uptake).
+                tr 
+                    td.param_name degreeDayThreshold 
+                    td.param_desc Allow biomass uptake only when accumulated degree day value &gt;= degreeDayThreshold.
+                tr 
+                    td.param_name allowUptakeAfterSenescence 
+                    td.param_desc When set true (default) uptake takes place before jDaySenescenceOn and resumes after jDaySenescenceOff. When set &quot;false&quot; uptake occurs ONLY beforejDaySenescenceOn
+            

@@ -1,0 +1,103 @@
+extends ../../../layout.pug
+block content
+    div.flex-container
+        include ../../../partials/_parameters_side_nav.pug      
+        div.body-content
+            h1 Transpiration 
+            p Evapotranspiration (ET) is the sum of evaporation and plant transpiration. ET equations and parameters in VELMAversion 2.0 are the same as for version 1.0 (see Abdelnour et al. 2011), except for the following:
+            ul
+                li The ET recovery function has been replaced with a new subroutine that models post- disturbance changes in ETbased on leaf biomass dynamics.
+                li A new subroutine models age-related declines in transpiration for forest systems. See details in subsections10.1 - 10.3.1.
+            h3#10-1 10.1 - Core PET and ET Parameters
+            p Core parameters for calibrating VELMA's PET and ET submodels can be found by selecting section 10.1 from the AllParameters drop-down menu:
+            img(width="628" height="175" alt="image" src="public/Image_078.jpg")
+            h4 Parameter Definitions
+            p (see Abdelnour et al. 2011 for equations and additional explanation):
+            table
+                tr 
+                    td.param_name roair
+                    td.param_desc Air density in g/m^3
+                tr 
+                    td.param_name be 
+                    td.param_desc ET coefficient used in the logistic equation that computes ET from PET
+                tr 
+                    td.param_name temperaturePetOff 
+                    td.param_desc PET is only active when air temperature is &gt; than this value (in degrees C)
+                tr 
+                    td.param_name petParam1 
+                    td.param_desc First term of PET Hamon Equation: petParam1 * petParam2 * gS.roair * (esat / 1000.0f)
+                tr 
+                    td.param_name petParam2 
+                    td.param_desc Second term of PET Hamon Equation: petParam1 * petParam2 * gS.roair * (esat / 1000.0f)
+                tr 
+                    td.param_name notranspirationPetFraction 
+                    td.param_desc The fraction of PET available outside of this a cover species/type's growing season range [0.0 - 1.0].
+            h3#10-2 10.2 - ET Recovery On/Off ?
+            p Select section 10.2 from the All Parameters drop-down menu to turn the ET recovery function on (true) or off(false):
+            img(width="621" height="117" alt="image" src="public/Image_079.jpg")
+            h3#10-2-1 10.2.1 - ET Recovery Parameters
+            p Select section 10.2.1 from the All Parameters drop-down menu to specify ET recovery parameter values for eachcover type in your watershed (just one cover shown below):
+            img(width="623" height="146" alt="image" src="public/Image_080.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name etRecoverFractionSlope
+                    td.param_desc The value of the ET recovery fraction&#39;s linear equation slope component.
+                tr 
+                    td.param_name etRecoverFractionMinimumValue 
+                    td.param_descThe ET recovery fraction is forced to this value when the current leaf biomass is less than the value specified for etRecoveryFractionLeafBiomassMinimum orwhen the calculated ET recovery fraction is less than zero.
+                tr 
+                    td.param_name etRecoverFractionMinimumLeafBiomassC 
+                    td.param_descThe minimum amount of leaf biomass (in gC/m^2) required to compute an ET recovery fraction. Whenever leaf biomass is less than this amount the ET recoveryfraction is forced to the etRecoverFractionMinimumValue.
+                tr 
+                    td.param_name etRecoverFractionIntercept 
+                    td.param_descThe value of the ET recovery fraction&#39;s linear equation intercept component.
+            h4 Calibration Notes
+            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate ET <a    href="mailto:mckane.bob@epa.gov">recovery parameters for your site (please contact </a>mckane.bob@epa.govif you have questions):
+            p Filename: VELMA 2.0_ET Recovery Calibrator_HJA_12-1-13.xlsx
+            p Folder location: VELMA Model\Supporting Documents\Excel Calibration Files
+            h3#10-3 10.3 - Transpiration Limiter On/Off?
+            p Studies in the Pacific Northwest have shown that young forests transpire significantly more water than oldforests (McDowell et al. 2002; Moore et al. 2004). VELMA version 2.0 has a new subroutine to address age-relateddeclines in transpiration by forest vegetation.
+            p Select section 10.3 from the All Parameters drop-down menu to turn the Transpiration Limiter subroutine on (true)or off (false):
+            img(width="626" height="100" alt="image" src="public/Image_081.jpg")
+            h4 Parameter definition:
+            table
+                tr 
+                    td.param_name useTranspirationLimiter
+                    td.param_desc When set false (default value) the transpiration limiter fraction value is forced to 1.0 (Which effectively means &quot;No age-related limitation&quot; i.e. the limiter is OFF.)When set true the transpiration limiter fraction is computed based on its jday and coefficients settings.
+            p See section 10.4 for parameters and calibration information. 
+            h4 References
+            p McDowell, N. G., Phillips, N., Lunch, C., Bond, B. J., &amp; Ryan, M. G. (2002). An investigation of hydrauliclimitation and compensation in large, old Douglas-fir trees. Tree Physiology, 22(11), 763-774.
+            p Moore, G. W., Bond, B. J., Jones, J. A., Phillips, N., &amp; Meinzer, F. C. (2004). Structural and compositionalcontrols on transpiration in 40-and 450-year-old riparian forests in western Oregon, USA. Tree physiology,24(5), 481-491.
+            h3#10-3-1 10.3.1 - Transpiration Parameters
+            p Select section 10.3.1 from the All Parameters drop-down menu to specify parameter values for the TranspirationLimiter subroutine used to describe age-related declines in transpiration by forest vegetation:
+            img(width="622" height="207" alt="image" src="public/Image_082.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name useTranspirationLimiter
+                    td.param_desc When set false (default value) the transpiration limiter fraction value is forced to 1.0 (Which effectively means &quot;No limiting at all&quot; i.e. the limiteris OFF.) When set true the transpiration limiter fraction is computed based on its jday and coefficientssettings.
+                tr 
+                    td.param_name transpirationLimiterMaxTotalBiomassC 
+                    td.param_desc Upper limit of total biomass amount (in gC/m^2) for transpiration limiter fraction computation. When total biomass amount in a cell exceeds this max value thetranspiration limiter faction value is forced to the transpirationLimiterCoeffD parameter&#39;s value.
+                tr 
+                    td.param_name transpirationLimiterJdayOn 
+                    td.param_desc Transpiration reduction occurs on the Julian day specified by this &quot;on&quot; parameter and continues on every day of the year up to and including the day specified by the paired &quot;off&quot; parameter. I.e. transpiration reduction occurs in the range[transpirationLimiterJdayOn transpirationLimiterJdayOff]
+                tr 
+                    td.param_name transpirationLimiterJdayOff 
+                    td.param_desc Transpiration reduction occurs on the Julian day specified by this &quot;off&quot; parameter and does not occur for any days of the year remaining after it. I.e. transpiration reduction occurs in the range [transpirationLimiterJdayOn transpirationLimiterJdayOff]
+                tr 
+                    td.param_name transpirationLimiterCoeffA 
+                    td.param_desc The A coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D
+                tr 
+                    td.param_name transpirationLimiterCoeffB 
+                    td.param_desc The B coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D
+                tr 
+                    td.param_name transpirationLimiterCoeffC 
+                    td.param_desc The C coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D
+                tr 
+                    td.param_name transpirationLimiterCoeffD 
+                    td.param_desc The D coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D
+            h4 Calibration Notes
+            p The transpiration limiter subroutine is experimental and we do not recommend using it at this time.
+            
