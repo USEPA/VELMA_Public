@@ -1,8 +1,8 @@
 extends ../../../layout.pug
 block content
-    div.flex-container
-        include ../../../partials/_about_side_nav.pug      
-        div.body-content
+    div.grid-container
+        include about_partials/_about_side_nav.pug     
+        div.grid-body-content
             h1 Initializing a Spatial Data Pool Using an ASCII Grid
             br 
             p VELMA Simulator spatial data pools may be initialized by specifying "Set SpatialData By Map" disturbances as part of a simulator run's simulation configuration. Each spatial data pool (andeach layer of that pool for multi- layer pools) that is initialized must have a separate disturbancespecified for it, and its own Grid ASCII (.asc) map file available for the disturbance to use as a data source3.
