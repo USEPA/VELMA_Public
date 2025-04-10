@@ -78,7 +78,7 @@ li {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    
+    align-items: center;
     /* width: 100%; */
 } 
 
@@ -256,6 +256,12 @@ li {
 
 .white-text {
     color:white
+}
+
+.select-bubble {
+    /* padding: 10px 5px; */
+    padding: 0.5rem 1.2rem;
+    border-radius: 2px;
 }
 
 .grid-sidebar {

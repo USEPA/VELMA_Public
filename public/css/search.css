@@ -1,0 +1,12 @@
+#search-results {
+    position: absolute;
+    background: white;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-item {
+    display: block;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}

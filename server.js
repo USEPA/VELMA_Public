@@ -13,7 +13,7 @@ app.get('/docs/index', (req, res) => {
   res.render('index');
 })
 
-app.get('/docs/version/:version/:category/:page', (req, res) => {
+app.get('/docs/version/:version/:category/:page', (req, res, next) => {
   console.log("Req params", req.params)
   console.log("Req URL", req.url)
   const {version, category, page} = req.params;
@@ -22,9 +22,11 @@ app.get('/docs/version/:version/:category/:page', (req, res) => {
   try {
     res.render(templatePath, {currentPath});
   } catch (error) {
+    //next()
     res.status(404).send('Page Not Found.', templatePath)
   }
 })
+
 
 // app.use('/2.0', routes_2_0);
 // use this as an example https://github.com/expressjs/express/blob/master/examples/ejs/index.js
