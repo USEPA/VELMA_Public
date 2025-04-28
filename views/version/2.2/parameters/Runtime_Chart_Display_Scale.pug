@@ -1,0 +1,477 @@
+extends ../../../layout.pug
+block content
+    div.grid-container
+        include parameters_partials/_parameters_side_nav.pug   
+        div.grid-body-content
+            h1 Runtime Chart Display Scale
+            p VELMA has powerful visualization capabilities built into it, hence the model's name - Visualizing Ecosystem LandManagement Assessments. To see a list of visualization options, select the VELMA GUI "Chart" tab at any timeduring a simulation, then click the drop-down menu button ( <img width="19" height="24" alt="image"        src="public/Image_158.gif")) located near the lower left corner of the screen, and select a displayoption. Each option dynamically displays daily changes in one or more output variables. The screenshot belowshows the lower half of possible visualization options:
+            img(width="599" height="488" alt="image" src="public/Image_159.jpg")
+            p For example, the "Soil Moisture Spatial" visualization displays runtime daily changes in spatial patterns of soilmoisture (% saturation) for four soil layers for a 20-ha watershed on the day currently being simulated. Ascreenshot for a particular day is shown below. The lower third of display is a running graphical summary ofdaily changes in soil moisture per soil layer from January 1 up to the date currently simulated. A new view isgenerated at the beginning of each calendar year). A variety of hardwired display formats are used for differentoutput variables.
+            img(width="612" height="652" alt="image" src="public/Image_160.jpg")
+            p You can save daily screenshots as .png files by clicking the "Snapshot" button (located near the middle of themenu bar at the bottom of the screenshot, above). You can also save a series of daily images by clicking the"Capture Images Daily" checkbox. After a simulation is completed, third-party software can be used to stitchtogether a time series of saved .png screenshots to make a time-lapse movie. However, note that saving daily.png images for long simulations can fill large amounts of disk space.
+            p You can use the VELMA GUI's All Parameters tab to review and change the settings for display parameterscontrolling minimum (min) and maximum (max) values for the y-axis and range color bar. To locate all displayparameters, select the "25.0 Runtime Chart Display Scale" item from the All Parameters drop-down menu button:
+            
+            img(width="625" height="134" alt="image" src="public/Image_161.jpg")
+            p Different runtime display charts use different subsets of the display parameters. Unfortunately, nothing listedunder "All Parameters 25.0 Runtime Chart Display Scale" indicates which display parameters belong to aparticular runtime display chart. Therefore, we have constructed the table below so that users can associateruntime display chart names with the display parameters used by that chart.
+            p For example, if you want to adjust VELMA's "Annual Plot" display for soil humus, you would find "Annual Plot"under the "Display Selector Name" column in the table below, copy "maxHumusDayDisplay" and paste it inthe "Parameter" search window in the VELMA GUI's All Parameters view. Hit your keyboard's "Enter" key and youshould see "maxHumusDayDisplay" under "Parameter column. Specify the value you want. Repeat for theprocess for the "minHumusDayDisplay" parameter. [Note: you cannot change the display parameterizationsduring a simulation run. Currently, the VELMA GUI does not allow runtime display scales to change dynamicallyduring simulation runs. Prior to starting a simulation, you must set the display parameters for any chart youwill use during a simulation.]
+            p 
+            table
+                thead
+                    th Display Selector Name
+                    th MIN Display Setting
+                    th MAX Display Setting
+                tr
+                    td &lt;cover&gt; + Denitrification Daily-Linear
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td
+                        | maxDenitrificationDaySpatialDisplay
+                        br 
+                        | maxNo3DenitDaySpatialDisplay
+                        br 
+                        | maxCo2DenitDaySpatialDisplay
+                tr
+                    td Annual Plot
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minBiomassYearFinalDisplay
+                        br 
+                        | minHumusDayDisplay
+                        br 
+                        | minLitterDayDisplay
+                        br 
+                        | minNepYearSumDisplay
+                    td 
+                        | maxDonLossYearFinalDisplay
+                        br 
+                        | maxDocLossYearFinalDisplay
+                        br 
+                        | maxNppYearSumDisplay
+                        br 
+                        | maxBiomassYearFinalDisplay
+                        br 
+                        | maxHumusDayDisplay
+                        br 
+                        | maxLitterDayDisplay
+                        br 
+                        | maxNepYearSumDisplay
+                
+                
+                tr
+                    td Burn Spatial Data
+                    td 
+                        | minBiomassAgStemDayDisplay
+                        br 
+                        | minBiomassLeafDayDisplay
+                        br 
+                        | minDetritusAgStemDayDisplay
+                        br 
+                        | minDetritusLeafDayDisplay
+                        br 
+                        | minHumusDayDisplay
+                        br 
+                        | minLitterDayDisplay
+                    td 
+                        | maxBiomassAgStemDayDisplay
+                        br 
+                        | maxBiomassLeafDayDisplay
+                        br 
+                        | maxDetritusAgStemDayDisplay
+                        br 
+                        | maxDetritusLeafDayDisplay
+                        br 
+                        | maxHumusDayDisplay
+                        br 
+                        | maxLitterDayDisplay
+                tr
+                    td Calibration Annual Nutrients
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minDocLossYearSumDisplay
+                        
+                    td 
+                        | maxNh4LossYearSumDisplay
+                        br 
+                        | maxNo3LossYearSumDisplay
+                        br 
+                        | maxDonLossYearSumDisplay
+                        br 
+                        | maxDocLossYearSumDisplay
+                tr
+                    td Calibration Daily Nutrients
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxNh4LossDayDisplay
+                        br 
+                        | maxNo3LossDayDisplay
+                        br 
+                        | maxDonLossDayDisplay
+                        br 
+                        | maxDocLossDayDisplay
+                tr
+                    td Calibration Hydrology
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minHydroYearSumDisplay
+                    td 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRunoffDayDisplay
+                        br 
+                        | maxSubRunoffDayDisplay
+                        br 
+                        | maxEtDayDisplay
+                        br 
+                        | maxHydroYearSumDisplay
+                tr
+                    td CO2 Pool Spatial
+                    td ( always zero )
+                    td maxCo2DaySpatialDisplay
+                tr
+                    td Daily Nitrogen Fixation
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxNinDayDisplay
+                        br 
+                        | maxPlantUptakeSpatialDisplay
+                        br 
+                        | maxSymbioticNfixedDayDisplay
+                        br 
+                        | maxAsymbioticNfixedDayDisplay
+                        br 
+                        | maxDonLossDayDisplay
+                        br 
+                        | maxTotalNLossDayDisplay
+                        br 
+                        | maxNitrificationDaySpatialDisplay
+                        br 
+                        | maxDenitrificationDaySpatialDisplay
+                tr
+                    td Default Layer 1 - 4
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxDonLossDayDisplay
+                        br 
+                        | maxDocLossDayDisplay
+                        br 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRunoffDayDisplay
+                tr
+                    td Denitrification Daily-Spatial
+                    td ( always zero )
+                    td maxDenitrificationDaySpatialDisplay
+                tr
+                    td Denitrification Daily-Spatial 1 - 4
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxDenitrificationDaySpatialDisplay
+                        br 
+                        | maxNo3DenitDaySpatialDisplay
+                        br 
+                        | maxCo2DaySpatialDisplay
+                tr
+                    td DOC Pool Spatial
+                    td ( always zero )
+                    td maxDocSpatialDisplay
+                tr
+                    td DON Pool Spatial
+                    td ( always zero )
+                    td maxDonSpatialDisplay
+                tr
+                    td Evapotranspiration
+                    td ( always zero )
+                    td maxEtDayDisplay
+                tr
+                    td Harvest Spatial Data
+                    td 
+                        | minBiomassDayDisplay
+                        br 
+                        | minHumusDayDisplay
+                        br 
+                        | minLitterDayDisplay
+                    td 
+                        | maxBiomassDayDisplay
+                        br 
+                        | maxHumusDayDisplay
+                        br 
+                        | maxLitterDayDisplay
+                tr
+                    td Leaf Stem Root Daily Data
+                    td 
+                        | minBiomassAgStemDayDisplay
+                        br 
+                        | minBiomassBgStemDayDisplay
+                        br 
+                        | minBiomassLeafDayDisplay
+                        br 
+                        | minBiomassRootDayDisplay
+                        br 
+                        | minDetritusAgStemDayDisplay
+                        br 
+                        | minDetritusBgStemDayDisplay
+                        br 
+                        | minDetritusLeafDayDisplay
+                        br 
+                        | minDetritusRootDayDisplay
+                    td 
+                        | maxBiomassAgStemDayDisplay
+                        br 
+                        | maxBiomassBgStemDayDisplay
+                        br 
+                        | maxBiomassLeafDayDisplay
+                        br 
+                        | maxBiomassRootDayDisplay
+                        br 
+                        | maxDetritusAgStemDayDisplay
+                        br 
+                        | maxDetritusBgStemDayDisplay
+                        br 
+                        | maxDetritusLeafDayDisplay
+                        br 
+                        | maxDetritusRootDayDisplay
+                tr
+                    td Leaf Stem Root Layer Details Daily Data
+                    td 
+                        | minBiomassRootLayersDayDisplay
+                        br 
+                        | minDetritusBgStemLayersDayDisplay
+                        br 
+                        | minDetritusRootLayersDayDisplay
+                        br 
+                        | minHumusLayersDayDisplay
+                    td 
+                        | maxBiomassRootLayersDayDisplay
+                        br 
+                        | maxDetritusBgStemLayersDayDisplay
+                        br 
+                        | maxDetritusRootLayersDayDisplay
+                        br 
+                        | maxHumusLayersDayDisplay
+                tr
+                    td LSR Summary Spatial
+                    td 
+                        | ( always zero )
+                        br 
+                        | minBiomassDayDisplay
+                        br 
+                        | minHumusDayDisplay
+                        br 
+                        | minLitterDayDisplay
+                    td 
+                        | maxNppDayDisplay
+                        br 
+                        | maxBiomassDayDisplay
+                        br 
+                        | maxHumusDayDisplay
+                        br 
+                        | maxLitterDayDisplay
+                tr
+                    td NH4 Pool Spatial
+                    td ( always zero )
+                    td maxNh4SpatialDisplay
+                tr
+                    td Nitrification Daily-Spatial
+                    td ( always zero )
+                    td maxNitrificationDaySpatialDisplay
+                tr
+                    td Nitrogen Fixation Daily- Spatial
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxSymbioticNfixedDayDisplay
+                        br 
+                        | maxAsymbioticNfixedDayDisplay
+                tr
+                    td NO3 Pool Spatial
+                    td ( always zero )
+                    td maxNo3SpatialDisplay
+                tr
+                    td Plant Uptake Spatial
+                    td minPlantUptakeSpatialDisplay
+                    td maxPlantUptakeSpatialDisplay
+                tr
+                    td Productivity Spatial
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minBiomassDayDisplay
+                    td 
+                        | maxNppDayDisplay
+                        br 
+                        | maxNh4SpatialDisplay
+                        br 
+                        | maxNo3SpatialDisplay
+                        br 
+                        | maxBiomassDayDisplay
+                tr
+                    td Snow Dynamics Spatial
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minAirTSpatialDisplay
+                    td 
+                        | maxRainSpatialDisplay
+                        br 
+                        | maxSnowSpatialDisplay
+                        br 
+                        | maxSnowDepthSpatialDisplay
+                        br 
+                        | maxSnowMeltSpatialDisplay
+                        br 
+                        | maxAirTSpatialDisplay
+                tr
+                    td Standing Water
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRunoffDayDisplay
+                        br 
+                        | maxStandingWaterDayDisplay
+                tr
+                    td Temperature Data
+                    td minAirTDayDisplay
+                    td maxAirTDayDisplay
+                tr
+                    td Time Series
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minAirTDayDisplay
+                        br 
+                        | minBiomassDayDisplay
+                        br 
+                        | minHumusDayDisplay
+                        br 
+                        | minLitterDayDisplay
+                    td 
+                        | maxDonLossDayDisplay
+                        br 
+                        | maxDocLossDayDisplay
+                        br 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRunoffDayDisplay
+                        br 
+                        | maxAirTDayDisplay
+                        br 
+                        | maxBiomassDayDisplay
+                        br 
+                        | maxHumusDayDisplay
+                        br 
+                        | maxLitterDayDisplay
+                tr
+                    td VSA Spatial and Hydro Linear
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                    td 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRunoffDayDisplay
+                tr
+                    td Weather Summary Spatial
+                    td 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | ( always zero )
+                        br 
+                        | minAirTDayDisplay
+                        br 
+                        | minAirTSpatialDisplay
+                    td 
+                        | maxRainDayDisplay
+                        br 
+                        | maxRainSpatialDisplay
+                        br 
+                        | maxSnowSpatialDisplay
+                        br 
+                        | maxSnowMeltSpatialDisplay
+                        br 
+                        | maxAirTDayDisplay
+                        br 
+                        | maxAirTSpatialDisplay

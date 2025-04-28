@@ -1,0 +1,456 @@
+extends ../../../layout.pug
+block content
+    div.grid-container
+        include parameters_partials/_parameters_side_nav.pug   
+        div.grid-body-content
+            h1 Spatial Data Writer Items 
+            h4 Spatial Data Writers Report a Simulation Result for Every Cell in the Simulation Grid
+            p Spatial Data Writers are how the VELMA simulation provides spatially-explicit results output.
+            p Spatial Data Writers are layer- and result-specific. You must configure separate spatial data writerparameterizations for each result type you will to output, and for layer of that result type. (E.g. to getspatial data output for the Root Biomass pool layers 3 and 4, you would need to add and configure two separateSpatial Data Writer parameterizations to your simulation configuration.
+            h3#23-1 23.1 - Spatial Data Writer Items by Model Type
+            h4 Adding a Spatial Data Writer to a Simulation Configuration
+            p Spatial Data Writers are optional. Simulation configurations contain zero instances of them by default. Whenadded, they do not change the simulation computations - they only report results.
+            p To add a Spatial Data Writer to your simulation configuration:
+            p Click the "Edit"  "Spatial Data Writer"  "Add a New Spatial Writer".
+            img(width="626" height="177" alt="image" src="public/Image_119.jpg")
+            p Clicking "Add a New Spatial Writer" opens the Spatial Writer Type and Name dialog which looks like this:
+            img(width="400" height="147" alt="image" src="public/Image_120.jpg")
+            p Leave the Spatial Data Writer Type selector set to "SpatialDataWriter".
+            p The Spatial Data Writer Name must be unique (i.e. no other Spatial Data Writer already specified for thissimulation configuration can share the name you specify). Avoid whitespace and punctuation characters (e.g. "("and ")"). As an example, here are a couple of acceptable
+            p names (assuming they're not already in use by another Spatial Data Writer, and the Spatial Data Writer we'readding will report layer 3 root biomass; "Root_Biomass_Layer_3" and "Root_L3".
+            h3#23-2 23.2 - Spatial Data Writer Items Data Sources
+            h4 Configuring a Spatial Data Writer's Parameters
+            p After you click OK in the Spatial Data Writer's Type and Name dialog, the VELMA GUI adds the Spatial Data Writerto the simulation configuration, and sets the All Parameters tab's filters to display only the parameters of thenewly-added Spatial Data Writer.
+            p Assuming we named our new Spatial Data Writer "Root_Biomass_Layer_3" and clicked OK, the VELMA GUI would looklike this afterwards:
+            img(width="625" height="207" alt="image" src="public/Image_121.jpg")
+            p Notice, in passing, that the configuration outline does not automatically get set by the GUI. In the examplescreen capture above, it displays "0.0 All Configuration Parameters" - which is not what is being displayed inthe parameterization table. This behavior is harmless.
+            p A Spatial Data Writer has 7 parameters. None are optional, but one (modelClass) is set automatically bythe GUI, and two others (allowNonWatershedCellValues and trimOutputToWatershedBoundary) default toreasonable values automatically. The remaining 4 parameters specify when this parameterization writes itsspecified spatial data source to file, and what that spatial data source should be.
+            h4 The Spatial Data Sources Parameter Specifies What Data Is Written
+            p Set the initializeSpatialDataSources parameter to the name of the spatial data source you want to reportresults for. The name is case-sensitive, and must exactly match a name from the Table of Spatial Data Sourcesgiven below. Be careful to avoid leading or trailing whitespace when you enter the spatial data sources name;leading or trailing whitespace can "break" the simulation configuration.
+            p If the spatial data source you choose is multi-layered (see the table), you may (in some instances, <i>must</i>)explicitly specify the layer you wish to write. Specify an explicit layer by adding it, comma-separated, afterthe spatial data source name. The range of valid layer numbers is [1 to 4].
+            p For example: "BIOMASS_ROOT_N" specifies the spatial data source name for biomass root, and"BIOMASS_ROOT_N, 2" specifies biomass root data, layer 2 (enter these, and all parameterization values,<i><b>without </b></i>the surrounding quotation (") marks).
+            h3#23-3 23.3 - Spatial Data Writer Items Core Scheduling
+            h4 The Three "InitializeActive…" Parameters Specify When Data Is Written
+            p Select "23.3 Spatial Data Writer Items Core Scheduling" from the All Parameters drop-down outline selector menu:
+            
+            img(width="621" height="140" alt="image" src="public/Image_122.jpg")
+            p Set the initializeActiveLoops, initializeActiveYears and initializeActiveJdays parametervalues to the loop numbers, years and Julian day values that you want the Spatial Data Writer to write resultsfor.
+            p Any specified Loop numbers, years or Julian days that are "beyond bounds" are ignored. I.e. if the simulationconfiguration specifies 3 loops, and the Spatial Data Writer initializeActiveLoops value is set to 4, nodata will ever be written. It is an error to specify negative numbers for Loop, Year or Jday parameters.
+            p [TIP: Setting an initializeActiveLoops value greater than the number of loops the simulation configurationspecifies run is an unintuitive yet handy way to temporarily "shut off" a spatial data writer's output withoutremoving it from the simulation configuration.]
+            p You may specify more than one value by separating values with commas, and you may specify an inclusive range ofvalues by separating the start and end values by dashes.
+            p (E.g. specifying "1, 3-7, 12" for initializeActiveLoops would allow the spatial data writer towrite data in loops 1, loops 3 through 7, and loop 12 - assuming the simulation configuration's numberOfLoopsparameter is set to 12 or more.)
+            h4 You May Emphasize the Watershed Cells, or Not
+            p When the allowNonWatershedCellValues parameter is set false, its spatial data writer writes anycell value outside the watershed as NO_DATA (the value "-9999.0"). The default value is false,which makes it easy to discern the watershed's delineation in the results file. If you want the results file toinclude every cell value, regardless of whether a given cell is in or out of the watershed delineation, set thisparameter to true.
+            h3#23-4 23.4 - Spatial Data Writer Items Output Map Size
+            h4 You May Reduce the Dimensions of the Results Grid File
+            p Select "23.4 Spatial Data Writer Items Output Map Size" from the All Parameters drop-down outline selector menu:
+            
+            img(width="622" height="107" alt="image" src="public/Image_123.jpg")
+            p When trimOutputToWatershedBoundary is set false, the spatial data writer writes a results file withthe same grid dimensions at the simulation configuration's DEM file. This (default value) make it easy to overlySpatial Data Writer output results on top of the DEM, cover Id map, or soil Id map files. When set totrue, the spatial data writer writes a results file that contains only the cells within the boundingrectangle of the delineated watershed. Depending upon the size of the watershed relative to the overall DEM,this may result in Spatial Data Writer files that are smaller, and easier to review "by hand".
+            p [TIP: Spatial Data Writer output results files are not really meant for "manual" review (e.g. via Notepad or asimilar simple text editor). The choice of the Grid ASCII format was for ease of use with GIS systems, and sothat they could be readily "fed back" into the VELMA Simulator as subsequent initialization input. However,there's nothing wrong with opening a results file in a text editor or spreadsheet for a quick sanity check.]
+            p To reduce the Dimensions of the Results Grid File, click the All Parameters tab's configuration outline dropdownselector and select "23.4 Spatial Data Writer Items Output Map Size".
+            img(width="623" height="106" alt="image" src="public/Image_124.jpg")
+            h4 Spatial Data Writer Output is a Grid ASCII File
+            p The VELMA simulator creates 1 .asc file each time a given Spatial Data Writer is triggered (based on its activeLoops, Years and Jdays parameter settings).
+            p Spatial Data Writer output files are written to the Results Data Location folder. Their filenames always beginwith the prefix "Spatial_" and include the name of the spatial data source and layer number of the data theycontain. The dimensions of the Grid ASCII file match those of the simulation configuration's DEM .asc file,unless the trimOutputToWatershedBoundary parameter was set "true"; in that case, the dimensions of theSpatial Data Writer output file are those of the bounding box of the simulation run's delineated watershed.
+            p Each data value in the output .asc file contains the value for the specified data source for a particular cell,on the particular loop, year and Julian day during the simulation run that the output file was written.
+            p Spatial Data Writers and Spatial Data Writers are Different, but Complementary
+            p A Spatial Data Writer reports a specific result for all the cells in the simulation watershed on user-specifieddays. A Spatial Data Writer reports all the results data available for a specific cell on user-specified days.Both are optional for simulation runs.
+            h4 Table of Spatial Data Sources
+            p This table lists the available spatial data source name and their layer requirements.
+            h5 SpatialDataSource Keyword means:
+            p The spatial data source keyword names that are valid values for the
+            p initializeSpatialDataSources parameter value of a Spatial Data Writer's parameterization.
+            ul "Type" means:
+                li Accessor = Spatial Data that is not directly stored in a spatial data pool object.
+                li Direct = Spatial Data that is directly stored in a spatial data pool object.
+                li Buffered = Spatial Data directly stored in a spatial data pool object, but only when a Spatial Data Writerrequires it.
+            p (In practice, you can ignore what type a spatial data source is when you are configuring a Spatial Data Writer.)
+            
+            ul  Can Sum Column? means:
+                li N/A = Not applicable
+                li No = The data cannot be summed: if MultiLayer is "YES" for this type of data, then a layer must beexplicitly provided in the initializeSpatialDataSources parameter value.
+                li Optional = If MultiLayer is "YES" for this type of data and no explicit layer number is indicated in theinitializeSpatialDataSources parameter value, the value reported will be the sum of all layer values at a givencell's location.
+                li Always = The spatial data type is MultiLayer, but only summed data is available; no explicit layer value isallowed in the initializeSpatialDataSources parameter value.
+            table
+                tr
+                    th Type
+                    th SpatialDataSource Keyword
+                    th MultiLayer?
+                    th Can Sum Column?
+                tr
+                    td Accessor
+                    td AirTemperature
+                    td 
+                    td N/A
+                tr
+                    td Accessor
+                    td CellWriter
+                    td 
+                    td N/A
+                tr
+                    td Accessor
+                    td CoverAge
+                    td 
+                    td N/A
+                tr
+                    td Accessor
+                    td CoverId
+                    td 
+                    td N/A
+                tr
+                    td Accessor
+                    td DenitrificationLayer
+                    td YES
+                    td No
+                tr
+                    td Accessor
+                    td FlowAccumulation
+                    td 
+                    td No
+                tr
+                    td Accessor
+                    td No3DenitrificationFactorLayer
+                    td YES
+                    td No
+                tr
+                    td Accessor
+                    td QetLayer
+                    td YES
+                    td No
+                tr
+                    td Accessor
+                    td Rain
+                    td 
+                    td N/A
+                tr
+                    td Accessor
+                    td Snow
+                    td 
+                    td N/A
+                tr
+                    td Accessor
+                    td SoilId
+                    td 
+                    td N/A
+                tr
+                    td Accessor
+                    td SurfaceElevation
+                    td 
+                    td N/A
+                tr
+                    td Accessor
+                    td TotalBiomassCarbon
+                    td 
+                    td Always
+                tr
+                    td Accessor
+                    td TotalBiomassNitrogen
+                    td 
+                    td Always
+                tr
+                    td Accessor
+                    td TotalDetritusCarbon
+                    td 
+                    td Always
+                tr
+                    td Accessor
+                    td TotalDetritusNitrogen
+                    td 
+                    td Always
+                tr
+                    td Accessor
+                    td TotalHumusCarbon
+                    td 
+                    td Always
+                tr
+                    td Accessor
+                    td TotalVolumetricSoilMoisture
+                    td 
+                    td Always
+                tr
+                    td Accessor
+                    td VolumetricSoilMoistureLayer
+                    td YES
+                    td No
+                tr
+                    td Direct
+                    td ACCUMULATED_DEGREE_DAY
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td ACCUMULATED_N_IN
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td ASYMBIOTIC_NITROGEN_FIXED
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td BIOMASS_AG_STEM_N
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td BIOMASS_APEX_TOTAL_STEM_N
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td BIOMASS_BG_STEM_N
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td BIOMASS_DELTA_AG_STEM_N
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td BIOMASS_DELTA_BG_STEM_N
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td BIOMASS_DELTA_LEAF_N
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td BIOMASS_DELTA_ROOT_N
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td BIOMASS_HARVESTED_TO_OFFSITE_C
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td BIOMASS_LEAF_N
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td BIOMASS_ROOT_N
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td CO2
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td DENITRIFICATION
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td DENITRIFICATION_CO2_SCALAR
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td DENITRIFICATION_NO3_SCALAR
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td DENITRIFICATION_WATER_SCALAR
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td DETRITUS_AG_STEM_N
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td DETRITUS_BG_STEM_N
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td DETRITUS_BURNED_C
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td DETRITUS_LEAF_N
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td DETRITUS_ROOT_N
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td DOC
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td DON
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td GROUND_SURFACE_TEMPERATURE
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td GROUND_TEMPERATURE_LAYERS
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td HUMUS
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td LATERAL_INFLOW
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td LATERAL_OUTFLOW
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td NH4
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td NITRIFICATION
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td NO3
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td NPP_C
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td NPP_N
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td STANDING_WATER
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td SURFACE_LATERAL_OUTFLOW
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td SYMBIOTIC_NITROGEN_FIXED_HUMUS
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td SYMBIOTIC_NITROGEN_FIXED_PLANT
+                    td 
+                    td N/A
+                tr
+                    td Direct
+                    td UPTAKE_N
+                    td YES
+                    td Optional
+                tr
+                    td Direct
+                    td WATER_STORED
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td DOC_LATERAL_IN
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td DOC_LATERAL_OUT
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td DOC_LOSS
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td DON_LATERAL_IN
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td DON_LATERAL_OUT
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td DON_LOSS
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td FERTILIZATION_HUMUS_N_ADDED
+                    td 
+                    td N/A
+                tr
+                    td Buffered
+                    td FERTILIZATION_NH4_ADDED
+                    td 
+                    td N/A
+                tr
+                    td Buffered
+                    td FERTILIZATION_NO3_ADDED
+                    td 
+                    td N/A
+                tr
+                    td Buffered
+                    td NH4_LATERAL_IN
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td NH4_LATERAL_OUT
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td NH4_LOSS
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td NO3_LATERAL_IN
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td NO3_LATERAL_OUT
+                    td YES
+                    td Optional
+                tr
+                    td Buffered
+                    td NO3_LOSS
+                    td YES
+                    td Optional
+            

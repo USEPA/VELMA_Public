@@ -1,0 +1,100 @@
+extends ../../../layout.pug
+block content
+    div.grid-container
+        include parameters_partials/_parameters_side_nav.pug   
+        div.grid-body-content
+            h1 Nitrification 
+            p Nitrification is the microbially-mediated conversion of ammonium (NH4+) to nitrate(NO3-). As the diagram below indicates, nitrification (red box) is an important step in the soilnitrogen cycle (partially shown here).
+            img(width="217" height="100" alt="image" src="public/Image_099.gif")
+            p Compared to the positively charged NH4+ ion, the negatively charged NO3- ion ishighly mobile in soil (also negatively charged) and more readily leached to groundwater and streams.
+            p Nitrification also affects rates of nitrogen uptake by plant species that differ in their affinities forNH4+ and NO3- (McKane et al. 2002). Nitrification is also a preliminary stepfor the process of denitrification, in which NO3- is microbially transformed to nitrous oxide(N2O), a potent greenhouse gas, and nitrogen gas.
+            p <a href="http://www.ars.usda.gov/contactus/feedback.htm?email=635BFB9F9A09A8DC7B5AA5518CAFA0739460BDBDA297A957D8984045" target="_blank">The default (recommended) version of the nitrification subroutine in VELMA v2.0 is based on    Parton et al. 2001, with recent modifications made by Dr. Stephen Del Grosso    (</a>steve.delgrosso@ars.usda.gov) and coworkers. Dr. Del Grosso's modifications are described in his    NGAS spreadsheet model.
+            h3#15-1 15.1 - Nitrification On/Off
+            p Select "15.1 Nitrification On/Off ?" from the All Parameters drop-down menu to specify whether to turn theNitrification subroutine on (true) or off (false).
+            img(width="623" height="124" alt="image" src="public/Image_100.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name useNitrogenFixation
+                    td.param_desc When set false daily nitrification amounts are ignored and the PSM model behaves as if the nitrification amount is zero When set true (default) nitrification occursnormally
+            h3#15-1-1 15.1.1 - Nitrification Function Type
+            p Select "15.1.1 Nitrification Function Type" from the All Parameters drop-down menu to specify the
+            img(width="626" height="120" alt="image" src="public/Image_101.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name setNitrogenFunctionSelection
+                    td.param_desc Specify &quot;PARTON_1996&quot; &quot;PARTON_2001&quot; or &quot;DEL_GROSSO_XLS_2013&quot; as the value of the setNitrificationFunctionSelection property. Warning: be sure to use UPPERCASE text! The simulator engine will compute nitrifcation amounts using the specified function.PARTON_1996 = Function based upon equation given in Figure 2 (d) in [Parton et al. 1996] from Global BiochemicalCycles v.10. PARTON_2001 = Function based upon equation (2) in [Parton et al. 2001] from Journal of GeophysicalResearch v.106. DEL_GROSSO_XLS_2013 = (Default / RECOMMENDED) function implementing the Excel 2013 spreadsheet model provided byDr. Stephen Del Grosso.
+            
+            h3#15-1-2 15.1.2 - Nitrification Soil-Specific Parameters
+            
+            p Select "15.1.2 Nitrification Function Type" from the All Parameters drop-down menu to specify nitrificationsubroutine parameters. The parameters shown below must be specified for each soil type in your watershed (justone soil type shown in the screenshot below).
+            img(width="623" height="255" alt="image" src="public/Image_102.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name nitrificationK1 
+                    td.param_desc Fraction of net Nitrogen mineralized that is nitrified per day range in [0.0 1.0]. [Parton et al.2001].
+                tr 
+                    td.param_name nitrificationKmax
+                    td.param_desc Maximum fraction of NH4 nitrified per day in units of gN/m2/day range in [0.0 1.0]. [Parton etal. 2001]
+                tr 
+                    td.param_name nitrificationToN2o
+                    td.param_desc N2O flux associated with nitrification in units of gN/m2/day
+                tr 
+                    td.param_name nitrificationWfpsCoeff0
+                    td.param_desc Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.
+                tr 
+                    td.param_name nitrificationWfpsCoeff1
+                    td.param_desc Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.
+                tr 
+                    td.param_name nitrificationWfpsCoeff2
+                    td.param_desc Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.
+                tr 
+                    td.param_name nitrificationWfpsCoeff3
+                    td.param_desc Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.
+                tr 
+                    td.param_name pH
+                    td.param_desc This soil&#39;s pH value.
+            h4 Calibration Notes
+            p The nitrification model has been extensively applied to agricultural systems by the NGAS model developers (Partonet al. 2001; Del Grosso et al. 2001 and 2006). We recommend starting with the default parameter values providedby Stephen Del Grosso in his NGAS spreadsheet model.
+            h4 Default Parameter Values:
+            p nitrificationK1 = 0.20 (Parton et al. 2001; Del Grosso NGAS spreadsheet model)
+            p nitrificationKmax = 0.1 (Parton etal. 2001; Del Grosso NGAS spreadsheet model)
+            p nitrificationToN2o = 0.02 (Parton et al. 2001; Del Grosso NGASspreadsheet model = 0.012)
+            
+            h4 Soil Texture Table
+            table
+                tr
+                    th Nitrification Parameter
+                    th Coarse 
+                    th Fine 
+                    th Volcanic ash
+                tr
+                    td nitrificationWfpsCoeff0
+                    td 0.5
+                    td 0.65
+                    td 0.75
+                tr
+                    td nitrificationWfpsCoeff1
+                    td 0
+                    td 0
+                    td 0
+                tr
+                    td nitrificationWfpsCoeff2
+                    td 1.5
+                    td 1.2
+                    td 1.2
+                tr
+                    td nitrificationWfpsCoeff3
+                    td 4.5
+                    td 2.5
+                    td 2.5
+            
+            
+            h4 References for Sections 15.0 - 15.1.2
+            p Del Grosso, S. J., Parton, W. J., Mosier, A. R., Ojima, D. S., Kulmala, A. E., &amp; Phongpan, S. (2000). Generalmodel for N2O and N2 gas emissions from soils due to dentrification. Global Biogeochemical Cycles, 14(4),1045-1060.
+            p Del Grosso, S. J., Parton, W. J., Mosier, A. R., Walsh, M. K., Ojima, D. S., &amp; Thornton, P. E. (2006).DAYCENT national-scale simulations of nitrous oxide emissions from cropped soils in the United States. Journalof environmental quality, 35(4), 1451-1460.
+            p McKane, R. B., Johnson, L. C., Shaver, G. R., Nadelhoffer, K. J., Rastetter, E. B., Fry, B., ... &amp; Murray, G.(2002). Resource-based niches provide a basis for plant species diversity and dominance in arctic tundra.Nature, 415(6867), 68-71.
+            p Parton, W. J., Holland, E. A., Del Grosso, S. J., Hartman, M. D., Martin, R. E., Mosier, A. R., ... &amp;Schimel, D. S. (2001). Generalized model for NO x and N2O emissions from soils. Journal of Geophysical Research:Atmospheres (1984-2012), 106(D15), 17403-17419.
+            

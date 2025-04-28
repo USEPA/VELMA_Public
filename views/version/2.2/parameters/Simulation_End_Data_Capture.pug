@@ -1,0 +1,39 @@
+extends ../../../layout.pug
+block content
+    div.grid-container
+        include parameters_partials/_parameters_side_nav.pug   
+        div.grid-body-content
+            h1 Simulation-End Data Capture for Spin-up Initialization Use
+            
+            p Skip to section 21.0 where the procedure for section 20.0 is included as part of the "Simulation- StartInitialization from Spin-up Data" procedure.
+            p This section outlines a technique for using the ending state of a VELMA simulator run's spatial data pool valuesas the initial starting state for the spatial data pools of a second simulation run.
+            ol 
+                li Create a common simulation configuration base .xml document: The base .xml simulation configuration is your overall simulation configuration, with DEM, soil, cover, etc.parameters set as you wish them to be for site and conditions you are simulating.
+                li Make two copies of the base simulation configuration .xml document: One of the two copies will be modified to be the spin up configuration. The other will be the actual, finalconfiguration.
+                li Modify the Spin up configuration to save spatial data state at the end of its simulation run
+                    ol
+                        li Load the Spin up configuration into JVelma.
+                        li Click to the "All Parameters" tab and select "All startups" from the drop-down list of filters. That is, usethe drop-down button located abovethe "Group" column, not the "Value" column. You may need to click 'Clear Filters' button first to get rid of any filtering text already present).
+                        li In the All Parameter "ID Key" column, locate the setEndStateSpatialDataLocationName parameter, then click-click into its "Value" field and type in the name of a directory where the simulation can store spatial data map (".asc") files. Note that:
+                            h4 Note that: 
+                            ol 
+                                li The directory name may be either a fully-qualified path, or a relative path. If it's a relative path, JVelma assumes its root is the output directory specified by the simulationconfiguration's /calibration/VelmaInputs.properties/initializeOutputDataLocationRoot parameter.
+                                li Use "/" path separators in the directory name.
+                                li The directory does not need to exist beforehand; JVelma will try to create it when it's needed during thesimulation run.
+                        li Click to the "Run Parameters" tab and set the "Run Simulator From" and "To" values to the years you want theSpin up to run. (You may also wish to set the Nash-Sutcliffe coefficient "Compute From" and "To" values at thispoint.)
+                    p Save the Spin up configuration .xml file.
+                li Modify the Actual configuration to initialize its spatial data state at simulation start.
+                    ol 
+                        li Load the Actual configuration into JVelma.
+                        li Click the "All Parameters" tab and select "All Startups" from the drop-down list of filters (you may firstneed to click the "Clear Filters" button).
+                        li In the All Parameters "ID Key" column, locate the setStartStateSpatialDataLocationFileName parameter,then click-click into its "Value" field and type in the name of a directory where the simulation can look forspatial data map (".asc") files.
+                            ul Note that:
+                                li Presumably, the directory path will be to the directory specified as the setEndStateSpatialDataLocationFileName value in the Spin up configuration file.
+                                li The directory name may be either a fully-qualified path, or a relative path. If it's a relative path, JVelma assumes its root is the output directory specified by the simulationconfiguration's inputDataLocationRootName/inputDataLocationDirName parameters.
+                                li Use "/" path separators in the directory name.
+                                li The directory MUST exist at the time that the Actual simulation starts running.
+                        li Click to the "Run Parameters" tab and set the "Run Simulator From" and "To" values to the years you want theSpin up to run. (You may also wish to set the Nash-Sutcliffe coefficient "Compute From" and "To" values at thispoint.)
+                    p Save the Actual configuration .xml file.
+                li Run the Spin up simulation to completion. Start JVelma, load the Spin up configuration .xml and Start the simulation running. Wait until the Spin upsimulation completes its run before proceeding.
+                li Run the Actual simulation to completion. Start JVelma, load the Actual configuration .xml and Start the simulation running. When the Actual configuration completes, the Actual simulation run's results will be data based on an initialspatial data state taken from the final spatial data state of the Spin up simulation run.
+            

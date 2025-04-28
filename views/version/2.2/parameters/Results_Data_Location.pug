@@ -1,0 +1,43 @@
+extends ../../../layout.pug
+block content
+    div.grid-container
+        include parameters_partials/_parameters_side_nav.pug   
+        div.grid-body-content
+            h1 Results Data Location
+            p For the <i>initializeOutputDataLocationRoot </i>parameter, specify the root directory under which VELMA will place simulation output files for a particular model run.
+            img(width="627" height="106" alt="image" src="public/Image_038.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name initializeOutputDataLocationRoot 
+                    td.param_desc Root directory under which to place per-simulation-run directories. If this property is left unspecified per- simulation-run directories for output files will be placedunderneath a default root created in the ../data subdirectory of the VELMA simulator&#39;s installationdirectory. When specified this property must be a fully- qualified path name. Whitespace in the name does nothave to be escape-delimited or double-quoted and the &quot;/&quot; can (and should!) be used as the pathseparator for both Unix and Windows paths. EXAMPLE: initializeOutputDataLocationRoot = C:/MyVelmaResults/VelmaResultsRoot For the above example subdirectories for each VELMA simulator run are placed underneath the directory &quot;C:/My VelmaResults/VelmaResultsRoot/&quot;
+            h3#2-1 2.1 - Results Data Directory Name (Results data placed in directory with this name)
+            p Specify a unique simulation filename in the value column for the <i>run_index </i>parameter.
+            img(width="630" height="104" alt="image" src="public/Image_039.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name run_index 
+                    td.param_desc Watershed Name (used as core name for the simulation model run data files).
+            p Use this parameter to specify a unique name for each simulation run that you do. For example, a useful run_indexname might include the watershed name, date and other identifiers that will make it easier to determine when asimulation configuration was built and how it differs from others. VELMA will use the run_index name to create:
+            ul
+                li - the <i>Simulation Run Name </i>listed in the upper left corner of the <i>Run Parameters </i>GUI
+                li - the .XML file name that VELMA writes when the user saves a configuration file ("Ctrl-S", or "File/SaveConfiguration To VELMA XML File" using the menu at the top of the <i>Run Parameters </i>GUI). This XML filecontains all parameter names and values for the saved configuration. VELMA will not save this information if theuser does not save it in an XML file;
+                li - the name of the subdirectory (along with the full path) to which model output data files are written.
+            
+            h3#2-2 2.2 - Results Directory Logfile Names
+            p Specify a filename in the Value column for the globalStateLogFilename parameter.
+            img(width="624" height="121" alt="image" src="public/Image_040.jpg")
+            h4 Parameter Definitions
+            table
+                tr 
+                    td.param_name globalStateLogFilename 
+                    td.param_desc The name of the global log file. The Global log file records console messages emitted during a simulation run. When left blank (&quot;&quot;) or commented-out no global logfile is created.
+                tr 
+                    td.param_name csvTraceLogFilename 
+                    td.param_desc The name of the trace log file. The trace log file records any low-level debugging messages emitted during a simulation run. When left blank (&quot;&quot;) or commented-out notrace log file is created.
+            p VELMA will use the globalStateLogFilename to record the stream of runtime console messages (see Consoletab) generated during a simulation run. This is optional, but we recommend creating a globalStateFileNameto help identify any problems with the simulator configuration file. For example, the console messagesrecorded in the globalStateLogFilename provide a complete, sequential log of runtime information aboutsuccessful or unsuccessful loading of input files, activation of disturbance events (harvest, fertilization,etc.), saving results to output directories/files, and so on.
+            
+            h4 ///// IMPORTANT NOTE /////
+            p For important additional details on configuring, saving and understanding simulator results, please see Appendix 4: Overview of VELMA Simulator Output. 
+            
