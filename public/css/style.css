@@ -96,6 +96,10 @@ li {
     border-bottom: 1px solid white;
 }
 
+.position-end {
+    margin-left: auto;
+}
+
 .nav-child {
     color: white;
     text-decoration: none;

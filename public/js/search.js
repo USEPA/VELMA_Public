@@ -1,5 +1,10 @@
+const { readFileSync } = require('fs');
+
 document.getElementById('search').addEventListener('input', function (e) {
-    const searchData = JSON.parse(document.getElementById('searchData').textContent);
+  
+  console.log("Pre parsed data", document.getElementById('search').value)
+    const searchData = readFileSync("search-index.json"); //document.getElementById('search').value;
+    console.log("Serach data json", searchData)
     const index = lunr(function () {
         this.ref('url');
         this.field('title', { boost: 10 });
@@ -7,6 +12,7 @@ document.getElementById('search').addEventListener('input', function (e) {
         searchData.forEach(page => this.add(page));
     });
 
+    console.log("Target val", e.target.value);
     const results = index.search(e.target.value);
     displayResults(results, searchData);
 });
