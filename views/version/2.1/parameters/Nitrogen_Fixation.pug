@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Nitrogen-Fixation 
             p <a href="http://en.wikipedia.org/wiki/Nitrogen" target="_blank">Nitrogen fixation</a> is a process in which nitrogen <a href="http://en.wikipedia.org/wiki/Earth%27s_atmosphere" target="_blank">(N2) in the atmosphere</a> is converted
             p <a href="http://en.wikipedia.org/wiki/Ammonium" target="_blank">into ammonium (NH4)</a>. In biologicalsystems, N fixation can be carried out by free-living (asymbiotic) microorganisms, or by plant species that havea symbiotic relationship with N- fixing bacteria (<i>Frankia </i>and <i>Rhizobia</i>). Insymbiotic N fixation, plants provide carbohydrates as an energy source to bacteria that in turn supplyNH4 to the host plant.
@@ -15,6 +16,9 @@ block content
             img(width="628" height="279" alt="image" src="public/Image_098.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name useNitrogenFixation
                     td.param_desc When using NitrogenFixation = false (default), no nitrogen fixation is computed for thiscells of this cover. When useNitrogenFixation = true, nitrogen fixation is computed using this cover&#39;s other nitrogen fixation parameters.

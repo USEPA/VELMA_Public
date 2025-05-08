@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Nitrogen Deposition 
             p Atmospheric inputs of wet and dry nitrogen deposition can make a significant contribution to ecosystem nitrogenbudgets, especially in regions influenced by industry and agricultural. It is important to estimate the timingand amounts of wet and dry nitrogen deposition, and its availability for plant uptake and other ecohydrologicalprocesses. Such estimates are complicated by time lags associated with dry deposition of nitrogen on leaves andother surfaces, and subsequent flushing into the soil during precipitation events.
             p VELMA version 1.0 modeled daily atmospheric inputs of wet and dry deposition as a function of the annualatmospheric input and the fraction of annual rain that occurs at a given day.
@@ -16,6 +17,9 @@ block content
             img(width="627" height="187" alt="image" src="public/Image_077.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name wet_nin
                     td.param_desc Wet nitrogen deposition factor in gNm^2 per year
@@ -36,7 +40,7 @@ block content
                     td.param_desc When set to "true" N-deposition is computed using a banked Michaelis-Menten-based equation. When set to "false" N-deposition is computed using the VELMA version 1.0linear equation. Use of the older equation is deprecated. The default value for this parameter is "true".
             h4 Calibration Notes
             p For the reasons mentioned under assumption #3, above, we recommend using the experimental (VELMA version 2.0)nitrogen deposition subroutine rather than that used in VELMA version 1.0.
-            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to parameterize the <a    href="mailto:mckane.bob@epa.gov">experimental nitrogen deposition subroutine (please contact</a>mckane.bob@epa.gov if you have questions):
+            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to parameterize the experimental nitrogen deposition subroutine.
             p Filename: VELMA 2.0_Nitrogen Deposition Calibrator_7-26-13 v3.xlsx Folder location: VELMAModel\Supporting Documents\Excel Calibration Files
             h3#9-1-2 9.1.2 Old (DEPRECATED) Nitrogen Deposition Parameters
             p Use of the VELMA version 1.0 nitrogen deposition subroutine is discouraged. Please see section 9.0. 

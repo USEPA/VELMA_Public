@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
         include getting_started_partials/_getting_started_side_nav.pug
-        div.grid-body-content
+        div.flex-body-content
             h1 Creating a Simulator Configuration (New VELMA Application)
             hr 
             h2 Parts of new configuration
@@ -43,12 +44,12 @@ block content
             p Here is an example of the form the startup command takes:
             p C:\&gt; java -Xmx1024m -jar C:\Some\full\Path\JVelma.jar
             p Of course, replace C:\Some\full\Path\ with the actual, fully-qualified path name of the location where your copyof the JVelma.jar file resides.
-            p Here are a couple of screen captures showing actual command lines for starting JVelma:
+            p Here are actual command lines for starting JVelma:
             br 
-            img(width="531" height="96" alt="image" src="public/Image_015.gif")
+            code C:\>java -Xmx1024m -jar "C:\Some Path With Whitespace\JVelma.jar"
             p (In the above screen-capture, the double-quotes around the fully-qualified path+name of the JVelma.jar file arerequired because the text of the path contains whitespace.)
             br 
-            img(width="517" height="107" alt="image" src="public/Image_016.gif")
+            code C:\>java -Xmx1024m -jar c:\Path_With_NO_Whitespace\JVelma.jar
             p (When there is no whitespace in the entire path the double-quotes are not required.)
             p The "-Xmx1024m" command line option specifies the amount of memory available to the JVelma GUI and simulator. Thevalue 1024 is in Megabytes, so this command line allocates a 1 Gigabyte memory space for the JVelma GUI andsimulator to run in. You can allocate more memory than 1 GB (e.g. the option "-Xmx4096m" would allocate 4 GB)but if you allocate more memory than your computer can make available, JVelma will fail to start properly.
             p Once you type in the command line and press the enter key, the JVelma GUI should begin running. Initially, theGUI looks like this:
@@ -79,7 +80,10 @@ block content
             br 
             h4 The resulting display shows 13 "startups" parameters under the 3rd column. For now, we will focus on 2startup parameters that VELMA uses to locate simulation input files at the start of a simulation. You will needto specify a valid value in the 4th column for these:
             table
-                tr 
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
+                tr
                     td.param_name inputDataLocationDirName:
                     td.param_desc The name of the directory containing your simulation input data files
                 tr 
@@ -92,6 +96,9 @@ block content
             br 
             h4 In the displayed subset of configuration parameters, enter values for the following parameters:
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name input_dem
                     td.param_desc The name (plus extension, ".asc") of this simulation's DEM spatial data file. The simulator will lookfor the file in the directory specified by the inputDataLocationDirName + "/" + inputDataLocationRootName thatyou specified as Startups parameters.

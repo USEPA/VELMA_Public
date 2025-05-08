@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include calibration_partials/_calibration_side_nav.pug     
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include calibration_partials/_calibration_side_nav.pug 
+        div.flex-body-content
             h1 Development of Statistical Models Based on Monthly PRISM / Daymet Data
             div.info.blue-light-1
                 p Overview <i>(Tutorial D.7b - Addendum to Spatial Climate Statistics)</i>

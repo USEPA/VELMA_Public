@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Decomposition 
             p Decomposition of soil organic matter is a key process in VELMA, controlling the rate at which dead organicC and N pools (detritus and humus) are converted to inorganic C and N pools (CO2, NH4, NO3,DON and DOC).
             p VELMA v2.0 has a new decomposition model based on Potter et al. (1993). In the Potter model,microbially-mediated decomposition of plant and soil organic residues produces CO2, such that
@@ -25,6 +26,9 @@ block content
             img(width="625" height="110" alt="image" src="public/Image_093.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name psm_q
                     td.param_desc The fraction of decomposed nitrogen converted to DON range [0.0 - 1.0]
@@ -37,6 +41,9 @@ block content
             img(width="625" height="108" alt="image" src="public/Image_094.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name co2RespriationFraction
                     td.param_desc The fraction of humus decomposition (in Carbon) lost to the atmosphere as CO2.
@@ -47,6 +54,9 @@ block content
             img(width="627" height="114" alt="image" src="public/Image_095.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name microbeCefficiency
                     td.param_desc The carbon assimilation efficiency (0 - 1) of microbes. This is a globally-applicable term of the Potter equation.
@@ -60,6 +70,9 @@ block content
             img(width="629" height="188" alt="image" src="public/Image_096.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name humusNmaxDecay
                     td.param_desc The maximum rate of decay (0 - 1) for the humus N pool.

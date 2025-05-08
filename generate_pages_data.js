@@ -23,8 +23,9 @@ function getAllPugFiles(dir) {
 
 // Extract content from `div.grid-body-content`
 function extractGridBodyContent(pugFilePath) {
-    const compiledFunction = pug.compileFile(pugFilePath);
-    const html = compiledFunction(); // Render Pug to HTML
+    // const compiledFunction = pug.compileFile(pugFilePath);
+    // const html = compiledFunction(); // Render Pug to HTML
+    var html = pug.renderFile(pugFilePath);
     const match = html.match(/<div class="grid-body-content">([\s\S]*?)<\/div>/);
 
     return match ? match[1].trim() : '';

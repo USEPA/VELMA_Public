@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Observed Data Files 
             p If you want VELMA to graphically display observed stream chemistry and runoff data along with simulated valuesduring a simulation (section 25.0), and calculate the Nash-Sutcliffe efficiency coefficient (section 18.0), youwill need to prepare input files and specify their names in the All Parameters outline drop-down menu forsection "19.0 Observed Data Files":
             img(width="621" height="124" alt="image" src="public/Image_112.jpg")

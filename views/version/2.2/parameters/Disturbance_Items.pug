@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Disturbance Items 
             p Understanding how disturbances such as harvest, fire and fertilization affect ecosystem services has been a majormotivation in the development of VELMA. For example, how do disturbances such as forest harvest or theapplication of agronomic fertilizers affect hydrological and biogeochemical processes controlling water qualityand quantity, carbon sequestration, production of greenhouse gases, etc.? Abdelnour et al. (2011, 2013) havealready demonstrated the use of VELMA v1.0 to simulate the effects of forest clearcutting on ecohydrologicalprocesses that regulate a variety of ecosystem services.
             p With the addition of a tissue-specific plant biomass (LSR) simulator and an enhanced GUI, VELMA v2.0significantly expands the detail, flexibility, and ease of use for simulating disturbance effects. Currentlyavailable disturbance models include:
@@ -103,6 +104,9 @@ block content
             img(width="620" height="383" alt="image" src="public/Image_153.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name ageThreshold
                     td.param_desc Applicable cover must be greater or equal to the specified ageThreshold (in integer years) to beharvested. Defaults to 0 -- i.e., any otherwise- applicable cell is harvested regardless of age.

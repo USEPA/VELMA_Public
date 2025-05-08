@@ -1,13 +1,17 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Results Data Location
             p For the <i>initializeOutputDataLocationRoot </i>parameter, specify the root directory under which VELMA will place simulation output files for a particular model run.
             img(width="627" height="106" alt="image" src="public/Image_038.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name initializeOutputDataLocationRoot 
                     td.param_desc Root directory under which to place per-simulation-run directories. If this property is left unspecified per- simulation-run directories for output files will be placedunderneath a default root created in the ../data subdirectory of the VELMA simulator&#39;s installationdirectory. When specified this property must be a fully- qualified path name. Whitespace in the name does nothave to be escape-delimited or double-quoted and the &quot;/&quot; can (and should!) be used as the pathseparator for both Unix and Windows paths. EXAMPLE: initializeOutputDataLocationRoot = C:/MyVelmaResults/VelmaResultsRoot For the above example subdirectories for each VELMA simulator run are placed underneath the directory &quot;C:/My VelmaResults/VelmaResultsRoot/&quot;
@@ -16,6 +20,9 @@ block content
             img(width="630" height="104" alt="image" src="public/Image_039.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name run_index 
                     td.param_desc Watershed Name (used as core name for the simulation model run data files).
@@ -30,6 +37,9 @@ block content
             img(width="624" height="121" alt="image" src="public/Image_040.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name globalStateLogFilename 
                     td.param_desc The name of the global log file. The Global log file records console messages emitted during a simulation run. When left blank (&quot;&quot;) or commented-out no global logfile is created.

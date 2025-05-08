@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
         include getting_started_partials/_getting_started_side_nav.pug
-        div.grid-body-content
+        div.flex-body-content
             h1
                 | VelmaSimRunner
             h2
@@ -29,43 +30,32 @@ block content
                 | VelmaSimulatorCmdLine
                 | ) exists, and is useful when:
             ul
-                li
-                | You do not need to review or edit the simulation configuration .xml you intend to run.
-                li
-                | You do not need to view the runtime display charts that 
-                code
-                    | JVelma
-                |  provides.
-                li
-                | You need the simulation to run as efficiently as possible: 
-                code
-                    | VelmaSimulatorCmdLine
-                |  can usually run a VELMA simulation in a bit less time than 
-                code
-                    | JVelma
-                | , because 
-                code
-                    | VelmaSimulatorCmdLine
-                |  does produce the afor-mentioned runtime display charts.
-                li
-                | You need to automate the process of running several VELMA simulations in sequence.
-                li
-                | You'd like to let a (perhaps fairly long) sequence of VELMA simulations run unattended, but later, you'd like know which runs succeeded and which failed without examining each and every simulation run's results directory's contents.
-            p
-                | Regarding the final two points above: you can automate starting a sequence of VELMA simulations just by putting the complete, individual command lines into a .bat or .ps batch file (depending upon whether you are using Windows' Command Prompt or PowerShell.) However, as a developer, working with the VELMA .class files in a workspace, running 
-                code
-                | VelmaSimulatorCmdLine
+                li You do not need to review or edit the simulation configuration .xml you intend to run.
+                li You do not need to view the runtime display charts that 
+                    code
+                        | JVelma
+                    |  provides.
+                li You need the simulation to run as efficiently as possible: 
+                    code
+                        | VelmaSimulatorCmdLine
+                    |  can usually run a VELMA simulation in a bit less time than 
+                    code
+                        | JVelma
+                    | , because 
+                    code
+                        | VelmaSimulatorCmdLine
+                    |  does produce the afor-mentioned runtime display charts.
+                li You need to automate the process of running several VELMA simulations in sequence.
+                li You'd like to let a (perhaps fairly long) sequence of VELMA simulations run unattended, but later, you'd like know which runs succeeded and which failed without examining each and every simulation run's results directory's contents.
+            p Regarding the final two points above: you can automate starting a sequence of VELMA simulations just by putting the complete, individual command lines into a .bat or .ps batch file (depending upon whether you are using Windows' Command Prompt or PowerShell.) However, as a developer, working with the VELMA .class files in a workspace, running 
+                code VelmaSimulatorCmdLine
                 |  can involve a fair amount of typing per command line.
-                br
-                |  Here is an PowerShell example command line that runs a VELMA scenario whose simulation configuration is named OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml:
-            pre
-                code
-                | PS C:\Users\kdjang\> java -Xmx4g -cp '.\Velma_GitHub\VelmaUtils\bin;.\Velma_GitHub\VelmaSimulator\bin' gov.epa.velmasimluator.VelmaSimulatorCmdLine F:\Users\kdjang\Velma_SiteData\OR_BlueRiver_Xml\OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+            br
+            p Here is an PowerShell example command line that runs a VELMA scenario whose simulation configuration is named OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml:
+            code PS C:\Users\kdjang\> java -Xmx4g -cp '.\Velma_GitHub\VelmaUtils\bin;.\Velma_GitHub\VelmaSimulator\bin' gov.epa.velmasimluator.VelmaSimulatorCmdLine F:\Users\kdjang\Velma_SiteData\OR_BlueRiver_Xml\OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
 
-            p
-                | Confronted with the need to run, say, 25 or more simulations (one after the other), each using the same basic pattern as the example above, but with some more or less memory ('-Xmx') allocated, and each with a unique .xml file name, most developers would copy the original example command line as many times as needed into a .bat or .ps file, then edit differences for each line in the file.
-                br
-                |  Doing exactly this sort of batch file creation caused VELMA developers to write 
+            p Confronted with the need to run, say, 25 or more simulations (one after the other), each using the same basic pattern as the example above, but with some more or less memory ('-Xmx') allocated, and each with a unique .xml file name, most developers would copy the original example command line as many times as needed into a .bat or .ps file, then edit differences for each line in the file.
+            p Doing exactly this sort of batch file creation caused VELMA developers to write 
                 code
                 | VelmaSimRunner
                 | .
@@ -82,16 +72,11 @@ block content
                 | VelmaSimRunner
                 | .
             ul
-                li
-                | Windows 10 -- no other operating systems have been tested.
-                li
-                | Windows 10 PowerShell -- should be available on any Windows 10 system.
-                li
-                | Python 3.7 -- version 2 will not work, and no earlier versions of version 3 have been tested.
-                li
-                | Java 8 -- for running VELMA. Newer versions (e.g. Java 9) should be fine, but older versions (e.g. Java 7) will not do.
-                li
-                | Either a current, valid VELMA workspace with all the .class files built, or a current, valid JVelma.jar file.
+                li Windows 10 -- no other operating systems have been tested.
+                li Windows 10 PowerShell -- should be available on any Windows 10 system.
+                li Python 3.7 -- version 2 will not work, and no earlier versions of version 3 have been tested.
+                li Java 8 -- for running VELMA. Newer versions (e.g. Java 9) should be fine, but older versions (e.g. Java 7) will not do.
+                li Either a current, valid VELMA workspace with all the .class files built, or a current, valid JVelma.jar file.
                 br
                 |  Note that the 
                 code

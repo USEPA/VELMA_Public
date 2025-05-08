@@ -1,10 +1,11 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
         include getting_started_partials/_getting_started_side_nav.pug
-        div.grid-body-content
-            h1 VELMA 2.1 Quick Start Example 
-            p The VELMA 2.1 Simulator is distributed with an example simulation configuration and its associated input maps and driver data. The example simulation data is located in the following of directory of the VELMA 2.1 distribution:
+        div.flex-body-content
+            h1 VELMA 2.2 Quick Start Example 
+            p The VELMA 2.2 Simulator is distributed with an example simulation configuration and its associated input maps and driver data. The example simulation data is located in the following of directory of the VELMA 2.1 distribution:
             code VELMA Model\VELMA v2.1\BlueRiver_Example
 
             h2 Before you start 
@@ -20,14 +21,15 @@ block content
             
             p If instead of the above text (or something like it) you receive a message that java “is not recognized …” (or a similar error message) then you must install a Java JRE (version 7 or above) onto your machine before proceeding. The Java JRE is freely available from Oracle's Java website. Contact your local system administration or tech support for additional information and assistance.
 
-            strong Once Java is installed install VELMA from using this a(href="https://cfpub.epa.gov/ncea/risk/recordisplay.cfm?deid=354355") VELMA download link.
+            strong Once Java is installed install VELMA from using this
+                a(href="https://cfpub.epa.gov/ncea/risk/recordisplay.cfm?deid=354355") VELMA download link.
             h2 Start the VELMA GUI
 
             div.info 
                 p You could start VELMA by double clicking the JVelma.jar file located in the VELMA v2.1 folder, but we do not recommend this because VELMA will likely run out of memory during a simulation. 
                 strong To ensure that VELMA has sufficient memory, you will need to follow the steps below.
 
-            p To start the VELMA 2.1 GUI (named “JVelma”), open a Windows command prompt, and launch the GUI via Java and the JVelma.jar file.
+            p To start the VELMA 2.2 GUI (named “JVelma”), open a Windows command prompt, and launch the GUI via Java and the JVelma.jar file.
             p Here is an example of the form the startup command takes:
             code C:\> java -Xmx1024m -jar C:\Some\full\Path\JVelma.jar
             p Of course, replace C:\Some\full\Path\ with the actual, fully-qualified path name of the location where your copy of the JVelma.jar file resides.

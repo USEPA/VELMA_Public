@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include introduction_partials/_introduction_side_nav.pug     
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include introduction_partials/_introduction_side_nav.pug 
+        div.flex-body-content
             h1 Changes from VELMA 2.0 to 2.1
             p Several Supplemental changes have been added to VELMA in this version update.
             p TODO: Describe and link to all changes here.

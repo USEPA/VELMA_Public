@@ -1,25 +1,22 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
         include user_guide_partials/_user_guide_side_nav.pug  
-        div.grid-body-content
+        div.flex-body-content
             h1 Checking a Configuration for Warnings or Errors
             h2 Overview
-            p
-            | The VELMA simulator produces an extensive number of logger messages during a simulation's initialization and running time. In the JVelma GUI the messages appear in the Console tab, while VELMA command-line invocations emit them directly to the command-line's output. The messages convey the progress and status of the simulation attempt. When a simulation fails to run as expected the logger messages can provide clues for identifying and correcting issues responsible for the failure.
-            p
-            | However, the large number of total messages can obscure the smaller number of warning or error messages that are useful for identifying and correcting configuration problems. To highlight warning and error messages, and to make them available without actually running a simulation, the VELMA simulator provides a configuration-check option. When selected, the VELMA simulator performs its initialization step, but then halts without actually running, and during the initialization step, only warning and error messages are displayed.
+            p The VELMA simulator produces an extensive number of logger messages during a simulation's initialization and running time. In the JVelma GUI the messages appear in the Console tab, while VELMA command-line invocations emit them directly to the command-line's output. The messages convey the progress and status of the simulation attempt. When a simulation fails to run as expected the logger messages can provide clues for identifying and correcting issues responsible for the failure.
+            p However, the large number of total messages can obscure the smaller number of warning or error messages that are useful for identifying and correcting configuration problems. To highlight warning and error messages, and to make them available without actually running a simulation, the VELMA simulator provides a configuration-check option. When selected, the VELMA simulator performs its initialization step, but then halts without actually running, and during the initialization step, only warning and error messages are displayed.
             h3 Caveats and Limitations
             h4 Availablity
-            p
-            | The Configuration-Checker function is only available in VELMA version 2.0.1.34 or later.
+            p The Configuration-Checker function is only available in VELMA version 2.0.1.34 or later.
             br
             |  The Configuration-Checker is only available via the JVelma GUI or VelmaSimulatorCmdLine.
             br
             |  (Although it is unavailable for VelmaParallelCmdLine, you can use VelmaSimulatorCmdLine to check any VELMA simulation configuration .xml file before running that same .xml file under VelmaParallelCmdLine.)
             h4 Running Time and Completion
-            p
-            | During the configuration-check VELMA performs a full initialization of the specified configuration.
+            p During the configuration-check VELMA performs a full initialization of the specified configuration.
             br
             |  If your simulation takes a long time to initialize, it will take a long time to check.
             br
@@ -27,20 +24,14 @@ block content
             br
             |  If your simulation invocation is in some way invalid, it may crash before the checker even starts (however, this is almost exclusively a VelmaSimulatorCmdLine-usage concern).
             h4 Results Interpretation
-            p
-            | A "clean" checker result (i.e. minimal warnings and no errors) does 
+            p A "clean" checker result (i.e. minimal warnings and no errors) does 
             em
                 strong
                 | not
             |  guarrantee that the checked configuration will run correctly or to completion.
             br
             |  Some warnings and errors only occur during a simulation run: since the checker does not run the simulation, runtime-specific warnings or errors will not be revealed. The checker results are only as thorough as the existing initialization code's ability to identify and report warnings or errors. (The VELMA development group hopes to provide additional configuration-checking code in future versions.)
-            p
-            | A "dirty" checker result does 
-            em
-                strong
-                | not
-            |  guarrantee that the checked configuration will fail to run, or run incorrectly.
+            p A "dirty" checker result does <em><strong>not</strong><em> guarrantee that the checked configuration will fail to run, or run incorrectly.
             br
             |  If you see a 
             code
@@ -52,8 +43,7 @@ block content
                 code
                     | WARNING 2021-01-29 10:15:49 CellDataWriterManager: IGNORED CellDataWriter: name=OffGrid at cell x=90 y=90 index=-1 [OFF-GRID LOCATION (Grid is: cols=86 rows=67)]
 
-            p
-            | indicates that a cell data writer in the configuration has invalid coordinates for the current DEM grid, and that it will be ignored if the simulation is actually run. If you do not care about this cell data writer (perhaps it's a leftover from .xml-reuse), you can ignore this warning. On the other hand, if you are counting on data generated by this cell data writer as part of your simulation results, you should review the configuration and see why it is parameterized to an invalid location.
+            p indicates that a cell data writer in the configuration has invalid coordinates for the current DEM grid, and that it will be ignored if the simulation is actually run. If you do not care about this cell data writer (perhaps it's a leftover from .xml-reuse), you can ignore this warning. On the other hand, if you are counting on data generated by this cell data writer as part of your simulation results, you should review the configuration and see why it is parameterized to an invalid location.
             h2 Usage
             h3 Checking a Configuration With the JVelma GUI
             ol
@@ -77,13 +67,11 @@ block content
                     | Run Check Current Configuration again.
                 li
                     | Start a simulation run.
-            p
-            | Here is a screen-capture showing selection of the "Check Current Configuration" menu item:
+            p Here is a screen-capture showing selection of the "Check Current Configuration" menu item:
             br
             |  
             img
-            p
-            | This is an example of what the JVelma Console output looks like when the "Check Current Configuration" menu item is selected: 
+            p This is an example of what the JVelma Console output looks like when the "Check Current Configuration" menu item is selected: 
             img
             h3 Checking a Configuration With VelmaSimulatorCmdLine
             ol
@@ -101,8 +89,7 @@ block content
                 |  option to the commane line.
             li
                 | Warning and/or error messages will echo to the Powershell window.
-            p
-            | Here is an example using VelmaSimulatorCmdLine:
+            p Here is an example using VelmaSimulatorCmdLine:
             pre
                 code
                     | Windows PowerShell
@@ -125,24 +112,21 @@ block content
                     | PS C:\Users\me>
 
             blockquote
-            p
-                | Sidenote: The above example uses a whitespace + backtick ("`", 
+            p Sidenote: The above example uses a whitespace + backtick ("`", 
                 em
-                | not
+                    | not
                 |  the single-quote character) sequence to break the single command line into multiple, shorter lines that are easier to read. This is a built-in feature of the Windows PowerShell console: when you type a whitespace character, then a backtick character, then the return key, the PowerShell console inserts a line break, but then continues the command onto the new line, prefixed by ">>". Use this feature carefully: only break lines at whitespace within your overall command line (e.g. do 
                 em
-                | not
+                    | not
                 |  break a filename across two separate lines).
             h3 Output Notes
-            p
-            | Running the Configuration Checker always causes the following warning messages to occur:
+            p Running the Configuration Checker always causes the following warning messages to occur:
             pre
                 code
                     | WARNING VelmaSimulatorEngine runLinter: VELMA Lint Mode Enabled: startups parameter suppressAllOutputFiles overridden and set == true
                     | WARNING GlobalState setOutputDataLocationDir: All File Output is suppressed: ignoring Output Data Location
 
-            p
-            | The first message occurs because the Configuration Checker always overrides a single parameter from the .xml file it checks: the 
+            p The first message occurs because the Configuration Checker always overrides a single parameter from the .xml file it checks: the 
             code
                 | suppressAllOutputFiles
             |  parameter. It forces it to 
@@ -154,20 +138,17 @@ block content
             code
                 | suppressAllOutputFiles == true
             | , VELMA's initialization code issues a warning, so that the user should not expect any output.
-            p
-            | When the Configuration Checker is run from JVelma, the following messages should appear first:
+            p When the Configuration Checker is run from JVelma, the following messages should appear first:
             pre
                 code
                     | Checking the current configuration via the VELMA Linter.
                     | Configuration editing is not permitted until the Linter is done.
 
-            p
-            | These messages simply confirm that the Checker is running, and that you cannot edit your configuration while it runs. You 
+            p These messages simply confirm that the Checker is running, and that you cannot edit your configuration while it runs. You 
             em
                 | can
             |  navigate around the JVelma GUI's other tabs while the Checker is running, but it may snap the focus back to the Console tab when it is done.
-            p
-            | Regardless of where it is run, the Configuration Checker brackets its output with a pair of messages:
+            p Regardless of where it is run, the Configuration Checker brackets its output with a pair of messages:
             pre
                 code
                     | VELMA LINTER: started at 2021-02-03 11:17:01

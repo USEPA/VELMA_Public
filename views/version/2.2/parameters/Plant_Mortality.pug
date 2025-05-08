@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Plant Mortality 
             p VELMA v.2.0 has a new plant biomass mortality function, replacing the linear mortality function in v1.0(Abdelnour et al. 2011). The new mortality function was initially developed for forest vegetation but we havefound that it applies just as well to other cover types, including nonwoody species such as grasslands andagricultural crops.
             p The mortality function is based on the following observations and assumptions:
@@ -31,6 +32,9 @@ block content
                 p.math C = mortalityAgStemNumeratorCoefficient
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name mortalityAgStemAnnualFraction
                     td.param_desc The fraction of a tissue's simulated annual mortality that gets subtracted from the corresponding biomass pool per day during the specified period ofsenescence. The default value for this fraction is 1.0 (i.e. the full per-day amount) and the valid range is[0.0 to 1.0] Warning! Users unfamiliar with this parameter&#39;s behavior should leave it set to the defaultvalue of 1.0.
@@ -45,7 +49,7 @@ block content
                     td.param_descParameter "C" in the equation above.
             p Note: the 4 preceding parameters repeat for the other tissues - i.e., "Leaf", "BgStem" or "Root" appear in placeof "AgStem" in the parameter names above. These
             h4 Calibration Notes
-            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate plant <a    href="mailto:mckane.bob@epa.gov">logistic mortality parameters for your site (please contact</a>mckane.bob@epa.gov if you have questions):
+            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate plant logistic mortality parameters for your site.
             p Filename: VELMA 2.0_Biomass Mortality Calibrator_CHB_9-24-13 v3.xlsx Folder location:VELMA2.0Software/SupportingDocuments/ExcelCalibrationFiles
             h3#12-1-1-1 12.1.1.1 through 12.1.1.4 - Plant Mortality Logistic Parameters for Leaf, AgStem, BgStem and Root Biomass
             p See section 12.1, above, for mortality parameter definitions and calibration information. Although 12.1 completelist However, to avoid mistakes, we recommend that you use sections
@@ -56,6 +60,9 @@ block content
             img(width="621" height="116" alt="image" src="public/Image_092.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name jDaySenescenceOn
                     td.param_desc The Julian Day of the year when this cover species biomass begins senescing. (Note: Set &gt;= 367 to &quot;deactivate&quot; senescence for this cover species.)

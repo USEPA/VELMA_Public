@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Spatial Data Writer Items 
             h4 Spatial Data Writers Report a Simulation Result for Every Cell in the Simulation Grid
             p Spatial Data Writers are how the VELMA simulation provides spatially-explicit results output.

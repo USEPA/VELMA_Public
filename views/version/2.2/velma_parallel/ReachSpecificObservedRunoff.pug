@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parallel_partials/_parallel_side_nav.pug     
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parallel_partials/_parallel_side_nav.pug   
+        div.flex-body-content
             h1
                 | Reach-Specific Observed Runoff Data for VelmaParallelCmdLine
             h2

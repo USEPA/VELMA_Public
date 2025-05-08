@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include calibration_partials/_calibration_side_nav.pug  
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include calibration_partials/_calibration_side_nav.pug 
+        div.flex-body-content
             h1
             | NseQuarts Guide
             h2
@@ -15,18 +16,18 @@ block content
             strong
                 | Requirements
             ul
-            li
-                | A Windows Powershell or Command Prompt.
-            li
-                | Python 3 installed and available.
-            li
-                | Python's Pandas library installed for Python 3.
-            li
-                | The DailyResults.csv file from a VELMA simulator results.
-            li
-                | The observed runoff .csv file provided as part of the same VELMA simulator results' input data.
-            li
-                | The year to generate quarterly runoff NSE values for.
+                li
+                    | A Windows Powershell or Command Prompt.
+                li
+                    | Python 3 installed and available.
+                li
+                    | Python's Pandas library installed for Python 3.
+                li
+                    | The DailyResults.csv file from a VELMA simulator results.
+                li
+                    | The observed runoff .csv file provided as part of the same VELMA simulator results' input data.
+                li
+                    | The year to generate quarterly runoff NSE values for.
             p
             strong
                 | Limitations

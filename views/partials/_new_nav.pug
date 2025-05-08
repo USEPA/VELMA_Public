@@ -9,24 +9,27 @@ nav.navbar.blue-base.navbar-expand
             a.nav-link(href='../getting_started/VelmaSimulatorAltCmdLine_Overview')
                 span Getting Started
         li.nav-item
+            a.nav-link(href='../parameters/index')
+                span Parameters
+        li.nav-item
             a.nav-link(href='../user_guide/Configuration_Checker_Guide')
                 span User Guides
         li.nav-item
             a.nav-link(href='../calibration/NashSutcliffeCalculator_Guide')
                 span Calibration 
         li.nav-item
-            a.nav-link(href='../ascii_maps/Initialize_Spatial_Pool_Using_Ascii')
+            a.nav-link(href='../spatial_maps/Initialize_Spatial_Pool_Using_Ascii')
                 span Spatial (ASCII) Maps
         li.nav-item
             a.nav-link(href='../velma_parallel/index')
                 span Velma Parallel
-        li.position-end.version-dropdown
+        li.version-dropdown
             span Version: 
             select#version-dropdown.select-bubble.blue-dark.white-text(name="version-dropdown" data-current-path=currentPath)
                 option(value="2.2") 2.2 
                 option(value="2.1") 2.1 (current)
                 option(value="2.0") 2.0 
-                option(value="dev") dev
+                //- option(value="dev") dev
                 
 script. 
     function getVersionFromUrl() {

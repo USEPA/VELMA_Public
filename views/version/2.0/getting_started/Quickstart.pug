@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
         include getting_started_partials/_getting_started_side_nav.pug
-        div.grid-body-content
+        div.flex-body-content
             h1 VELMA 2.0 Quick Start Example 
             p The VELMA 2.0 Simulator is distributed with an example simulation configuration and its associated input maps and driver data. The example simulation data is located in the following of directory of the VELMA 2.0 distribution:
             code VELMA Model\VELMA v2.0\BlueRiver_Example

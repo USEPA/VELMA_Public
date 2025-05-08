@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Soil Types
             p VELMA requires information on key soil properties affecting hydrological and biogeochemical processes within astudy watershed. Whether single or multiple soil types are modeled within a watershed, you will need toestablish a soil type map and specify parameter values for a set of soil properties associated with each soiltype. The following steps will accomplish this:
             ul 
@@ -15,6 +16,9 @@ block content
             img(width="625" height="136" alt="image" src="public/Image_044.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name soilParametersIndexMapFileName
                     td.param_desc The file name of a spatial-explicit map of Soil Parameters uniqueIds. The data in this map file specifies the Soil Parameterization of a given pixel in the DEMmap.
@@ -43,6 +47,9 @@ block content
             img(width="629" height="118" alt="image" src="public/Image_048.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name setSoilLayerThicknesses
                     td.param_desc A comma-separated list of values specifying the thickness of each soil layer in millimeters. For example: &quot;500 750 1000 1500&quot; (without the quote-marks) specifiesthe soil&#39;s 4 layers as being 500 mm 750 mm 1000 mm and 1500 mm thick from layer 1 to layer 4 respectively.NOTE: This list of values may be left unspecified. When setSoilLayerThickness is unspecified thesoil&#39;s layer thicknesses are set by the combination of the soilColumnDepth and setSoilLayerWeightsparameters. When setSoilLayerThickness is specified the soilColumnDepth and setSoilLayerWeightsparameters are ignored.
@@ -63,6 +70,9 @@ block content
             img(width="626" height="157" alt="image" src="public/Image_050.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name surfaceKs
                     td.param_desc saturated hydraulic conductivity (Ks, mm/day) at the soil surface. For    equations and parameterization information see </a>Appendix 6.1 (Abdelnour et al.2011).
@@ -111,6 +121,6 @@ block content
             p The figure on the next page illustrates the structure of the new LSR submodel and its integration into theoverall Plant Soil Model. Additional Details on the LSR model structure, equations and parameterscan be found in &quot;</a>Appendix 1: Overview of VELMA'sLeaf-Stem-Root (LSR) Plant Biomass Submodel". We recommend reviewing this material before proceeding further, focusing on the LSR model structureand equations describing the various LSR nitrogen and carbon pools and fluxes.
             p Figure 1.
             img(width="659" height="500" alt="image" src="public/Image_053.png")
-            p The User Manual package includes slides for a seminar describing the effectiveness of riparian buffers for protecting water quality in the Chesapeake Bay(please contact <a href="mailto:mckane.bob@epa.gov">mckane.bob@epa.gov</a> if you have questions):
+            p The User Manual package includes slides for a seminar describing the effectiveness of riparian buffers for protecting water quality in the Chesapeake Bay.
             p Filename: McKane_VELMA overview_OSU 2April2014_final.pptx Folder location: VELMAModel\Supporting Documents\VELMA Pubs &amp; Talks
             

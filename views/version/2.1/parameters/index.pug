@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Steps for Configuring All Parameters TOC Sections
             p The "All Parameters Table of Contents" (TOC) provides users with a logical sequence of steps for creating a newsimulator configuration, or for quickly locating and calibrating parameters for existing configurations.
             p To access the All Parameter TOC, click the GUI's "All Parameters" tab, then click the drop-down button (<img width="19" height="24" alt="image" src="public/Image_028.gif" />) located on the right side of the4-window filter field (don't confuse this button with the one located next to the leftmost filter field):
@@ -34,6 +35,9 @@ block content
             img(width="624" height="121" alt="image" src="public/Image_037.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name inputDataLocationDirName:
                     td.param_desc The name of a subdirectory of the inputDataLocationRootName directory that contains the set of input data for a specific simulation run. When left unspecified or commented-out defaults to &quot;&quot;. (I.e. VELMA will look for input data in the inputDataLocationRootName directory itself)

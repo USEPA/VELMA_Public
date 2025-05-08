@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Weather Model 
             p The Default Weather Model provides uniform precipitation and air temperature values for all cells of asimulation's delineated watershed for each day of a simulation run, and includes a simple snow model.
             h4 A Default Weather Model is Provided Automatically in New Simulation Configurations

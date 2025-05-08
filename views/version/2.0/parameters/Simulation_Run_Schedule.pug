@@ -1,11 +1,15 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Simulation Run Schedule 
             p To let VELMA know when to start and stop a simulation, you specify need to specify values for the followingparameters:
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name forcing_start 
                     td.param_desc First year of driver (forcing) data available for the simulation model run

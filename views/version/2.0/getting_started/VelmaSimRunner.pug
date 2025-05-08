@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
         include getting_started_partials/_getting_started_side_nav.pug
-        div.grid-body-content
+        div.flex-body-content
             h1
                 | VelmaSimRunner
             h2

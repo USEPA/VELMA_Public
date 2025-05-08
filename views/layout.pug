@@ -4,9 +4,10 @@ html
     meta(name='viewport', content='width=device-width')
     meta(name='charset', content='utf-8')
     link(rel='stylesheet', type='text/css', href='/css/style.css')
-    <script src="bundle.js"></script>
-    script(src="https://requirejs.org/docs/release/2.3.7/minified/require.js") 
+    //- <script src="bundle.js"></script>
+    //- script(src="https://requirejs.org/docs/release/2.3.7/minified/require.js") 
     script(src="/js/search.js" type='module')
+    script(src="/js/sidebar-toggle.js" type='module')
     script(src="https://unpkg.com/lunr/lunr.js")
     link(rel="stylesheet" href="/css/search.css")
     title #{pageTitle} 
@@ -14,7 +15,7 @@ html
     div.header.blue-base
       include partials/_new_nav 
       include partials/_search
-    div#main_body.main_body.container
+    div#main_body.container
       block content
   footer#footer
     p VELMA SOFTWARE DOCUMENTATION

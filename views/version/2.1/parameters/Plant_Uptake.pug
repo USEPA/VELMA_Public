@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Plant Uptake 
             p The VELMA v1.0 subroutine for plant nitrogen uptake is described by Abdelnour et al. (2011). VELMA v2.0 generallyfollows the same subroutine, but includes important changes to several components affecting nitrogen uptake:
             ul
@@ -19,6 +20,9 @@ block content
             img(width="621" height="147" alt="image" src="public/Image_083.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name nh4MaximumUptakeRate
                     td.param_desc Cover-specific maximum rate of NH4 uptake for biomass uptake equation.
@@ -31,6 +35,9 @@ block content
             img(width="622" height="148" alt="image" src="public/Image_084.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name no3MaximumUptakeRate
                     td.param_desc Cover-specific maximum rate of NO3 uptake for biomass uptake equation.
@@ -38,7 +45,7 @@ block content
                     td.param_name no3Kn 
                     td.param_desc Half saturation constant, kn, for Michaelis-Menten NO3 uptake in gN/m^2.
             h4 Calibration Notes
-            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate NH4 and <a    href="mailto:mckane.bob@epa.gov">NO3 plant uptake parameters for your site (please contact</a>mckane.bob@epa.gov if you have questions):
+            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate NH4 and NO3 plant uptake parameters for your site.
             p Filename: VELMA 2.0_Nitrogen Uptake Calibrator (CHB Forest)_9-24-13.xlsx Folder location:VELMA2.0Software/SupportingDocuments/ExcelCalibrationFiles
             h3#11-3 11.3 - Plant Uptake GEM Temperature Component
             p Select "11.3 Plant Uptake GEM Temperature Component" from the All Parameters drop-down menu to specifyparameter values for the temperature response function affecting NH4 and NO3 uptake (specify percover type):
@@ -46,6 +53,9 @@ block content
             h4 Parameter Definitions
             p (see Rastetter et al. (1991) for a description of the General Ecosystem Model (GEM)temperature function and parameters for simulating plant nitrogen uptake):
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name uptakeOptimumT
                     td.param_desc Optimal temperature (oC) plant uptake of NH4 and NO3 
@@ -58,7 +68,7 @@ block content
             p An example:
             img(width="502" height="260" alt="image" src="public/Image_086.png")
             h4 Calibration Notes
-            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate temperatureresponse functions for plant N uptake and other temperature sensitive processes in <a    href="mailto:mckane.bob@epa.gov">VELMA. (please contact </a>mckane.bob@epa.gov if you havequestions):
+            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate temperatureresponse functions for plant N uptake and other temperature sensitive processes in VELMA.
             p Filename: VELMA 2.0_Temperature &amp; Moisture Response Functions_9-8-14.xlsx Folder location:VELMA Model\Supporting Documents\Excel Calibration Files
             p References
             p Rastetter, E. B., Ryan, M. G., Shaver, G. R., Melillo, J. M., Nadelhoffer, K. J., Hobbie, J. E., &amp; Aber, J.D. (1991). A general biogeochemical model describing the responses of the C and N cycles in terrestrialecosystems to changes in CO2, climate, and N deposition. Tree Physiology, 9(1-2), 101-126.
@@ -67,6 +77,9 @@ block content
             img(width="622" height="130" alt="image" src="public/Image_087.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name nppToBiomassRootNfraction
                     td.param_desc The fraction (0.0 -1.0) of total plant uptake of nitrogen (NH4 + NO3) per day allocated to the root biomass N pool.
@@ -85,7 +98,7 @@ block content
                 li Leaf litterfall data can be used to estimate annual leaf NPP, usually as dry weight or carbon, so you will alsoneed C/N data to calculate annual N uptake.
                 li Data for above- and belowground stem biomass growth can be obtained from tree- ring data and allometric biomassequations for forest cover types, or from "destructive" biomass harvest methods in grasslands or agriculturalplots.
                 li Production estimates for fine roots exist for many cover types, and are based on a variety of methods - e.g.,see Nadelhoffer, K. J., &amp; Raich, J. W. (1992).
-            p Please contact <a href="mailto:mckane.bob@epa.gov" target="_blank">mckane.bob@epa.gov</a> if you have questions. 
+            br
             h4 References
             p Nadelhoffer, K. J., &amp; Raich, J. W. (1992). Fine root production estimates and belowground carbon allocationin forest ecosystems. Ecology, 1139-1147
             h3#11-5 11.5 - Plant Uptake Phenology
@@ -93,6 +106,9 @@ block content
             img(width="621" height="177" alt="image" src="public/Image_088.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name jDayUptakeFirstAllowed
                     td.param_desc The first Julian day of the year on which uptake is possible for this Cover. Uptake will NEVER happen before the specified day. Use this parameter to delay uptake until the dailyphotoperiod is sufficient for the given Cover. This parameter specifies the first day of the year when uptakecan occur not necessarily the first day when uptake will occur. On and after the day specified by this parameteruptake will occur whenever the degree day parameterization allows it to begin.

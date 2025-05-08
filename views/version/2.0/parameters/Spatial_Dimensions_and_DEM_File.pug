@@ -1,11 +1,15 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Spatial Dimensions and DEM File
             p The VELMA simulator requires a DEM file in order to run a simulation. The simulator also assumes that all otherspatial data files (discussed below) contain spatial data with the same overall (row and column) and cell(pixel) size dimensions as the DEM file. We highly recommend that the DEM used for VELMA simulations bepre-processed using the JPDEM software, rather than by other available "flat-processor" software (see Appendix7).The VELMA simulation configuration parameter that specifies the name of the DEM file is:
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name input_dem example: 
                     td.param_desc SmallWatershed_10m.asc

@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
         include getting_started_partials/_getting_started_side_nav.pug
-        div.grid-body-content
+        div.flex-body-content
             h1 Creating a Simulator Configuration (New VELMA Application)
             hr 
             h2 Parts of new configuration
@@ -79,6 +80,9 @@ block content
             br 
             h4 The resulting display shows 13 "startups" parameters under the 3rd column. For now, we will focus on 2startup parameters that VELMA uses to locate simulation input files at the start of a simulation. You will needto specify a valid value in the 4th column for these:
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name inputDataLocationDirName:
                     td.param_desc The name of the directory containing your simulation input data files
@@ -92,6 +96,9 @@ block content
             br 
             h4 In the displayed subset of configuration parameters, enter values for the following parameters:
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name input_dem
                     td.param_desc The name (plus extension, ".asc") of this simulation's DEM spatial data file. The simulator will lookfor the file in the directory specified by the inputDataLocationDirName + "/" + inputDataLocationRootName thatyou specified as Startups parameters.

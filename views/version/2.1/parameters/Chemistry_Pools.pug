@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Chemistry Pools (Dissolved C and N) </a>(link to All </a>Parameters TOC) VELMA simulates ecosysteminputs, outputs and internal cycling of four pools of dissolved nitrogen and carbon in soil: ammonium(NH4), nitrate (NO3), dissolved organic nitrogen (DON)
             p and dissolved organic carbon (DOC).
             p Sections 8.1 and 8.2, below, describe the specification of initial pools and calibration of parameterscontrolling leaching losses to streams. Subsequent sections describe additional processes affecting inputs andoutputs from these dissolved C and N pools.
@@ -11,6 +12,9 @@ block content
             img(width="620" height="153" alt="image" src="public/Image_075.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name initial_doc
                     td.param_desc Initial DOC pool amount (per cell) in gC/m2.
@@ -29,7 +33,7 @@ block content
             p Section 7.0 describes methods for setting up an appropriate spin-up period for allowing initialized soil moisturelevels to adjust to a site's biophysical conditions. The same spin-up method applies for all model pools andfluxes, including stream chemistry.
             p Alternatively, you can use a more advanced method for specifying initial nutrient pool values that consider spatial variability in soil types, and cover species type and age.    Details can be found in </a>Appendix 3: Creating Initial ASCII Grid Chemistry Spatial DataPools.
             h4 References
-            p The User Manual package includes slides for a seminar describing the effectiveness of riparian <a href="mailto:mckane.bob@epa.gov">buffers for protecting water quality in the Chesapeake Bay (please contact</a>mckane.bob@epa.gov if you have questions):
+            p The User Manual package includes slides for a seminar describing the effectiveness of riparian buffers for protecting water quality in the Chesapeake Bay.
             p Filename: McKane_ORD GI webinar_7-30-14 Final.pptx
             p Folder location: VELMA Model\Supporting Documents\VELMA Pubs &amp; Talks
             h3#8-2 8.2 - Chemistry Water Loss Fractions
@@ -38,6 +42,9 @@ block content
             img(width="621" height="156" alt="image" src="public/Image_076.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name qf_din
                     td.param_desc NH4 loss due to horizontal and vertical water flow range [0.0 1.0].

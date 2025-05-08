@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include spatial_maps_partials/_spatial_maps_side_nav.pug
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include spatial_maps_partials/_spatial_maps_side_nav.pug 
+        div.flex-body-content
             h1 Creating Flat-Processed DEM Data For The VELMA Simulator and Determining Outlet and Watershed Delineation    
             hr 
             p The VELMA Simulator requires a Digital Elevation Map (DEM) for any simulation it runs. This DEM contains elevation data for the area simulated.    

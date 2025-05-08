@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include user_guide_partials/_user_guide_side_nav.pug       
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include user_guide_partials/_user_guide_side_nav.pug  
+        div.flex-body-content
             h1 Cell Data Writer Configuration
             div.info.blue-light-1
                 p Overview (Tutorial D.8 - Cell Data Writer Configuration)

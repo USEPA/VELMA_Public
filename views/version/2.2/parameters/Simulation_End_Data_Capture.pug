@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Simulation-End Data Capture for Spin-up Initialization Use
             
             p Skip to section 21.0 where the procedure for section 20.0 is included as part of the "Simulation- StartInitialization from Spin-up Data" procedure.

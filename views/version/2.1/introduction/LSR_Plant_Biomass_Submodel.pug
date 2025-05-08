@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include introduction_partials/_introduction_side_nav.pug     
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include introduction_partials/_introduction_side_nav.pug 
+        div.flex-body-content
             h1 Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel
             hr
             p In VELMA version 1.0, plant biomass in each cell was simulated in aggregate. That is, leaves, stems and rootswere lumped together in a single biomass pool (Abdelnour et al. 2011). This lumped approach greatly simplifiedthe structure and application of the model. Although version 1.0 successfully simulates important aspects ofcatchment hydrology and biogeochemistry (e.g., Abdelnour et al. 2011, 2013), it does not simulate effectsassociated with phenological changes and disturbances and that disproportionately affect specific plant tissues,for example, leaf growth and senescence, defoliation events, selective removal of high or low C/N tissues viaharvest, grazing, fire, etc.

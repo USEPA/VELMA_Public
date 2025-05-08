@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Nitrification 
             p Nitrification is the microbially-mediated conversion of ammonium (NH4+) to nitrate(NO3-). As the diagram below indicates, nitrification (red box) is an important step in the soilnitrogen cycle (partially shown here).
             img(width="217" height="100" alt="image" src="public/Image_099.gif")
@@ -14,6 +15,9 @@ block content
             img(width="623" height="124" alt="image" src="public/Image_100.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name useNitrogenFixation
                     td.param_desc When set false daily nitrification amounts are ignored and the PSM model behaves as if the nitrification amount is zero When set true (default) nitrification occursnormally
@@ -22,6 +26,9 @@ block content
             img(width="626" height="120" alt="image" src="public/Image_101.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name setNitrogenFunctionSelection
                     td.param_desc Specify &quot;PARTON_1996&quot; &quot;PARTON_2001&quot; or &quot;DEL_GROSSO_XLS_2013&quot; as the value of the setNitrificationFunctionSelection property. Warning: be sure to use UPPERCASE text! The simulator engine will compute nitrifcation amounts using the specified function.PARTON_1996 = Function based upon equation given in Figure 2 (d) in [Parton et al. 1996] from Global BiochemicalCycles v.10. PARTON_2001 = Function based upon equation (2) in [Parton et al. 2001] from Journal of GeophysicalResearch v.106. DEL_GROSSO_XLS_2013 = (Default / RECOMMENDED) function implementing the Excel 2013 spreadsheet model provided byDr. Stephen Del Grosso.
@@ -32,6 +39,9 @@ block content
             img(width="623" height="255" alt="image" src="public/Image_102.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name nitrificationK1 
                     td.param_desc Fraction of net Nitrogen mineralized that is nitrified per day range in [0.0 1.0]. [Parton et al.2001].

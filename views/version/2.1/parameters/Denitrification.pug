@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Denitrification 
             p Denitrification is the microbially-mediated conversion of nitrate (NO3-) to nitrous oxide(N2O) and nitrogen gas (N2). This process is represented in the red-outlined area in the diagrambelow.
             img(width="193" height="93" alt="image" src="public/Image_103.gif")
@@ -14,6 +15,9 @@ block content
             img(width="618" height="98" alt="image" src="public/Image_104.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name setNitrogenFunctionSelection
                     td.param_desc When set "false" daily denitrification amounts are ignored and VELMA's biogeochemistry submodel behaves as if the denitrification amount is zero. When set "true"(default) denitrification occurs normally.
@@ -22,6 +26,9 @@ block content
             img(width="623" height="129" alt="image" src="public/Image_105.png")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name denitDiffusivity
                     td.param_desc This is the value of the &quot;a&quot; parameter in Del >Grosso etal. (2000) fig.7(a). It controls the >shape of the logistic function that defines the>response of "relative denitrification" (0.0 - >1.0) to water filled pore space (WFPS%). See calibration notes at the end of section >16.0, below.
@@ -36,6 +43,9 @@ block content
             img(width="628" height="128" alt="image" src="public/Image_106.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name setDenitrificationSoilCondition
                     td.param_desc Defines soil condition with respect to denitrification calculations. Value must be one of the following: &quot;INTACT&quot; (the default value) or&quot;REPACKED_COARSE&quot; or &quot;REPACKED_MEDIUM&quot; or &quot;REPACKED_FINE&quot; The value is case-sensitive and must appear exactly as given here (but with the surrounding double-quotes). Inpractice, Del Grosso's NGAS spreadsheet uses "INTACT" = undisturbed soils, and &quot;REPACKED_MEDIUM" and&quot;REPACKED_FINE&quot; = medium or fine textured soil samples, respectively, that have been repacked in thelab after field collection.

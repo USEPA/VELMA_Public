@@ -1,7 +1,25 @@
+.search-bar {
+    display: flex;
+    justify-content: center;
+    padding: 12px;
+    /* flex-direction: column; */
+}
+
+.search-bar input {
+    width: 50%;
+    min-width: 300px;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 16px;
+    border: 0px;
+    outline: none;
+}
+
 #search-results {
     position: absolute;
     background: white;
-    width: 100%;
+    text-align: center;
+    width: 40%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 

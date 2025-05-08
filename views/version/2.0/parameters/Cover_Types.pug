@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Cover Types
             p VELMA version 2.0 includes two major changes to the vegetation submodel:
             ol
@@ -49,6 +50,9 @@ block content
             img(width="626" height="125" alt="image" src="public/Image_060.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name GaleGrigalBetaParam 
                     td.param_desc The Beta term for this cover type's root vertical distribution. For the root distributionfunction of Gale Grigal (1987): roots[D] = 1 - B^D, where B = GaleGrigalBetaParam value (assigned here) D =layer depth
@@ -66,6 +70,9 @@ block content
             p Parameters in this section cover the Leaf, Stem and Root pool C/N ratios, initial values, mortalityparameterizations and uptake fractions. Because each biomass or detritus leaf, stem and root pool has its ownset of parameters for these subjects, this list of parameters is relatively extensive.
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name biomassLeafCtoN
                     td.param_desc The Carbon-to-Nitrogen ratio of the cover type's Leaf biomass pool.

@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include spatial_maps_partials/_spatial_maps_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include spatial_maps_partials/_spatial_maps_side_nav.pug 
+        div.flex-body-content
             h1 JPDEM Cell Highlighter
 
             div.info.blue-light-1

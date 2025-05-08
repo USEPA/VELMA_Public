@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include introduction_partials/_introduction_side_nav.pug     
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include introduction_partials/_introduction_side_nav.pug 
+        div.flex-body-content
             h1 How to Use This Manual
             p This user manual and its supporting documents are written and organized for several types of VELMA user groups:
             ul

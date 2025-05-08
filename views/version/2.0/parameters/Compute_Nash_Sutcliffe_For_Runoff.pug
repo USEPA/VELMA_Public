@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Years to Compute Nash-Sutcliffe for Runoff
             h4 The VELMA Simulator Calculates a Nash-Sutcliffe Value for Runoff
             p Whenever possible, the VELMA simulator automatically computes a Nash-Sutcliffe Coefficient for observed vs.simulated annual runoff values. In order to calculate the runoff Nash-Sutcliffe, the simulator must know whichspan of years to include in the calculation, and have observed runoff data for those years available.

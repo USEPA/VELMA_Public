@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Transpiration 
             p Evapotranspiration (ET) is the sum of evaporation and plant transpiration. ET equations and parameters in VELMAversion 2.0 are the same as for version 1.0 (see Abdelnour et al. 2011), except for the following:
             ul
@@ -14,6 +15,9 @@ block content
             h4 Parameter Definitions
             p (see Abdelnour et al. 2011 for equations and additional explanation):
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name roair
                     td.param_desc Air density in g/m^3
@@ -40,6 +44,9 @@ block content
             img(width="623" height="146" alt="image" src="public/Image_080.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name etRecoverFractionSlope
                     td.param_desc The value of the ET recovery fraction&#39;s linear equation slope component.
@@ -53,7 +60,7 @@ block content
                     td.param_name etRecoverFractionIntercept 
                     td.param_descThe value of the ET recovery fraction&#39;s linear equation intercept component.
             h4 Calibration Notes
-            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate ET <a    href="mailto:mckane.bob@epa.gov">recovery parameters for your site (please contact </a>mckane.bob@epa.govif you have questions):
+            p We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate ET recovery parameters for your site.
             p Filename: VELMA 2.0_ET Recovery Calibrator_HJA_12-1-13.xlsx
             p Folder location: VELMA Model\Supporting Documents\Excel Calibration Files
             h3#10-3 10.3 - Transpiration Limiter On/Off?
@@ -62,6 +69,9 @@ block content
             img(width="626" height="100" alt="image" src="public/Image_081.jpg")
             h4 Parameter definition:
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name useTranspirationLimiter
                     td.param_desc When set false (default value) the transpiration limiter fraction value is forced to 1.0 (Which effectively means &quot;No age-related limitation&quot; i.e. the limiter is OFF.)When set true the transpiration limiter fraction is computed based on its jday and coefficients settings.
@@ -74,6 +84,9 @@ block content
             img(width="622" height="207" alt="image" src="public/Image_082.jpg")
             h4 Parameter Definitions
             table
+                thead 
+                    th Parameter Name 
+                    th Parameter Description
                 tr 
                     td.param_name useTranspirationLimiter
                     td.param_desc When set false (default value) the transpiration limiter fraction value is forced to 1.0 (Which effectively means &quot;No limiting at all&quot; i.e. the limiteris OFF.) When set true the transpiration limiter fraction is computed based on its jday and coefficientssettings.

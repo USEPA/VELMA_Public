@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Runtime Chart Display Scale
             p VELMA has powerful visualization capabilities built into it, hence the model's name - Visualizing Ecosystem LandManagement Assessments. To see a list of visualization options, select the VELMA GUI "Chart" tab at any timeduring a simulation, then click the drop-down menu button ( <img width="19" height="24" alt="image"        src="public/Image_158.gif")) located near the lower left corner of the screen, and select a displayoption. Each option dynamically displays daily changes in one or more output variables. The screenshot belowshows the lower half of possible visualization options:
             img(width="599" height="488" alt="image" src="public/Image_159.jpg")

@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include parameters_partials/_parameters_side_nav.pug   
-        div.grid-body-content
+    div.main-body
+        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        include parameters_partials/_parameters_side_nav.pug
+        div.flex-body-content
             h1 Cell Data Writer Items
             h4 Cell Data Writers Allow You to Gather Simulation Results for a Specific Grid Location
             p The VELMA simulator automatically provides daily simulation results for various values (e.g. Leaf Biomass),however these daily results are average values that are computed by summing individual cell values and thendividing the sum by the number of cells in the simulation's delineated watershed.
