@@ -1,7 +1,7 @@
 extends ../../../layout.pug
 block content
     div.main-body
-        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        
         include user_guide_partials/_user_guide_side_nav.pug  
         div.flex-body-content
             h1 Default Tidewater Model Configuration
@@ -13,14 +13,14 @@ block content
             p The Default Tidewater Model provides a way to mimic water and nitrogen deposition due to tidal
             p overtopping of cells within a VELMA simulation's delineated watershed. The model is currently very
             p simple, and subject to development changes.
-            h3 You Must Explicitly Set the Tidewater Model for use by a simulation configuration.
+            h2 You Must Explicitly Set the Tidewater Model for use by a simulation configuration.
             p In the VELMA GUI click Edit --> "Set Tidewater Model" --> "Default Tidewater Model") as shown below:
-            img(width="607" height="210" alt="screenshot" title="screenshot" src="public/suppImage_263.jpg")
+            img(width="607" height="210" alt="Editing the tidewater model with the gui example" src="public/suppImage_263.jpg")
             p Note the "NO Tidewater Model" menu option - clicking it removes the Default Tidewater Model from your simulation configuration.
             p After click-setting the Default Tidewater Model, the VELMA GUI should shift your view to the model's parameters in the "All Parameters" tab:
-            img(width="617" height="161" alt="screenshot" title="screenshot" src="public/suppImage_264.jpg")
+            img(width="617" height="161" alt="Tidewater parameter view example" src="public/suppImage_264.jpg")
             p Notice that the Group selector has "tidewater" selected; you can always return the parameters table to display only tidewater parameters by clicking "Clear Filters" and then selecting "tidewater" in the drop- down list of the Group selector.
-            h3 You Must Provide the Default Tidewater Model with a Driver Data File
+            h2 You Must Provide the Default Tidewater Model with a Driver Data File
             p The Default Tidewater Model needs daily values for the following data:
             ul
                 li Highest High Tide Elevation (for the 24-hour period of the day, in meters)
@@ -31,22 +31,21 @@ block content
             p Set the name of the tidalDriverDataFileName to the name of a file that provides the above values. The name (or fully-qualified path + name) you provide must be a file of comma-separated values (.csv).
             p when presented with a file name without a path, the VELMA simulation engine's initialization code will assume the file is located in the directory specified by the inputDataLocationRootName/inputDataLocationDirName path.
             p Each row of the .csv file specifies one day's worth of tidewater driver data in the following field layout:
-            p YEAR, JDAY, HIGH_TIDE, LOW_TIDE, NO3_K, NH4_K, DON_K
+            code YEAR, JDAY, HIGH_TIDE, LOW_TIDE, NO3_K, NH4_K, DON_K
             p The year and jday fields must be integers, and the year field must be a full four-digit year.
             p VELMA assumes that first row in the file will have YEAR = forcing_start and JDAY = 1, and that the last row in the file will have YEAR = forcing_end and JDAY = 365 (or 366 if forcing_end is a leap year).
             p VELMA further assumes that there will be rows of data for every YEAR, JDAY combination in-between. That is, there can be no missing days in the driver data file.
-            img(width="640" height="33" alt="image" src="public/suppImage_265.png")
             
             p The YEAR, JDAY, HIGH_TIDE and LOW_TIDE values are all <b>required</b>, but any or all of the nitrogen concentration coefficients are optional and may be left blank. Any nitrogen concentration coefficient value left blank defaults to a value of zero.
             
             h4 Here are the first four rows of a tidalDriverDataFileName .csv driver file as an example:
             table
-                tr
-                    td YEAR,
-                    td JDAY,
-                    td HIGH_TIDE,
-                    td LOW_TIDE,
-                    td NO3_K, NH4_K, DON_K
+                thead
+                    th YEAR,
+                    th JDAY,
+                    th HIGH_TIDE,
+                    th LOW_TIDE,
+                    th NO3_K, NH4_K, DON_K
                 
                 tr
                     td 2008,
@@ -80,7 +79,7 @@ block content
                     
             p The example above contains a header row, which is acceptable but not required. However, if the header row is present, it must start with an alphabet character, not a numeral.
             
-            h3 The Default Tidewater Model's Tidewater and Nitrogen Infiltration Amounts are Reported by Cell and Spatial Data Writers
+            h2 The Default Tidewater Model's Tidewater and Nitrogen Infiltration Amounts are Reported by Cell and Spatial Data Writers
             p When a DefaultTidewaterModel is part of a simulation configuration, any cell data writers specified automatically include columns reporting the following daily amounts for its specified cell location:
             ul
                 li Tidewater Added (in millimeters of water)
@@ -98,7 +97,7 @@ block content
             p The Tidewater values reported in spatial data represent amounts of water (in millimeters) added "as if" they were part of the cell's rainfall on the given day.
             p All the nitrogen infiltration values reported in Spatial Data output files specified by the above keywords are in units of grams nitrogen / meter2 and represent amounts added at each cell in the map by the specific nitrogen infiltration type. The TotalTidalNInfiltration values are the sum (NO3 + NH4 + DON) of the cells nitrogen infiltration addition for the day.
             p A simulation configuration that includes Spatial Data Writer parameterizations for any of the above, but does not include the DefaultTidewaterModel parameterization should not crash, but all any spatial data based on the DefaultTidewaterModel will be all zeros.
-            h3 A Summary Description of the Default Tidewater Model's Behavior and Effects
+            h2 A Summary Description of the Default Tidewater Model's Behavior and Effects
             p When a DefaultTidewaterModel is set for a simulation configuration, and provided with valid parameters from the tidal driver data file, the daily water balance code asks the tidewater model instance for a tidewater amount for each cell whose elevation falls below the HIGH_TIDE value for that day, and adds the (zero or more millimeters) resulting tidewater amount to the cell's total rain amount for that day. The tidewater amount added is simply:
             code Tidewater amount = (HIGH_TIDE * 1000) - (cell elevation * 1000)
             p The multiplication by 1000 converts meters to millimeters.

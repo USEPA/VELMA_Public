@@ -99,6 +99,12 @@ li {
     border-bottom: 1px solid white;
 }
 
+.nav-item:first-child:hover {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+}
+
 .nav-child {
     color: white;
     text-decoration: none;
@@ -439,6 +445,9 @@ td {
     padding: 4px 8px;
 }
 
+.col-span-4 {
+    column-span: 4;
+}
 .param_def {
     border: 1px solid black;
     padding: 2rem;

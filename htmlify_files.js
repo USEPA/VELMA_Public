@@ -2,12 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
 
+// same as htmlify.js
+// however we specify specific files we want converted instead of doing all files in '/views'
 function compileAndSavePugFiles(pugDir, htmlDir, files) {
     if (!fs.existsSync(htmlDir)) {
         fs.mkdirSync(htmlDir, { recursive: true });
     }
-
-    
 
     files.forEach(file => {
         const pugFilePath = path.join(pugDir, file);

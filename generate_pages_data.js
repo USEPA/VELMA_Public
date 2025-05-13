@@ -21,12 +21,12 @@ function getAllPugFiles(dir) {
     return pugFiles;
 }
 
-// Extract content from `div.grid-body-content`
+// Extract HTML content from `div.flex-body-content`
 function extractGridBodyContent(pugFilePath) {
     // const compiledFunction = pug.compileFile(pugFilePath);
     // const html = compiledFunction(); // Render Pug to HTML
     var html = pug.renderFile(pugFilePath);
-    const match = html.match(/<div class="grid-body-content">([\s\S]*?)<\/div>/);
+    const match = html.match(/<div class="flex-body-content">([\s\S]*?)<\/div>/);
 
     return match ? match[1].trim() : '';
 }

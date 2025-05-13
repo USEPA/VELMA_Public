@@ -1,14 +1,14 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
         include user_guide_partials/_user_guide_side_nav.pug    
-        div.grid-body-content
+        div.flex-body-content
             h1 Details of Specific Input Data Files
             h2 The Flat-Processed DEM File
             p A spatial data file (.asc) containing elevation values (in meters) for every cell in the simulation area. Theterm “Flat-Processed” indicates that the contents of the file have been pre-processed by the JPDEMflat-processing utility. The DEM file is the “master” film for a simulation run: all other spatially- explicitdata is assumed to have the same row, column, cell size and x, y offset values as the DEM file.
             
-            h5 See 
-                a(href="../dem/Create_Flat_Processed_DEM")  Creating Flat-Processed DEM Data For The VELMA Simulator and Determining Outletand Watershed Delineation
+            h4 See 
+                a(href="../spatial_maps/Create_Flat_Processed_DEM_Tutorial")  Creating Flat-Processed DEM Data For The VELMA Simulator and Determining Outletand Watershed Delineation
                 | for details on the use of the JPDEM.jar program to flat process a DEMfile.
 
             h2 The Cover Species ID Map File

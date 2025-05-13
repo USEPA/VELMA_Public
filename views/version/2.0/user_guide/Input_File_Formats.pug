@@ -1,15 +1,15 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
         include user_guide_partials/_user_guide_side_nav.pug 
-        div.grid-body-content
+        div.flex-body-content
             h1 Details of Specific File Formats
             hr
             p Broadly speaking, the VELMA simulator needs two types of input or driver data: Spatial and Temporal. A spatial data value is something associated with a particular cell location. A temporal data value is somethingassociated with a particular time step of a simulation run. Spatial data is nearly always input from files in ESRI Grid ASCII format (.asc), while temporal data is input from files with either comma-separated value format(.csv), or simple text files (.txt)
             br
             h3 ESRI Grid ASCII (.asc)
-                p A raster GIS file format specified by ESRI. See this Wikipedia article for an overview: "ESRI grid"
-                p <a href="http://en.wikipedia.org/wiki/ESRI_grid">http://en.wikipedia.org/wiki/ESRI_grid</a>
+            p A raster GIS file format specified by ESRI. See this Wikipedia article for an overview: "ESRI grid"
+            p <a href="http://en.wikipedia.org/wiki/ESRI_grid">http://en.wikipedia.org/wiki/ESRI_grid</a>
                     
             h3 Comma-Separated Value (.csv)
             p An informal, de-facto standard format that represents tabular data in a file as a sequence of lines (rows) of comma-separated values (columns). There is no formal standard for CSV data, but good overviews are provided by this Wikipedia article:

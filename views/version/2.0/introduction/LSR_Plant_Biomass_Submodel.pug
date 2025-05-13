@@ -1,8 +1,9 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
-        include introduction_partials/_introduction_side_nav.pug       
-        div.grid-body-content
+    div.main-body
+        
+        include introduction_partials/_introduction_side_nav.pug 
+        div.flex-body-content
             h1 Overview of VELMA's Leaf-Stem-Root (LSR) Plant Biomass Submodel
             hr
             p In VELMA version 1.0, plant biomass in each cell was simulated in aggregate. That is, leaves, stems and rootswere lumped together in a single biomass pool (Abdelnour et al. 2011). This lumped approach greatly simplifiedthe structure and application of the model. Although version 1.0 successfully simulates important aspects ofcatchment hydrology and biogeochemistry (e.g., Abdelnour et al. 2011, 2013), it does not simulate effectsassociated with phenological changes and disturbances and that disproportionately affect specific plant tissues,for example, leaf growth and senescence, defoliation events, selective removal of high or low C/N tissues viaharvest, grazing, fire, etc.
@@ -16,16 +17,26 @@ block content
                 li A specified fraction of total plant nitrogen uptake is allocated to each plant tissue type, such that thefractions for all tissues = 1.0 (see Appendix 1, Figures A1.1 - A1.4)</span>
                 p Figures A1.1 - A1.11, below, graphically summarize the LSR submodel structure and model equations. These figuresportray the pools (boxes) and fluxes (arrows) of nitrogen and/or carbon from live to dead biomass and from deadbiomass to the humus pool and atmosphere. Pools and fluxes involving VELMA's four soil layers are also shown. Ineach successive figure, a red encircling line delineates a subset of the LSR system for which text is providedto describe associated model parameters and equations that govern simulated C and N pools and fluxes.</span>Note that parameter names in the VELMA</span> </span>version 2.0 program Java code and GUI do notnecessarily conform to Figures A1.1 - A1.11 parameter</span> </span>names, which were modified using morerigorous naming rules during the VELMA programming</span> </span>process</span>.</span>
                 p Figure A1.1
-                br
+            br
             
             img(src="../../../public/figure-a1-1.png", alt="Figure A1.1")
+            br
             img(src="../../../public/figure-a1-2.png", alt="Figure A1.2")
+            br
             img(src="../../../public/figure-a1-3.png", alt="Figure A1.3")
+            br
             img(src="../../../public/figure-a1-4.png", alt="Figure A1.4")
+            br
             img(src="../../../public/figure-a1-5.png", alt="Figure A1.5")
+            br
             img(src="../../../public/figure-a1-6.png", alt="Figure A1.6")
+            br
             img(src="../../../public/figure-a1-7.png", alt="Figure A1.7")
+            br 
             img(src="../../../public/figure-a1-8.png", alt="Figure A1.8")
+            br 
             img(src="../../../public/figure-a1-9.png", alt="Figure A1.9")
+            br 
             img(src="../../../public/figure-a1-10.png", alt="Figure A1.10")
+            br 
             img(src="../../../public/figure-a1-11.png", alt="Figure A1.11")

@@ -1,7 +1,7 @@
 extends ../../../layout.pug
 block content
     div.main-body
-        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        
         include parameters_partials/_parameters_side_nav.pug
         div.flex-body-content
             h1 Spatial Dimensions and DEM File
@@ -57,13 +57,13 @@ block content
             p Sections 3.1 - 3.3 provide details on configuring these parameters for a DEM file.
             p Note: if you change the DEM file that a simulation is configured to use (i.e. you change the DEM filename for theinput_dem parameter) then you must ensure that all of the parameters above are updated as well.
             h3#3-1 3.1 - DEM Row and Column Counts
-            p Specify values for the ncol and nrow parameters based on the DEM grid ASCII header items in thetable above.
-            img(width="628" height="135" alt="image" src="public/Image_041.jpg")
+            p Specify values for the ncol and nrow parameters based on the DEM grid ASCII header items in the table above.
+            img(width="628" height="135" alt="Specify values for the ncol and nrow parameters based on the DEM grid ASCII header items in the table" src="public/Image_041.jpg")
             h3#3-2 3.2 - DEM Cell Size (Assumes a square cell, i.e. Width and Height equal)
             p Specify the value of the cell parameter.
-            img(width="630" height="102" alt="image" src="public/Image_042.jpg")
+            img(width="630" height="102" alt="Specify the value of the cell parameter" src="public/Image_042.jpg")
             p This describes the xy-dimension in meters of individual cells in the DEM grid ASCII file. In this example, eachcell is 10x10 meters. The choice of DEM cell size will depend upon the set of questions a user wishes toaddress. For example, applications focusing on the effect of riparian buffer width on nutrient export to streamsmay require relatively small cells (e.g., 10 meters), compared to applications focusing on ecosystem carbondynamics (e.g., 100 meters). Obviously, an application's total number of cells (and consequent simulation time)increases with the square of the ratio of alternative cell sizes - e.g., (100/10)2 = 100 times more cellsfor 10m versus 100m cell sizes. In any case, the specified cell size must be consistent with the DEM cell size.That is, the user cannot arbitrarily adjust the cell size parameter without telling VELMA to load a DEM havingthe same cell size (see All Parameters 3.0). Furthermore, the DEM used must be "flat- processed" for thespecified cell size using the JPDEM tool. The executable JPDEM.jar, a JPDEM user manual, and backgroundinformation (Pan et al. 2012) can be found here: VELMA Model\JPDEM_DEM Processor. The JPDEM user manual is alsoincluded in Appendix 7 of this manual.
             h3#3-3 3.3 - Watershed Outlet (X and Y coordinates are Column and Row indices)
             p Specify the value of the outx and outy parameters. These describe the watershed outlet cell's X andY coordinates (column index) relative to the DEM upper-left corner. The watershed outlet cell coordinates are determined using the JPDEM tool.
-            img(width="619" height="115" alt="image" src="public/Image_043.jpg")
+            img(width="619" height="115" alt="Specify the value of the outx and outy parameters" src="public/Image_043.jpg")
             

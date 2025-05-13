@@ -1,7 +1,7 @@
 extends ../../../layout.pug
 block content
     div.main-body
-        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        
         include getting_started_partials/_getting_started_side_nav.pug
         div.flex-body-content
             h1
@@ -52,7 +52,7 @@ block content
                 |  can involve a fair amount of typing per command line.
             br
             p Here is an PowerShell example command line that runs a VELMA scenario whose simulation configuration is named OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml:
-            code PS C:\Users\kdjang\> java -Xmx4g -cp '.\Velma_GitHub\VelmaUtils\bin;.\Velma_GitHub\VelmaSimulator\bin' gov.epa.velmasimluator.VelmaSimulatorCmdLine F:\Users\kdjang\Velma_SiteData\OR_BlueRiver_Xml\OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
+            code PS C:\Users\username\> java -Xmx4g -cp '.\Velma_GitHub\VelmaUtils\bin;.\Velma_GitHub\VelmaSimulator\bin' gov.epa.velmasimluator.VelmaSimulatorCmdLine F:\Users\username\Velma_SiteData\OR_BlueRiver_Xml\OR_BR_HJA_ws10_30m_userD_defW_2019-1-31a.xml
 
             p Confronted with the need to run, say, 25 or more simulations (one after the other), each using the same basic pattern as the example above, but with some more or less memory ('-Xmx') allocated, and each with a unique .xml file name, most developers would copy the original example command line as many times as needed into a .bat or .ps file, then edit differences for each line in the file.
             p Doing exactly this sort of batch file creation caused VELMA developers to write 

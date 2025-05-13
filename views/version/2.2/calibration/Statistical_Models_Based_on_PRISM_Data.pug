@@ -1,7 +1,7 @@
 extends ../../../layout.pug
 block content
     div.main-body
-        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        
         include calibration_partials/_calibration_side_nav.pug 
         div.flex-body-content
             h1 Development of Statistical Models Based on Monthly PRISM / Daymet Data
@@ -137,7 +137,7 @@ block content
                     td -0.00412
                     td 0.866289
 
-
+            p Table 2. 
             table 
                 tr 
                     td Parameter
@@ -314,9 +314,9 @@ block content
             img(width="624" height="240" alt="figure 8" title="figure 8" src="public/suppImage_232.jpg")
             p Figure 24 Daily air temperature, Skookum vs Alpine Meadows SNOTEL
             h4 References
-            p <a href="http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf">PRISM Climate Group (2013) Descriptions of PRISM Spatial Climate Datasets for the Conterminous United States. In. PRISM Climate Group, Oregon State University, Corvallis, Oregon, http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf</a>
+            p <a href="http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf">PRISM Climate Group (2013) Descriptions of PRISM Spatial Climate Datasets for the Conterminous United States. In. PRISM Climate Group, Oregon State University, Corvallis, Oregon</a>
             p Thornton, P.E., M.M. Thornton, B.W. Mayer, N. Wilhelmi, Y. Wei, R. Devarakonda, and R.B. Cook. 2014. Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 2. Data set. Available on-line [https://daac.ornl.gov] from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, USA.
-            p <a href="http://www.wcc.nrcs.usda.gov/snow/snotel-precip-reports.html">United States Department of Agriculture, National Water and Climate Center. SNOTEL Precipitation Products. http://www.wcc.nrcs.usda.gov/snow/snotel-precip-reports.html</a>
+            p <a href="http://www.wcc.nrcs.usda.gov/snow/snotel-precip-reports.html">United States Department of Agriculture, National Water and Climate Center. SNOTEL Precipitation Products.</a>
             h2 Appendix
             p # Regression model between the weather variables (temperature and precipitation) and the # physiographic variables
             p climate&lt;-read.csv(&quot;D:/Temp/Tolt/ToltClimate.csv&quot;,header=TRUE) climVar&lt;-names(climate)

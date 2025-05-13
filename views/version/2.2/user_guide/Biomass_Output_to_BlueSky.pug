@@ -1,8 +1,8 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
         include user_guide_partials/_user_guide_side_nav.pug    
-        div.grid-body-content
+        div.flex-body-content
             h1 Set Up VELMA biomass Outputs as Inputs to BlueSky
             div.info.blue-light-1
                 p Overview <i>(Tutorial </i>D.9 - Set Up VELMA biomass Outputs as Inputs to Bluesky)
@@ -11,22 +11,22 @@ block content
             h2 Software Requirements
             p To run the algorithm that converts VELMA output to input for the Bluesky smoke emissions simulator, you will need the following:
             ol 
-                li <b>Python version 2.x: Current release is 2.7.11</b>
+                li <b>Python version 3.x: Current release is 3.12</b>
                 li <b>Python package 'ArcPy' (Requires ArcGIS license)</b>
                 li <b>Velma2Bluesky Python Algorithm</b>
             ol 
-                li  <a href="https://www.python.org/download/releases/2.7/">Python</a> comes pre-packaged within ArcGIS, so it is likely you already have it installed on your computer. For example, mine is installed currently here: C:\Python27\ArcGIS10.2\python.exe. Check to see if you have Python installed before installing a new version. If Python is not installed, you can obtain a copy here: https://www.python.org/download/releases/2.7/ Note that Python 2.7 is currently considered safe for use on U.S. EPA network and non-network computers.
+                li  <a href="https://www.python.org">Python</a> comes pre-packaged within ArcGIS, so it is likely you already have it installed on your computer. For example, mine is installed currently here: C:\Python27\ArcGIS10.2\python.exe. Check to see if you have Python installed before installing a new version. Note that Python 3.12 is currently considered safe for use on U.S. EPA network and non-network computers.
                 li ArcPy is a python package that comes pre-installed with ArcGIS. You can test that you have access to ArcPy by opening your Python executable and typing 'import arcpy' into the command line. If you receive no error, then you have ArcPy installed appropriately.
-                    img(width="469" height="239" alt="screenshot" title="screenshot" src="public/suppImage_236.jpg")
+                    img(width="469" height="239" alt="Checking arcpy install via the command line" src="public/suppImage_236.jpg")
                     span 
-                        <a href="http://pro.arcgis.com/en/pro-app/arcpy/get-started/importing-arcpy.htm">If you have problems importing ArcPy, visit </a>http://pro.arcgis.com/en/pro-app/arcpy/get-<a href="http://pro.arcgis.com/en/pro-app/arcpy/get-started/importing-arcpy.htm"> </a><a href="http://pro.arcgis.com/en/pro-app/arcpy/get-started/importing-arcpy.htm">started/importing-arcpy.htm</a>
+                        <a href="http://pro.arcgis.com/en/pro-app/arcpy/get-started/importing-arcpy.htm">If you have problems importing ArcPy click here</a>
                 li <b>Velma2Bluesky Python Algorithm: </b>This file is called VELMA2BLUESKY.py and can be run using a command line command: "python C:\Path\To\VELMA2BLUESKY.py". It can also be edited directly with any text editor (e.g., Notepad, EMACS)
             h2 Steps for running the VELMA2BLUESKY.py script
             ol 
                 li First, navigate to the directory that contains the Bluesky script. In this example, the script is called VELMA2BLUESKY_2016-10-11.py, but you can rename it if you would like.
-                    img(width="607" height="234" alt="screenshot" title="screenshot" src="public/suppImage_237.jpg")
+                    img(width="607" height="234" alt="File explorer example" src="public/suppImage_237.jpg")
                 li You can open the file with any text editor, as shown here:
-                    img(width="558" height="373" alt="image" src="public/suppImage_238.png")
+                    img(width="558" height="373" alt="opening velma2bluesky.py in text editor" src="public/suppImage_238.png")
                 li You will need to change the paths within the script to make it work on your system.
                     ul 
                         li dataLoc = This should be the path to your data directory that contains VELMA output files.
@@ -36,20 +36,20 @@ block content
                     span
                         h5 NOTE: The tempFilesDir and finalOutputDir must exist and they must be empty for the script to work properly. If you receive an error, make sure that these paths are correct and that there are no files in the tempFilesDir or finalOutputDir.
                         p Below is an example of a proper specification of paths:
-                        img(width="605" height="85" alt="screenshot" title="screenshot" src="public/suppImage_239.jpg")
+                        img(width="605" height="85" alt="Alter paths in text editor to users use case" src="public/suppImage_239.jpg")
                 li You will also need to set the cellArea in the script. You obtain the cellArea variable by squaring the original size of your VELMA cell. That is, if you have a 30m grid, you will input a cellArea = 30x30 = 900.
-                    img(width="599" height="87" alt="screenshot" title="screenshot" src="public/suppImage_240.jpg")
+                    img(width="599" height="87" alt="Setting the cellArea variable" src="public/suppImage_240.jpg")
                 li To run the script, start by opening a command window. You can also open the script file in IDLE or another Python user environment if you know how to do this. For the command line method, on Windows, click Start -&gt; Search for Programs or Files -&gt; type in "cmd" and click on cmd.exe. Then, navigate to the directory where you have your VELMA files using the 'cd' command.
-                    img(width="556" height="159" alt="screenshot" title="screenshot" src="public/suppImage_241.jpg")
+                    img(width="556" height="159" alt="Running script in IDLE" src="public/suppImage_241.jpg")
                 li Finally, use your python.exe file to run the script using the following command: C:\path\to\python.exe D:\Path\to\VELMA2BLUESKY_2016_10-11.py An example is shown below. Note that my python.exe program is located at C:\Python27\ArcGIS10.2\python.exe
-                    img(width="605" height="141" alt="image" src="public/suppImage_242.jpg")
+                    img(width="605" height="141" alt="Run script using python.exe" src="public/suppImage_242.jpg")
                     p The program will begin and will display the following output. If you receive an error, check the error carefully and determine whether or not you have properly configured your paths and made sure that you have the proper software configuration (ArcGIS with Spatial Analyst, ArcPy, etc.)
-                    img(width="616" height="306" alt="screenshot" title="screenshot" src="public/suppImage_243.jpg")
+                    img(width="616" height="306" alt="Output of script running" src="public/suppImage_243.jpg")
                 li Check your output directory for output files.
-                    img(width="563" height="129" alt="screenshot" title="screenshot" src="public/suppImage_244.jpg")
+                    img(width="563" height="129" alt="Example of output directory with output files" src="public/suppImage_244.jpg")
                 li You can view the output files using a text or spreadsheet editor.
             h3 Scripts
-            img(width="480" height="1" alt="image" src="public/suppImage_245.png" )
+            h4 Important! This script is very outdated (written in python version 2.7). If you feel you have need for this contact the VELMA team for an updated version
             p # velmaToBluesky.py
             p # Author: Paul Pettus, Brad Barnhart # Date: 2-18-2015
             p # Description: VELMA ASCII to csv with value data and x(long) &amp; y(lat)
@@ -58,28 +58,27 @@ block content
             p # use different python function named calls. Example in 10.0 the function # &quot;arcpy.ASCIIToRaster_conversion&quot; might have a slightly different name
             p # in arc 10.2 or future versions, ArcGIS Help online will give the correct version names. #
             p # Last updated: 01-31-2017 #
-            img(width="480" height="1" alt="image" src="public/suppImage_246.png" )
             p # Import modules
             p print &quot;Importing modules...&quot;
             p import os, sys, datetime, csv, time, numpy, arcpy, arcinfo
             p scriptStartClock = time.clock() ##arcpy.env.overwriteOutput = True
             p # Checks for Spatial analyst extension arcpy.CheckExtension(&quot;Spatial&quot;) arcpy.CheckOutExtension(&quot;Spatial&quot;)
-            p # <img width="480" height="1" alt="image" src="public/suppImage_247.png" ) # Edit these paths, they use a unix slash and require one at the end.
+            p ## Edit these paths, they use a unix slash and require one at the end.
             p #### asciiaoi contains header information dataLoc =
             p &quot;L:/Priv/CORFiles/Projects/Velma/Kansas_Project/VELMA_SETUPS_WORKSHOP/Velma_Outputs/KS_Flint_Cent ral_Small_125m_wbFixup_AST2_2017-01-30_historicBurnPlusGraze/&quot;
             p asciiaoi = &quot;L:/Priv/CORFiles/Projects/Velma/Kansas_Project/VELMA_SETUPS_WORKSHOP/Velma_Outputs/KS_Flint_Cent ral_Small_125m_wbFixup_AST2_2017-01- 30_historicBurnPlusGraze/Spatial_BURNED_BIOMASS_AG_STEM_C_ALL_1_2000_88.asc&quot;
             p tempFilesDir = &quot;L:/Priv/CORFiles/Projects/Velma/Kansas_Project/VELMA_SETUPS_WORKSHOP/Velma_Outputs/temp/&quot; finalOutputDir = &quot;L:/Priv/CORFiles/Projects/Velma/Kansas_Project/VELMA_SETUPS_WORKSHOP/Velma_Outputs/toolOutput/&quot; ####
-            p # <img width="480" height="1" alt="image" src="public/suppImage_248.png" ) # Edit the Cell size
+            p ## Edit the Cell size
             p ##cellSize = 900 #width x length for square meters (30m x 30m) cellSize = 15625 #width x length for square meters (125m x 125m)img(width="499" height="1" alt="image" src="public/suppImage_249.png")
             p #
             p print &quot;Starting data clean up...&quot;
             p outDirStep1 = tempFilesDir + &quot;temp-HeaderFixed/&quot;
-            p # <img width="480" height="1" alt="image" src="public/suppImage_250.png" )p # Read in DEM file, and pull out header
-            p # <img width="480" height="1" alt="image" src="public/suppImage_251.png" )p readFile = open(asciiaoi)
+            p # Read in DEM file, and pull out header
+            p readFile = open(asciiaoi)
             p header = readFile.readline() #ncols header += readFile.readline() #nrows header += readFile.readline() #xllcorner header += readFile.readline() #yllcorner header += readFile.readline() #cellsize
             p header += readFile.readline() #NODATA_value readFile.close()
-            p # <img width="480" height="1" alt="image" src="public/suppImage_252.png" )p # <img width="480" height="1" alt="image" src="public/suppImage_253.png" )p # Create temporary directory in tempFilesDir to store fixed headers.
-            p # <img width="480" height="1" alt="image" src="public/suppImage_254.png" )p startClock = time.clock()
+            p # Create temporary directory in tempFilesDir to store fixed headers.
+            p startClock = time.clock()
             p ## Create a list of all input files asciiList = []
             p for files in os.listdir(dataLoc): if files.endswith(&quot;.asc&quot;):
             p testBit = files in asciiList if testBit == False:
@@ -132,11 +131,11 @@ block content
             p endClock = time.clock()
             p totalTime = round(((endClock - startClock)/60),3)
             p print(&quot;Done with fixing headers and zero biomass, completed in &quot; + str(totalTime) + &quot; minutes.&quot;)
-            p # <img width="480" height="1" alt="image" src="public/suppImage_255.png" )p # Done with fixing headers.
-            p # <img width="480" height="1" alt="image" src="public/suppImage_256.png" )p # <img width="480" height="1" alt="image" src="public/suppImage_257.png" )p # Do not edit these paths. These are temporary directories that # will be created within the tempFilesDir specified above.
-            p # <img width="480" height="1" alt="image" src="public/suppImage_258.png" )p inDirStep2 = outDirStep1
+            p # Done with fixing headers.
+            p # Do not edit these paths. These are temporary directories that # will be created within the tempFilesDir specified above.
+            p inDirStep2 = outDirStep1
             p filesDir = tempFilesDir + &quot;temp-GisFiles/&quot; outDirStep2 = tempFilesDir + &quot;temp-Modelbuild_Out/&quot;
-            p # <img width="480" height="1" alt="image" src="public/suppImage_259.png" )p print &quot;Starting ascii&#39;s to point burn conversions...&quot;
+            p print &quot;Starting ascii&#39;s to point burn conversions...&quot;
             p # Process ascii&#39;s into point burn data needed for BlueSky input ## Create a list of all input files
             p asciiList = []
             p for files in os.listdir(inDirStep2): if files.endswith(&quot;.asc&quot;):
@@ -178,9 +177,9 @@ block content
             p totalTime = round(((endClock - startClock)/60),2) count = count + 1
             p print(&quot;Processed VELMA Burn day layer &quot; + str(count) + &quot; completed in &quot; + str(totalTime) + &quot; minutes.&quot;)
             p print &quot;Done with converting VELMA BURN ASCII OUTPUT TO CSV FILES!&quot;
-            p # <img width="480" height="1" alt="image" src="public/suppImage_260.png" )p # Done with making csv&#39;s. Now convert csv to BlueSky format.
-            p # <img width="480" height="1" alt="image" src="public/suppImage_261.png" )p inDirStep3 = outDirStep2 outDir = finalOutputDir
-            p # <img width="480" height="1" alt="image" src="public/suppImage_262.png" )p print &quot;Starting conversion to Bluesky intputs...&quot; ##BLB PROPOSED CHANGE TO GET CSV FILES
+            p # Done with making csv&#39;s. Now convert csv to BlueSky format.
+            p inDirStep3 = outDirStep2 outDir = finalOutputDir
+            p print &quot;Starting conversion to Bluesky intputs...&quot; ##BLB PROPOSED CHANGE TO GET CSV FILES
             p asciiList = []
             p for files in os.listdir(inDirStep3): print files
             p if files.endswith(&quot;.csv&quot;): testBit = files in asciiList if testBit == False:

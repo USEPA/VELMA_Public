@@ -1,8 +1,8 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
         include spatial_maps_partials/_spatial_maps_side_nav.pug  
-        div.grid-body-content
+        div.flex-body-content
             h1 Generating daily temperature and precipitation grids for running VELMA
             h2 Introduction
             p The VELMA model runs at a daily time step on a spatial grid covering the study area of interest. The grid isscalable but is often desired to be at a fairly fine scale of resolution, e.g., 30-m cells. The model requiresdaily values of precipitation and mean temperature for each cell. Historic daily temperature and precipitationrecords can be obtained from weather stations in the National Weather Service or other networks. A simplisticapproach would be to assign temperature and precipitation values to each cell equal to those at the nearestweather station (Thiessen polygons). However, this would lead to a very “blocky” spatial data set with sharpdiscontinuities along lines equidistant from two weather stations.

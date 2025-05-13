@@ -1,7 +1,7 @@
 extends ../../../layout.pug
 block content
     div.main-body
-        button(class="aside-toggle" aria-expanded="false" aria-controls="sidebar") Show/Hide Sidebar
+        
         include getting_started_partials/_getting_started_side_nav.pug
         div.flex-body-content
             h1 Creating a Simulator Configuration (New VELMA Application)
@@ -52,31 +52,30 @@ block content
             code C:\>java -Xmx1024m -jar c:\Path_With_NO_Whitespace\JVelma.jar
             p (When there is no whitespace in the entire path the double-quotes are not required.)
             p The "-Xmx1024m" command line option specifies the amount of memory available to the JVelma GUI and simulator. Thevalue 1024 is in Megabytes, so this command line allocates a 1 Gigabyte memory space for the JVelma GUI andsimulator to run in. You can allocate more memory than 1 GB (e.g. the option "-Xmx4096m" would allocate 4 GB)but if you allocate more memory than your computer can make available, JVelma will fail to start properly.
-            p Once you type in the command line and press the enter key, the JVelma GUI should begin running. Initially, theGUI looks like this:
+            p Once you type in the command line and press the enter key, the JVelma GUI should begin running. Initially, the GUI looks like this:
             br 
-            img(width="614" height="555" alt="image" src="public/Image_017.jpg")
+            img(width="614" height="555" alt="Velma Gui after launch" src="public/Image_017.jpg")
 
             h2#using_gui Using the GUI 
             hr
             p Click the <b>Edit </b>menu's <b>Create a New, Empty Configuration </b>item:
             br 
-            img(width="625" height="565" alt="image" src="public/Image_019.jpg")
-            p Clicking this item creates a new, empty simulation configuration in the JVelma GUI and opens the <b>All    Parameters </b>table view. The All Parameters table lists the Group, Item and Parameter keys and the currentvalue of all the parameters used by a single VELMA simulation run. When we speak of the "SimulationConfiguration", this list of parameters is what we're speaking of.
-            p For demonstration purposes, here is an annotated screen-captured snapshot of the All Parameters table for anexisting simulator configuration (cells under the Value column will be blank for new simulator configurations):
-            
+            img(width="625" height="565" alt="Create new empty configuration" src="public/Image_019.jpg")
+            p Clicking this item creates a new, empty simulation configuration in the JVelma GUI and opens the <b>All Parameters </b>table view. The All Parameters table lists the Group, Item and Parameter keys and the currentvalue of all the parameters used by a single VELMA simulation run. When we speak of the "SimulationConfiguration", this list of parameters is what we're speaking of.
+            p For demonstration purposes, here is an annotated screen-captured snapshot of the All Parameters table for an existing simulator configuration (cells under the Value column will be blank for new simulator configurations):
             br 
-            img(width="661" height="586" alt="image" src="public/Image_020.jpg")
+            img(width="661" height="586" alt="here is an annotated screen-captured snapshot of the All Parameters table for an existing simulator configuration" src="public/Image_020.jpg")
             br 
             p In addition to filtering by an arbitrary text string, the filter field at the top of the table can be set to anyof several pre-composed filtering expressions.
-            p For example, In the All Parameters table, click "Clear Filters" at the left of side of the filter fields, thenclick the drop-down button (<img width="19" height="24" alt="image" src="public/Image_021.gif" />) on theright side of the leftmost filter field to display a drop-down menu (see demonstration, below).
+            p For example, In the All Parameters table, click "Clear Filters" at the left of side of the filter fields, then click the drop-down button on the right side of the leftmost filter field to display a drop-down menu (see demonstration, below).
             br 
 
             h2#gui_startup_and_input_params Using the GUI to Specify Startup and Input Parameters
             hr
             h3#gui_startup_paras Specify Startup Parameters
-            p In the All Parameters table, click the first (leftmost) filter field's drop-down button and select "startups"from the drop-down list:
+            p In the All Parameters table, click the first (leftmost) filter field's drop-down button and select "startups" from the drop-down list:
             br 
-            img(width="623" height="302" alt="image" src="public/Image_024.jpg")
+            img(width="623" height="302" alt="Filter start up parameters in all parameters table" src="public/Image_024.jpg")
             br 
             h4 The resulting display shows 13 "startups" parameters under the 3rd column. For now, we will focus on 2startup parameters that VELMA uses to locate simulation input files at the start of a simulation. You will needto specify a valid value in the 4th column for these:
             table
@@ -92,7 +91,7 @@ block content
             
             h3#gui_input_params Specify Input Parameters
             p Under the All Parameters menu tab, in the 2nd filter field to the left of the "Clear Filters" button, type"VelmaInputs" (case sensitive, without the double-quotes):
-            img(width="625" height="278" alt="image" src="public/Image_025.jpg")
+            img(width="625" height="278" alt="Type VelmaInputs into the second filter field" src="public/Image_025.jpg")
             br 
             h4 In the displayed subset of configuration parameters, enter values for the following parameters:
             table
@@ -157,8 +156,6 @@ block content
                     td.param_name initializeOutputDataLocationRoot
                     td.param_desc The fully-qualified path above the directory name you specifiedfor the run_index.
             br 
-            p The drop-down filter field menu above the "Group" column can also be used to add and specify parameters for theother parameter categories listed: cover, disturbance, cellDataWriter, spatialDataWriter, soil,and weather:
-            img(width="627" height="164" alt="image" src="public/Image_026.jpg")
+            p The drop-down filter field menu above the "Group" column can also be used to add and specify parameters for the other parameter categories listed: cover, disturbance, cellDataWriter, spatialDataWriter, soil,and weather:
+            img(width="627" height="164" alt="Dropdown filter to specifc categories listed: cover, disturbance, cellDataWriter, spatialDataWriter, soil,and weather" src="public/Image_026.jpg")
             p However, we recommend that you use the "All Parameters Table of Contents" described in the next section to configure these and other subsets of parameters.
-
-            

@@ -1,15 +1,15 @@
 extends ../../../layout.pug
 block content
-    div.grid-container
+    div.main-body
         include user_guide_partials/_user_guide_side_nav.pug 
-        div.grid-body-content
+        div.flex-body-content
             h1 Deposition of Surface Chemicals
             div.info.blue-light-1
-                p Overview (Tutorial E.3 - Surface Chemical Deposition)
+                p Overview (Surface Chemical Deposition)
                 p This document describes how to use VELMA's disturbance routine to control the timing, amount and location of a chemical to deposit to the surface pool (the surface pool is located above soil layers 1-4).
                 p This tutorial builds upon two other VELMA surface layer tutorials. We recommend consulting these before applying this tutorial:
-                h4  Tutorial E.1 - Mapping Surface Layer Permeabilities
-                h4  Tutorial E.2 - VELMA Surface Chemistry Pools
+                a(href="../calibration/Mapping_Surface_Layer_Permeabilities") Mapping Surface Layer Permeabilities
+                a(href="./Surface_Chemistry_Pools") VELMA Surface Chemistry Pools
             p A Surface Deposition Disturbance increases the amount of chemical in the surface pool of a specific chemical type (e.g. NH4, or a configuration-specific contaminant) at specific times and locations during a VELMA simulation run.
             p A single Surface Deposition Disturbance targets a single chemical type. If you need to perform surface deposition for more than one chemical (e.g. for NH4 and NO3) you much configure multiple, separate, Surface Deposition Disturbances.
             p The Surface Deposition Disturbance uses a diver schedule, encoded in a .csv file to specify WHEN (i.e., which simulation steps) and WHERE (i.e., which cells) additional amounts are deposited.
@@ -44,12 +44,12 @@ block content
             p Adding a Surface Deposition Disturbance Parameterization to a VELMA Configuration
             p Start with an appropriate VELMA simulation configuration .xml file and deposition driver data .csv file (i.e., the driver data .csv file's cell indices are appropriate for the configuration .xml file's DEM and delineation). Load the VELMA simulation configuration .xml file into JVelma, then click the
             p Edit -&gt; Disturbances -&gt; "Add a Disturbance" menu item, as shown below:
-            img(width="618" height="249" alt="screenshot" title="screenshot" src="public/suppImage_280.jpg")
+            img(width="618" height="249" alt="Add a disturbance dialog window" src="public/suppImage_280.jpg")
             p In the "Specify Disturbance model Type and Name" pop-up dialog that opens next, click the drop-down selector, scroll down, and click-select the SurfaceDepositionDisturbanceModel type:
-            img(width="469" height="214" alt="screenshot" title="screenshot" src="public/suppImage_281.jpg")
+            img(width="469" height="214" alt="Specify disturbance model type and name pop-up dialog" src="public/suppImage_281.jpg")
             p Next, type in a unique name for the disturbance in the "Disturbance Name" field of the dialog.
             p Finally click the OK button, which adds a new parameterization group to the simulation configuration, and changes JVelma's display to the "All Parameters" tab, with the Item-level filter set to only display the parameters for the newly-added contaminant.
-            img(width="617" height="173" alt="screenshot" title="screenshot" src="public/suppImage_282.jpg")
+            img(width="617" height="173" alt="Result of adding new disturbance in All Parameters tab" src="public/suppImage_282.jpg")
             h3 Parameters That Must Be Left Alone
             p The modelClass parameter is set by JVelma when you add the Surface Deposition Disturbance to the simulation configuration. Do Not Change this parameter's value. Ever.
             h3 Parameters You Can / Must Provide Values For
