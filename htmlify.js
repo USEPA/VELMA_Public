@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
 
+// compile pug to html and save to same doc structure
+// example 'views/version/2.0/quickstart.pug' -> 'docs/version/2.0/quickstart.html
 function compileAndSavePugFiles(pugDir, htmlDir) {
     if (!fs.existsSync(htmlDir)) {
         fs.mkdirSync(htmlDir, { recursive: true });
@@ -37,7 +39,7 @@ const pugDir = './views';
 const htmlDir = './docs';
 compileAndSavePugFiles(pugDir, htmlDir);
 console.log("Finished compiling pug files");
-// fs.copyFile('./public/style.css', './docs', (err) => {
+// fs.copyFile('./public/style.css', './docs/public', (err) => {
 //     if (err) throw err;
 //     console.log("Style file copied to public!")
 // });

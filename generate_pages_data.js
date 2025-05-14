@@ -12,7 +12,11 @@ function getAllPugFiles(dir) {
 
     for (const file of files) {
         if (file.isDirectory()) {
-            pugFiles = pugFiles.concat(getAllPugFiles(path.join(dir, file.name)));
+            if (file.name == 'dev') {
+                console.log("Skipping ", file)
+            } else {
+                pugFiles = pugFiles.concat(getAllPugFiles(path.join(dir, file.name)));
+            }
         } else if (file.name.endsWith('.pug')) {
             pugFiles.push(path.join(dir, file.name));
         }
@@ -35,17 +39,18 @@ function extractGridBodyContent(pugFilePath) {
 function generatePagesJson() {
     const pages = [];
     const pugFiles = getAllPugFiles(baseDir);
-
-    pugFiles.forEach((filePath) => {
-        const content = extractGridBodyContent(filePath);
-        if (content) {
-            pages.push({
-                url: '/' + path.relative(baseDir, filePath).replace(/\\/g, '/').replace('.pug', '.html'),
-                title: path.basename(filePath, '.pug'),
-                content,
-            });
-        }
-    });
+    if (pugFiles) {
+        pugFiles.forEach((filePath) => {
+            const content = extractGridBodyContent(filePath);
+            if (content) {
+                pages.push({
+                    url: '/' + path.relative(baseDir, filePath).replace(/\\/g, '/').replace('.pug', '.html'),
+                    title: path.basename(filePath, '.pug'),
+                    content,
+                });
+            }
+        });
+    }
 
     return pages;
 }
