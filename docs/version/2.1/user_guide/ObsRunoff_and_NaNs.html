@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">User Guides</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">Input / Output Files Guides</strong><a href="/docs/version/2.1/user_guide/Input_File_Details"><span>Input File Details</span></a><a href="/docs/version/2.1/user_guide/Input_File_Formats"><span>Input File Formats</span></a><a href="/docs/version/2.1/user_guide/Output_Overview"><span>Output Files</span></a><a href="/docs/version/2.1/user_guide/MoeVelGenerator_Guide"><span>MOEA-to-VELMA Configuration Generator</span></a><a href="/docs/version/2.1/user_guide/Acquisition_and_Generation_of_Input_Data"><span>Acquire and Generate Input Data</span></a><a href="/docs/version/2.1/user_guide/Biomass_Output_to_BlueSky"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a><a href="/docs/version/2.1/user_guide/ObsRunoff_and_NaNs"><span>Observered Runoff Data May Inlude NaN Values</span></a><a href="/docs/version/2.1/user_guide/Outputs_For_Data_Visualization"><span>Outputs For Data Visualization</span></a>
+            <hr><strong class="center-text white-text">Simulation Configuration Guides</strong><a href="/docs/version/2.1/user_guide/Configuration_Checker_Guide"><span>Configuration Checker Guide</span></a><a href="/docs/version/2.1/user_guide/Add_Multiple_Location_Weather_Drivers"><span>Add Mulitple Location Weather Drivers</span></a><a href="/docs/version/2.1/user_guide/CellSpecificBurnDisturbance_Configuration_Guide"><span>Configuring a Cell-Specific Burn Disturbance</span></a><a href="/docs/version/2.1/user_guide/Cell_Data_Writer_Configuration"><span>Cell Data Writer Configuration</span></a><a href="/docs/version/2.1/user_guide/Default_Tidewater_Model_Config"><span>Default Tidewater Model Configuration</span></a><a href="/docs/version/2.1/user_guide/Groundwater_Storage_Mechanism"><span>Groundwater Storage Mechanism</span></a><a href="/docs/version/2.1/user_guide/Implementing_Green_Roofs"><span>Implementing Green Roof Applications in VELMA</span></a><a href="/docs/version/2.1/user_guide/Simulating_Fate_and_Transport"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a><a href="/docs/version/2.1/user_guide/Surface_Chemistry_Pools"><span>VELMA Surface Chemistry Pools</span></a>
+            <hr><strong class="center-text white-text">Contaminants </strong><a href="/docs/version/2.1/user_guide/Contaminant_Modeling_Example"><span>VELMA Contaminant Modeling Example </span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Overview"><span>Overview of Organic Contaminant Modeling Using VELMA</span></a><a href="/docs/version/2.1/user_guide/Organic_Contaminant_Modeling"><span>Organic Contaminant Modeling Using VELMA Framework and Example</span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Remediation_Configuration_Guide"><span>Configuring An Organic Contaminant to Include Remediation Effects</span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Tracer_Configuration_Guide"><span>Configuring An Organic Contaminant as a Tracer</span></a>
+            <hr><strong class="center-text white-text">Disturbances </strong><a href="/docs/version/2.1/user_guide/Deposition_of_Surface_Chemicals"><span>Deposition of Surface Chemicals </span></a><a href="/docs/version/2.1/user_guide/Irrigation_Disturbance_Model_Overview"><span>Irrigation Disturbance</span></a>
+            <hr><strong class="center-text white-text">Soils </strong><a href="/docs/version/2.1/user_guide/Soil_Data_Mapping_and_Parameter_Initialization"><span>Soil Data Mapping and Parameter Initialization</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Observered Runoff Data May Inlude NaN Values</h1>
+          <h2>Overview</h2>
+          <p>Unlike other input data, the observed runoff values presented to VELMA may contain <code>NaN</code> values. The code within VELMA that computes Nash-Sutcliffe ("NSE") and Root Mean Square ("RMSE") statistics for runoff treats <code>NaN</code> as a "no data" value. Any (simulated, observed) data-pair where one or both values equal <code>NaN</code> is "rejected" (i.e. ignored) by the NSE and RMSE calculators.</p>
+          <p>Like other driver data files, any observed runoff file presented to a VELMA simulation must have a data value for each Julian day between (inclusively) the simulation's <code>forcing_start</code> and <code>forcing_end</code> parameter year values.</p>
+          <p><strong>Example:</strong><br> Suppose a simulation configuration has <code>forcing_start=1991</code> and <code>forcing_end=1993</code>.<br> Driver data files for that simulation must contain <code>(1993 - 1991 + 1) * 365 = 1095</code> values.</p>
+          <p><em>Un</em>like other driver data files, observed runoff files are allowed to have <code>NaN</code> as the value for a given step.</p>
+          <p>The option of explicitly specifying that an observed runoff data value is missing (via <code>NaN</code>) allows VELMA to calculate NSE and RMSE values for your simulation run's runoff even when you don't have observed data for every step of the <code>[forcing_start, forcing_end]</code> span. The NSE and RMSE values are calculated with however many data-pairs are available. VELMA reports how many observed values were used, but not their distribution across the simulated values. You are responsible for knowing and deciding whether their distribution is a problem or not.</p>
+          <p><strong>Example: </strong><br>Suppose the observed runoff file for our <code>forcing_start=1991</code> and <code>forcing_end=1993</code> simulation configuration has <code>NaN</code> values for all of the steps (days) in year 1992.<br> Further suppose that the simulation is run for year 1992: the NSE for this run will be <code>NaN</code>, and VELMA results will report it as such along with the fact that 365 of 365 elements (obs,sim data-pairs) were rejected.<br> Now suppose the same simulation configuration is run again, but for 1991 through 1993, and that the NSE for this run computes to 0.75. You must be aware -- apart from anything VELMA inludes in its results -- that the 730 of 1095 data-pairs used to compute the NSE (and RMSE) completely exclude the middle year of the simulation run.</p>
+          <h4>Specific Notes</h4>
+          <ul>
+            <li>When you set a value in an observed runoff data file to <code>NaN</code>, it must have exactly that spelling and letter-case.<br> For example, none of the following are recognized: "nan", "NAN", "Nan", and each would cause the observed runoff file's load and initialization process -- and the simulation run itself -- to fail.</li>
+            <li>
+              <p></p>Each row of your observed runoff file can contain either 1 or 3 comma-separated fields.<br> No other combinations or formats are permitted.
+            </li>
+          </ul>
+          <p>Here are a few lines of a single-field file as an example:</p>
+          <pre><code>11.5121
+NaN
+24.80
+26.2279</code></pre>
+          <p>When the file has a single field, that field contains the observed runoff value for one simulation step, and implicitly, the first value in the file is the value for first day of the <code>forcing_start</code> year, and so on.</p>
+          <p>Here are a few lines from a triple-field version of the same data:</p>
+          <pre><code>1991,1,11.5121
+1991,2,NaN
+1991,3,24.80
+1991,4,26.2279</code></pre>
+          <p>When the file has three fields, the first two fields are interpreted as a year and jday.<br> <strong>However, </strong><em>the first value in the file is still the value for first day of the </em><code></code>forcing_start
+             <em></em>year
+            !
+            .
+          </p>
+          <p>The year and jday are <em>permitted</em>, but VELMA <em>ignores</em> them. They are permitted to make the file easier for humans to read and verify.</p>
+          <ul>
+            <li>Here's a dark secret: if your observed runoff data file's first value <em>is</em> the value for the first day of the <code>forcing_start</code> year (and it <em>will</em> be used as such, regardless) you can have fewer data values in you file then the number of steps in the <code>[forcing_start, forcing_end]</code> span, and your simulation run should still produce a "usable" NSE value.<br> This is because VELMA fills in "missing" values at then end of your data as it loads from your file. It can do this because it can unambiguously assign <code>NaN</code> for each missing value.<br> <strong><em></em>Do not take advantage of this behavior
+                !</strong><br> If you have fewer actual observed values than the <code>[forcing_start, forcing_end]</code> span requires, fill the remainder of your file with <code>NaN</code> values explicitly. Do <em>not</em> rely on VELMA to do this for you. We only mention this behavior in case you accidentally use an observed runoff file that is "too short", and then wonder how the results are able to include an NSE value at all.</li>
+            <li>Having a header row for your observed runoff data file is allowed, but currently discouraged, because some command line tools that use observed runoff data files cannot process them correctly. Your observed data file will be read OK by the VELMA simulator, but not by other VELMA utility tools.</li>
+            <li>JVelma displays observed runoff <code>NaN</code> values in charts that include observed runoff -- e.g. "Calibration Hydrology" -- by "pegging the value to the top". That is, the value will appear at the very top of the chart's display array. This may be outside the borders of the chart's graph. Annual-values charts with a <code>NaN</code> at any point during the year will display that year as <code>NaN</code> (i.e. pegged to top).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

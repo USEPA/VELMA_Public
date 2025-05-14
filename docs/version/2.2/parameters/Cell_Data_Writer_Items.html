@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.2/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.2/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.2/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.2/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.2/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.2/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.2/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.2/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.2/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.2/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.2/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.2/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.2/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.2/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.2/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.2/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.2/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.2/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.2/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.2/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.2/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.2/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.2/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.2/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Cell Data Writer Items</h1>
+          <h4>Cell Data Writers Allow You to Gather Simulation Results for a Specific Grid Location</h4>
+          <p>The VELMA simulator automatically provides daily simulation results for various values (e.g. Leaf Biomass),however these daily results are average values that are computed by summing individual cell values and thendividing the sum by the number of cells in the simulation's delineated watershed.</p>
+          <p>To gather daily simulation results for a single, specific cell, you need to add a Cell Data Writerparameterization for that cell to the simulation configuration.</p>
+          <h4>Adding a Cell Data Writer to a Simulation Configuration</h4>
+          <p>Cell Data Writers are optional. Simulation configurations contain zero instances of them by default. When added,they do not change the simulation computations - they are only involved in reporting results.</p>
+          <p>To add a Cell Data Writer to your simulation configuration:</p>
+          <p>Click the "Edit"  "Cell Data Writer"  "Add a New Cell Writer" menu item.</p><img width="625" height="192" alt="image" src="public/Image_116.jpg">
+          <p>Clicking "Add a New Cell Writer" opens the Cell Writer Name dialog, which looks like this:</p><img width="400" height="137" alt="image" src="public/Image_117.jpg">
+          <p>Enter a name for your new Cell Data Writer and click "OK".</p>
+          <p>The name must be unique (i.e. no other Cell Data Writer already specified for this simulation configuration canshare the name you specify) and we recommend avoiding whitespace, and punctuation characters (e.g. "(" and ")").An acceptable example name (assuming it's not already in use by another Cell Data Writer might be"Probe_Point_1" or maybe "Outlet_Cell".</p>
+          <h4>Configuring a Cell Data Writer's Parameters</h4>
+          <p>After you click OK in the Cell Data Writer's naming dialog, the VELMA GUI adds the Cell Data Writer to thesimulation configuration, and sets the All Parameters tab's filters to display only the parameters of thenewly-added Cell Data Writer.</p>
+          <p>Assuming we named our new Cell Data Writer "Probe_Point_1" and clicked OK, the VELMA GUI would look like thisafterwards:</p><img width="625" height="143" alt="image" src="public/Image_118.jpg">
+          <p>Notice, in passing, that the configuration outline does <i>not </i>automatically get set by the GUI. In theexample screen capture above, it displays "0.0 All Configuration Parameters" - which is not what is beingdisplayed in the parameterization table. This behavior is harmless.</p>
+          <h4>A Cell Data Writer has only 3 parameters, but they must all be set correctly: none are optional. </h4>
+          <p>Set theinitializeActiveJdays parameter to the Julian days that you want data reported for. If you want datareported on every day of the year (this is the most common case) set the initializeActiveJdays value tobe "1-366". (The 366 avoids missing the last day in any leap years that occur in the simulation run.)</p>
+          <p>If you only want data reported on specific days of the year, enter the Julian Day values as a comma-separatedlist (e.g. "1, 90, 180, 270" reports data on days 1, 90, 180 and 270). You may specify an inclusive range ofdays by separating a start-day value from an end-day value by a dash (e.g. ("1, 90-180, 270" reports data ondays 1, days 90 through 180, and on day 270).</p>
+          <p>Set the cellX parameter's value to the X-coordinate (i.e. column value) of the cell you want data reportedfor. The valid range is from 0 (the leftmost column) to (number of columns - 1).</p>
+          <p>Set the cellY parameter's value to the Y-coordinate (i.e. row value) of the cell you want data reportedfor. The valid range is from 0 (the topmost row) to (number of rows - 1).</p>
+          <h4>Cell Data Writer Output is A Comma-Separated Values File</h4>
+          <p>The VELMA simulator creates 1 .csv file for each valid Cell Data Writer parameterization in the simulationconfiguration .xml file.</p>
+          <p>Cell Data Writer output files are written to the Results Data Location folder. Their filenames always begin withthe prefix "Cell_" and contain the linear index, x-coordinate and y-coordinate of the cell they contain data for(e.g. Cell_i2873_x35_y33.csv).</p>
+          <p>Each row of a Cell Data Writer output file contains results data for a specific loop, year and Julian day duringthe simulation run. The file's columns contain the specific results. The header row of the file specifies thecontents of each column. Note that some columns contain data that never varies (e.g. the DEM_Elevation(m)column reports the cell's elevation - which is always the same value.)</p>
+          <h4>Cell Data Writers and Spatial Data Writers are Different, but Complementary</h4>
+          <p>A Cell Data Writer reports all the results data available for a specific cell on user-specified days. A SpatialData Writer reports a specific result for all the cells in the simulation watershed on user-specified days. Bothare optional for simulation runs.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

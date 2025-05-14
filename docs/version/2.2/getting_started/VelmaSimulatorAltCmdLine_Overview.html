@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">Getting Started with VELMA</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.2/getting_started/Quickstart"><span>VELMA Quickstart</span></a><a href="/docs/version/2.2/getting_started/Required_Input_Files"><span>Required Input Files</span></a><a href="/docs/version/2.2/getting_started/New_Simulator_Config"><span>New Simulator Configuration</span></a><a href="/docs/version/2.2/getting_started/VelmaSimRunner"><span>Velma Sim Runner Guide</span></a><a href="/docs/version/2.2/getting_started/VelmaSimRunner_QuickRef"><span>Velma Sim Runner Quick Reference</span></a><a href="/docs/version/2.2/getting_started/VelmaSimulatorAltCmdLine_Overview"><span>VELMA Simulator ALT Command Line Overview</span></a><a href="/docs/version/2.2/getting_started/SnowDepth_initialization_Guide"><span>Snow Depth Initializatioin</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Using VELMA Alt Command Line</h1>
+          <h2>Overview</h2>
+          <p>The VelmaSimulator <strong>Alt</strong>CmdLine ("VelmaAlt") tool is a specialized version of VelmaSimulatorCmdLine ("VelmaSim").</p>
+          <p>Like VelmaSim, VelmaAlt allows you to run a VELMA simulation configuration directly from a command-line, without using VELMA's JVelma GUI environment ("VelmaGUI").</p>
+          <p>Unlike  VelmaSim, VelmaAlt requires specification of the simulation configuration's watershed outlet on the command line.</p>
+          <p>VelmaAlt ignores the watershed outlet specified within the simulation configuration .xml file, and uses whatever location is specified on the command line as the watershed outlet for the simulation run. VelmaAlt does <em>not</em> check the validity
+             of the specified watershed outlet <em>in any way</em>. It is quite easy to "break" a VelmaAlt run by providing it with a watershed outlet location that is invalid relative to the simulation configuration data in the .xml file. Given this, it may be unclear why you would ever want to use VelmaAlt instead of VelmaSim.
+          </p>
+          <p>In fact, VelmaAlt was not originally created for VELMA users. VelmaAlt was created to be the "back-end" tool used by VelmaParallelCmdLine ("VelmaPar"). When you start a simulation run with VelmaPar, you are actually starting a top-level manager (VelmaPar itself) that runs sub-reaches by calling VelmaAlt for each sub-reach. In order to run a sub-reach, VelmaPar tells VelmaAlt the simulation configuration .xml file to use, plus the watershed outlet for that sub-reach.</p>
+          <p>However, there are cases when VelmaAlt is exactly the right tool to use to run a VELMA simulation.</p>
+          <p>The most important (and by far most common) case is when you are actually trying to run a simulation with VelmaPar, but one or more of your sub-reaches fails to run correctly. You can use the VelmaPar results log file information</p> to determine which sub-reach failed first, and re-run that (and only that) specific sub-reach using VelmaAlt. This allows you to focus on a single simulation run and the simulation configuration parameters that affect that specific sub-reach. In many cases, this focus can in turn lead to a clearer idea of what went wrong for the sub-reach, and how to correct it.
+          <p>A second use of VelmaAlt is for running multi-map and (possibly) multi-scale VELMA simulations, however, multi-map, multi-scale simulation runs are considerably more complicated to configure than "standard" single-map, single-scale runs, and are not covered in this document. To add to their complexity, it is possible to use either VelmaAlt <em>or</em> VelmaPar to initiate a multi-map, multi-scale VELMA simulation run, but the configuration requirements are different for VelmaAlt and VelmaPar.</p>
+          <h2>Quickstart Guide</h2>
+          <h3>Requirements</h3>
+          <p>All of the  requirements for VelmaSim apply for VelmaAlt, plus the additional requirement of providing a valid watershed outlet location on the VelmaAlt command line.</p>
+          <p>Just like VelmaSim, it is possible to run VelmaAlt from a variety of consoles and operating systems, but we focus on Windows 10 and PowerShell in this document, because it is by far the most common combination VELMA is run under.</p>
+          <h3>Running a Simulation via VelmaSimulatorAltCmdLine in PowerShell</h3>
+          <p>The VelmaSim Quickstart Guide's istructions for opening a PowerShell console and for verifying the JRE apply without any changes to VelmaAlt.</p>
+          <h4>Start a Simulation With VelmaSimulatorAltCmdLine</h4>
+          <p>A typical VelmaAlt command line looks quite similar VelmaSim's, apart from the aformentioned watershed outlet location.</p>
+          <pre><code></code>java -Xmx&lt;mem&gt; -cp &lt;jarfullpath&gt;\JVelma.jar gov.epa.velmasimulator.VelmaSimulatorAltCmdLine &lt;xmlfullpath&gt;\&lt;simconfig.xml&gt; &lt;ioutlet&gt;</pre>
+          <p>The items above must appear as shown, in the order shown:</p>
+          <ul>
+            <li><code>java</code> invokes the Java JRE installed on your computer</li>
+            <li><code>-Xmx&lt;mem&gt;</code> allocates <code>&lt;mem&gt;</code> amount of runtime memory to run the simulation.</li>
+            <li><code>-cp</code> identifies the item that follows it to the Java JRE as the file containing Java code to run.</li>
+            <li><code>&lt;jarfullpath&gt;\JVelma.jar</code> represents the fully-qualified path and name of your JVelma.jar (which contains VelmaAlt).</li>
+            <li><code>gov.epa.velmasimulator.VelmaSimulatorAltCmdLine</code> is the fully-qualified Java program name of VelmaAlt.</li>
+            <li><code>&lt;xmlfullpath&gt;\&lt;simconfig.xml&gt;</code> represents the fully-qualified path and name of the simulation configuration .xml file to run.</li>
+            <li><code>&lt;ioutlet&gt;</code> is the integer value representing the linear-index location of the outlet cell of the watershed to run.</li>
+          </ul>
+          <p>Here is an example of an actual command line in the format outlined above:</p>
+          <pre><code>PS C:\Users\meep&gt; java -Xmx1g -cp C:\Users\meep\VELMA\JVelma.jar gov.epa.velmasimulator.VelmaSimulatorAltCmdLine C:Users\meep\VelmaConfigs\OR_BlueRiver_ws10.xml 1217</code></pre>
+          <p>Here is how the items in the specific example command line map back to the general command line format:</p>
+          <ul>
+            <li><code>PS C:\Users\meep&gt;</code> is a typical PowerShell command prompt (yours may look different).</li>
+            <li>The <code>&lt;mem&gt;</code> specified is <code>1g</code>: <code>-Xmx1g</code> means "allocate 1 Gigabyte of RAM for this simulation run".</li>
+            <li>The fully-qualified JVelma.jar location (<code>&lt;jarfullpath&gt;\JVelma.jar</code>) is: <code>C:\Users\meep\VELMA\JVelma.jar</code></li>
+            <li>The fully-qualified simulation configuration .xml file (<code>&lt;xmlfullpath&gt;\&lt;simconfig.xml&gt;</code>) is: <code>C:Users\meep\VelmaConfigs\OR_BlueRiver_ws10.xml</code></li>
+            <li>The watershed outlet (<code>&lt;ioutlet&gt;</code>) is: <code>1217</code></li>
+          </ul>
+          <p>All other items are unchanged, and appear exactly as they are specified in the general command line format.</p>
+          <p>Once you have typed a command line in the format above into your PowerShell console, press the <code>Enter</code> key to start the simulation running.</p>
+          <p>Runtime logging statements will appear in the console window.</p>
+          <h4>Providing a Valid Outlet</h4>
+          <p>Generally, a "valid" outlet for VELMA is any linear-index cell location within the bounds of the specfied DEM grid that delineates to a watershed containing <em>at least</em> 1 channel and 1 non-channel cell.</p>
+          <p>However, VelmaAlt's requirements for a "valid outlet" may be stricter, depending upon your simulation configuration.</p>
+          <p>If your simulation configuration's <code>enableReachMapping</code> parameter value is set to <code>MULTI_MODE</code>, then the only "valid outlets" for the VelmaAlt command line are those specified for the <code>initialReachOutlets</code> parameter.<br> Additionally, amongst the <code>initialReachOutlets</code> values, if you specify an outlet that depends on other outlets, VelmaAlt assumes all the sub-reaches that your specified outlet depends on have already been run (either by other calls to VelmaAlt or by VelmaPar), and their results are available in the same a results location specified for the VelmaAlt run you're starting.<br> If <em>any</em> of the above details are not true, VelmaAlt will fail to run correctly.</p>
+          <p>Suppose the following parameter values exist in your simulation configuration .xml file:</p>
+          <pre><code></code>[ . . . ]
+calibration/VelmaInputs.properties/run_index, OR_ws1_30m
+/calibration/VelmaInputs.properties/enableReachMapping, MULTI_MODE
+/calibration/VelmaInputs.properties/initialReachOutlets, 533 1282 1217 1424
+/calibration/VelmaInputs.properties/initializeOutputDataLocationRoot, C:\Users\meep\Velma_Results
+[ . . . ]</pre>
+          <p>Reach outlet 1217 depends on data from reach outlet 1424 (note: that <em>cannot</em> be inferred from their <code>initialReachOutlets</code> ordering). Specifying <code>1217</code> as the command-line outlet for a VelmaAlt run is "valid", but at run time VelmaAlt will look for completed results for reach 1424 (because 1217 depends upon it) in directory C:\Users\meep\Velma_Results\OR_ws1_30m. If it fails to find results for <code>1424</code>, outlet <code>1217</code> is still "invalid", even though it would be valid otherwise.</p>
+          <p>In contrast, when your simulation configuration's <code>enableReachMapping</code> parameter value is set to <code>SOLO_MODE</code>, only the general validity requirements apply. The specified outlet can be any location within the DEM grid that meets the watershed-delineation cell/type counts.</p>
+          <p>In summary:</p>
+          <p>Validity requirements when <code>enableReachMapping</code> = <code>MULTI_MODE</code>:</p>
+          <ul>
+            <li>Outlet must be within the DEM</li>
+            <li>Watershed delineated by the outlet must have <em>at least</em> 1 channel cell and 1 non-channel cell.</li>
+            <li>Outlet must be listed in <code>initialReachOutlets</code></li>
+            <li>Outlet must be for an independent reach, <em>or</em> results data for all contributing reaches must be available in results location.</li>
+          </ul>
+          <p>Validity requirements when <code>enableReachMapping</code> = <code>SOLO_MODE</code>:</p>
+          <ul>
+            <li>Outlet must be within the DEM</li>
+            <li>Watershed delineated by the outlet must have <em>at least</em> 1 channel cell and 1 non-channel cell.</li>
+          </ul>
+          <h4>Watershed Delineation Area</h4>
+          <p>Like outlet validity requirements, the watershed area that VelmaAlt delineates for the outlet specified on the command line depends upon the simulation configuration's <code>enableReachMapping</code> parameter value.</p>
+          <p>When <code>enableReachMapping</code> = <code>MULTI_MODE</code>, VelmaAlt treats the specified outlet as a sub-reach of a larger watershed. The other outlets specified for <code>initialReachOutlets</code> are taken into account. If any of them are contributors to the specified outlet, their watershed area is not included in the specified outlet's watershed area.</p>
+          <p>When <code>enableReachMapping</code> = <code>SOLO_MODE</code>, VelmaAlt treats the specified outlet as a stand-alone watershed and delineates it as if it was being run with VelmaSim. Other outlets specified for <code>initialReachOutlets</code> that might serve as contributors are ignored, the area delineated is based solely upon the command-line outlet and the topology of the DEM grid.</p>
+          <h4>Locating Results Data</h4>
+          <p>Because VelmaAlt was created as a sub-tool for VelmaPar, it shares VelmaPar's "mindset" regarding where to place simulation results data files.</p>
+          <p>When you run VelmaSim, simulation results are placed under the directory specified by the <code>initializeOutputDataLocationRoot</code> parameter value, in a subdirectoy named by the <code>run_index</code> parameter value.</p>
+          <pre><code>VelnmSim results location = &lt;`initializeOutputDataLocationRoot`&gt;\&lt;`run_index`&gt;</code></pre>
+          <p>When you run VelmPar, the directory specified by the <code>initializeOutputDataLocationRoot</code> + the subdirectoy named by the <code>run_index</code> parameter value is considered a "root" results directory and contains subdirectories of its own, each containing the results for one of the sub-reach outlets specified by the <code>initialReachOutlets</code> parameter's value. Each outlet-specific results subdirectory name starts with <code>Results_</code> and end with an outlet cell-location index number.</p>
+          <pre><code>VelmaPar (and VelmaAlt) results location = &lt;`initializeOutputDataLocationRoot`&gt;\&lt;`run_index`&gt;\Results_&lt;`outlet`&gt;</code></pre>
+          <p>Where: there is a .\Results_&lt;`outlet`&gt; dir for each `outlet` specified in `initialReachOutlets`.</p>
+          <p>For example, Given a simulation configuration .xml file with these parameter values:</p>
+          <pre><code>[ . . . ]
+calibration/VelmaInputs.properties/run_index, OR_ws1_30m
+/calibration/VelmaInputs.properties/outx, 5			
+/calibration/VelmaInputs.properties/outy, 8
+/calibration/VelmaInputs.properties/enableReachMapping, MULTI_MODE
+/calibration/VelmaInputs.properties/initialReachOutlets, 533 1282 1217 1424
+/calibration/VelmaInputs.properties/initializeOutputDataLocationRoot, C:\Users\meep\Velma_Results
+[ . . . ]</code></pre>
+          <p>VelmaSim will place simulation results under the directory:</p>
+          <pre><code>C:\Users\meep\Velma_Results\OR_ws1_30m  </code></pre>
+          <p>However, for the same simulation configuration, VelmaPar places simulation results under the directories:</p>
+          <pre><code>C:\Users\meep\Velma_Results\OR_ws1_30m\Results_533  
+C:\Users\meep\Velma_Results\OR_ws1_30m\Results_1282
+C:\Users\meep\Velma_Results\OR_ws1_30m\Results_1217
+C:\Users\meep\Velma_Results\OR_ws1_30m\Results_1424</code></pre>
+          <p>Regardless of how <code>enableReachMapping</code> is set, VelmaAlt <em>always</em> reports results using VelmPar's directory layout.<br> Suppose the simulation configuration .xml file had these parameter values:</p>
+          <pre><code>[ . . . ]
+calibration/VelmaInputs.properties/run_index, OR_ws1_30m
+/calibration/VelmaInputs.properties/outx, 5			
+/calibration/VelmaInputs.properties/outy, 8
+/calibration/VelmaInputs.properties/enableReachMapping, SOLO_MODE
+/calibration/VelmaInputs.properties/initialReachOutlets, 533
+/calibration/VelmaInputs.properties/initializeOutputDataLocationRoot, C:\Users\meep\Velma_Results
+[ . . . ]</code></pre>
+          <p>Calling VelmaAlt for this simulation configuration (with <code>533</code> on the command line) will place simualtion results in:</p>
+          <pre><code></code>C:\Users\meep\Velma_Results\OR_ws1_30m\Results_533</pre>
+          <p>even though this is a <code>SOLO_MODE</code> run with no other outlets spedified for <code>initialReachOutlets</code>.</p>
+          <p>VelmaAlt results reporting behavior differs from VelmaPar in one important way.</p>
+          <p>When VelmaPar is (re-)run for a pre-existing results location, it will remove partial results and report new results in the existing directory.</p>
+          <p>When VelmaAlt is (re-)run for a pre-existing results location, it will leave the existing results as-is, and create a new "<code>_&lt;n&gt;</code>"-suffixed results directory instead.<br> Using the last VelmaAlt example above, if VelmaAlt is re-run twice after the initial run, the 3 results will be reported in 3 separate directories, like this:</p>
+          <pre><code>C:\Users\meep\Velma_Results\OR_ws1_30m\Results_533
+C:\Users\meep\Velma_Results\OR_ws1_30m\Results_533_0
+C:\Users\meep\Velma_Results\OR_ws1_30m\Results_533_1</code></pre>
+          <h2>Usage Message and Command Line Options</h2>
+          <p>When you run VelmaAlt without specifying a VELMA simulation configuration .xml file, it displays a usage message to the console.</p>
+          <p>The message provides the VELMA version, reminds you that a VELMA simulation configuration .xml file is required, and lists optional command-line arguments that are available.</p>
+          <p>Here is an example:</p>
+          <pre><code>java -Xmx1g -cp C:\Users\meep\VELMA\JVelma.jar gov.epa.velmasimulator.VelmaSimulatorAltCmdLine
+VELMA_2.1.0.39
+Usage: VelmaSimulatorAltCmdLine configurationXmlFileFullName iOutlet_to_run [--kv="key,val"]
+  or: VelmaSimulatorAltCmdLine configurationXmlFileFullName relocationFileFullName iOutlet_to_run [--kv="key,val"]
+Where:
+ 
+Required arguments are:
+ 
+  configurationXmlFileFullName
+    The fully-qualified path and name of a valid VELMA simulation configuration (.xml) file.
+    Exactly ONE simulation configuration file fullName must appear in the command line.
+ 
+  iOutlet_to_run
+    The linear index of the reach outlet cell for this simulation run.
+    The cell index must lie within watershed delineated in the configurationXmlFileFullName file,
+    but it does not have to be the same value as the configurationXmlFileFullName file outlet.,
+ 
+Optional arguments are:
+ 
+  relocationFileFullName
+    The fully-qualified path and name of a valid VELMA simulation relocation (.csv) file.
+    If present, only ONE relocation file fullName may appear in the command line.
+ 
+  --kv="key,val"
+    key is the full (/group/item/name) text of a VELMA Simulation Configuration parameter.
+    val is the value to set for that key.
+  Multiple --kv arguments may occur in the command line.
+  No two --kv arguments may specify the same key
+  The --kv pairs are set or added to the Simulation Configuration at simulator initialization.
+  (The original fullName_simulationConfiguration.xml file is NOT modified)</code></pre>
+          <h3>Command Line Options</h3>
+          <h4>The Optional <code>relocationFileFullName</code></h4>
+          <p>VelmaAlt allows an optional <code>relocationFileFullName</code> on the command line. The relocation file contains additional configuration information required for running multi-map, multi-scale simulations. As mentioned previously, these are beyond the scope of this document.</p>
+          <p>Be aware, however, that when a relocation file <em>is</em> specified, it does <em>not</em> have a double-dash (<code>--</code>) prefix, like other options, and it <em>must</em> appear on the command line <em>between</em> the simulation configuration .xml file and the watershed outlet.</p>
+          <p>Also be aware that if you accidentally specify two or more filenames on your VelmaAlt command line, one of them <em>will</em> be treated as the relocation file, and VelmaAlt will assume you are starting a multi-map, multi-scale simulation. Since you are not, the run will fail with possibly confusing errors. The specifics of the errors will depend on what the file mistook as a relocation file actually contains.</p>
+          <h4>The --kv Option</h4>
+          <p>VelmaAlt supports the <code>--kv</code> option in exactly the same way that VelmaSim does.<br> See VelmaSim's explanation
+             for details.
+          </p>
+          <p>Care and restraint should <em>always</em> be applied when using <code>--kv</code> options, but even more so with VelmaAlt.<br> VelmaAlt itself almost always overrides the settings of some of the parameter values from the specified simulation configuration. It does this to change the stated outlet location, and to rename the run-index.<br> In particular, avoid overriding the following parameters for VelmaAlt runs:</p>
+          <ul>
+            <li><code>/calibration/VelmaInputs.properties/run_index</code></li>
+            <li><code>/calibration/VelmaInputs.properties/outx</code></li>
+            <li><code>/calibration/VelmaInputs.properties/outy</code></li>
+            <li><code>/calibration/VelmaInputs.properties/initialReachOutlets</code></li>
+          </ul>
+          <h4>Special Cases:</h4>
+          <ol>
+            <li>
+              <p>It is sometimes useful to override <code>enableReachMapping</code>, but if you do so, be aware of how the value its set to affects VelmaAlt's watershed delineation and outlet validation.</p>
+            </li>
+            <li>
+              <p></p>There is one situation where you <em>must</em> override <code>run_index</code>, even though it is generally discouraged for VelmaAlt runs. If you are using VelmaAlt to re-run a sub-reach result of an existing VelmaPar run, <em><strong></strong>and</em> if you overrode the <code>run_index</code> on the orginal VelmaPar command line, then you <em>must</em> use a <code>--kv</code> option to override <code>run_index</code> to <em>exactly the same value</em> you used in the original VelmaPar run.
+            </li>
+          </ol>
+          <h4>There is No --lint Option</h4>
+          <p>VelmaAlt does not allow the <code>--lint<code> option supported by VelmaSim.</p>
+          <p>The only ways to "lint check" a VELMA simulation configuration .xml file are with VelmaSim, or in the VelmaGUI environment.</p>
+          <p>In VelmaGui, clicking the <code>[Edit]-&gt;[Check the Current Configuration]</code> menu item has the same effect as running VelmaSim with the <code>--lint</code> option.<br> Any <code>--lint</code> message output is displayed in VelmaGui's "Console" tab.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.2/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.2/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.2/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.2/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.2/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.2/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.2/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.2/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.2/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.2/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.2/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.2/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.2/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.2/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.2/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.2/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.2/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.2/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.2/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.2/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.2/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.2/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.2/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.2/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Nitrogen Deposition </h1>
+          <p>Atmospheric inputs of wet and dry nitrogen deposition can make a significant contribution to ecosystem nitrogenbudgets, especially in regions influenced by industry and agricultural. It is important to estimate the timingand amounts of wet and dry nitrogen deposition, and its availability for plant uptake and other ecohydrologicalprocesses. Such estimates are complicated by time lags associated with dry deposition of nitrogen on leaves andother surfaces, and subsequent flushing into the soil during precipitation events.</p>
+          <p>VELMA version 1.0 modeled daily atmospheric inputs of wet and dry deposition as a function of the annualatmospheric input and the fraction of annual rain that occurs at a given day.</p>
+          <p>VELMA version 2.0 models atmospheric nitrogen deposition based on the following assumptions:</p>
+          <ol> 
+            <li>The daily rate of atmospheric N deposition (wet + dry) is the same every day of the year, i.e., annual total Ndeposition/365 = daily N deposition</li>
+            <li>Daily N deposition (Nin) accumulates on leaves &amp; other surfaces (NinBank) until a liquidprecipitation (rain + snowmelt) event.</li>
+            <li>Precipitation events wash a fraction of NinBank (throughfall N) into the surface soil layer's inorganicN pool. This fraction (0-1) varies as a nonlinear (asymptotic) function of leaf biomass and daily precipitationamount, such that grid cells having higher leaf biomass have disproportionately lower throughfall N at loweramounts of precipitation. Furthermore, N stored in NinBank becomes depleted past a certain upperthreshold (asymptote) of daily precipitation. Thus, the main difference between this method and VELMA version1.0 is that it can account for observed nonlinear threshold behavior of throughfall as a function of leaf areaand precipitation amount.</li>
+            <li>Currently, daily Nin is composed of NH4 + NO3 deposition, and Nin transferred from the NinBankto the surface soil layer is to the ammonium pool in Layer0 (NH4 and NO3 will be modeledseparately in a future version of VELMA).</li>
+          </ol>
+          <p>Parameters for the experimental (but preferred) nitrogen deposition subroutine can be viewed and specified byselecting "9.0 Nitrogen Deposition" from the All Parameters drop-down menu:</p><img width="627" height="187" alt="image" src="public/Image_077.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">wet_nin</td>
+              <td class="param_desc">Wet nitrogen deposition factor in gNm^2 per year</td>
+            </tr>
+            <tr> 
+              <td class="param_name">dry_nin </td>
+              <td class="param_desc">Dry nitrogen deposition factor in gNm^2 per year</td>
+            </tr>
+            <tr> 
+              <td class="param_name">ninBankInitialSpinUpValue </td>
+              <td class="param_desc">N-deposition initialization value. When this initialization value is zero a simulation run's first year is used to "spin up" the Michaelis-Menten-based N-deposition model.The N-deposition values computed for that first year (and subsequent values calculated from them) are unlikely to be accurate. However if a correct value is known thisinitialization parameter may be set to it. The value should be the daily average N-deposition value for a singlecell of the current simulation. If the value is unknown or cannot be reliably deduced ahead of simulation startleave this value zero and incur the first-year spin-up (see Calibration notes, below)</td>
+            </tr>
+            <tr> 
+              <td class="param_name">ninHalfSaturationKnForLossFromNinBank </td>
+              <td class="param_desc">N-deposition Michaelis-Menten kinetics Kn constant.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">ninMaxLossFromNinBankPerDay </td>
+              <td class="param_desc">N-Deposition Michaelis-Menten kinetics maximum</td>
+            </tr>
+            <tr> 
+              <td class="param_name">useExperimentalNin </td>
+              <td class="param_desc">When set to "true" N-deposition is computed using a banked Michaelis-Menten-based equation. When set to "false" N-deposition is computed using the VELMA version 1.0linear equation. Use of the older equation is deprecated. The default value for this parameter is "true".</td>
+            </tr>
+          </table>
+          <h4>Calibration Notes</h4>
+          <p>For the reasons mentioned under assumption #3, above, we recommend using the experimental (VELMA version 2.0)nitrogen deposition subroutine rather than that used in VELMA version 1.0.</p>
+          <p>We have prepared a DRAFT Excel spreadsheet that you may choose to use to parameterize the experimental nitrogen deposition subroutine.</p>
+          <p>Filename: VELMA 2.0_Nitrogen Deposition Calibrator_7-26-13 v3.xlsx Folder location: VELMAModel\Supporting Documents\Excel Calibration Files</p>
+          <h3 id="9-1-2">9.1.2 Old (DEPRECATED) Nitrogen Deposition Parameters</h3>
+          <p>Use of the VELMA version 1.0 nitrogen deposition subroutine is discouraged. Please see section 9.0. </p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

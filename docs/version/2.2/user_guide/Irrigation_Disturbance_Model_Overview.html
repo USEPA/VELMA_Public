@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">User Guides</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">Input / Output Files Guides</strong><a href="/docs/version/2.2/user_guide/Input_File_Details"><span>Input File Details</span></a><a href="/docs/version/2.2/user_guide/Input_File_Formats"><span>Input File Formats</span></a><a href="/docs/version/2.2/user_guide/Output_Overview"><span>Output Files</span></a><a href="/docs/version/2.2/user_guide/MoeVelGenerator_Guide"><span>MOEA-to-VELMA Configuration Generator</span></a><a href="/docs/version/2.2/user_guide/Acquisition_and_Generation_of_Input_Data"><span>Acquire and Generate Input Data</span></a><a href="/docs/version/2.2/user_guide/Biomass_Output_to_BlueSky"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a><a href="/docs/version/2.2/user_guide/ObsRunoff_and_NaNs"><span>Observered Runoff Data May Inlude NaN Values</span></a><a href="/docs/version/2.2/user_guide/Outputs_For_Data_Visualization"><span>Outputs For Data Visualization</span></a><a href="/docs/version/2.2/user_guide/TopoFiles_Output_Summary"><span>Topography Output Data Summary</span></a><a href="/docs/version/2.2/user_guide/Sediment_Output_Data_Summary"><span>Sediment Output Data Summary</span></a><br><strong class="center-text white-text">Simulation Configuration Guides</strong><a href="/docs/version/2.2/user_guide/Configuration_Checker_Guide"><span>Configuration Checker Guide</span></a><a href="/docs/version/2.2/user_guide/Add_Multiple_Location_Weather_Drivers"><span>Add Mulitple Location Weather Drivers</span></a><a href="/docs/version/2.2/user_guide/CellSpecificBurnDisturbance_Configuration_Guide"><span>Configuring a Cell-Specific Burn Disturbance</span></a><a href="/docs/version/2.2/user_guide/Cell_Data_Writer_Configuration"><span>Cell Data Writer Configuration</span></a><a href="/docs/version/2.2/user_guide/Default_Tidewater_Model_Config"><span>Default Tidewater Model Configuration</span></a><a href="/docs/version/2.2/user_guide/Groundwater_Storage_Mechanism"><span>Groundwater Storage Mechanism</span></a><a href="/docs/version/2.2/user_guide/Implementing_Green_Roofs"><span>Implementing Green Roof Applications in VELMA</span></a><a href="/docs/version/2.2/user_guide/Simulating_Fate_and_Transport"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a><a href="/docs/version/2.2/user_guide/Surface_Chemistry_Pools"><span>VELMA Surface Chemistry Pools</span></a><a href="/docs/version/2.2/user_guide/DefaultSedimentModel_Configuration_Guide"><span>Default Sediment Model Configuration </span></a><a href="/docs/version/2.2/user_guide/SurfaceEvaporation_Overview"><span>Surface Evaporation Configuration</span></a><br><strong class="center-text white-text">Contaminants </strong><a href="/docs/version/2.2/user_guide/Contaminant_Modeling_Example"><span>VELMA Contaminant Modeling Example </span></a><a href="/docs/version/2.2/user_guide/OrganicContaminant_Overview"><span>Overview of Organic Contaminant Modeling Using VELMA</span></a><a href="/docs/version/2.2/user_guide/Organic_Contaminant_Modeling"><span>Organic Contaminant Modeling Using VELMA Framework and Example</span></a><a href="/docs/version/2.2/user_guide/OrganicContaminant_Remediation_Configuration_Guide"><span>Configuring An Organic Contaminant to Include Remediation Effects</span></a><a href="/docs/version/2.2/user_guide/OrganicContaminant_Tracer_Configuration_Guide"><span>Configuring An Organic Contaminant as a Tracer</span></a><br><strong class="center-text white-text">Disturbances </strong><a href="/docs/version/2.2/user_guide/Deposition_of_Surface_Chemicals"><span>Deposition of Surface Chemicals </span></a><a href="/docs/version/2.2/user_guide/Irrigation_Disturbance_Model_Overview"><span>Irrigation Disturbance Model</span></a><a href="/docs/version/2.2/user_guide/ForestBurnLsrDisturbanceModel_Overview"><span>Forest Burn LSR Disturbance Model</span></a><a href="/docs/version/2.2/user_guide/WaterDrainDisturbanceModel_Overview"><span>Water Drain Disturbance Model</span></a><br><strong class="center-text white-text">Soils </strong><a href="/docs/version/2.2/user_guide/Soil_Data_Mapping_and_Parameter_Initialization"><span>Soil Data Mapping and Parameter Initialization</span></a><br><strong class="center-text white-text">Weather</strong><a href="/docs/version/2.2/user_guide/MinMaxAirT_WeatherDrivers"><span>Minimum and Maximum Air Temperatures In VELMA</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Irrigation Disturbance</h1>
+          <div class="info blue-light-1">
+            <p>Overview (Add Irrigation Disturbance)</p>
+            <p>This document describes how to build an Irrigation Disturbance in VELMA. This provides a way to add specific amounts of water to specific categories of cells within the simulated watershed, at specific steps during the simulation run, and for specific precipitation conditions.</p>
+          </div>
+          <p>Use the Irrigation Disturbance routine in VELMA to specify when (Julian days) and where (mapped cell locations) you want to add irrigation water. The irrigation water is added "as-if" it is a rain addition for the specified cell(s). This prevents irrigation water additions from perturbing VELMA's water balance mechanisms.</p>
+          <p>Note that cell locations to be irrigated are limited to the Cover Types you specify. For example, suppose you wish to irrigate only a subset of grassland areas amongst all "Grassland" cover type areas within the simulated watershed. In that case, you will need to create a cover type named "IrrigatedGrassland" (or something similar), and assign a unique integer to all cells for that new cover type in the watershed's</p>
+          <p>Cover Type map. Otherwise all cells designated in the Cover Type map as "Grassland" will be irrigated.</p>
+          <h3>Using the Irrigation Disturbance</h3>
+          <p>Add an Irrigation Disturbance to your simulation configuration in JVelma via the menu Edit -&gt; Disturbances -&gt; Add a Disturbance item.</p><img width="506" height="284" alt="Add a disturbance dialog window" src="public/suppImage_292.jpg">
+          <p>Clicking the &quot;Add a Disturbance&quot; item opens the &quot;Specify Disturbance Model Type and Name&quot; dialog. Select &quot;IrrigationDisturbanceModel&quot; in the dropdown selector as the model type.</p><img width="493" height="237" alt="Specify Disturbance Model Type and Name" src="public/suppImage_293.jpg">
+          <p>The Disturbance Name can be any meaningful text name, but it can only be composed of letters of the alphabet, the digits 0-9, and the underscore (&quot;_&quot;) character.</p>
+          <p>It must also be unique from any other disturbances named in the same simulation configuration.</p>
+          <p>After entering a name for the new Irrigation Disturbance, click the OK button, and JVelma will create a new parameterization group and filter the parameters table view to show only its parameters in the &quot;All Parameters&quot; tab.</p>
+          <p>Here is an example of a new Irrigation Disturbance, created with the name &quot;Irrigation Test&quot;:</p><img width="629" height="193" alt="An example of a new Irrigation Disturbance called irrigation test" src="public/suppImage_294.jpg">
+          <p>The example parameterization above schedules irrigation to occur for cells with Cover Type = 1 during the first simulation loop, on the first 3 days of year 1980.</p>
+          <p>Even during the 3 days of 1980 when irrigation <i>can </i>occur, it will <i>only </i>occur for Cover Type 1 cells in which (irrigationThreshold - totalPrecipitation) &gt; 0.0.</p>
+          <p>(Where totalPrecipitation is the total precipitation for a given cell on a given day - e.g. if irrigationThreshold = 10.0, but the totalPrecipitation = 5.0, no irrigation occurs even if the cell is otherwise-eligible.)</p>
+          <h3>Capturing Irrigation Details in VELMA Simulation Results</h3>
+          <p>To observe how much irrigation occurs (and when it occurs), add a SpatialDataWriter parameterization for the VERTICAL_WATER_ADDITION pool to your simulation configuration.</p>
+          <p>Here is an example, configured to emit .asc maps on the same days as the example Irrigation Disturbance configuration given above.</p><img width="624" height="222" alt="A spatial data writer configured to emit .asc maps on the same days as the example Irrigation Disturbance configuration given above" src="public/suppImage_295.jpg">
+          <p>Be aware that the VERTICAL_WATER_ADDITION pool is shared by other disturbances and simulator engine mechanisms.</p>
+          <p>If you have Groundwater Storage, or Water Drain Disturbance configured and active in your simulation, the VERTICAL_WATER_ADDITION amounts represent the sum of the contributors than share the pool. (Currently, however, there are no other results reporting mechanisms for irrigation amounts.)</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

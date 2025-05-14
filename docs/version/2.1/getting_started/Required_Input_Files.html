@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">Getting Started with VELMA</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.1/getting_started/Quickstart"><span>VELMA Quickstart</span></a><a href="/docs/version/2.1/getting_started/Required_Input_Files"><span>Required Input Files</span></a><a href="/docs/version/2.1/getting_started/New_Simulator_Config"><span>New Simulator Configuration</span></a><a href="/docs/version/2.1/getting_started/VelmaSimRunner"><span>Velma Sim Runner Guide</span></a><a href="/docs/version/2.1/getting_started/VelmaSimRunner_QuickRef"><span>Velma Sim Runner Quick Reference</span></a><a href="/docs/version/2.1/getting_started/VelmaSimulatorAltCmdLine_Overview"><span>VELMA Simulator ALT Command Line Overview</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Required Input Data Files for VELMA Simulations</h1>
+          <p>The primary input file for a given simulation run is an XML file of initialization parameters known as the simulator configuration file (often abbreviated as the "simconfig" or "the XML" file). In addition to the simulator configuration file, the following data files must be complete and available for the VELMA Simulator to run:</p>
+          <table cellspacing="0">
+            <tbody>
+              <tr>
+                <td>FILE</td>
+                <td>TYPE</td>
+                <td>CONTAINS</td>
+              </tr>
+              <tr>
+                <td>Flat-Processed DEM</td>
+                <td>Spatial / Grid ASCII (.asc)</td>
+                <td>Elevation in meters</td>
+              </tr>
+              <tr>
+                <td>Cover Species ID Map</td>
+                <td>Spatial / Grid ASCII (.asc)</td>
+                <td>Cover Species ID integers</td>
+              </tr>
+              <tr>
+                <td>Cover Species Age Map</td>
+                <td>Spatial / Grid ASCII (.asc)</td>
+                <td>Cover Species age in years</td>
+              </tr>
+              <tr>
+                <td>Soil Parameters ID Map</td>
+                <td>Spatial / Grid ASCII (.asc)</td>
+                <td>Soil Parameterization ID integers</td>
+              </tr>
+              <tr>
+                <td>Precipitation Driver Data</td>
+                <td>Temporal / (.csv or .txt)</td>
+                <td>Precipitation per in mm</td>
+              </tr>
+              <tr>
+                <td>Air Temperature Driver Data</td>
+                <td>Temporal / (.csv or .txt)</td>
+                <td>Air Temperature in degrees C</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>If your simulation is using the optional spatially-explicit weather model, the following files must also be complete and available:</p>
+          <table cellspacing="0">
+            <tbody>
+              <tr>
+                <td>FILE</td>
+                <td>TYPE</td>
+                <td>CONTAINS</td>
+              </tr>
+              <tr>
+                <td>Head Index Map</td>
+                <td>Spatial / ESRI Grid ASCII (.asc)</td>
+                <td>Heat index values</td>
+              </tr>
+              <tr>
+                <td>Precipitation Coefficients</td>
+                <td>Tabular (.csv)</td>
+                <td>Coefficient values</td>
+              </tr>
+              <tr>
+                <td>Air Temperature Coefficients</td>
+                <td>Tabular (.csv)</td>
+                <td>Coefficient values</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Finally, the following files are not required for the VELMA Simulator to run, but providing them for a simulation run is recommended. Their availability allows the simulator to provide more run-time information and some additional results data. (E.g. The VELMA Simulator can only compute a Nash- Sutcliffe coefficient value for a simulation run&apos;s runoff data if the Observed Runoff data file was provided as part of the input data).</p>
+          <table cellspacing="0">
+            <tbody>
+              <tr>
+                <td>FILE</td>
+                <td>TYPE</td>
+                <td>CONTAINS</td>
+              </tr>
+              <tr>
+                <td>Observed Runoff</td>
+                <td>Temporal (.csv or .txt)</td>
+                <td>Observed runoff in mm</td>
+              </tr>
+              <tr>
+                <td>Observed Stream Chemistry</td>
+                <td>Temporal Tabular (.csv)</td>
+                <td>Observed chemistry values</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>&quot;Simulator Configuration&quot; and &quot;Simulation Configuration&quot; are both used as the term for this primary file. The former emphasizes the fact that the file&apos;s contents configure the simulator, while the latter emphasizes the (equally true) fact that the file&apos;s contents form a particular configuration of a given simulation scenario.</strong></p>
+          <h3>The Simulator Configuration file specifies the Names of all other input data files.</h3>
+          <p>When you run a VELMA Simulation, the simulator engine is given the simulator configuration file. The first thing the simulator engine does is initialize itself, using the key-value pairs in the file. Each of the required or optional files mentioned above is present as a key-value pair in the simulator configuration file.</p>
+          <table cellspacing="0">
+            <tbody>
+              <tr>
+                <td>FILE</td>
+                <td>CONFIGURATION ID KEY</td>
+              </tr>
+              <tr>
+                <td>Flat-Processed DEM</td>
+                <td>/calibration/VelmaInputs.properties/input_dem</td>
+              </tr>
+              <tr>
+                <td>Cover Species ID Map</td>
+                <td>/calibration/VelmaInputs.properties/coverSpeciesIndexMapFileName</td>
+              </tr>
+              <tr>
+                <td>Cover Species Age Map</td>
+                <td>/calibration/VelmaInputs.properties/coverAgeMapFileName</td>
+              </tr>
+              <tr>
+                <td>Soil Parameters ID Map</td>
+                <td>/calibration/VelmaInputs.properties/soilParametersIndexMapFileName</td>
+              </tr>
+              <tr>
+                <td>Precipitation Driver Data</td>
+                <td>/weather/SpatialWeatherModel/rainDriverDataFileName</td>
+              </tr>
+              <tr>
+                <td>Air Temperature Driver Data</td>
+                <td>/weather/SpatialWeatherModel/airTemperatureDriverDataFileName</td>
+              </tr>
+              <tr>
+                <td>Head Index Map</td>
+                <td>/weather/SpatialWeatherModel/heatIndexMapFileName</td>
+              </tr>
+              <tr>
+                <td>Precipitation Coefficients</td>
+                <td>/weather/SpatialWeatherModel/rainCoefficientDataFileName</td>
+              </tr>
+              <tr>
+                <td>Air Temperature Coefficients</td>
+                <td>/weather/SpatialWeatherModel/airTemperatureCoefficientsDataFileName</td>
+              </tr>
+              <tr>
+                <td>Observed Runoff</td>
+                <td>/calibration/VelmaInputs.properties/input_runoff</td>
+              </tr>
+              <tr>
+                <td>Observed Stream Chemistry</td>
+                <td>/calibration/VelmaInputs.properties/input_stream_chem</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>ID keys for required input data files must have the name of an existing, valid and readable file specified, while optional input data files ID keys may be left blank.</p>
+          <h4>Note: Sometimes just the name and extension of the file will do, sometimes the fully-specified path must be included as part of the name, and sometimes the path is optional. This unfortunately-confusing state of affairs exists due the history of the Simulator&apos;s development. For the input data files discussed here, supply only the name and extension as an ID Key&apos;s value.</h4>
+          <p>The Simulator Configuration file specifies the Location of all other input data files.</p>
+          <p>The simulation configuration specifies the location of a directory (a.k.a. &quot;folder&quot;) and the VELMA simulator engine looks in that directory for the input data files specified by the appropriate ID Keys (as listed in the previous table). The simulation configuration uses two, separate ID Keys to specify one fully-qualified path + directory name:</p>
+          <table cellspacing="0">
+            <tbody>
+              <tr>
+                <td>Location Path</td>
+                <td>/startups/VelmaStartups.properties/inputDataLocationRootName</td>
+              </tr>
+              <tr>
+                <td>Directory Name</td>
+                <td>/startups/VelmaStartups.properties/inputDataLocationDirName</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>The fully-qualified location of input data files is <b>Location Path </b>+ "/" + <b>Directory Name</b>. For example, the following ID Key values:</p>
+          <table cellspacing="0">
+            <tbody>
+              <tr>
+                <td>ID Key</td>
+                <td>Value</td>
+              </tr>
+              <tr>
+                <td>/startups/VelmaStartups.properties/inputDataLocationRootName</td>
+                <td>C:/MyVELMA_InputData</td>
+              </tr>
+              <tr>
+                <td>/startups/VelmaStartups.properties/inputDataLocationDirName</td>
+                <td>LittleMtn_Watershed</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>… indicate that the VELMA simulator should look for input data files in this directory: <b>C:\MyVELMA_InputData\LittleMtn_Watershed</b></p>
+          <h3>IMPORTANT NOTE</h3>
+          <p>The example above uses Microsoft Window file system "back slash" separators, however you should ALWAYS use "forward slash" (a.k.a. Unix-style) separators when specifying path name values for the simulator configuration's ID Keys.</p>
+          <p>Given the fully-qualified input data location in the example above, suppose the LittleMtn_Watershed's DEM file name (for ID Key /calibration/VelmaInputs.properties/input_dem) was specified as: LittleMtn_30m_DEM.asc</p>
+          <p>The VELMA simulator would attempt to open and read elevation data from the file:</p>
+          <p>C:\MyVELMA_InputData\LittleMtn_Watershed\LittleMtn_30m_DEM.asc</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

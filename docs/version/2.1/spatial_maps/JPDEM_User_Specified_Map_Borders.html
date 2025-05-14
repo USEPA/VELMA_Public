@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">Spatial ASCII Maps in VELMA</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">ASCII Maps</strong><a href="/docs/version/2.1/spatial_maps/Ascii_Grid_Chemistry_Spatial_Pools"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a><a href="/docs/version/2.1/spatial_maps/AscMapOct_Guide"><span>ASCII Map Oct Guide</span></a><a href="/docs/version/2.1/spatial_maps/AscRangeMask_Guide"> <span>ASCII Range Mask Guide</span></a><a href="/docs/version/2.1/spatial_maps/Generate_Ascii_Grids_For_Daily_Temp_and_Precip"><span>Generating daily temperature and precipitation grids for running VELMA</span></a><a href="/docs/version/2.1/spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Initialize Spatial Pool Using ASCII</span></a><a href="/docs/version/2.1/spatial_maps/Add_Projection_Info_To_Output_Maps"> <span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a><a href="/docs/version/2.1/spatial_maps/Create_Initial_Soil_and_Plant_Chem_Spatial_Data_Pools"> <span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a><a href="/docs/version/2.1/spatial_maps/Land_Zoning_Maps"> <span>Create Land-zoning Maps for a VELMA Application</span></a><a href="/docs/version/2.1/spatial_maps/Reach_Mapping"> <span>Reach Mapping</span></a>
+            <hr><strong class="center-text white-text">DEM</strong><a href="/docs/version/2.1/spatial_maps/Create_Flat_Processed_DEM_Tutorial"><span>Expanded Flat Processed DEM Tutorial</span></a><a href="/docs/version/2.1/spatial_maps/Create_Flat_Processed_DEM_and_Outlet_Watershed_Delineation"><span>Using DEM data to Determine Outlet and Watershed Delineation</span></a>
+            <hr><strong class="center-text white-text">JPDEM</strong><a href="/docs/version/2.1/spatial_maps/JPDEM_Cell_Highlighter"><span>JPDEM Cell Highlighter</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Channel_Cutter_For_Flow_Path_Modification"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Flow_Accumulation_Threshold_Display"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Flow_Test_Tool"><span>JPDEM Flow Test Tool</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_For_Viewing_Map_Differences"><span>JPDEM for Viewing Map Differences</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_ReachMapping_Demonstration"><span>JPDEM Sub-Reach Mapping Delineations Example</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Saving_Data_To_Files"><span>JPDEM Saving Data to Files</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Sub_Reach_Delineations"><span>JPDEM Sub-Reach Delineations</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_User_Specified_Border_Mask"><span>JPDEM User-Specified Border Mask</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_User_Specified_Map_Borders"><span>JPDEM User-Specified Map Borders</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>JPDEM User-Specified Map Borders</h1>
+          <div class="info blue-light-1"> 
+            <p>Overview (<i>Tutorial B.6 - JPDEM User-Specified Map Borders</i>)</p>
+            <p>JPDEM's experimental ("EXP") and enhanced experimental ("EEX") flat-processing algorithms experience significant runtime slowdown when the DEM map they are applied to contains large waterbodies or other uniform-elevation areas of cells along one or more edges of the map.</p>
+            <p>This tutorial explains how to create a border mask that specifies these areas as being part of the map border (i.e. ignored during flat-processing and off-limits for delineation thereafter) can considerably speed up the flat-processing process.</p>
+          </div>
+          <p>Any DEM grid .asc file loaded into JPDEM must have its computational domain set prior to flat-processing. This is normally done automatically, when you use JPDEM's "Load Map File Data" --&gt; "Load As DEM File menu item".</p>
+          <p>Setting the computational domain involves the following:</p>
+          <ul> 
+            <li>The loaded DEM grid is prohibited from containing any NODATA_value(s).</li>
+            <li>A default, single-cell-width border is imposed on the DEM grid.</li>
+          </ul>
+          <p>However, you can instead load a DEM (or any) grid .asc file using JPDEM's “Load Map File Data” --> “Load As Raw Map File” menu item, and in this case the grid .asc file is loaded as-is, without performing the steps to set its computational domain. A DEM grid .asc file loaded via the “Raw” menu item can subsequently be flat-processed if its computation domain is set, but to do this, the user must load a valid Border Mask Map .asc file.</p>
+          <p>The BorderMask Map .asc file must have the same column and row dimensions as the loaded DEM grid .asc map, and its cell data must consist solely of integer “1” and “0” values. Border cells must have the value “0” and interior cells must have the value “1”.</p>
+          <p>Running the “Load Map File Data” --> “Load Border Mask” menu item will load border mask data from the specified file, then set the computational domain of the currently-loaded DEM grid .asc file based on the bitmask of border/interior cells from the border mask map file.</p>
+          <h3>Why Are User-Specified Borders Useful?</h3>
+          <p>JPDEM's experimental ("EXP") and enhanced experimental ("EEX") flat-processing algorithms experience significant runtime slowdown when the DEM map they are applied to contains large, uniform-elevation areas of cells along one or more edges of the map.</p>
+          <p>Creating a border mask that specifies these areas as being part of the map border (i.e. ignored during flat-processing and off-limits for delineation thereafter) can considerably speed up the flat-processing process.</p>
+          <h3>Important Limitations</h3>
+          <ul>
+            <li>You can only load a border mask map file for a DEM map that was raw-loaded.</li>
+            <li>Your border mask map file must (at a minimum) specify the top and bottom rows, and the left-most and right-most columns of the mask as border cells.</li>
+            <li>The border mask must encode border cell values as “0”, all other cells as “1”.</li>
+            <li>You cannot load a second border mask map file for a given DEM file. Once a DEM map's computational domain is set, it cannot be set again. To use a new border mask, re-load the original DEM file and then load the new border mask.</li>
+          </ul>
+          <h3>An Overview / Example of Using a Border Mask During Flat-Processing</h3>
+          <p>For the following overview, the example data is:</p>
+          <ul>
+            <li>A DEM file (“Winant_2pnt5.asc”)</li>
+            <li>A prepared border mask (“Winant_2pnt5_dmMask.asc”)</li>
+            <li>A stream dredge channel guide (“Winant_2pnt5m__watershedDredgeMap_Corrected.asc”)</li>
+          </ul>
+          <p>Step 1: Load the DEM file as Raw Data via the “Load Map File Data” --> “Load As Raw Map File” menu item.</p>
+          <p>Step 2: Load the Border Mask via the “Load Map File Data” --> “Load Border Mask” menu item.</p>
+          <p>At this point, we can see the user-specified border by highlighting cells that are < 0 meters in elevation. (For this particular map, the lowest elevation prior to setting the computation domain was zero meters. After loading the border mask and setting the computation domain, all border cells will have been “pushed down” below 0 meters in elevation.) In the image below, border cells are highlighted “pepto-pink”, while interior cells are shown with contour-rendering greyscale to make the contrast clear:</p><img height="434" alt="screenshot" title="screenshot" src="public/suppImage_121.jpg">
+          <p>Notice that the top and bottom rows, and the left-most and right-most columns are part of the border. This was specified in the border mask file ("Winant_2pnt5_dmMask.asc") and is required (per the prior Limitations list).</p>
+          <p>Step 3: (Optional)</p>
+          <p>Load a stream burn-in dredge channel guide map via the "Load Stream File Data" menu item</p>
+          <p>This is not a necessary step, however, if you plan to perform a stream channel burn-in prior to flat- processing, you must load the data and run the channel-cutter on paired (DEM + border mask) + stream channel guide at this point (i.e. after raw-loading the DEM and loading the border mask, and before running the flat-processor).</p>
+          <p>Step 4:</p>
+          <p>Run the EXP or EEX flat-processing algorithm from the Tools menu.</p>
+          <p>(i.e. "Tools" --&gt; "Flat-Process DEM Data (Experimental)" or "Tools" --&gt; "Flat-Process DEM (Enhanced</p>
+          <p>Experimental)"</p>
+          <p>Note: If you have performed a stream burn-in, do not attempt to flat-process the DEM with either the Standard or Alternate flat-processing algorithms.</p>
+          <p>If you have not performed a burn-in (Step 3), then it is possible -- but still not recommended -- to run either the Standard or Alternate flat-processing algorithms, however it is unlikely that they will produce better results than either the EXP and EEX algorithms.</p>
+          <p>Here's what our example looks like after flat-processing using the EEX algorithm.</p>
+          <p>Cells colored red meet the Facc Threshold indicated on the GUI, Cells colored green are channel guide cells that do not meet the Facc Threshold, Cells colored yellow-orange are channel guide cells that meet the Facc threshold.</p>
+          <p><br/></p><img width="569" height="653" alt="screenshot" title="screenshot" src="public/suppImage_122.jpg">
+          <p><br/></p>
+          <div class="info blue-light-1">
+            <p>NOTE: Please see JPDEM tutorial B.7, "JPDEM User-Specified Border Mask Example", which provides a more detailed example of how to create a DEM border mask that encompasses large waterbodies at the edge of a DEM. By including these flat features as part of the map border, JPDEM will ignore them during flat-processing of raw DEMs, considerably speeding up the flat-processing process.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">Spatial ASCII Maps in VELMA</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">ASCII Maps</strong><a href="/docs/version/2.1/spatial_maps/Ascii_Grid_Chemistry_Spatial_Pools"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a><a href="/docs/version/2.1/spatial_maps/AscMapOct_Guide"><span>ASCII Map Oct Guide</span></a><a href="/docs/version/2.1/spatial_maps/AscRangeMask_Guide"> <span>ASCII Range Mask Guide</span></a><a href="/docs/version/2.1/spatial_maps/Generate_Ascii_Grids_For_Daily_Temp_and_Precip"><span>Generating daily temperature and precipitation grids for running VELMA</span></a><a href="/docs/version/2.1/spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Initialize Spatial Pool Using ASCII</span></a><a href="/docs/version/2.1/spatial_maps/Add_Projection_Info_To_Output_Maps"> <span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a><a href="/docs/version/2.1/spatial_maps/Create_Initial_Soil_and_Plant_Chem_Spatial_Data_Pools"> <span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a><a href="/docs/version/2.1/spatial_maps/Land_Zoning_Maps"> <span>Create Land-zoning Maps for a VELMA Application</span></a><a href="/docs/version/2.1/spatial_maps/Reach_Mapping"> <span>Reach Mapping</span></a>
+            <hr><strong class="center-text white-text">DEM</strong><a href="/docs/version/2.1/spatial_maps/Create_Flat_Processed_DEM_Tutorial"><span>Expanded Flat Processed DEM Tutorial</span></a><a href="/docs/version/2.1/spatial_maps/Create_Flat_Processed_DEM_and_Outlet_Watershed_Delineation"><span>Using DEM data to Determine Outlet and Watershed Delineation</span></a>
+            <hr><strong class="center-text white-text">JPDEM</strong><a href="/docs/version/2.1/spatial_maps/JPDEM_Cell_Highlighter"><span>JPDEM Cell Highlighter</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Channel_Cutter_For_Flow_Path_Modification"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Flow_Accumulation_Threshold_Display"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Flow_Test_Tool"><span>JPDEM Flow Test Tool</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_For_Viewing_Map_Differences"><span>JPDEM for Viewing Map Differences</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_ReachMapping_Demonstration"><span>JPDEM Sub-Reach Mapping Delineations Example</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Saving_Data_To_Files"><span>JPDEM Saving Data to Files</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Sub_Reach_Delineations"><span>JPDEM Sub-Reach Delineations</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_User_Specified_Border_Mask"><span>JPDEM User-Specified Border Mask</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_User_Specified_Map_Borders"><span>JPDEM User-Specified Map Borders</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>JPDEM Saving Data to Files</h1>
+          <div class="info blue-light-1"> 
+            <p>Overview <i>(B.5_JPDEM Saving Data to Files)</i></p>
+            <p>This document explains how to use JPDEM's file menu to save different types of data files and formats useful for various spatial analysis and visualization purposes.</p>
+          </div>
+          <p>JPDEM's File menu contains multiple "Save" items, each of which allows you to save a specific type of data to a file (or set of files):</p>
+          <table>
+            <thead> 
+              <th>Save Item</th>
+              <th>Summary</th>
+            </thead>
+            <tr> 
+              <td>Velma Simulator Fileset</td>
+              <td>Saves the current DEM, Flow Direction and Flow Accumulation data in 3 separate .asc files.</td>
+            </tr>
+            <tr> 
+              <td>DEM Data</td>
+              <td>Saves the current DEM data -- file type options available.</td>
+            </tr>
+            <tr> 
+              <td>Flow Direction Data</td>
+              <td>Saves the current Flow Directions ("fdir") data - file type options available.</td>
+            </tr>
+            <tr> 
+              <td>Flow Accumulation Data</td>
+              <td>Saves the Flow Accumulation ("facc") data - file type options available.</td>
+            </tr>
+            <tr> 
+              <td>Highlighted Cells</td>
+              <td>Saves the current set of highlighted cells into an .asc file.</td>
+            </tr>
+            <tr> 
+              <td>Current Image</td>
+              <td>Saves JPDEM's current display as an image -- file type options available. Unique to this item: save the current image as a .gif, .jpg or .png file.</td>
+            </tr>
+            <tr> 
+              <td>JPDEM State</td>
+              <td>Save's JPDEM's entire data state into a .csv file. Provided for JPDEM developers, and not generally useful to others.</td>
+            </tr>
+          </table>
+          <p>Many of the "Save" items also have sub-items that allow you to specify the format of the data file that is written:</p>
+          <table>
+            <thead> 
+              <th>File Type Option</th>
+              <th>Description</th>
+            </thead>
+            <tr> 
+              <td>Data Array</td>
+              <td>Writes data values to a .txt file, one value per line, tab-character suffixed.(This is a legacy format, now not commonly used.)</td>
+            </tr>
+            <tr> 
+              <td>ASCII Grid</td>
+              <td>Writes data values to an .asc file with dimensions matching the currently-loaded DEM data grid.</td>
+            </tr>
+            <tr> 
+              <td>Delineated ASCII Grid</td>
+              <td>As above, but data values for cells outside the current delineation are writtenas the ASCII Grid "nodata_value" (i.e. "-9999").</td>
+            </tr>
+            <tr> 
+              <td>Delineated ThresholdASCII Grid</td>
+              <td>As above, but data values for cells lying below the specified "Facc Threshold"value are written as the ASCII Grid "nodata_value" (i.e. "-9999").</td>
+            </tr>
+            <tr> 
+              <td>Image (.gif, .jpg, .png)</td>
+              <td>Only available for the "Save Current Image" menu item.</td>
+            </tr>
+          </table>
+          <h2>Additional Details</h2>
+          <h3>Save VELMA Simulator Fileset</h3>
+          <p>This item writes three separate .asc files for DEM, fdir, and facc data. The files all share the same name,</p>
+          <p>but have the prefixes "DEM_", "FDIR_" and "FACC_" prepended when they are written.</p>
+          <p>Note that although the item name declares this as a "VELMA" fileset, currently the facc values written are JPDEMvalues, not VELMA values (see the comments in the section "Save Flow Accumulation Data" above for more on why thisdistinction is important).</p>
+          <h3>Save DEM Data</h3>
+          <p>Selecting this item allows you to write JPDEM's current DEM data to a file. The "current DEM data" means whateverJPDEM has currently loaded, in its current state. For example, if you click File -&gt; "Load Map File Data" -&gt;"Load as DEM File", and then immediately click File -&gt; "Save DEM Data As" -&gt; "ASCII Grid", the fil you savewill be a duplicate of the file you loaded (apart from any filename differences you introduce). However, if you loada DEM file, flat-process it, and then "Save DEM Data As", the files are likely to contain different data.</p>
+          <h3>Save Flow Direction Data</h3>
+          <p>When JPDEM flat-processes a map, it generates a flow-direction ("fdir") value for each cell in that map. Flowdirection data is also generated when the "Tools" -&gt; "Determine Flow Data" item is run.</p>
+          <p>The flow direction value of a cell is a number between 1 and 8, uniquely identifying one of the cell's eight adjacentcells. A flow direction value &lt;= 0 indicates that flow direction data has not been computed yet.</p>
+          <p>The directional values for cell "C" are show below:</p><img width="204" height="169" alt="screenshot" title="screenshot" src="public/suppImage_120.jpg">
+          <p>So, for example, if C's fdir = 2, C's flow direction is to the cell below and to the right of it.</p>
+          <p>Flow direction indicates only the primary direction that water will flow from a cell to its adjacent cells. Water mayflow to adjacent cells in addition to the cell specified by the flow direction value.</p>
+          <p>Flow direction data may be saved as either an .asc grid file, or a delineated .asc grid file.</p>
+          <p>The delineated .asc grid file option reports the "nodata_value" (i.e. -9999) for any cell that is not part of thecurrent delineation. If no delineation has been performed yet, the entire .asc file will be nodata_value values.</p>
+          <h3>Save Flow Accumulation Data</h3>
+          <p>When JPDEM flat-processes a map, it generates a flow-accumulation ("facc") value for each cell in that</p>
+          <p>map. Flow direction data is also generated when the "Tools" -&gt; "Determine Flow Data" item is run.</p>
+          <p>In JPDEM, the flow accumulation value of a cell is the number of "uphill" cells that flow into that cell. The term"flow into" means that a chain of fdir values leads from the uphill cell to the cell in question,</p>
+          <p>i.e. primary flow directly is the only consideration when calculating a cell's flow accumulation count.</p>
+          <p>Note that JPDEM and VELMA both contain flow accumulation data, but VELMA facc values differ from JPDEM's. While bothJPDEM and VELMA's facc values contain the notion of "cells whose primary flow direction leads to me", VELMA's faccvalue additionally include a scaling component based upon the</p>
+          <p>grid's cell size, and whether flow direction is across an edge or corner cell.</p>
+          <p>JPEM fdir values give a fair idea of the high-vs-low flow areas within a flat-processed DEM and watershed, but they<i>cannot </i>be used as VELMA facc data. VELMA computes its own facc values from the (JPDEM-produced)flat-processed DEM it is provided with at initialization.</p>
+          <p>Flow accumulation data may be saved as an .asc grid file, or a delineated .asc grid file.</p>
+          <p>The delineated .asc grid file option reports the "nodata_value" (i.e. -9999) for any cell outside the currentdelineation. If no delineation has been performed yet, the entire .asc file will be nodata_value values.</p>
+          <p>Flow accumulation data may also be saved as a delineated threshold .asc grid file: in this case, any cell that is notpart of the current delineation, OR is below the specified Facc Threshold value is set to the nodata_value. Again,if no delineation has been performed, or no Facc Threshold has been set, the entire .asc file will be nodata_valuevalues.</p>
+          <h3>Save Highlighted Cells</h3>
+          <p>When selected, this item writes an .asc file in which each cell has one of three possible values:</p>
+          <ul> 
+            <li>Negative One (“-1”) indicates a cell that is not highlighted, and not part of the current delineation.</li>
+            <li>Zero (“0”) indicates a cell that is not highlighted, but that is part of the current delineation.</li>
+            <li>One (“1”) indicates a cell that is highlighted, regardless of whether it is part of the current delineation or not.</li>
+          </ul>
+          <h3>Save Current Image</h3>
+          <p>The "current image" is whatever JPDEM is displaying when this item is selected/clicked. JPDEM willwrite the map image (<i>not </i>a screen capture of the entire JPDEM app window) to the file typespecified (.gif, .jpg, or .png).</p>
+          <p>Note: Use the Windows 10 Snipping Tool if you want a screen capture of the entire JPDEM window.</p>
+          <h3>Save JPDEM State</h3>
+          <p>Selecting this item writes JPDEM's current spatial data state to a comma-separated values (.csv)file. This function is provided for JPDEM developers. General users may find the contents difficultto interpret.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.1/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.1/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.1/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.1/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.1/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.1/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.1/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.1/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.1/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.1/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.1/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.1/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.1/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.1/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.1/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.1/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.1/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.1/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Observed Data Files </h1>
+          <p>If you want VELMA to graphically display observed stream chemistry and runoff data along with simulated valuesduring a simulation (section 25.0), and calculate the Nash-Sutcliffe efficiency coefficient (section 18.0), youwill need to prepare input files and specify their names in the All Parameters outline drop-down menu forsection "19.0 Observed Data Files":</p><img width="621" height="124" alt="image" src="public/Image_112.jpg">
+          <p>For the input_runoff parameter, specify the name of a file (.csv format) containing daily observedstreamflow (runoff) values in mm/day. The data must be formatted as one value per line in the file, and the filemust have as many lines as there are days between the simulator</p>
+          <p>configuration's specified forcing_start and forcing_end parameter values (see "All Parameters 17.0- Simulation Run Schedule")</p>
+          <p>For the input_chem parameter, specify the name of a file (.csv format) containing observed dailystream chemistry values for DON, NH4, DOC and NO3, <b>in that order</b>! Units are g Nm-2 day-1, or g C m-2 day-1.</p>
+          <p>Both input files must be placed in the simulation configuration's input file directory location(inputDataLocationDirName) and name (inputDataLocationRootName). These input data parameters canbe found by selecting "Startups" under the drop-down Filter menu tab (type "input" in the filter for the"Parameter" column if you wish to focus the selection on just these two parameters:</p><img width="622" height="122" alt="image" src="public/Image_113.jpg">
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

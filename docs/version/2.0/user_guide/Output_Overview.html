@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">User Guides</h3>
+          <hr>
+          <div class="flex-container"> <strong class="white-text">Input / Output Files Guides</strong><a href="/docs/version/2.0/user_guide/Input_File_Details"><span>Input File Details</span></a><a href="/docs/version/2.0/user_guide/Input_File_Formats"><span>Input File Formats</span></a><a href="/docs/version/2.0/user_guide/Output_Overview"><span>Output Files</span></a><a href="/docs/version/2.0/user_guide/MoeVelGenerator_Guide"><span>MOEA-to-VELMA Configuration Generator</span></a>
+            <hr><strong class="center-text white-text">Simulation Configuration Guides</strong><a href="/docs/version/2.0/user_guide/Configuration_Checker_Guide"><span>Configuration Checker Guide</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Overview of VELMA Simulator Output</h1><br>
+          <h2>Where are VELMA Simulator Results Located?</h2>
+          <p>The results of a VELMA Simulator run are a collection of data files that the simulator writes to a specific directory location. That directory is specified in the simulator configuration by 2 related parameters:</p>
+          <p>/calibration/VelmaInputs.properties/initializeOutputDataLocationRoot</p>
+          <p>and</p>
+          <p>/calibration/VelmaInputs.properties/run_index</p>
+          <p>The initializeOutputDataLocationRoot's value should be a fully qualified path, and the run_indexshould be the name of a directory under that path.</p>
+          <p>For example, given the following configuration:</p><br>
+          <table>
+            <tr>
+              <td>ID Key</td>
+              <td>Value</td>
+            </tr>
+            <tr>
+              <td>/calibration/VelmaInputs.properties/initializeOutputDataLocationRoot</td>
+              <td>C:/MyVELMA_OutputData</td>
+            </tr>
+            <tr>
+              <td>/calibration/VelmaInputs.properties/run_index</td>
+              <td>LittleMtn_ClearCut</td>
+            </tr>
+          </table><br>
+          <p>All results for the simulation run are written to the directory:</p><code>C:/MyVELMA_OutputData/LittleMtn_ClearCut</code><br>
+          <p>If the directory name specified as the value for run_index does not exist as a subdirectory of thedirectory path specified for initializeOutputDataLocationRoot, the VELMA simulator will create it as asubdirectory before writing any results.</p>
+          <p>If the run_index directory name already exists as a subdirectory of the initializeOutputDataLocationRootdirectory path, the VELMA simulator does not overwrite existing contents. Instead, it creates a newsubdirectory named &lt;run_index&gt;_&lt;n&gt;, where &lt;run_index&gt; is the value of therun_index parameter, and &lt;n&gt; is a unique sequence number. This allows you to run the samesimulation several times, without losing the results for any of the individual simulation runs.</p>
+          <p>If you ran the simulation run with the example parameters above 3 times in a row, without removing any resultsdirectories, you would end up with 3 complete sets of results data in the 3 following directories:</p><code>C:/MyVELMA_OutputData/LittleMtn_ClearCut </code><code>C:/MyVELMA_OutputData/LittleMtn_ClearCut_0</code><code>C:/MyVELMA_OutputData/LittleMtn_ClearCut_1</code>
+          <h2>What Results are Available after a VELMA Simulation is Run?</h2>
+          <p>The VELMA simulator writes several different types of results data, in several different file formats:</p>
+          <h3>Image Data</h3>
+          <p>For each year of the simulations runs via the JVelma GUI, the GUI creates a PNG image that shows the currentgraph/chart state on the last day of the year. These files appear in the run_index directory with the followingnaming format:</p><code>out_&lt;run_index&gt;_&lt;loopNumber&gt;_&lt;YYYY&gt;.png</code>
+          <p>Where &lt;run_index&gt; is the value of the run_index parameter, &lt;loop_number&gt; is thesimulation loop number and &lt;YYYY&gt; is the year for the particular image.</p>
+          <p>For example here is the 2nd loop, year 1979 PNG file for a simulation run of the example configurationused earlier in this document:</p><code>out_LittleMtn_ClearCut_1_1978.png</code>
+          <p>The actual chart or graph type in the image is whatever the user had selected in the JVelma GUI when thesimulator completed the particular year.</p>
+          <h3>Table Data</h3>
+          <p>Table data are files of comma-separated values (.csv) data. They are the primary results output of a VELMAsimulator run. The VELMA simulator produces several .csv files; some document what the configuration of thesimulation run was, while others report the actual simulation results.</p><br>
+          <table>
+            <thead>
+              <th>File name</th>
+              <th>Contents Type</th>
+              <th>Description</th>
+            </thead>
+            <tr>
+              <td>DemState.csv</td>
+              <td>Simulation Configuration</td>
+              <td>Information about the DEM and watershed
+                <p>delineation.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>CoverState.csv</td>
+              <td>Simulation Configuration</td>
+              <td>Information about the specified cover types.</td>
+            </tr>
+            <tr>
+              <td>SoilState.csv</td>
+              <td>Simulation Configuration</td>
+              <td>Information about the specified soil
+                <p>parameterizations.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>SimulationConfiguration.csv</td>
+              <td>Simulation Configuration</td>
+              <td>The full set of parameters used to configure
+                <p>the simulation.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>DailyResults.csv</td>
+              <td>Simulation Results</td>
+              <td>The primary, per-day results output for the
+                <p>simulation run.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>Combined_DailyResults.csv</td>
+              <td>Simulation Results</td>
+              <td>A convenience file: contains the combined contents of the DemState, SoilState,
+                <p>CoverState and DailyResults .csv files.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>Calibration_DailyResults.csv</td>
+              <td>Simulation Results</td>
+              <td>Additional, per-day results data that does
+                <p>not appear in the DailyResults .csv file.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>AnnualResults.csv</td>
+              <td>Simulation Results</td>
+              <td>Derived from the contents of DailyResults;
+                <p>per year min, max, sum and range values for each column of DailyResults file.</p>
+              </td>
+            </tr>
+          </table><br>
+          <h3>Text Data</h3>
+          <p>Text data files contain simple text summaries of either results data or simulator configuration information for aparticular simulation run.</p>
+          <p>Of these, the most important is the NashSutcliffeCoefficients.txt, which contains a Nash-Sutcliffecoefficient value computed for the simulated runoff values. Note that this file only contains useful data if theVELMA simulator was provided with observed runoff data as part of its simulation configuration.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

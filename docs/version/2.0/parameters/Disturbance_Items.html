@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.0/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.0/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.0/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.0/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.0/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.0/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.0/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.0/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.0/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.0/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.0/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.0/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.0/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.0/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.0/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.0/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.0/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.0/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.0/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.0/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.0/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.0/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.0/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.0/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Disturbance Items </h1>
+          <p>Understanding how disturbances such as harvest, fire and fertilization affect ecosystem services has been a majormotivation in the development of VELMA. For example, how do disturbances such as forest harvest or theapplication of agronomic fertilizers affect hydrological and biogeochemical processes controlling water qualityand quantity, carbon sequestration, production of greenhouse gases, etc.? Abdelnour et al. (2011, 2013) havealready demonstrated the use of VELMA v1.0 to simulate the effects of forest clearcutting on ecohydrologicalprocesses that regulate a variety of ecosystem services.</p>
+          <p>With the addition of a tissue-specific plant biomass (LSR) simulator and an enhanced GUI, VELMA v2.0significantly expands the detail, flexibility, and ease of use for simulating disturbance effects. Currentlyavailable disturbance models include:</p>
+          <ul>
+            <li>BurnDisturbanceModel  effects of fire</li>
+            <li>GrazeDisturbanceModel  effects of grazing</li>
+            <li>FertilizeLsrDisturbanceModel  effects of fertilizer applications</li>
+            <li>HarvestLsrDisturbanceModel  effects of biomass harvest</li>
+          </ul>
+          <p>Each of these disturbance models specifies where and when a disturbance event will occur. The Burn, Graze andHarvest models have options for specifying how much of each plant tissue and detritus pool (leaves, stems,roots) will be removed and where it goes (offsite and/or to a specified onsite C and N pools). The Fertilizemodel has options for applying nitrogen as ammonium, nitrate, urea and/or manure.</p>
+          <p>Requirements for implementing a disturbance model include (1) a grid ASCII map of your watershed and associatedparameter specifications that determine where and when a disturbance will occur, and (2) parameterspecifications that determine which plant biomass and detritus pools will be affected, and the fraction of eachpool burned, grazed or harvested and its destination. Portions of harvested aboveground stem biomass can beexported offsite or transferred to the aboveground stem detritus pool.</p>
+          <p>Sections 24.1 - 24.3 describe how to select a disturbance model type and specify parameter values to simulatewhere, when and how disturbances occur. You can set up as many disturbance types and events as you may require.</p>
+          <p>However, we first want to step through an example on the next four pages that illustrate how VELMA's newdisturbance models work. We've chosen the Harvest disturbance model for this example because it illustrates keyconcepts shared by most of the other disturbance models, particularly with regard to how disturbances can bekeyed to the LSR (Leaves-Stems-Root) plant biomass model. We recommend that you look over the details of thisexample before proceeding to sections 24.1 - 24.3.</p><img width="585" height="24" alt="image" src="public/Image_126.png">
+          <h3>LEAF, STEM and ROOT Biomass Pool Arrangement</h3><img src="public/Image_126.png" alt="leaf, stem, and root biomass pool arrangement">
+          <h3>Harvest LSR Disturbance Transfer Diagram</h3><img src="public/Image_127.png">
+          <h3>When and Where a Harvest LSR Disturbance Occurs: An Example</h3>
+          <p><b>Harvest LSR Disturbances occur for each loop, year and Julian day the user specifies</b></p>
+          <p>in the initializeActiveloops,initializeActiveYears andinitiaHzeActiveJdaysparameters1values..The user may specify one ormore loops,years and Julian days, orranges of the same..</p>
+          <p>At least one loop, year and Julianday must be specified.</p>
+          <p>Here is an example specification/or the temporal scheduling pammeters:</p><code>initializeActiveloops = 1, 3 (harvestwifloccurinloopsland3)</code><br><code>initializeActiveYears = 1969-1980, 1985 ( harvest occurs in years 1969 through 1980, and in 1985)</code><br><code>initializeActiveJdays = 200 (harvest occurs on the 200th Julian day)</code>
+          <p><b>The disturbance only occurs for the cover types the user specifies</b></p>
+          <p>in the initializeCoverids parameters values; multiple cover Id numbers may be specified,but not ranges of numbers.</p>
+          <p>The disturbance uses the specified cover Ids, plus the data in the cover id map specified by the <code>coverSpeciesIndexFileMapName</code> parameter to determine which cells should be harvested.</p>
+          <p>Here is an example specification/or the spatial/cover parameters:</p><code>initializeCoverIds = 3, 4</code><br><code>coverSpeciesIndexFileMapName = exampleCoverIDFile.asc </code>
+          <p>With the aboe parameterization and the exampleCoverIDFile.asc contents below, harvest will occur in the cells highlighted in blue.</p>
+          <div class="textbox">
+            <p>ncols 5</p>
+            <p>nrows 5</p>
+            <p>xllcorner 0.0000</p>
+            <p>yllcorner 0.0000</p>
+            <p>cellsize 10.0</p>
+            <p>1 1 1 <span class="blue-light">3 3</span></p>
+            <p>2 1 1 <span class="blue-light">3 3</span></p>
+            <p>2 2 2 2 1</p>
+            <p> <span class="blue-light">4 4 </span>2 1 1</p>
+            <p> <span class="blue-light">4 4 </span>1 2 2 </p>
+          </div>
+          <p>The disturbance uses the specified cover Ids, plus the data in the cover id map specified by the coverSpeciesindexFileMapNameparameter to determine which cells should be harvested.</p>
+          <p>The disturbance occurs only for the specified cover types at or above a specified age.</p>
+          <p>The user specifies this &quot;lowest age limit&quot; in the <code>ageThreshold</code> parameter value. The value must be a positive integer, or zero -- zero specifies any age is acceptable.</p>
+          <p>Here is an example specification for the age limit parameter:</p>
+          <p><code>ageThreshold = 135</code> ( harvest will occur only for cells whose cover is 135 or more years old.)</p>
+          <h3>Filltering: Additional Control For Where a Harvest LSR Disturbance Occurs</h3>
+          <p>Harvest LSR Disturbancesmay (o,p,tionally) belimited t,o    specific.areasbyspecifying aFilter Map,</p>
+          <p>In order to use filtering, the user must have define a Filter Map: a Grid Ascii map with ID numbers for cell data values. The user specifies this map&#39;s name as <code>FilterMapFullName</code> parameter value.</p>
+          <p>(Leaving the <code>FilterMapFullName</code> unspecified indicates &quot;No Filtering&quot; to the Harvest LSR Disturbance.)</p>
+          <p>When a filter file is specified the disturbance only occurs for the filter Ids cells the user specifies in the <code>initializeFilterIds</code> parameter&#39;s values;multiple filter Id values may be specified, but not number ranges. The disturbance uses the specified filter Ids, plus the data in the filter map specified by the <code>filterMapFullName</code> parameter to determine which cells are eligible for harvested.</p>
+          <p>Here is an example spedfication for the spatial/cover parameters:</p><code>initializeFilterlds = 1, 2 </code><code>filterMapFullName = exampleFilterIDFile.asc</code>
+          <p>Note: these example filter Id values,and the values in the exampleFilterIDFile have no relation to the cover Ids.</p>
+          <p>Using this filtering scheme and the cover ID example from the previous slide, the selection logic is: </p>
+          <ol> 
+            <li>Find the subset of cells in the filter map that match the filter ids specified by initializeFilterlds.</li>
+            <li>Consider other spatial-selection (e.g cover Ids) based only on that subset of cells.</li>
+          </ol><img src="public/Image_147.png">
+          <h3 id="24-1">24.1 - Disturbance Items by Model Type</h3>
+          <p>To begin, you need to select the disturbance model you want by clicking Edit  Disturbances  Add aDisturbance:</p><img width="467" height="252" alt="image" src="public/Image_149.jpg">
+          <p>You will see the following drop-down menu for selecting a Disturbance Model. To further demonstrate the harvestdisturbance example illustrated under section 24.0, we select the HarvestLsrDisturbanceModel:</p><img width="510" height="218" alt="image" src="public/Image_150.jpg">
+          <p>Now choose a name for your HarvestLsrDisturbanceModel and type it the "Disturbance Name" dialog box, forexample, "ForestClearcut":</p><img width="500" height="149" alt="image" src="public/Image_151.jpg">
+          <p>After selecting the HarvestLsrDisturbanceModel and giving it a disturbance name, go to the All Parametersdrop-down menu and select "24.1 Disturbance Items by Model Type". You should see the following:</p><img width="622" height="110" alt="image" src="public/Image_152.jpg">
+          <p> </p>
+          <p>Select "24.0 - Disturbance Items" from the All Parameters drop-down menu to see a list of all parametersassociated with the HarvestLsrDisturbanceModel. In the screenshot below, we have specified parametervalues for the HarvestLsrDisturbanceModel disturbance we named "ForestClearcut":</p><img width="620" height="383" alt="image" src="public/Image_153.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">ageThreshold</td>
+              <td class="param_desc">Applicable cover must be greater or equal to the specified ageThreshold (in integer years) to beharvested. Defaults to 0 -- i.e., any otherwise- applicable cell is harvested regardless of age.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">biomassAgStemNharvestFraction</td>
+              <td class="param_desc">The fraction [0.0 1.0] of available above-ground stem biomass harvested i.e. converted from biomass above-ground stem to above-ground stem detritus and/or removedfrom the simulation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">biomassAgStemNoffsiteFraction</td>
+              <td class="param_desc">The fraction [0.0 1.0] of harvested above-ground stem biomass removed offsite, i.e., removed from the cell and the simulation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">biomassBgStemNharvestFraction</td>
+              <td class="param_desc">The fraction [0.0 1.0] of available below-ground biomass harvested i.e. converted from biomass below-ground to below-ground detritus and/or removed from thesimulation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">biomassBgStemNoffsiteFraction</td>
+              <td class="param_desc">The fraction [0.0 1.0] of harvested below-ground stem biomass removed offsite. i.e. removed from the cell and the simulation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">biomassLeafNharvestFraction</td>
+              <td class="param_desc">The fraction [0.0 1.0] of available leaf biomass harvested i.e. converted from biomass leaf to leaf detritus and/or removed from the simulation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">biomassLeafNoffsiteFraction</td>
+              <td class="param_desc">The fraction [0.0 1.0] of harvested leaf biomass removed offsite. i.e. removed from the cell and the simulation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">biomassRootNharvestFraction</td>
+              <td class="param_desc">The fraction [0.0 1.0] of available root biomass harvested i.e. converted from biomass root to root detritus and/or removed from the simulation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">biomassRootNoffsiteFraction</td>
+              <td class="param_desc">The fraction [0.0 1.0] of harvested root biomass removed offsite. i.e. removed from the cell and the simulation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">filterMapFullName</td>
+              <td class="param_desc">The fully-qualified (path/name.ext) name of a Grid ASCII (.asc) file containing (integer)filter Ids. When left unspecified (default) indicates that filtering will be turned off. Note: if the value forthis parameter is not a fully-qualified name the simulator engine will prefix the specified input data locationroot and name to this parameter&#39;s value to create a default fully- qualified name.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initializeActiveJdays</td>
+              <td class="param_desc">The comma-separated list of Julian days on which the disturbance occurs. Entries in thelist may be either single Julian days or start-end (dash-separated) ranges. A valid Julian day is any positivewhole number between 1 and 366 (however day 366 is ignored in non-leap years). For example this text triggersoutput on days 1 365 and between 30 and 90inclusive: 1 30-90 365</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initializeActiveLoops</td>
+              <td class="param_desc">The comma-separated list of loop index numbers (range [1 nth-Loop]) in which thedisturbance occurs. Entries in the list may be either single loop numbers or start-end (dash-separated) ranges.A valid loop index number is any positive whole number between 1 and the number of loops specified for thesimulation run. For example in a simulation run for 10 loops this text triggers output in loops 1 3 through 5and 10 inclusive: 1 3-5 10</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initializeActiveYears</td>
+              <td class="param_desc">The comma-separated list of Years in which the disturbance occurs. Entries in the list maybe either single years or start-end (dash-separated) ranges. A valid year is any positive whole number (but the user isexpected to choose years within the simulation run!). For example in a simulation run between 1995 and 2010,this text triggers output in 2000 through 2005 inclusive: 2000-2005</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initializeAgeModification</td>
+              <td class="param_desc">(Optional) Specifies the number of years to subtract or add to the age of the cover in affected cells when the disturbance occurs. To add n years to a cell&#39;scover age prefix a plus (+) sign to the number n. To subtract n years to a cell&#39;s cover age prefix a minus(- ) sign to the number n. To set the cell&#39;s cover age to a specific number of years specify a number n withoutany sign prefix. Subtraction halts at zero (e.g. a cover age of 7 given -10 as the modifier will result in 0 not-3 as the modified age).</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initializeCoverIds</td>
+              <td class="param_desc">The Cover Species Id numbers that are affected by this disturbance model. Specify acomma-separated sequence of Cover Species uniqueId numbers.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">modelClass</td>
+              <td class="param_desc">The disturbance model&#39;s actual Java class name</td>
+            </tr>
+          </table>
+          <h3 id="24-2">24.2 - Disturbance Items Core Scheduling</h3>
+          <p>Select "24.2 - Disturbance Items Core Scheduling" to focus the All Parameters table on the parameters forspecifying <u>when</u> disturbance events occur:</p><img width="622" height="162" alt="image" src="public/Image_154.jpg">
+          <h4>Parameter Definitions: </h4>
+          <p>these parameters are defined under the All Parameters screenshot for Select "24.0 -Disturbance Items", above.</p>
+          <h3 id="24-3">24.3 -- Disturbance Items Spatial Specifiers</h3>
+          <h4>Select "24.3 -- Disturbance Items Spatial Specifiers" to focus the All Parameters table on the parametersfor specifying <u>where</u> disturbance events occur:</h4><img width="628" height="146" alt="image" src="public/Image_155.jpg">
+          <h4>Parameter Definitions: </h4>
+          <p>these parameters are defined under the All Parameters screenshot for Select "24.0 -Disturbance Items", above.</p>
+          <h4>Calibration Notes</h4>
+          <p>Make sure that the disturbance models you have set up are working correctly. Are disturbance events occurringwhen and where you want them to, are the correct amounts of biomass being harvested/burned/grazed, and are thecorrect amounts and forms of fertilizer being applied. For a first check, click VELMA's GUI "Chart" tab at anytime during a simulation, then click the</p>
+          <p>drop-down menu button located near the lower left corner of the screen, then select an appropriate spatial datadisplay option (see section "25.0 - Runtime Chart Display Scale" for details").</p>
+          <p>For example, by selecting the "Harvest Spatial Data" menu item you can see daily and year-to- date summaries ofharvest events and their effects on various biomass tools. The two figures below show year-end summaries ofharvest events for consecutive years, 2000 and 2001. In 2000 there were no harvests (top figure: top row, middleframe). In 2001 there were several fairly large harvest events (bottom figure: top row, middle frame). Acomparison of the other frames in top and bottom figures reveals changes in plant biomass, detritus, soilorganic matter, and cover age following harvest events.</p>
+          <p>An examination of VELMA's daily and annual output files (csv format) provides a more quantitative check ofdisturbance events.</p>
+          <p>Screenshot of runtime "Harvest Spatial Data" display.</p><img width="496" height="418" alt="image" src="public/Image_156.png"><img width="491" height="415" alt="image" src="public/Image_157.png">
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

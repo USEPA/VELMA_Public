@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">Spatial ASCII Maps in VELMA</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">ASCII Maps</strong><a href="/docs/version/2.2/spatial_maps/Ascii_Grid_Chemistry_Spatial_Pools"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a><a href="/docs/version/2.2/spatial_maps/AscMapOct_Guide"><span>ASCII Map Oct Guide</span></a><a href="/docs/version/2.2/spatial_maps/AscRangeMask_Guide"> <span>ASCII Range Mask Guide</span></a><a href="/docs/version/2.2/spatial_maps/Generate_Ascii_Grids_For_Daily_Temp_and_Precip"><span>Generating daily temperature and precipitation grids for running VELMA</span></a><a href="/docs/version/2.2/spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Initialize Spatial Pool Using ASCII</span></a><a href="/docs/version/2.2/spatial_maps/Add_Projection_Info_To_Output_Maps"> <span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a><a href="/docs/version/2.2/spatial_maps/Create_Initial_Soil_and_Plant_Chem_Spatial_Data_Pools"> <span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a><a href="/docs/version/2.2/spatial_maps/Land_Zoning_Maps"> <span>Create Land-zoning Maps for a VELMA Application</span></a><a href="/docs/version/2.2/spatial_maps/Reach_Mapping"> <span>Reach Mapping</span></a>
+            <hr><strong class="center-text white-text">DEM </strong><a href="/docs/version/2.2/spatial_maps/Create_Flat_Processed_DEM_Tutorial"><span>Expanded Flat Processed DEM Tutorial</span></a><a href="/docs/version/2.2/spatial_maps/Create_Flat_Processed_DEM_and_Outlet_Watershed_Delineation"><span>Using DEM data to Determine Outlet and Watershed Delineation</span></a>
+            <hr><strong class="center-text white-text">JPDEM</strong><a href="/docs/version/2.2/spatial_maps/JPDEM_Cell_Highlighter"><span>JPDEM Cell Highlighter</span></a><a href="/docs/version/2.2/spatial_maps/JPDEM_Channel_Cutter_For_Flow_Path_Modification"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a><a href="/docs/version/2.2/spatial_maps/JPDEM_Flow_Accumulation_Threshold_Display"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a><a href="/docs/version/2.2/spatial_maps/JPDEM_Flow_Test_Tool"><span>JPDEM Flow Test Tool</span></a><a href="/docs/version/2.2/spatial_maps/JPDEM_For_Viewing_Map_Differences"><span>JPDEM for Viewing Map Differences</span></a><a href="/docs/version/2.2/spatial_maps/JPDEM_ReachMapping_Demonstration"><span>JPDEM Sub-Reach Mapping Delineations Example</span></a><a href="/docs/version/2.2/spatial_maps/JPDEM_Saving_Data_To_Files"><span>JPDEM Saving Data to Files</span></a><a href="/docs/version/2.2/spatial_maps/JPDEM_Sub_Reach_Delineations"><span>JPDEM Sub-Reach Delineations</span></a><a href="/docs/version/2.2/spatial_maps/JPDEM_User_Specified_Border_Mask"><span>JPDEM User-Specified Border Mask</span></a><a href="/docs/version/2.2/spatial_maps/JPDEM_User_Specified_Map_Borders"><span>JPDEM User-Specified Map Borders</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>JPDEM for Viewing Map Differences</h1>
+          <div class="info blue-light-1">
+            <p>Overview <span>(B.8 - JPDEM Viewing Map Differences)</span></p>
+            <p>This tutorial explains how to use JPDEM to compare elevation differences within a DEM before and after it is flat-processed. This quality assurance (QA) step allows users to assess the veracity of</p>
+            <p><a href="https://www.usgs.gov/core-science-systems/ngp/national-hydrography/nhdplus-high-resolution">JPDEM's flat-processing procedure. That is, where and to what extent did JPDEM alter the elevations of cells within the DEM? Note that this procedure is but a first step in a QA process that may include comparisons of a flat-processed DEM to other types of data not included in this tutorial. For example, does the flat-processed DEM provide flow routing (Facc values - see Tutorial B.3) consistent with mapped stream locations represented by the National Hydrography Dataset (NHD; </a><span>https://www.usgs.gov/core-science-systems/ngp/national-hydrography/nhdplus-high-resolution</span>)?</p>
+          </div>
+          <p>The JPDEM application's File menu contains a "Load Map Data For DIFF" item that provides a way to compare two DEM files across all cells (the maps must have the same dimensions). Although its' abilities are rudimentary relative to comparisons you could perform with true GIS systems (e.g. ESRI's tools) JPDEM's DIFFerencing function is a quick way to - for instance - compare a flat-processed map against the original, raw DEM map. (This is, in fact, precisely the use-case for which the DIFF function was added.)</p>
+          <p>The DIFF function allows you to load a second DEM .asc file after loading a first .asc file.</p>
+          <p>The DIFF function replaces the first DEM file's cell data with the difference between the second and the first file's cell data, at every cell. After the DIFF function is completed, JPDEM's cell data contains the</p>
+          <p>difference values, and the display automatically shifts to the "DEM Difference Image Rendering Mode" -</p>
+          <p>cells that differ should be relatively easy to spot in this mode.</p>
+          <h3>A DIFF Example</h3>
+          <p>Starting Assumption: e=we have both an original, raw DEM map .asc file, <i>and </i>have already flat- processed that DEM map in JPDEM and saved the results into a second .asc file that is also available.</p>
+          <p>The DIFF function calculates per cell differences as New Value - Current Value, where "New Value" refers to the file loaded for DIFF. To express the differences between an original .asc DEM file and a flat- processed .asc version of that DEM file such that a positive change in the processed .asc is expressed as a positive value, we should load the original DEM file first, then load the processed DEM file as the DIFF file.</p>
+          <h4>Step 1</h4>
+          <p>Load the original DEM file, using File -&gt; "Load Map File Data" -&gt; "Load as Raw Map File".</p><img width="590" height="161" alt="screenshot" title="screenshot" src="public/suppImage_130.jpg">
+          <p>It <i>is </i>possible to use "Load as DEM File", but when possible, load the original and the diff file as "raw"</p>
+          <p>data.</p>
+          <p>In the "Select DEM File to Load" dialog that opens, find the original raw DEM .asc file, select it, and click "Load File" to load it into JPDEM as the current map data.</p>
+          <h4>Step 2</h4>
+          <p>Load the flat-processed DEM file, using File -&gt; "Load Map Data for DIFF" -&gt; "Load as Raw Map File".</p><img width="594" height="161" alt="screenshot" title="screenshot" src="public/suppImage_131.jpg">
+          <p>The flat-processed .asc file takes on the role as the "diff" map, the original .asc file is the current map.</p>
+          <p>Because the DIFF function replaces JPDEM's current map data with difference values, a warning dialog opens before the difference map file finder dialog:</p><img width="589" height="300" alt="screenshot" title="screenshot" src="public/suppImage_132.jpg">
+          <p>Click OK to proceed to the "Select Raw File to Load for DIFF" dialog and "Load File" load the diff file.</p>
+          <p>After the cell differences are calculated, JPDEM will contain (and display) the differences for each cell in the grid. The DEM Difference Image Rendering view is active:</p><span>diff file cell value &lt; map cell value = RED (darker -&gt; more negative)</span>
+<span>diff file cell value = map cell value = WHITE</span>
+<span>diff file cell value &gt; map cell value = GREEN (darker -&gt; more positive)</span>
+<span>The current Outlet cell = GRAY</span>
+<span>Highlighted cells = CYAN</span>
+          <p>Here is a comparison of our original raw DEM, the flat-processed DEM, and the difference display:</p>
+          <p>Original DEM (raw loaded) Flat-Processed DEM (raw loaded)</p><img width="258" height="334" alt="screenshot" title="screenshot" src="public/suppImage_133.jpg"><img width="257" height="333" alt="screenshot" title="screenshot" src="public/suppImage_134.jpg">
+          <p>Difference (Flat - Raw) Display</p><img width="259" height="335" alt="screenshot" title="screenshot" src="public/suppImage_135.jpg">
+          <p>The DIFF display clearly indicates the areas of the map that have been altered by flat processing.</p>
+          <h4>Step 3</h4>
+          <p>After the DIFF function has completed, JPDEM's current map data is the set of cell difference values. You can view an individual cell's values by clicking on a cell with the mouse right-button. The Facc and fdir values, if nonzero, are invalid, but the difference value is listed as the cell's "dem=" value:</p><img width="586" height="431" alt="screenshot" title="screenshot" src="public/suppImage_136.jpg">
+          <p>Use the View -&gt; "Highlight Specific Cells in Image" -&gt; "Specify Cells by Value Range" function to find</p>
+          <p>differences within a specific range of difference.</p>
+          <p>Here we want to find all cells raised between 1.0 and 7.5 meters relative to the original DEM:</p><img width="586" height="305" alt="screenshot" title="screenshot" src="public/suppImage_137.jpg">
+          <p>The result highlights the specified cells in cyan, rather than the usual "pepto-pink":</p><img width="586" height="431" alt="screenshot" title="screenshot" src="public/suppImage_138.jpg">
+          <p><a href="https://www.usgs.gov/core-science-systems/ngp/national-hydrography/nhdplus-high-resolution">As noted in the Overview (page 1), this difference mapping procedure is but a first step in a QA process that may include comparisons of a flat-processed DEM to other types of data not included in this tutorial. For example, does the flat-processed DEM provide flow routing (Facc values - see Tutorial B.3) consistent with mapped stream locations represented by the National Hydrography Dataset (NHD; </a><span>https://www.usgs.gov/core-science-systems/ngp/national-hydrography/nhdplus-high-resolution</span>)?</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

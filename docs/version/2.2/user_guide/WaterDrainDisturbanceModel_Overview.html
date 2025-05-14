@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">User Guides</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">Input / Output Files Guides</strong><a href="/docs/version/2.2/user_guide/Input_File_Details"><span>Input File Details</span></a><a href="/docs/version/2.2/user_guide/Input_File_Formats"><span>Input File Formats</span></a><a href="/docs/version/2.2/user_guide/Output_Overview"><span>Output Files</span></a><a href="/docs/version/2.2/user_guide/MoeVelGenerator_Guide"><span>MOEA-to-VELMA Configuration Generator</span></a><a href="/docs/version/2.2/user_guide/Acquisition_and_Generation_of_Input_Data"><span>Acquire and Generate Input Data</span></a><a href="/docs/version/2.2/user_guide/Biomass_Output_to_BlueSky"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a><a href="/docs/version/2.2/user_guide/ObsRunoff_and_NaNs"><span>Observered Runoff Data May Inlude NaN Values</span></a><a href="/docs/version/2.2/user_guide/Outputs_For_Data_Visualization"><span>Outputs For Data Visualization</span></a><a href="/docs/version/2.2/user_guide/TopoFiles_Output_Summary"><span>Topography Output Data Summary</span></a><a href="/docs/version/2.2/user_guide/Sediment_Output_Data_Summary"><span>Sediment Output Data Summary</span></a><br><strong class="center-text white-text">Simulation Configuration Guides</strong><a href="/docs/version/2.2/user_guide/Configuration_Checker_Guide"><span>Configuration Checker Guide</span></a><a href="/docs/version/2.2/user_guide/Add_Multiple_Location_Weather_Drivers"><span>Add Mulitple Location Weather Drivers</span></a><a href="/docs/version/2.2/user_guide/CellSpecificBurnDisturbance_Configuration_Guide"><span>Configuring a Cell-Specific Burn Disturbance</span></a><a href="/docs/version/2.2/user_guide/Cell_Data_Writer_Configuration"><span>Cell Data Writer Configuration</span></a><a href="/docs/version/2.2/user_guide/Default_Tidewater_Model_Config"><span>Default Tidewater Model Configuration</span></a><a href="/docs/version/2.2/user_guide/Groundwater_Storage_Mechanism"><span>Groundwater Storage Mechanism</span></a><a href="/docs/version/2.2/user_guide/Implementing_Green_Roofs"><span>Implementing Green Roof Applications in VELMA</span></a><a href="/docs/version/2.2/user_guide/Simulating_Fate_and_Transport"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a><a href="/docs/version/2.2/user_guide/Surface_Chemistry_Pools"><span>VELMA Surface Chemistry Pools</span></a><a href="/docs/version/2.2/user_guide/DefaultSedimentModel_Configuration_Guide"><span>Default Sediment Model Configuration </span></a><a href="/docs/version/2.2/user_guide/SurfaceEvaporation_Overview"><span>Surface Evaporation Configuration</span></a><br><strong class="center-text white-text">Contaminants </strong><a href="/docs/version/2.2/user_guide/Contaminant_Modeling_Example"><span>VELMA Contaminant Modeling Example </span></a><a href="/docs/version/2.2/user_guide/OrganicContaminant_Overview"><span>Overview of Organic Contaminant Modeling Using VELMA</span></a><a href="/docs/version/2.2/user_guide/Organic_Contaminant_Modeling"><span>Organic Contaminant Modeling Using VELMA Framework and Example</span></a><a href="/docs/version/2.2/user_guide/OrganicContaminant_Remediation_Configuration_Guide"><span>Configuring An Organic Contaminant to Include Remediation Effects</span></a><a href="/docs/version/2.2/user_guide/OrganicContaminant_Tracer_Configuration_Guide"><span>Configuring An Organic Contaminant as a Tracer</span></a><br><strong class="center-text white-text">Disturbances </strong><a href="/docs/version/2.2/user_guide/Deposition_of_Surface_Chemicals"><span>Deposition of Surface Chemicals </span></a><a href="/docs/version/2.2/user_guide/Irrigation_Disturbance_Model_Overview"><span>Irrigation Disturbance Model</span></a><a href="/docs/version/2.2/user_guide/ForestBurnLsrDisturbanceModel_Overview"><span>Forest Burn LSR Disturbance Model</span></a><a href="/docs/version/2.2/user_guide/WaterDrainDisturbanceModel_Overview"><span>Water Drain Disturbance Model</span></a><br><strong class="center-text white-text">Soils </strong><a href="/docs/version/2.2/user_guide/Soil_Data_Mapping_and_Parameter_Initialization"><span>Soil Data Mapping and Parameter Initialization</span></a><br><strong class="center-text white-text">Weather</strong><a href="/docs/version/2.2/user_guide/MinMaxAirT_WeatherDrivers"><span>Minimum and Maximum Air Temperatures In VELMA</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Water Drain Disturbance Model Overview</h1>
+          <p>The Water Drain Disturbance Model provides a mechanism to perform arbitrary redistribution of water amounts within a watershed, and/or removal of water amounts from the watershed during the steps of a simulation run.</p>
+          <p>Users specify one or more drain inlet cell locations for a given Water Drain Disturbance, along with parameters that determine when and under what conditions those drain inlet cells are drained. Users also specify whether the water drained from inlet cells is transferred to outlet cells in the same watershed, or is removed from the watershed.</p>
+          <h2>Water Drain Disturbance Model Usage Restrictions</h2>
+          <p>When configuring a simulation with Water Drain Disturbances, keep the following restrictions and limitations in mind.</p>
+          <ol>
+            <li>
+              <p>VELMA simulation configurations containing Water Drain Disturbances <strong>cannot</strong> be used with VELMA's Parallel, Multiscale, or Multimap modes.</p>
+            </li>
+            <li>
+              <p>VELMA simulation configurations containing Water Drain Disturbances with drain "pipes" that specify an inlet-outlet pair in separate sub-reaches, may not report accurate sub-reach runoff values. If you need accurate sub-reach runoff information you must ensure that any given inlet "pipe" and its associated outlets are all located within a single reach.</p>
+            </li>
+            <li>
+              <p>The Water Drain Disturbance Model currently does not interact with the VELMA Sediment Model. If your VELMA simulation configuration employs both, sediment transport amounts will be ignored by -- and <em>not</em> transported through -- the Water Drain Disturbance's configured "pipes". However, sediment lateral transport amounts <em>will</em> be affected by the change in water amounts at inlet cells.<br> We currently recommend <strong>not</strong> employing the Water Distrubance Model and the VELMA Sediment Model within the same VELMA simulation configuration.</p>
+            </li>
+          </ol>
+          <h2>Configuring a Water Drain Disturbance</h2>
+          <p>Each Water Drain Disturbance parameterization added to a VELMA simulation configuration requires the following two steps:</p>
+          <ol>
+            <li>
+              <p>Creating a drain configuration .csv data file that specifies each inlet cell and associated outlet cells that the Water Drain Disturbance will act upon.</p>
+            </li>
+            <li>
+              <p>Adding a WaterDrainDisturbanceModel parameterization group to the simulation configuration, and setting it to reference the drain configuration file created in step 1.</p>
+            </li>
+          </ol>
+          <h2>Creating a Drain Configuration Data File</h2>
+          <p>A drain configuration data ("drain config") file consists of rows "drain records". Each drain record is a sequence of comma-separated fields. You can think of a drain record as a single "pipe". The drain record's fields specify an inlet, one or more outlets, and how much water can enter and travel through the "pipe".</p>
+          <p>Each field is separated from its successor by a comma "," character.</p>
+          <p>With one exception, each field specifies a single parameter value for the drain record.<br> The exception is the <a><code>inFraction:capThreshold</code></a> field, which can represent either one parameter value (<code>inFraction</code>), or two parameter values (<code>inFraction</code> and <code>capThreshold</code>) separated by a colon ":" character.</p>
+          <blockquote>
+            <p><em>Caution</em><br> The Water Drain Disturbance Model's drain config parser is not tolerant of regional differences regarding separator characters. If your drain config file is generated with regional settings that use the comma (",") character as a decimal separator, the resulting .csv file will not load correctly in VELMA. Be sure your decimal separator character is written as the full stop (".") character.</p>
+          </blockquote>
+          <p><strong>Drain Record Field Descriptions</strong><br> In order, from left to right across a row, the fields are:</p>
+          <pre><code>iInlet, inFraction[:capThreshold], #ofOutlets, iOutlet1, outFraction1[, iOutlet<n>, outFraction<n>]</code></pre>
+          <p><strong><code>iInlet</code></strong><br> The linear index of the cell location of this drain record's inlet.</p>
+          <ul>
+            <li>The <code>iInlet</code> value <em>must</em> be an integer value (e.g. "927", <em>not</em> "927.0" or "927.").</li>
+            <li>Only cells within a simulation's delineated watershed are valid inlets.</li>
+          </ul>
+          <p><a name="inFraction_capThreshold"><strong><code>inFraction[:capThreshold]</code></strong></a><br> The inlet fraction and (optional) capacity threshold of this drain record.</p>
+          <ul>
+            <li>This field is special: it may contain either either a single value or a pair of values.
+              <ul>
+                <li>When it specifies a single value that value is <em>always</em> taken to be the inlet fraction.</li>
+                <li>When it specifies a pair of values, the values must be separated by a colon ":" character.</li>
+              </ul>
+            </li>
+            <li>Both inlet fraction and capacity threshold (if present) must be floating-point numbers in the range [0.0, 1.0].</li>
+            <li>The inlet fraction represents the amount of the water at the inlet cell that can actually enter the inlet (zero="none", 1="all") per simulation step.</li>
+            <li>The capacity threshold is the maximum amount of water (in mm) that this drain record can transfer to its outlet(s) per simulation step.</li>
+            <li>When the capacity threshold is left unspecified, the drain record is assumed capable of transferring an unlimited amount of water.</li>
+          </ul>
+          <p><strong><code>#ofOutlets</code></strong><br> The number of outlets that receive water from this drain record's inlet.</p>
+          <ul>
+            <li>The number of outlets <em>must</em> be an integer value (e.g. "2" <em>not</em> "2.0" or "2.").</li>
+            <li>The value of the <code>#ofOutlets</code> field must match the number of outlets -- <em>not</em> the number fields -- that follow it.</li>
+          </ul>
+          <p>After the <code>#ofOutlets</code> field ... Multiple outlets can be specified following the <code>#ofOutlets</code> field, however the fields must be specified in pairs (<code>iOutlet, outFraction</code>) -- i.e. there must be an even number of fields after the <code>#ofOutlets</code> field.</p>
+          <p><strong><code>iOutlet</code></strong><br> The linear index of a cell location that is an outlet for this drain record's inlet.</p>
+          <ul>
+            <li>An <code>iOutlet</code> field's value may be left blank, indicating that water transferred to that particular outlet is removed from the simulation watershed (i.e. "transferred off-site").<br> When an <code>iOutlet</code> field value is <em>not</em> blank, it <em>must</em> be an integer value (e.g. "530", <em>not</em> "530.0" or "530.").</li>
+            <li>Only cells within a simulation's delineated watershed are valid outlets.</li>
+            <li>Outlet cells should <em>not</em> be specified at the same location as their inlet.</li>
+          </ul>
+          <p><strong><code>outFraction</code></strong><br> The fraction of the water transferred from the inlet that this outlet receives.</p>
+          <ul>
+            <li>The outlet fraction must be a floating-point number in the range [0.0, 1.0].</li>
+            <li>The sum of all the outlet fractions specified for an inlet must sum to 1.0.</li>
+          </ul>
+          <p><strong>Example</strong><br> The drain config data below configures a network of 2 inlets:</p>
+          <pre><code>iInlet, inFraction[:capThreshold], #ofOutlets, iOutlet1, outFraction1, iOutlet2, outFraction2
+227,    0.90:1200.0,               2,          343,      0.50,         323,      0.50
+348,    0.75,                      2,             ,      0.75,         390,      0.25</code></pre>
+          <ul>
+            <li>Each inlet drains water to 2 separate outlets.<br> Inlet 227 specifies outlets at cell locations 343 and 323.<br> Inlet 348 specifies an outlet at cell location 390, but leaves the first outlet blank: this indicates "OFF-SITE", which means the fraction of water for that (offsite) outlet is removed from the simulation watershed when drainage occurs.</li>
+            <li>Inlet 227 specifies a capacity threshold of 1200.0 (mm) of water.<br> Inlet 348 omits the capacity threshold, which means it can transport an "unlimited" amount of water (but after initial reduction by the specified inFraction).</li>
+          </ul>
+          <p>The example given above includes a header row, but a header row is not required. The drain config .csv data file could consist of only the 2 data rows and still be valid.</p>
+          <p>The example configuration above result in the network of drain "pipes" illustrated below:</p>
+          <p><img src="public/image-WaterDrainNetworkMap_1.PNG" alt="An example watershed annotated with drains data"></p>
+          <h2>Adding a WaterDrainDisturbanceModel Parameterization to a VELMA Configuration</h2>
+          <p>Start with an appropriate VELMA simulation configuration .xml file.</p>
+          <p>Load the file into JVelma and click the "Edit" -> "Disturbances" -> "Add a Disturbance" menu item:</p>
+          <p><img src="public/image-JVelma_AddDisturbance_Menu.PNG" alt="Add a Disturbance menu selection"></p>
+          <p>In the "Specify Disturbance Model Type and Name" pop-up dialog that opens, click the drop-down selector, scroll down, and click-select the "WaterDrainDisturbanceModel" type:</p>
+          <p><img src="public/image-JVelma_SpecifyModelTypeName_DialogSelector.PNG" alt="Specify Disturbance Model Type and Name pop-up dialog"></p>
+          <p>After selecting WaterDrainDisturbanceModel as the type, enter a unique name for the disturbance in ihe “Disturbance Name' field of the dialog. Finally, click the OK button, which adds a new parameterization group to the simulation configuration and changes JVelma's display to the “All Parameters” tab, with the item-level filter set to only display the parameters for the newly-added Water Drain Disturbance:</p>
+          <p><img src="public/image-JVelma_AllParameters_WaterDrainDisturbance.PNG" alt="A new water drain disturbance parameterization group in JVelma's All Parameters tab"></p>
+          <p>Nearly all of the (many) parameters required to configure a Water Drain Disturbance are for its drain "pipes", and reside in the <a>drain configuration</a> file. That file is one of the few things that you must specify in the Water Drain Disturbance's parameterization group.</p>
+          <p>The goup's parameters initially have these default values:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Group</th>
+                <th>Item</th>
+                <th>Parameter</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>disturbance</td>
+                <td>My_Drains</td>
+                <td>initializeActiveJdays</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>My_Drains</td>
+                <td>initializeActiveLoops</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>My_Drains</td>
+                <td>initializeActiveYears</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>My_Drains</td>
+                <td>modelClass</td>
+                <td><code>WaterDrainDisturbanceModel</code></td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>My_Drains</td>
+                <td>waterDrainDataFileName</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <ul>
+            <li><strong>No parameters values may be left blank</strong> (even though most of the parameters default as blank).</li>
+            <li>The value in the <code>Item</code> column above is only an example. In actual use, the <code>Item</code> value will be whatever name you entered as the "Disturbance Name" for this parameter group.</li>
+          </ul>
+          <p><strong>Parameters That Can Be Left As-Is</strong><br> The <code>modelClass</code> parameter is automatically set to a correct value by JVelma when you add the WaterDrainDisturbanceModel to the simualtion configuration. Do Not Change this parameter's value. Ever.</p>
+          <p><strong>Parameterizing When Drainage Occurs</strong><br> Specify values for the <code>initializeActiveLoops</code>, <code>initializeActiveYears</code>, and <code>initializeActiveJdays</code> parameters to determine the loops, years, and Julian days of the simulation when drainage will occur. These parameters accept single values, a comma-separated set of values, a hyphen-separated value range, or a combination of values and ranges.</p>
+          <p>For example, to schedule drainage during the 3rd loop of a simulation, in years 2000 and 2002, for the first month of each active year, along with jdays 91 and 182 of each active year:</p>
+          <pre><code>initializeActiveLoops = 3
+initializeActiveYears = 2000, 2002
+initializeActiveJdays = 1-31, 91, 182</code></pre>
+          <p>All of the water drain "pipes" specified for a Water Drain Disturbance are active on the schedule specified by the three <code>initializeActiveLoops</code>, <code>initializeActiveYears</code>, and <code>initializeActiveJdays</code> parameters.</p>
+          <p>If you need some pipes to be active on one schedule, and others on another, you must configure your simulation to include two (or more) completely separate Water Drain Disturbances (i.e. parameterization groups), each referencing a separate drain configuration file.</p>
+          <p><strong>Parameterizing Where and How Much Drainage Occurs</strong><br> All the parameters required for drainage inlet, outlet, and quantity are contained within the <a>drain configuration</a> file. Set the <code>waterDrainDataFileName</code> parameter to point to that file.</p>
+          <p>You may specify the file by a fully-qualified path and name, a partial path and name, or just the name of the file. When the <code>waterDrainDataFileName</code> parameter's value isn't fully-qualified, JVelma assumes the file's location is relative to the input location specified for the simulation run by the <code>inputDataLocationRootName</code> and <code>inputDataLocationFileName</code> (startups group) parameters.</p>
+          <h2>Water Drain Disturbance Results and Output</h2>
+          <p>The activity and effects of Water Drain Disturbances are reflected in the DailyResults and Cell_* .csv file's column values, most strongly in the columns that record surface water amounts and lateral water movement, however, no drain-specific data columns are added to these .csv files.</p>
+          <p>Water Drain Disturbances do emit log messages with drain-specific details, but only when the following simulation configuration parameter is set <code>true</code>:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Group</th>
+                <th>Item</th>
+                <th>Parameter</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>startups</td>
+                <td>VelmaStartups.properties</td>
+                <td>collectCalibrationData</td>
+                <td><code>true</code></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>When <code>collectCalibrationData</code> is set <code>true</code>, Water Drain Disturbances emit three types of csv records to <em>both</em> the Global State .txt and Trace .csv log files.</p>
+          <p>The Global State and Trace files can contain messages and records from many different VELMA simulator sources, but the three drain record types may be identified by the value in the third (index position 2) field: that field's value will be <code>Water_Transfer</code>, <code>Chem_Transfer</code>, or <code>OVER_CAPACITY</code>.</p>
+          <p>Because Global State and Trace files contain a hetrogenous collection of records, no header records for the drain record types are emitted, but header records for each of the three record types are described here:</p>
+          <p><strong>Water_Transfer</strong></p>
+          <ul>
+            <li>Occurrence: 1 record per inlet per simulation step, regardless of transferred amounts (i.e. records are emitted even when no water is transferred).</li>
+            <li>Number of fields depends upon number of outlets specified for the inlet.</li>
+            <li>Any off-watershed outlet returns the text “OFF_SIM” instead of a numeric integer location index for its iOutlet field value.</li>
+            <li>Columns ending in "T1" contain values for data <em>prior</em> to the drain's effects, and columns ending in "T2" contain values for the same data <em>after</em> the drain's effects.</li>
+          </ul>
+          <pre><code>Log_Level,Method_Name,Water_Transfer,Loop,Step,Year,Jday,iInlet,inletWaterAmountT1,inletWaterAmountT2,[iOutlet,iOutletTransferredAmount, ...]</code></pre>
+          <p><strong>Chem_Transfer</strong></p>
+          <ul>
+            <li>Occurrence: 1 record <em>per inlet-outlet pair</em> (i.e. multiple records per inlet are possible) in a simulation step but only for NON-ZERO chemical transfer amounts.</li>
+            <li>Number of fields is constant.</li>
+            <li>An off-watershed outlet returns the value -1 instead of a valid outlet location within the delineated watershed.</li>
+            <li>Columns ending in "T1" contain values for data <em>prior</em> to the drain's effects, and columns ending in "T2" contain values for the same data <em>after</em> the drain's effects.</li>
+          </ul>
+          <pre><code>Log_Level,Method_Name,Chem_Transfer,Loop,Step,Year,Jday,iInlet,iOutlet,surfacePoolKeyText,inletChemAmountT1,totalChemTransferAmount,actualChemReduction,inletChemAmountT2,outletChemAmountT2"</code></pre>
+          <p><strong>OVER_CAPACITY</strong></p>
+          <ul>
+            <li>Occurrence: 1 record per inlet per simulation step, <em>if</em> the inlet's initial transfer amount is over the specified capacityThreshold.</li>
+            <li>Number of fields is constant.</li>
+            <li>Columns ending in "T1" contain values for data <em>prior</em> to the drain's effects, and columns ending in "T2" contain values for the same data <em>after</em> the drain's effects.</li>
+          </ul>
+          <pre><code>Log_Level,Method_Name,OVER_CAPACITY,Loop,Step,Year,Jday,iInlet,inletLateralWaterT1,inletFraction,capacityThreshold,overCapacity,waterRemoved,inletLateralWaterT2</code></pre>
+          <p>As previously mentioned, the above drain log records are emitted only when <code>collectCalibrationData</code> is set <code>true</code>. For simulation configurations with even a modest number of configured drain "pipes", drain log records can significantly increase both the size of the Global State and Trace log files, and the time it takes to run the simulation. Setting <code>collectCalibrationData</code> to <code>false</code> provides a way to use Water Drain Disturbance without incurring simulation results size and running time costs.<br> However, be aware that <code>collectCalibrationData</code> toggles other data besides water drain records on or off as well. For example, the Calibration_DailyResults.csv file (different and distinct from DailyResults.csv) is not written when <code>collectCalibrationData</code> is set to <code>false</code>. Be certain you do not need <em>any</em> of the data controlled by <code>collectCalibrationData</code> before setting it to <code>false</code>.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

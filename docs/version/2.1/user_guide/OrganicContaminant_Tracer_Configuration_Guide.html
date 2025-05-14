@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">User Guides</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">Input / Output Files Guides</strong><a href="/docs/version/2.1/user_guide/Input_File_Details"><span>Input File Details</span></a><a href="/docs/version/2.1/user_guide/Input_File_Formats"><span>Input File Formats</span></a><a href="/docs/version/2.1/user_guide/Output_Overview"><span>Output Files</span></a><a href="/docs/version/2.1/user_guide/MoeVelGenerator_Guide"><span>MOEA-to-VELMA Configuration Generator</span></a><a href="/docs/version/2.1/user_guide/Acquisition_and_Generation_of_Input_Data"><span>Acquire and Generate Input Data</span></a><a href="/docs/version/2.1/user_guide/Biomass_Output_to_BlueSky"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a><a href="/docs/version/2.1/user_guide/ObsRunoff_and_NaNs"><span>Observered Runoff Data May Inlude NaN Values</span></a><a href="/docs/version/2.1/user_guide/Outputs_For_Data_Visualization"><span>Outputs For Data Visualization</span></a>
+            <hr><strong class="center-text white-text">Simulation Configuration Guides</strong><a href="/docs/version/2.1/user_guide/Configuration_Checker_Guide"><span>Configuration Checker Guide</span></a><a href="/docs/version/2.1/user_guide/Add_Multiple_Location_Weather_Drivers"><span>Add Mulitple Location Weather Drivers</span></a><a href="/docs/version/2.1/user_guide/CellSpecificBurnDisturbance_Configuration_Guide"><span>Configuring a Cell-Specific Burn Disturbance</span></a><a href="/docs/version/2.1/user_guide/Cell_Data_Writer_Configuration"><span>Cell Data Writer Configuration</span></a><a href="/docs/version/2.1/user_guide/Default_Tidewater_Model_Config"><span>Default Tidewater Model Configuration</span></a><a href="/docs/version/2.1/user_guide/Groundwater_Storage_Mechanism"><span>Groundwater Storage Mechanism</span></a><a href="/docs/version/2.1/user_guide/Implementing_Green_Roofs"><span>Implementing Green Roof Applications in VELMA</span></a><a href="/docs/version/2.1/user_guide/Simulating_Fate_and_Transport"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a><a href="/docs/version/2.1/user_guide/Surface_Chemistry_Pools"><span>VELMA Surface Chemistry Pools</span></a>
+            <hr><strong class="center-text white-text">Contaminants </strong><a href="/docs/version/2.1/user_guide/Contaminant_Modeling_Example"><span>VELMA Contaminant Modeling Example </span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Overview"><span>Overview of Organic Contaminant Modeling Using VELMA</span></a><a href="/docs/version/2.1/user_guide/Organic_Contaminant_Modeling"><span>Organic Contaminant Modeling Using VELMA Framework and Example</span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Remediation_Configuration_Guide"><span>Configuring An Organic Contaminant to Include Remediation Effects</span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Tracer_Configuration_Guide"><span>Configuring An Organic Contaminant as a Tracer</span></a>
+            <hr><strong class="center-text white-text">Disturbances </strong><a href="/docs/version/2.1/user_guide/Deposition_of_Surface_Chemicals"><span>Deposition of Surface Chemicals </span></a><a href="/docs/version/2.1/user_guide/Irrigation_Disturbance_Model_Overview"><span>Irrigation Disturbance</span></a>
+            <hr><strong class="center-text white-text">Soils </strong><a href="/docs/version/2.1/user_guide/Soil_Data_Mapping_and_Parameter_Initialization"><span>Soil Data Mapping and Parameter Initialization</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Configuring An Organic Contaminant as a Tracer</h1>
+          <h2>Overview</h2>
+          <p>A VELMA Organic Contaminant parameterization can be configured to utilize the contaminant's presence and amounts within a simulation run as a "tracer". In this role, the contaminant's normal sorption and decay processes are deactivated, leaving hydrologic transport (lateral and vertical) along with the contaminant's solubility as the only factors determining concentration and dispersion of the contaminant within a simulation run.</p>
+          <p>Spatial Data Writers, configured to capture the contaminant's surface and/or soil layer amounts provide -- via the tracer-configured contaminant -- a way of visualizing hydrologic flow through the watershed from the (arbitrary) location(s) of contaminant deposition to the watershed's outlet cell.</p>
+          <h2>Details</h2>
+          <p>During each VELMA simulation step, the amount of organic contaminant within a given cell of the delineated watershed is modified by the processes of:</p>
+          <ul>
+            <li>Hydrologic lateral transport</li>
+            <li>Hydrologic vertical transport</li>
+            <li>Sorption</li>
+            <li>Decay</li>
+          </ul>
+          <p>The hydrologic lateral and vertical transport processes transfer contaminant amounts between cells without reducing the overall contaminant amount in the watershed.<br> The sorption process impedes lateral and vertical transport, but likewise does not reduce the total contaminant amount present in the watershed. Decay <em>does</em> reduce the total contaminant amount present, and does so at every cell containing contaminant.<br> To configure a contaminant as a tracer we want to deactivate sorption -- so that transfer is a direct and sole result of hydrologic transport, and deactivate decay, so that the "trace signal" is not weakened by reduced amounts over time.</p>
+          <p>
+            Deactivating sorption and decay can be achieved by adding a specific remediation configuration for the Organic Contaminant
+            , that sets every cell's scaling factor value in the HUMUS and DECAY maps to zero.
+          </p>
+          <p>However, only sorption <em>must</em> be deactivated this way.<br> Decay <em>can</em> be deactivated via remediation configuration to zero values, but can also be deactivated (more simply) by settting the Organic Contaminant's <code>setChemMaxDecay</code> parameter's value to zero. It applies for every cell, and effectively "shuts down" decay.</p>
+          <h2>Configuration Steps</h2>
+          <h3>1. Add and configure an OrganicContaminantModel to your VELMA simulation configuration.</h3>
+          <p>In order to use it as a tracer, you must have an OrganicContaminantModel instance parameterized in your VELMA simulation configuration. Follow the steps of the separate documentation for adding/configuring OrganicContaminantModel parameterizations to a simulation configuration.</p>
+          <h3>2. Set the Organic Contaminant's <code>setDecompositionFactorMode</code> value</h3>
+          <p>If you are setting both sorption and decay via Modify-by-Map disturbances, set the value of the <code>setDecompositionFactorMode</code> parameter to <code>BOTH</code>.<br> If you are setting only sorption via Modify-by-Map disturbances (and deactivating decay by setting <code>setChemMaxDecay</code>=<code>0.0</code>, then set the value of the <code>setDecompositionFactorMode</code> parameter to <code>HUMUS</code>. Desired Remediation | Value for <code>setDecompositionFactorMode</code> | Simulation Effect</p>
+          <h3>3. Create an "all-zeroes" raster (.asc) map file with cell-specific scaling factor values</h3>
+          <p>Generate the file using whatever GIS tool or software you prefer. Regardless of the method you use to it, the file must abide by the following rules:</p>
+          <ul>
+            <li>The .asc map file must have the same dimensions (header row values) as the simulation's DEM map, specified as the value of the <code>input_dem</code> configuration parameter.</li>
+            <li>The .asc map file must <strong><em>not</em></strong> contain <code>nodata_value</code> for <em>any</em> location in the map.</li>
+            <li>Every cell in the .asc map file must have the value <code>0</code></li>
+            <li>The file's encoding should be ASCII, or ISO-LATIN (UTF-8 is permitted, but not encouraged, UTF-16 and UTF-32 are not supported.)</li>
+          </ul>
+          <h3>4. Add and configure a Modify-by-Map disturbance(s)</h3>
+          <p>Follow the instructions for setting and configuring the Modify-by-Map disturbances provided in the <a href="./OrgancContaminant_Remediation_Configuration_Guide">remediation configuration guide</a>.</p>
+          <p>If you set <code>setDecompositionFactorMode = BOTH</code>, add and configure two, separate Modify-by-Map disturbances: one for HUMUS and one for DECAY (however both disturbances can source the same "all-zeroes" .asc map file you created in step 3 above). If you <code>setDecompositionFactorMode = HUMUS</code>, add and configure one Modify-by-Map disturbance for HUMUS (and confirm that you are deactivating decay by setting the contaminant's own <code>setChemMaxDecay</code> parameter to <code>0.0</code>).</p>
+          <h3>5. Add Spatial Data Writers to report contaminant amounts</h3>
+          <p>Spatial Data writers, configured to write contaminant amount .asc map files on a per-simulation-step basis, are the best way to obtain spatially and temporally explicit "tracer" data.</p>
+          <p>(The separate, primary documentation for adding/configuring OrganicContaminantModel parameterizations includes a discussion of how to set up SpatialDataWriter parameterizations to capture the contaminant amounts. Review that document for details.)</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

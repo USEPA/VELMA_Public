@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.1/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.1/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.1/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.1/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.1/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.1/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.1/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.1/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.1/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.1/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.1/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.1/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.1/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.1/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.1/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.1/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.1/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.1/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Cover Types</h1>
+          <p>VELMA version 2.0 includes two major changes to the vegetation submodel:</p>
+          <ol>
+            <li>Multiple cover types (forest, grassland, agricultural crops, etc.) within a watershed can now be modeled. Theversion 1.0 convention of one cover type per grid cell is maintained.</li>
+            <li>Plant biomass for each cover type is modeled using four plant tissues - leaves, aboveground stems,belowground stems, and roots - rather than as a single biomass pool.</li>
+          </ol>
+          <p>Sections 5.1 - 5.3, below, discuss procedures for initializing a simulator configuration for one or more covertypes.</p>
+          <p>Sections 5.4 through 5.7, below, discuss procedures for initializing a simulator configuration for the four plantbiomass pools.</p>
+          <h3 id="5-1">5.1 - Cover ID Map File</h3>
+          <p>The VELMA program requires a set of Cover Species parameters for each Cover ID number that occurs in the Cover IDMap File. Each Cover ID corresponds to a distinct, user-defined Cover Species (cover type) - for example,hardwood forest, grassland, corn cropland, and so forth.</p>
+          <p>This section describes the Cover ID map file and associated parameter specifications.</p>
+          <p>The Cover ID Map File is specified by the <i>coverSpeciesIndexMapFileName </i>parameter. You can view and set itby selecting "All Parameters 5.1 Cover ID Map File" from the All Parameters outline drop-down menu:</p><img width="624" height="134" alt="image" src="public/Image_054.jpg">
+          <p>The file specified for the <i>coverSpeciesIndexMapFileName </i>is assumed to be a grid ASCII (".asc") map filewith the same row and column dimensions as the simulation configuration's DEM file. Its contents should beinteger values. Each cell's integer value should be the ID number of a cover type.</p>
+          <p>Suppose the specified cover index map file contains three distinct integers: 5, 7 and 9. For this map, the VELMAsimulation will expect the simulation configuration to include 3 Cover Species.</p>
+          <p>You will need to add a new Cover Species to a simulation configuration using the following steps:</p>
+          <ol>
+            <li>Click Edit  Cover Species  "Add a New Cover Species" menu item. This will cause a pop-up menuto appear (see step 2).<img width="620" height="177" alt="image" src="public/Image_055.jpg"></li>
+          </ol>
+          <h3 id="5-3">5.3 - Cover IDs and Names</h3>
+          <p>[Note: All Parameters 5.2 - Cover Age Map File has been moved below section 5.3 to reflect therequired workflow]</p>
+          <p>Picking up from All Parameters 5.2, step (2)…
+            <li>Enter a name and ID number for your new Cover Species. The name must be unique (i.e. no other Cover Species already specified for this simulation configuration canshare the name you specify) and we recommend avoiding whitespace and punctuation characters (e.g. "(" and ")")apart from the underbar ("_") character, which can be used instead of whitespace. The ID number must be an integer, not already specified for any existing Cover Species, and must match one of theintegers that appears in the Cover ID Map File.</li>
+          </p>
+          <p>As an example: Suppose we are adding the first Cover Species ("5") for the hypothetical Cover ID Map File mentioned above, andthat ID "5" identifies cells that contain Conifers. Acceptable names (guaranteed unique because this is the first Cover Species we're adding) might be: "Conifer" or"Cover_5_Conifer", or something similar. However, the only acceptable ID value is "5" - because the Unique Cover ID # of this parameterization is whatkeys it to those particular cells in the Cover ID Map File.
+            <li>Once you've entered valid name and ID values in the Name and ID dialog, click the OK button. When you click OK, the VELMA GUI adds a new Cover Species Parameterization to the simulation configuration, andsets the All Parameters tab's filters to display only the parameters of the newly-added Cover Species. Assumingwe named our new Cover Species "Conifer", with ID = "5", this is what the All Parameters tab would look likeafter clicking OK:<img width="624" height="295" alt="image" src="public/Image_056.jpg"></li>
+          </p>
+          <p>We did one other thing to get the above display: notice that the "Parameter" column is circled, and has a"down-arrow" indicating "descending-sort". After clicking OK to add the new Cover Species, we clicked the"Parameter" header field (twice), which sorts the table of properties on that column.</p>
+          <h3>5.2 - Cover Age Map File</h3>
+          <h4>[Note: section 5.2 appears after section 5.3 to reflect the required workflow for developing a Cover Age Map fileand associated parameter values]</h4>
+          <p>To enable scheduling of disturbance events during a simulation (per All Parameters section 24.0), VELMA needs tokeeps track of changes in the age (years) of vegetation from one calendar year to another, or as a result ofdisturbances that can reset stand age to 0 (e.g., by clearcutting) or to some other age (e.g., by selectivethinning of old trees that establishes understory vegetation as the new dominant age class). Note that cover agemaps can be can be applied to cover types other than forests, e.g., rangeland vegetation that may have a more diverse mixt ofspecies than vegetation recovering from a recent fire.</p>
+          <p>After you have established a Cover ID Map file (section 5.1) and specified Cover IDs and names for each CoverSpecies (section 5.3, above!), you will need to set up a Cover Age Map file and specify the file name.</p>
+          <p>The Cover Age Map file name is specified by the coverAgeMapFileName parameter. You can view and set it byselecting "All Parameters 5.2 Cover Age Map File" from the All Parameters outline drop-down menu:</p><img width="628" height="117" alt="image" src="public/Image_057.jpg">
+          <p>The file specified for the coverAgeMapFileName is assumed to be a grid ASCII (".asc") map file with thesame row and column dimensions as the simulation configuration's DEM file. Its contents should be integer valuesreflecting the age of vegetation (Cover Species) occupying each grid cell. Each cell's integer value should bethe ID number of a Cover Species. For example, an age of 0 could be assigned to row crops (corn, soybeans,etc.). Cells in a forest landscape might range in age from 0 (newly burned or planted) to many centuries. TheVELMA team has used biomass-to-age and tree height-to-age relationships to establish Cover Age Maps.</p>
+          <h3 id="5-4">5.4 - Cover Carbon-To-Nitrogen Ratios</h3>
+          <p>This section is concerned with initializing plant tissue C/N ratios for plant biomass and detritus associatedwith leaves, aboveground stems (AgStem), belowground stems (BgStem) and roots. Thus, a total of eight C/N (CtoN)ratios must be specified for each cover type. Only one cover type (CoverForest_1) is displayed for the examplebelow. In addition, a C/N ratio must be specified for the humus pool.</p><img width="624" height="235" alt="image" src="public/Image_058.jpg">
+          <h3 id="5-5">5.5 - Cover Uniform-Cell Initialization Amounts</h3>
+          <p>Using the <i>All Parameters </i>drop-down menu, select "5.5 Cover Uniform-Cell Initialization Amounts". Theparameters shown are used to specify initial pool sizes (<b>g C / m</b>2) that VELMA</p>
+          <p>requires at the start of each simulation run. Values must be specified for all plant biomass pools, detrituspools and humus pool associated with each cover type. The example below shows just one cover type, but the samelist of 9 parameters repeats for each additional cover type that has been has been for the simulationconfiguration.</p><img width="624" height="232" alt="image" src="public/Image_059.jpg">
+          <p>"Cover Uniform-Cell Initialization Amounts" refers to the fact that all grid cells assigned to a particular covertype will have the same initial values for plant biomass, detritus and humus. Obviously this method will notwork for watersheds where there is significant spatial variability in pool sizes (e.g., where forest stands varyin age). In these situations, you can use All Parameters menu item "24.3 Disturbance Items Spatial Specifiers"to establish spatially variable initialization amounts for any or all pools.</p>
+          <h3 id="5-6">5.6 - Cover Gale-Grigal Root Parameter</h3>
+          <p>Select section 5.6 from the All Parameters drop-down menu to specify Gale-Grigal root parameter values for eachcover type in your watershed:</p><img width="626" height="125" alt="image" src="public/Image_060.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">GaleGrigalBetaParam </td>
+              <td class="param_desc">The Beta term for this cover type's root vertical distribution. For the root distributionfunction of Gale Grigal (1987): roots[D] = 1 - B^D, where B = GaleGrigalBetaParam value (assigned here) D =layer depth</td>
+            </tr>
+          </table>
+          <p>References</p>
+          <p>Gale, M. R., &amp; Grigal, D. F. (1987). Vertical root distributions of northern tree species in relation tosuccessional status. Canadian Journal of Forest Research, 17(8), 829-834.</p>
+          <p>Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E., &amp; Schulze, E. D. (1996). Aglobal analysis of root distributions for terrestrial biomes. Oecologia, 108(3), 389-411.</p>
+          <h4>Calibration Notes:</h4>
+          <p>VELMA uses the method of Gale and Grigal (1987) to vertically distribute a cover    type's specified total root biomass. This results in an exponentially decreasing amount of root biomass per    soil layer. See </a>Appendix 6.2 section A1.2.6 (Abdelnour et al. 2013) for a description    of VELMA's implementation of the Gale-Grigal root distribution function.</p>
+          <p>Jackson et al. (1996) used the Gale-Grigal method to characterize rooting patterns for terrestrial biomesglobally. In the absence of measured data to calibrate GaleGrigalBetaParam for your site's cover types,we recommend consulting Jackson et al.'s Table 1and Figure 1:</p><img width="613" height="272" alt="image" src="public/Image_061.png"><img width="626" height="515" alt="image" src="public/Image_062.png">
+          <h3 id="5-7">5.7 - Cover Leaf Stem and Root Pool Parameters</h3>
+          <p>Select section 5.7 from the All Parameters drop-down menu to specify leaf stem and root pool parameter values foreach cover type in your watershed (do this for each cover type):</p><img width="670" height="188" alt="image" src="public/Image_063.jpg">
+          <p>Parameters in this section cover the Leaf, Stem and Root pool C/N ratios, initial values, mortalityparameterizations and uptake fractions. Because each biomass or detritus leaf, stem and root pool has its ownset of parameters for these subjects, this list of parameters is relatively extensive.</p>
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">biomassLeafCtoN</td>
+              <td class="param_desc">The Carbon-to-Nitrogen ratio of the cover type's Leaf biomass pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">biomassAgStemCtoN </td>
+              <td class="param_desc">The Carbon-to-Nitrogen ratio of the cover type's AgStem biomass pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">biomassBgStemCtoN </td>
+              <td class="param_desc">The Carbon-to-Nitrogen ratio of the cover type's BgStem biomass pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">biomassRootCtoN </td>
+              <td class="param_desc">The Carbon-to-Nitrogen ratio of the cover type's Root biomass pool. (All layers ofthis pool use the same CtoN ratio value.)</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusLeafCtoN </td>
+              <td class="param_desc">The Carbon-to-Nitrogen ratio of the cover type's Leaf detritus pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusAgStemCtoN </td>
+              <td class="param_desc">The Carbon-to-Nitrogen ratio of the cover type's AgStem detritus pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusBgStemCtoN </td>
+              <td class="param_desc">The Carbon-to-Nitrogen ratio of the cover type's BgStem detritus pool. (Alllayers of this pool use the same CtoN ratio value.)</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusRootCtoN </td>
+              <td class="param_desc">The Carbon-to-Nitrogen ratio of the cover type's Root detritus pool. (All layersof this pool use the same CtoN ratio value.)</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusLeafNmaxDecay </td>
+              <td class="param_desc">Maximum decay rate for Potter decomposition of Leaf detritus pool's Nitrogen amount.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusAgStemNmaxDecay </td>
+              <td class="param_desc">Maximum decay rate for Potter decomposition of AgStem detritus pool's Nitrogen amount.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusBgStemNmaxDecay </td>
+              <td class="param_desc">Maximum decay rate for Potter decomposition of BgStem detritus pool's Nitrogen amount.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusRootNmaxDecay </td>
+              <td class="param_desc">Maximum decay rate for Potter decomposition of Root detritus pool's Nitrogen amount.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initialBiomassLeafCarbon </td>
+              <td class="param_desc">The amount of biomass (in grams of Carbon)placed in the Leaf biomass pool of each cell of this cover type at initialization start.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initialBiomassAgStemCarbon </td>
+              <td class="param_desc">The amount of biomass (in grams of Carbon) placed in the AgStem biomass pool of each cell of this cover type at initialization start.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initialBiomassBgStemCarbon </td>
+              <td class="param_desc">The amount of biomass (in grams of Carbon)placed in the BgStem biomass pool of each cell of this cover type at initialization start.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initialBiomassRootCarbon </td>
+              <td class="param_desc">The amount of biomass (in grams of Carbon) placed in the Root biomass pool of each cell of this cover type at initialization start.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initialDetritusLeafCarbon </td>
+              <td class="param_desc">The amount of detritus (in grams of Carbon) placed in the Leaf detritus pool of each cell of this cover type at initialization start.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initialDetritusAgStemCarbon </td>
+              <td class="param_desc">The amount of detritus (in grams of Carbon) placed in the AgStem detritus pool of each cell of this cover type at initialization start.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initialDetritusBgStemCarbon </td>
+              <td class="param_desc">The amount of detritus (in grams of Carbon) placed in the BgStem detritus pool of each cell of this cover type at initialization start.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initialDetritusRootCarbon </td>
+              <td class="param_desc">The amount of detritus (in grams of Carbon) placed in the Root detritus pool of each cell of this cover type at initialization start.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">etRecoveryFractionMinimumLeafBiomassC </td>
+              <td class="param_desc">The minimum amount of leaf biomass (in gC/m^2) required to compute an ET recovery fraction. Whenever leaf biomass is less than this amount, the ET recoveryfraction is forced to the etRecoverFractionMinimumValue. See Section 10.2.1 ET Recovery Parameters.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityLeafAnnualFraction </td>
+              <td class="param_desc">The fraction of the Leaf biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityLeafDenominatorCoefficient </td>
+              <td class="param_desc">The mortality equation's denominator coefficient value for the biomass Leaf pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityLeafExponentialCoefficient </td>
+              <td class="param_desc">The mortality equation's exponential coefficient value for the biomass Leaf pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityLeafNumeratorCoefficient </td>
+              <td class="param_desc">The mortality equation's numerator coefficient value for biomass Leaf pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityAgStemAnnualFraction </td>
+              <td class="param_desc">The fraction of the AgStem biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityAgStemDenominatorCoefficient </td>
+              <td class="param_desc">The mortality equation's denominator coefficient value for the biomass AgStem pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityAgStemExponentialCoefficient </td>
+              <td class="param_desc">The mortality equation's exponential coefficient value for the biomass AgStem pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityAgStemNumeratorCoefficient </td>
+              <td class="param_desc">The mortality equation's numerator coefficient value for the biomass AgStem pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityBgStemAnnualFraction </td>
+              <td class="param_desc">The fraction of the BgStem biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityBgStemDenominatorCoefficient </td>
+              <td class="param_desc">The mortality equation's denominator coefficient value for the biomass BgStem pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityBgStemExponentialCoefficient </td>
+              <td class="param_desc">The mortality equation's exponential coefficient value for the biomass BgStem pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityBgStemNumeratorCoefficient </td>
+              <td class="param_desc">The mortality equation's numerator coefficient value for the biomass BgStem pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityRootAnnualFraction </td>
+              <td class="param_desc">The fraction of the Leaf biomass Pool annual mortality amount actually subtracted from that pool per day of senescence. The default value for this fraction is1.0 (i.e. the full per-day amount) and the valid range is [0.0 to 1.0]. Warning! Users unfamiliar with thisparameter&#39;s behavior should leave it set to the default value of 1.0.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityRootDenominatorCoefficient </td>
+              <td class="param_desc">The mortality equation's denominator coefficient value for the biomass Root pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityRootExponentialCoefficient </td>
+              <td class="param_desc">The mortality equation's exponential coefficient value for the biomass Root pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">mortalityRootNumeratorCoefficient </td>
+              <td class="param_desc">The mortality equation's numerator coefficient value for the biomass Root pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">useLinearMortalityLeaf </td>
+              <td class="param_desc">When true, leaf mortality is computed using a simple linear function. When false (default)mortality is computed via a logistic function.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">useLinearMortalityAgStem </td>
+              <td class="param_desc">When true, AgStem mortality is computed using a simple linear function. When false (default) mortality is computed via a logistic function.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">useLinearMortalityBgStem </td>
+              <td class="param_desc">When true, BgStem mortality is computed using a simple linear function. When false (default) mortality is computed via a logistic function.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">useLinearMortalityRoot </td>
+              <td class="param_desc">When true, Root mortality is computed using a simple linear function. When false (default)mortality is computed via a logistic function.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">nppToBiomassLeafNfraction </td>
+              <td class="param_desc">The fraction of total daily NPP for a cell of this cover type allotted to the biomass Leaf pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">nppToBiomassRootNfraction </td>
+              <td class="param_desc">The fraction of total daily NPP for a cell of this cover type allotted to the biomass Root pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">nppToBiomassAgStemNfraction </td>
+              <td class="param_desc">The fraction of daily NPP ALOTTED TO STEM POOLS for a cell of this cover type allotted to the biomass AgStem pool. The remaining NPP allotted to stem pools goes to the biomass BgStem pool. NOTE: Total dailyNPP is reduced by the fractions for leaf and root pools first. Any remainder is the daily NPP allotted to stempools.</td>
+            </tr>
+          </table>
+          <h4>Calibration Notes</h4>
+          <p>At this stage (section 5.7) of your simulation configuration, don't try to specify values for all the parameterslisted above. For now, just focus on the initial C and N pools for plant biomass anddetritus (highlighted in yellow, above). To specify initial C and N stocks(g/m2) for these pools, we recommend that you consult</a>Appendix 1 for an overview of VELMA's LSR submodel and it C and N pools and fluxes.Filling in C and N values for the various pools shown would be a good start. Remember to document data sourcesas you go.</p>
+          <p>Methods for specifying parameter values for NPP (plant uptake) allocation, plant biomass mortality, and detritusdecay (decomposition) rates, and NPP are discussed in subsequent sections:</p>
+          <ul> 
+            <li>N uptake (NPP): Section 11.0</li>
+            <li>Mortality: Section 12.0</li>
+            <li>Decomposition: Section 13.0</li>
+          </ul>
+          <h3 id="5-7-1">5.7.1 - Cover Leaf Pool Parameter</h3>
+          <p>Select section 5.7.1 from the All Parameters drop-down menu to specify cover-specific parameter values for leafbiomass and detritus. See 5.7 above for the parameter descriptions.</p>
+          <h3 id="5-7-2">5.7.2 - Cover Above-Ground Stem Pool Parameters</h3>
+          <p>Select section 5.7.1 from the All Parameters drop-down menu to specify cover-specific parameter values foraboveground stem biomass and detritus. See 5.7 above for the parameter descriptions.</p>
+          <h3 id="5-7-3">5.7.3 - Cover Below-Ground Stem Pool Parameters</h3>
+          <p>Select section 5.7.1 from the All Parameters drop-down menu to specify cover-specific parameter values forbelowground stem biomass and detritus. See 5.7 above for the parameter descriptions.</p>
+          <h3 id="5-7-4">5.7.4 - Cover Root Pool Parameters</h3>
+          <p>Select section 5.7.1 from the All Parameters drop-down menu to specify cover-specific parameter values for rootbiomass and detritus. See 5.7 above for the parameter descriptions.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

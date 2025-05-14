@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Calibration</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.1/calibration/NseQuarts_Guide"><span>NSE Quarts Guide</span></a><a href="/docs/version/2.1/calibration/NashSutcliffeCalculator_Guide"><span>Nash-Sutcliffe Calculator</span></a><a href="/docs/version/2.1/calibration/Mapping_Surface_Layer_Permeabilities"><span>Mapping Surface Layer Permeabilities</span></a><a href="/docs/version/2.1/calibration/Statistical_Models_Based_on_PRISM_Data"><span>Development of Statistical Models Based on Monthly PRISM / Daymet Data</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>NashSutcliffeCalculator : A Tool for Computing Nash-Sutcliffe Coefficients</h1>
+          <p>This guide explains how to use the NashSutcliffeCalculator utility.</p>
+          <h2>Background</h2>
+          <p>The VelmaSimulator engine automatically calculates a Nash-Sutcliffe coefficient for simulated-vs-observed watershed runoff values, but only if the following conditions are met:</p>
+          <ol>
+            <li>Observed runoff values are available for every day of driver data specified for the simulation run.</li>
+            <li>Those observed runoff values are available in a properly-formatted .csv file, and that file is specified in the VELMA Simulation Configuration .xml file for the simulation run.</li>
+          </ol>
+          <p>Often, only partial or sparse observed runoff data is available for a given simulation site, or full runoff data only becomes available at some point after simulation runs have been completed.<br> In these cases, the NashSutcliffeCalculator utility can be used to compute a Nash-Sutcliffe value <em>after</em> the simulation run is completed, and can utilize partial or sparse observed data if that is all that is available.</p>
+          <p>When NashSutcliffeCalculator is run from a command-line with the names of observed and simulation data files, it finds and pairs all the corresponding obs, sim data values, then computes the Nash-Sutcliffe coefficient for those data pairs.</p>
+          <h2>Platform Requirements and Runtime Notes</h2>
+          <p>Running NashSutcliffeCalculator as a command-line utility requires the following:</p>
+          <ul>
+            <li>Java 1.8 JRE (new versions should also work, but older versions -- e.g. 1.7 -- will not).</li>
+            <li>Windows 10 (although the tool is not Windows-specific, Windows it the only platform it has been tested on).</li>
+            <li>Windows Powershell (other shells should work, but PowerShell is the command shell it has been tested on).</li>
+            <li>Access to either a JVelma .jar file (the NashSutcliffeCalculator is included in it)<br> or<br> Access to the <a></a>VELMA source code
+               and a way to generate the .class files for at least the VelmaUtils/bin directory tree. (This is usually done by cloning a local copy of the VELMA project into an Eclipse workspace.)
+            </li>
+          </ul>
+          <h2>Step-by-Step Instructions</h2>
+          <h3>1. Determine Observed and Simulation Data File Sources</h3>
+          <p>You must provide Nash-Sutcliffe with two comma-separated value (.csv) files:</p>
+          <h3>An Observed Data File</h3>
+          <ul>
+            <li>Must contain 3 values per row, in this order: YEAR, JDAY, VALUE
+              <ol>
+                <li>YEAR must be a YYYY integer value.</li>
+                <li>JDAY must be a JJJ (range [1, 366]) Julian day value.</li>
+                <li>VALUE must be a floating-point data value.</li>
+              </ol>
+            </li>
+            <li>Must <em>NOT</em> contain a header row.</li>
+          </ul>
+          <h3>A Simulation Data File</h3>
+          <ul>
+            <li>Must contain the following data, in the following (zero-based) column positions:
+              <ol>
+                <li>LOOP (an integer value) in column 0.</li>
+                <li>YEAR (a YYYY integer value) in column 2.</li>
+                <li>JDAY (a JJJ range [1, 366] value) in column 3.</li>
+                <li>VALUE must be a floating-point data value in column 9.</li>
+              </ol>
+            </li>
+          </ul>
+          <p>The DailyResults.csv file generated as part of the standard results of a VELMA simulation run exactly meets the Simulation Data File requirements.</p>
+          <h3>2. Run NashSutcliffeCalculator from a PowerShell Window</h3>
+          <h3>Running from a <code>.jar</code> file</h3>
+          <p>The command must include the location of the JVelma.jar file.<br> (The NashSutcliffeCalculator engine and <code>main()</code> method are included in JVelma.jar.)<br> A template for the command is:</p>
+          <pre><code>java -cp C:\path\to\JVelma.jar gov.epa.velmautils.NashSutcliffeCalculator --obsFile=C:\full\path\to\obs.csv --simFile=C:\full\path\to\sim.csv</code></pre>
+          <h3>Running from a VELMA Eclipse Workspace</h3>
+          <p>The command must include the location of VelmaUtils\bin within the Eclipes VELMA workspace.</p>
+          <p>A template for the command is:</p>
+          <pre><code>java -cp C:\path\to\Velma\VelmaUtils\bin gov.epa.velmautils.NashSutcliffeCalculator --obsFile=C:\full\path\to\obs.csv --simFile=C:\full\path\to\sim.csv</code></pre>
+          <h2>Using NashSutcliffeCalculator within Java code</h2>
+          <ol>
+            <li>Create Java File objects for the observed and simulation data files.<br> (Also: perform any file-validation and "bad file" handling deemed necessary by your code.)</li>
+          </ol>
+          <pre><code>File obsFile = new File("C:/full/path/to/obs.csv");
+File simFile = new File("C:/full/path/to/sim.csv");</code></pre>
+          <ol>
+            <li>Create a NashSutcliffeCalulator object, and pass the the obs and sim File objects to its constructor.</li>
+          </ol>
+          <pre><code>NashSutcliffeCalculator nsCalc = new NashSutcliffeCalculator(obsFile, simFile);</code></pre>
+          <ol>
+            <li>Set desired options by calling appropriate <code>set..()</code> methods on the NashSutcliffeCalculator object.<br> Options available when calling NashSutcliffeCalculator via a command line are also available via setter methods.<br> <strong>Important: Set options </strong><em>before</em> calling <code>generateCoefficient()</code>!<br> For example:</li>
+          </ol>
+          <pre><code>nsCalc.setSimMinYear(2010)</code></pre>
+          <p>is the source code equivalent to specifying</p>
+          <pre><code>--setSimMinYear=2010 </code></pre>
+          <p>on the command line. 4. Call the <code>generateCoefficient()</code> method to compute the coefficient value for the specified obs and sim data files, taking into account any</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">Spatial ASCII Maps in VELMA</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">ASCII Maps</strong><a href="/docs/version/2.1/spatial_maps/Ascii_Grid_Chemistry_Spatial_Pools"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a><a href="/docs/version/2.1/spatial_maps/AscMapOct_Guide"><span>ASCII Map Oct Guide</span></a><a href="/docs/version/2.1/spatial_maps/AscRangeMask_Guide"> <span>ASCII Range Mask Guide</span></a><a href="/docs/version/2.1/spatial_maps/Generate_Ascii_Grids_For_Daily_Temp_and_Precip"><span>Generating daily temperature and precipitation grids for running VELMA</span></a><a href="/docs/version/2.1/spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Initialize Spatial Pool Using ASCII</span></a><a href="/docs/version/2.1/spatial_maps/Add_Projection_Info_To_Output_Maps"> <span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a><a href="/docs/version/2.1/spatial_maps/Create_Initial_Soil_and_Plant_Chem_Spatial_Data_Pools"> <span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a><a href="/docs/version/2.1/spatial_maps/Land_Zoning_Maps"> <span>Create Land-zoning Maps for a VELMA Application</span></a><a href="/docs/version/2.1/spatial_maps/Reach_Mapping"> <span>Reach Mapping</span></a>
+            <hr><strong class="center-text white-text">DEM</strong><a href="/docs/version/2.1/spatial_maps/Create_Flat_Processed_DEM_Tutorial"><span>Expanded Flat Processed DEM Tutorial</span></a><a href="/docs/version/2.1/spatial_maps/Create_Flat_Processed_DEM_and_Outlet_Watershed_Delineation"><span>Using DEM data to Determine Outlet and Watershed Delineation</span></a>
+            <hr><strong class="center-text white-text">JPDEM</strong><a href="/docs/version/2.1/spatial_maps/JPDEM_Cell_Highlighter"><span>JPDEM Cell Highlighter</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Channel_Cutter_For_Flow_Path_Modification"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Flow_Accumulation_Threshold_Display"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Flow_Test_Tool"><span>JPDEM Flow Test Tool</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_For_Viewing_Map_Differences"><span>JPDEM for Viewing Map Differences</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_ReachMapping_Demonstration"><span>JPDEM Sub-Reach Mapping Delineations Example</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Saving_Data_To_Files"><span>JPDEM Saving Data to Files</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Sub_Reach_Delineations"><span>JPDEM Sub-Reach Delineations</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_User_Specified_Border_Mask"><span>JPDEM User-Specified Border Mask</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_User_Specified_Map_Borders"><span>JPDEM User-Specified Map Borders</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>VELMA Reach Mapping</h1>
+          <div class="info blue-light-1">
+            <p>Overview (Tutorial C.1 - VELMA Reach Mapping)</p>
+            <p>Tutorial "<i>B.9_HowTo_JPDEM Sub-Reach Delineations</i>" described how to use JPDEM to establish a set of x, y coordinates for user-delineated sub-watershed (sub-reach) outlets, in preparation for running VELMA in parallel mode to simulate daily streamflow for those sub-reach outlets.</p>
+            <p>The present tutorial, "Tutorial C.1 - VELMA Reach Mapping", describes how to incorporate the x, y sub-reach coordinates developed with JPDEM into VELMA.</p>
+            <p>Tutorial "Tutorial C.2 - How To Run VELMA Parallel Mode" describes how to run VELMA in parallel mode for generating daily streamflow results for the specified sub-watershed (sub-reach) outlets.</p>
+            <p>Aside from potential gains in computational efficiency, sub-reach delineations for running VELMA in parallel mode can help watershed managers tease apart streamflow responses to local and more distant upstream changes in land cover and land use.</p>
+          </div>
+          <p>The VELMA simulator engine can be configured to subdivide the watershed specified by the primary outlet (via the outx and outy configuration parameters) into several sub-reaches. Ordinarily, this feature is unnecessary, but it is useful and/or required for certain simulation situations. For example, sub-reaches must be specified when running a simulation via the VelmaParallelCmdLine. For additional details see "How to: Run VELMA in Parallel Mode. [Note: Sub-reaches must also be specified in simulation configuration .xml files that will be used for multi-scale simulation runs via the VelmaSimulatorAltCmdLine. Multi-scale simulations are still under development].</p>
+          <p>The simulation configuration's sub-reach behavior and the locations of the sub-reaches are specified by two, separate, but interrelated parameters:</p>
+          <ul> 
+            <li>The enableReachMapping parameter specifies the mode (i.e. behavior) of the VELMA simulator with regard to sub-reach maps. Its value must be the <i>exact </i>text representation of one of the four valid modes: AUTO_MODE, LEGACY_MODE, MULTI_MODE or SOLO_MODE.</li>
+            <li>The initialReachOutlets parameter specifies the linear cell indices of all of the sub-reaches. When specified, its value must be a whitespace-separated sequence of (The initialReachOutlets parameter value is ignored for some enableReachMapping modes.)</li>
+          </ul>
+          <p>Specify the enableReachMapping mode first, then (depending upon whether the specified mode requires it or not) specify the initialReachOutlets parameter's list of sub-reach outlets.</p>
+          <table>
+            <thead> 
+              <th>enableReachMapping value is …</th>
+              <th>initialReachOutlets value is …</th>
+              <th>VELMA Simulator behavior is …</th>
+              <th>Notes</th>
+            </thead>
+            <tr> 
+              <td>AUTO_MODE</td>
+              <td>Ignored</td>
+              <td>Auto-generated sub- reaches.</td>
+              <td>Seldom required; may generate many sub- reaches</td>
+            </tr>
+            <tr> 
+              <td>LEGACY_MODE</td>
+              <td>Ignored</td>
+              <td>No sub-outlets, single watershed.</td>
+              <td>This mode is deprecated.</td>
+            </tr>
+            <tr> 
+              <td>MULTI_MODE</td>
+              <td>Required</td>
+              <td>Sub-outlets specified by initialReachOutlets</td>
+              <td>Use for Velma Parallel or Alt cmdline runs.</td>
+            </tr>
+            <tr> 
+              <td>SOLO_MODE</td>
+              <td>Ignored</td>
+              <td>No sub-outlets, single watershed.</td>
+              <td>Most common mode for JVelma runs.</td>
+            </tr>
+          </table><br>
+          <div class="info warning-base">
+            <h4>Advisory/Warning: </h4>
+            <p>
+              When enableReachMapping is set to MULTI_MODE, every cell location specified for initialReachOutlets must be within the delineation of the final outlet.(The final outlet is the location specified by the configuration's outx and outy coordinate parameters, shows as "Outlet X" and "Outlet Y" in JVelma's "Run Parameters" tab.)
+              Failure to satisfy this requirement will cause the simulation run to crash at the end of the first simulation year.
+              This requirement may seem self-evident, but an easy way to violate it is to set the final outlet to the coordinates of one of the smaller sub-reach outlets listed in the initialReachOutlets parameter, in order run a smaller (faster-running) portion of a larger watershed.  Relocating the final outlet to one of the sub-reach outlets will (almost always) result in one or more of the other sub-reach outlets not being within the (new, sub-reach) final outlet's delineation, thus violating the requirement.
+            </p>
+          </div>
+          <h2>Setting the Reach Mapping Parameters in JVelma GUI</h2>
+          <p>You can set both of the reach mapping parameters in either JVelma's "Run Parameters" or from the "All Parameters" tab.</p>
+          <p>In the "Run Parameters" tab, underneath the label "Sub-Reach Mapping Controls" there is a drop-down selector for the enableReachMapping mode value, and a text field for the initialReachOutlets:</p><img width="596" height="218" alt="screenshot" title="screenshot" src="public/suppImage_168.jpg">
+          <p>In the image above the enableReachMapping parameter is set to MULTI_MODE, and the</p>
+          <p>initialReachOutlets value is a 3-index sequence of cell indices: 27694 91744 92401.</p>
+          <p>In the "All Parameters" tab, you can quickly filter-limit the table to the reach mapping parameters by</p>
+          <p>selecting the "Sub-Reach Mapping" topic from the drop-down outline menu as show below:</p><img width="606" height="245" alt="screenshot" title="screenshot" src="public/suppImage_169.jpg">
+          <p>Click-select topic "4.0 Sub-Reach Mapping", as shown by the blue circle and arrow above, to set the filter for reach mapping, and limit the All Parameters table rows to only reach mapping parameters (as shown in the following image):</p><img width="606" height="141" alt="screenshot" title="screenshot" src="public/suppImage_170.jpg">
+          <p>Notice the reachOutletsFileName parameter and blank (yellow) value in the above image. The reachOutletsFileName parameter is a legacy setting that is ignored. If you run JVelma's Edit -&gt; Remove Unused Parameters function, it will be deleted from the configuration.</p>
+          <h2>Legacy Configurations Will (Mostly) Work Correctly</h2>
+          <p>Earlier VELMA configurations specified Reach Mapping behavior differently.</p>
+          <ul>
+            <li>enableReachMapping was a boolean value (i.e. either true or false and nothing else).</li>
+            <li>The reachOutletsFileName contents were combined with the initialReachOutlets value to form the final list of reach outlets.</li>
+          </ul>
+          <p>When a legacy configuration .xml is loaded into JVelma or one of the VELMA command-line tools, the following updates occur:</p>
+          <ul>
+            <li>The enableReachMapping value is changed: true = MULTI_MODE, false = LEGACY_MODE.</li>
+            <li>The reachOutletsFileName value is ignored.</li>
+            <li>The initialReachOutlets value is untouched, and is used as-is if enableReachMapping's new mode value is MULTI_MODE.</li>
+          </ul>
+          <p>This set of update rules means that most legacy simulations' Reach Mapping behavior will remain unchanged. The exceptions are configurations that contained reachOutletsFileName parameter values, and configurations that had enableReachMapping == true and initialReachOutlets == "".</p>
+          <p>The legacy VELMA simulator engine used enableReachMapping == true and initialReachOutlets == "" as an implicit indication of what is called AUTO_MODE. One of the goals of the new Reach Mapping parameters is making running in AUTO_MODE a very deliberate intention.</p>
+          <p>Legacy configurations with enableReachMapping == true and initialReachOutlets == "" now map to MULTI_MODE, but the empty initialReachOutlets value is forced to = the primary (outx, outy) outlet.</p>
+          <p>This means that the run will effectively be the same as manually setting SOLO_MODE.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

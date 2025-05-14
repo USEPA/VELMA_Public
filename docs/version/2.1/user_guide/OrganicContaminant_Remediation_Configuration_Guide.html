@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">User Guides</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">Input / Output Files Guides</strong><a href="/docs/version/2.1/user_guide/Input_File_Details"><span>Input File Details</span></a><a href="/docs/version/2.1/user_guide/Input_File_Formats"><span>Input File Formats</span></a><a href="/docs/version/2.1/user_guide/Output_Overview"><span>Output Files</span></a><a href="/docs/version/2.1/user_guide/MoeVelGenerator_Guide"><span>MOEA-to-VELMA Configuration Generator</span></a><a href="/docs/version/2.1/user_guide/Acquisition_and_Generation_of_Input_Data"><span>Acquire and Generate Input Data</span></a><a href="/docs/version/2.1/user_guide/Biomass_Output_to_BlueSky"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a><a href="/docs/version/2.1/user_guide/ObsRunoff_and_NaNs"><span>Observered Runoff Data May Inlude NaN Values</span></a><a href="/docs/version/2.1/user_guide/Outputs_For_Data_Visualization"><span>Outputs For Data Visualization</span></a>
+            <hr><strong class="center-text white-text">Simulation Configuration Guides</strong><a href="/docs/version/2.1/user_guide/Configuration_Checker_Guide"><span>Configuration Checker Guide</span></a><a href="/docs/version/2.1/user_guide/Add_Multiple_Location_Weather_Drivers"><span>Add Mulitple Location Weather Drivers</span></a><a href="/docs/version/2.1/user_guide/CellSpecificBurnDisturbance_Configuration_Guide"><span>Configuring a Cell-Specific Burn Disturbance</span></a><a href="/docs/version/2.1/user_guide/Cell_Data_Writer_Configuration"><span>Cell Data Writer Configuration</span></a><a href="/docs/version/2.1/user_guide/Default_Tidewater_Model_Config"><span>Default Tidewater Model Configuration</span></a><a href="/docs/version/2.1/user_guide/Groundwater_Storage_Mechanism"><span>Groundwater Storage Mechanism</span></a><a href="/docs/version/2.1/user_guide/Implementing_Green_Roofs"><span>Implementing Green Roof Applications in VELMA</span></a><a href="/docs/version/2.1/user_guide/Simulating_Fate_and_Transport"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a><a href="/docs/version/2.1/user_guide/Surface_Chemistry_Pools"><span>VELMA Surface Chemistry Pools</span></a>
+            <hr><strong class="center-text white-text">Contaminants </strong><a href="/docs/version/2.1/user_guide/Contaminant_Modeling_Example"><span>VELMA Contaminant Modeling Example </span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Overview"><span>Overview of Organic Contaminant Modeling Using VELMA</span></a><a href="/docs/version/2.1/user_guide/Organic_Contaminant_Modeling"><span>Organic Contaminant Modeling Using VELMA Framework and Example</span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Remediation_Configuration_Guide"><span>Configuring An Organic Contaminant to Include Remediation Effects</span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Tracer_Configuration_Guide"><span>Configuring An Organic Contaminant as a Tracer</span></a>
+            <hr><strong class="center-text white-text">Disturbances </strong><a href="/docs/version/2.1/user_guide/Deposition_of_Surface_Chemicals"><span>Deposition of Surface Chemicals </span></a><a href="/docs/version/2.1/user_guide/Irrigation_Disturbance_Model_Overview"><span>Irrigation Disturbance</span></a>
+            <hr><strong class="center-text white-text">Soils </strong><a href="/docs/version/2.1/user_guide/Soil_Data_Mapping_and_Parameter_Initialization"><span>Soil Data Mapping and Parameter Initialization</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Configuring An Organic Contaminant to Include Remediation Effects</h1>
+          <h2>Overview</h2>
+          <p>VELMA simulation configurations may include parameterizations for Organic Contaminants. Simulation configurations that <em>do</em> include Organic Contaminants may also include additional parameterizations for Modify-by-Map disturbances that allow simulation of decay-based and/or humus-based remediation effects for of the parameterized Organic Contaminants by providing spatially-explicitly scaling factors to boost increased decay and/or increased humus-based binding.</p>
+          <h2>Configuration Steps</h2>
+          <p>The overall process of adding remediation parameterization for an Organic Contaminant is as follows:</p>
+          <h3>1. Add and configure an OrganicContaminantModelto your VELMA simulation configuration.</h3>
+          <p>Follow the steps of the separate documentation for adding/configuring OrganicContaminantModel parameterizations to a simulation configuration.</p>
+          <h3>2. Set the Organic Contaminant's </h3>
+          <p> <code>setDecompositionFactorMode</code> value</p>
+          <p>The value of the <code>setDecompositionFactorMode</code> parameter specifies the type or types of remediation factors (decay-based and/or humus-based) the Organic Contaminant will be affected by.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Desired Remediation</th>
+                <th>Value for <code>setDecompositionFactorMode</code></th>
+                <th>Simulation Effect</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>None</td>
+                <td>NONE</td>
+                <td>Use actual humus and chemMaxDecay values, ignore scaling factor values if present.</td>
+              </tr>
+              <tr>
+                <td>Humus-based</td>
+                <td>HUMUS_ONLY</td>
+                <td>Multiply actual humus amounts by cell-specific humus scaling factor values.</td>
+              </tr>
+              <tr>
+                <td>Decay-based</td>
+                <td>DECAY_ONLY</td>
+                <td>Multiply specified chemMaxDecay value by cell-specific decay scaling factor values.</td>
+              </tr>
+              <tr>
+                <td>Both Humus and Decay</td>
+                <td>BOTH</td>
+                <td>Multiply both humus and chemMaxDecay values by their respective cell-specific factors.</td>
+              </tr>
+            </tbody>
+          </table>
+          <h3>3. Create raster (.asc) map file(s) with cell-specific scaling factor values</h3>
+          <p>The raster (.asc) map files makes cell-specific scaling factor values possible. Generate them using whatever GIS tool or software you prefer. Regardless of the method you use to create them, they must abide by the following rules:</p>
+          <ul>
+            <li>Each type of remediation must have a separate .asc map file, so if you specified <code>setDecompositionFactorMode</code>=<code>BOTH</code>, you will need 2 files.</li>
+            <li>Each .asc map file must have the same dimensions (header row values) as the simulation's DEM map, specified as the value of the <code>input_dem</code> configuration parameter.</li>
+            <li>Each .asc map file must <strong><em>not</em></strong> contain <code>nodata_value</code> for <em>any</em> location in the map.</li>
+            <li>Set the value of cell loctions that are unaffected by remediation to 1.0 (<strong><em>not</em></strong> zero!).</li>
+            <li>The file's encoding should be ASCII, or ISO-LATIN (UTF-8 is permitted, but not encouraged, UTF-16 and UTF-32 are not supported.)</li>
+          </ul>
+          <h3>4. Add and configure a Modify-by-Map disturbance for each scaling factor map</h3>
+          <p>Modify-by-Map disturbances "connect" the maps of scaling factor values to a specific Organic Contaminant at a specific point in time during the simulation run.</p><br>
+          <p>You must provide a separate Modify-by-Map disturbance for each scaling factor map generated.</p>
+          <p>For example: if you specified <code>setDecompositionFactorMode</code>=<code>BOTH</code>, and created the two separate .asc map files (one with decay scaling factor values, the other with humus factor values), then you will need to configure two separate Modify-by-Map disturbances to connect the two maps to the single Organin Contaminant.</p>
+          <p>Adding and Configuring Modify-By-Map Disturbance(s) for Remediation Effects:</p>
+          <ol>
+            <li>Click the <code>Edit</code> --> <code>Disturbances</code> --> <code>Add a Disturbance</code> menu item.<br> (This opens the "Specify Disturbance Model Type and Name" dialog window.)</li>
+            <li>Select the <code>ModifySpatialDataByMapDisturbanceModel</code> item from the dialog window's "Disturbance Type" drop-down list.</li>
+            <li>Type a name into the "Disturbance Name" text field.<br> The name will become the parameterization group's Item-level identifier.<br> It can be any name that follows the rules and that is meaningful to you.</li>
+            <li>Click OK to accept your selections, close the dialog window, and add the parameterization group.</li>
+          </ol>
+          <p>When the parameterization group is added, JVelma shifts the GUI to display the "All Parameters" tab, with column filtering set to show only the newly-added group.</p>
+          <p>Here is an example parameterization group:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Group</th>
+                <th>Item</th>
+                <th>Parameter</th>
+                <th>Value (examples)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>disturbance</td>
+                <td>DecayFactorMel</td>
+                <td>modelClass</td>
+                <td>ModifySpatialDataByMapDisturbanceModel</td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>DecayFactorMel</td>
+                <td>initializeActiveLoops</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>DecayFactorMel</td>
+                <td>initializeActiveYears</td>
+                <td>2011</td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>DecayFactorMel</td>
+                <td>initializeActiveJdays</td>
+                <td>181</td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>DecayFactorMel</td>
+                <td>occursAtStepStart</td>
+                <td>true</td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>DecayFactorMel</td>
+                <td>spatialDataFileFullName</td>
+                <td>./o_9_Disturbance/Remediation_Data.asc</td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>DecayFactorMel</td>
+                <td>setCellOutcome</td>
+                <td>REPLACE</td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>DecayFactorMel</td>
+                <td>setMapValueMode</td>
+                <td>FRACTION</td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>DecayFactorMel</td>
+                <td>spatialDataName</td>
+                <td>CONTAMINANT_DECAY_FACTOR_MELAMINE</td>
+              </tr>
+              <tr>
+                <td>disturbance</td>
+                <td>DecayFactorMel</td>
+                <td>spatialDataLayer</td>
+                <td>1</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Each Modify-by-Map entry you add to your simulation is a <code>__disturbance__</code> Group member. The Disturbance Name" you provide becomes its' Item identifier within the Group. (In the above example, the Disturbance Name was set as <code>DecayFactorMel</code>.)</p>
+          <p>The above example connects the scaling factors specified in .asc map file <code>Remediation_Data.asc</code> to the OrganicContaminantModel with <code>uniqueName</code>=<code>Melamine</code>.</p>
+          <p>The scaling factors will be applicable during the simulation run from year 2011, Julian day 181, onwards. The scaling factors in the .asc map file will be applied to decay calculations for the contaminant.</p><strong>Parameter-Specific Notes</strong>
+          <p>Leave the <code>modelClass</code> parameter <strong><em></em>untouched and as-is</strong>. Its value is automatically set by JVelma when you add the ModifySpatialDataByMapDisturbanceModel parameter group to the configuration.</p>
+          <p>Set the <code>initializeActiveLoops</code>, <code>initializeActiveYears</code>, and <code>initializeActiveJdays</code> parameter values to the loop, year, and Julian day (respectively) within the simulation run when the remediation effect should become active.</p>
+          <p>Set <code>occursAtStepStart</code> to true, to ensure the remediation effect begins on the date you specified, not on the day after that.</p>
+          <p>Set <code>spatialDataFileFullName</code> to the name of the raster .asc data file containing the cell-specific decay or humus modification factor values.<br> Unless the specified filename is a fully-specified path + name, it is assumed to be relative to the directory location specified by the simulation configuration's <code>inputDataLocationRootName</code>/<code>inputDataLocationDirName</code> pair of parameters.<br> Use forward slash “/” characters as path separators. Also, be very careful with whitespace; if there is any, it must exactly match whatever whitespace is present in the actual path and filename.</p>
+          <p>Set <code>setCellOutcome</code> to <code>REPLACE</code>: <strong><em></em>no</strong> other value is appropriate for use as a remediation scaling factors source.</p>
+          <p>Set <code>setMapValueMode</code> to <code>VALUE</code>: this setting provides the <em>most straightforward</em> use-case for a remediation scaling factors source. Combined with <code>setCellOutcome</code>=<code>REPLACE</code>, <code>setMapValueMode</code>=<code>VALUE</code> configures the disturbance to directly set the specified map's specified values into the spatial data pool specified by <code>spatialDataName</code>.</p>
+          <p>Set the <code>spatialDataName</code> to the name of the appropriate spatial data pool. That name is derived from a factor-specific prefix, and the value of the <code>uniqueName</code> parameter of the organic contaminant that it will affect.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Factor-specific prefix</th>
+                <th>Identifies the spatial pool for ...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CONTAMINANT_DECAY_FACTOR_</td>
+                <td>cell-specific scaling values applied to decay</td>
+              </tr>
+              <tr>
+                <td>CONTAMINANT_HUMUS_FACTOR_</td>
+                <td>cell-specific scaling factor values applied to humus</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>In the example parameterization above, the specified <code>spatialDataFileFullName</code> map values will be the remediation factor for decay, and affect the contaminant with the <code>uniqueName</code> "Melamine".</p>
+          <p>Thus, the <code>spatialDataName</code> value is:<br> <code>CONTAMINANT_DECAY_FACTOR_</code> + <code>MELAMINE</code> = <code>CONTAMINANT_DECAY_FACTOR_MELAMINE</code></p>
+          <p>The <code>spatialDataLayer</code> parameter's value <strong><em>must</em></strong> be set to 1.</p>
+          <h2>How It Works</h2>
+          <p>During each VELMA simulation step, the amount of organic contaminant within a given cell of the delineated watershed is modified by the processes of:</p>
+          <ul>
+            <li>Hydrologic lateral transport</li>
+            <li>Hydrologic vertical transport</li>
+            <li>Sorption</li>
+            <li>Decay</li>
+          </ul>
+          <p>During the sorption calculation, if a given cell has had a HUMUS scaling factor set for it (via a Modify-by-Map), for the current simulation step, then the actual amount of humus carbon in the cell is multiplied by the scaling factor, effectively "boosting" the humus-based sorption.</p>
+          <p>During the decay calculation, if a given cell has had a DECAY scaling factor set for it (via a Modify-by-Map), for the current simulation step, then the <code>setChemMaxDecay</code> value specified for the Organic Contaminant is multiplied by the scaling factor and the product of the two <code>(max-decay fraction * decay scaling factor)</code> is used as the maximum decay multiplier instead of the max-decay fraction alone.
+            <p></p>Be mindful of the similar, yet distinctly <em>different</em> behaviors of HUMUS and DECAY scaling factors. In both cases, the scaling factor is used as a multiplier, but for sorption/HUMUS, it is multiplying an <em>amount</em>, while for DECAY it is multiplying a <em>fraction</em>.
+          </p>
+          <p>For DECAY calculations, this means that a sufficiently large DECAY scaling fraction may result in calculating a decayed amount that is larger then the actual amount present in the cell. VELMA treats this situation as "all of the contaminant has decayed", and zeroes the amount of contaminant remaining in the cell. If this zeroing not the intent, careful pairing of the Organic Contaminant's <code>setChemMaxDecay</code> value with the cell-specific DECAY map's values is required.<br> Example:<br> Suppose an Organic Contaminant's <code>setChemMaxDecay</code>=<code>0.75</code>, the DECAY scaling factor at a given cell is 1.5, and the cell contains 100.0mg of contaminant.<br> The maximum decay amount will be calculated as: <code>(0.75 * 1.5) * 100.0 = 112.5</code>.<br> The entire decay/decomposition process might result in an amount less than 112.5, but if that amount is still more than 100.0 at the end of the contaminant decay/decomposition process, the cell's contaminant result will be zeroed, and the full amount that the cell had available (100.0mg) will be reported as decayed -- <em>not</em> the amount greater than 100.0 that was calculated from the max-decay fraction and scaling factor.</p>
+          <h2>Additional Information</h2>
+          <h3>Disturbance Name Rules</h3>
+          <p>The name you provide for a disturbance parameterization group must follow these rules:</p>
+          <ul>
+            <li>Must begin with a letter</li>
+            <li>After the first letter, must consist entirely of letter, digit, dash ("-"), and underscore characters ("_").<br> No other characters are allowed.<br> Do NOT include whitespace or other punctuation characters (e.g. ":") in Disturbance Names.</li>
+            <li>Must be unique to a given disturbance parameterization group.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

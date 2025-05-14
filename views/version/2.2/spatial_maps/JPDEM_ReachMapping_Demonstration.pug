@@ -31,7 +31,7 @@ block content
               br
               |  (The default display shows elevation values in red-scale: black cells have the lowest elevation, brightest red cells have the highest.)
               span 
-                img(src="image-ws109_dem_in_jpdem.PNG", alt="DEM in JPDEM")
+                img(src="public/image-ws109_dem_in_jpdem.PNG", alt="DEM in JPDEM")
             li
               | Generate flow accumulation data for the DEM. 
               em
@@ -45,10 +45,10 @@ block content
                 | Determine Flow Data
               |  menu item, and JPDEM will generate flow accumulation data for each cell in the DEM. After generating facc data for our example DEM, JPDEM shifts the display to show facc cell values in grey-scale. Cells with higher flow accumulation values are darker.
               span 
-                img(src="image-ws109_facc_menu_item-cropped.PNG", alt="JPDEM Flow Data menu item")
+                img(src="public/image-ws109_facc_menu_item-cropped.PNG", alt="JPDEM Flow Data menu item")
               br
               span 
-                img(src="image-ws109_facc_in_jpdem.PNG", alt="Example Flow Data in JPDEM")
+                img(src="public/image-ws109_facc_in_jpdem.PNG", alt="Example Flow Data in JPDEM")
             li
               | Show the High-facc Cells To better distinguish cells with higher facc values, toggle the 
               code
@@ -60,7 +60,7 @@ block content
               br
               |  All cells in the DEM that have facc values equal or greater than the specified threshold will be colored red.
               span 
-                img(src="image-ws109_facc_threshold_cropped.PNG", alt="Facc Threshold Controls")
+                img(src="public/image-ws109_facc_threshold_cropped.PNG", alt="Facc Threshold Controls")
           h3
             | Set the Primary Outlet
           p
@@ -80,7 +80,7 @@ block content
               |  item, and finally, release the mouse button.
           p
             | In the mouse-click example screen-captured below, note that the cell we're selecting (circled in black) has a flow-accumulation ("facc") value of 1778. This means that the full watershed delineated from this primary outlet contains 1778 cells.
-          img(src="image-ws109_cell_popup_set_primary_edited.PNG")
+          img(src="public/image-ws109_cell_popup_set_primary_edited.PNG")
           h3
             | Add Sub-Outlets to JPDEM's Outlets Set
           p
@@ -111,10 +111,10 @@ block content
               |  menu item.
           p
             | We'll start by adding some outlets using the mouse. Because we set the facc threshold to 50, we can easily identify cells with facc values of 50 or more. From setting the primary outlet via the mouse, we also know that the primary outlet has a fac value of 1778. Our basic strategy is to mouse-click on darker cells adjacent to facc-threshold cells and find values close to 50. We'll also consider facc-threshold cells themselves, if they're sufficiently far from the primary outlet. Here's a screen-capture showing the first cell we add to the Outlets Set:
-          img(src="image-ws109_cell_popup_add_outlet_edited.PNG", alt="Adding a cell to Outlets Set with the mouse")
+          img(src="public/image-ws109_cell_popup_add_outlet_edited.PNG", alt="Adding a cell to Outlets Set with the mouse")
           p
             | We continue on this for more cells, trying to select locations that are close to 50 or look like forks in the facc-threshold "channels". As we add cells to the Outlets Set, JPDEM colors them green (a slightly lighter shade of green than the primary outlet).
-          img(src="image-ws109_multiple_outlets_displayed.PNG", alt="Multiple outlet cells in JPDEM")
+          img(src="public/image-ws109_multiple_outlets_displayed.PNG", alt="Multiple outlet cells in JPDEM")
           h3
             | Create a Reach Map
           p
@@ -125,24 +125,24 @@ block content
             code
               | Create Create Reach Map Data from Outlets Set
             |  menu item generates reach map data using the current Outlet Set.
-          img(src="image-ws109_createReachMap_menu_item_cropped.PNG", alt="Create Reach Map menu item")
+          img(src="public/image-ws109_createReachMap_menu_item_cropped.PNG", alt="Create Reach Map menu item")
           p
             | However, when we click 
             code
               | Create Create Reach Map Data from Outlets Set
             |  we get the following options dialog:
-          img(src="image-ws109_createReachMap_addPrimary_optionDialog.PNG", alt="Create Reach Map add Primary Outlet Option Dialog")
+          img(src="public/image-ws109_createReachMap_addPrimary_optionDialog.PNG", alt="Create Reach Map add Primary Outlet Option Dialog")
           p
             | Although we've set the primary outlet at the correct location for our overall watershed, we haven't explicitly added it to the Outlets Set. JPDEM is offering to add it for us, let us proceed without it, or stop creating a Reach Map. For, now let's click "No", and let the process move forward without including the primary outlet.
           p
             | JPDEM generates the Reach Map data, and displays a report of the results in a pop-up dialog window.
-          img(src="image-ws109_createReachMap_Results1_edited.PNG", alt="Create Reach Map Report v1")
+          img(src="public/image-ws109_createReachMap_Results1_edited.PNG", alt="Create Reach Map Report v1")
           p
             | In the reach map result screen-captured above, note the red-underlined sub-reach at iOutlet=3387, with only 9 cells. We decide that a 9-cell sub-reach isn't worth keeping, and that we don't need this outlet in the Outlet Set. Fortunately, we can remove it using the mouse-click menu. When you mouse-click a cell that is a member of the Outlets Set, the mouse-click menu contains a 
             code
               | Remove Frome Reach Map Outlets Set
             |  item:
-          img(src="image-ws109_cell_popup_remove_outlet.PNG", alt="Remove an outlet cell mouse menu item")
+          img(src="public/image-ws109_cell_popup_remove_outlet.PNG", alt="Remove an outlet cell mouse menu item")
           p
             | After removing the under-cell'ed outlet from the Outlets Set, we click 
             code
@@ -154,7 +154,7 @@ block content
             em
               | not
             |  our Outlets Set).
-          img(src="image-ws109_reachMap_overwrite_ok_dialog.PNG", alt="Reach Map replacement warning dialog")
+          img(src="public/image-ws109_reachMap_overwrite_ok_dialog.PNG", alt="Reach Map replacement warning dialog")
           p
             | Since we 
             em
@@ -176,8 +176,8 @@ block content
             code
               | View Reach Map
             |  menu item:
-          img(src="image-ws109_viewReachMap_reachMap-menu_item_edited.PNG", alt="View Reach Map menu item")
-          img(src="image-ws109_viewReachMap_Display1.PNG", alt="Reach Map Display v1")
+          img(src="public/image-ws109_viewReachMap_reachMap-menu_item_edited.PNG", alt="View Reach Map menu item")
+          img(src="public/image-ws109_viewReachMap_Display1.PNG", alt="Reach Map Display v1")
           p
             | The reach map is displayed at the same scale that JPDEM is set to when the 
             code
@@ -211,8 +211,8 @@ block content
             code
               | Create Create Reach Map Data from Outlets Set
             |  item once again, and this time, click "Yes" for the "Add Primary Outlet" option. After doing so, the resulting report confirms that the primary outlet is now part of the Outlets Set, and the Reach Map viewer no longer looks "wrong":
-          img(src="image-ws109_createReachMap_Results3_edited.PNG", alt="Create Reach Map Report v3")
-          img(src="image-ws109_viewReachMap_Display2.PNG", alt="Reach Map Display v2")
+          img(src="public/image-ws109_createReachMap_Results3_edited.PNG", alt="Create Reach Map Report v3")
+          img(src="public/image-ws109_viewReachMap_Display2.PNG", alt="Reach Map Display v2")
           h3
             | Use the Outlets Set in a VELMA Simulation Configuration
           p
@@ -235,13 +235,13 @@ block content
             code
               | Modified VELMA XML
             |  menu item provides a way to transfer JPDEM's current Outlets Set to that .xml file.
-          img(src="image-ws109_save-to-velma_menu_item_cropped_edited.PNG", alt="Save Outlets Set menu item")
+          img(src="public/image-ws109_save-to-velma_menu_item_cropped_edited.PNG", alt="Save Outlets Set menu item")
           p
             | The 
             code
               | Modified VELMA XML
             |  item first asks for a VELMA .xml file to use as an initial source configuration:
-          img(src="image-ws109_save-to-velma_openSource_dialog_edited.PNG", alt="Open VELMA source file dialog")
+          img(src="public/image-ws109_save-to-velma_openSource_dialog_edited.PNG", alt="Open VELMA source file dialog")
           p
             | Use the "Look In:" drop-down control and the associated navigation buttons to locate the directory of the appropriate VELMA .xml file.
             br
@@ -275,7 +275,7 @@ block content
             code
               | Save Modified ...
             |  dialog box looks like this:
-          img(src="image-ws109_save-to-velma_saveTarget_dialog_edit.PNG", alt="Save VELMA target file dialog")
+          img(src="public/image-ws109_save-to-velma_saveTarget_dialog_edit.PNG", alt="Save VELMA target file dialog")
           p
             | Use the "Save In:" drop-down control and the associated navigation buttons to locate the directory to save the modified (or new) VELMA .xml file. The "File Name:" text box is initially set to the name of the VELMA source .xml file, if we want to overwrite that file's contents with our modified contents, then we can click the 
             code
@@ -329,14 +329,14 @@ block content
             code
               | v
             |  key combination.
-          img(src="image-ws109_viewReachMap_outlets-menu_item_edited.PNG", alt="View Outlets Report menu item")
-          img(src="image-ws109_outlets_report.PNG", alt="View Outlets Report window")
+          img(src="public/image-ws109_viewReachMap_outlets-menu_item_edited.PNG", alt="View Outlets Report menu item")
+          img(src="public/image-ws109_outlets_report.PNG", alt="View Outlets Report window")
           p
             | Open JVelma, and load the appropriate simulation configuration .xml file, and edit the "Sub-Reach Mapping Controls" in the 
             code
               | Run Parameters
             |  tab:
-          img(src="image-ws109_velma_run_parameters_cropped_edited.PNG", alt="VELMA Sub-Reach Mapping Controls")
+          img(src="public/image-ws109_velma_run_parameters_cropped_edited.PNG", alt="VELMA Sub-Reach Mapping Controls")
           p
             | Use the drop-down selector to set the configuration to 
             code

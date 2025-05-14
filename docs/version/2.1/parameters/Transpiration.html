@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.1/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.1/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.1/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.1/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.1/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.1/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.1/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.1/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.1/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.1/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.1/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.1/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.1/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.1/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.1/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.1/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.1/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.1/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Transpiration </h1>
+          <p>Evapotranspiration (ET) is the sum of evaporation and plant transpiration. ET equations and parameters in VELMAversion 2.0 are the same as for version 1.0 (see Abdelnour et al. 2011), except for the following:</p>
+          <ul>
+            <li>The ET recovery function has been replaced with a new subroutine that models post- disturbance changes in ETbased on leaf biomass dynamics.</li>
+            <li>A new subroutine models age-related declines in transpiration for forest systems. See details in subsections10.1 - 10.3.1.</li>
+          </ul>
+          <h3 id="10-1">10.1 - Core PET and ET Parameters</h3>
+          <p>Core parameters for calibrating VELMA's PET and ET submodels can be found by selecting section 10.1 from the AllParameters drop-down menu:</p><img width="628" height="175" alt="image" src="public/Image_078.jpg">
+          <h4>Parameter Definitions</h4>
+          <p>(see Abdelnour et al. 2011 for equations and additional explanation):</p>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">roair</td>
+              <td class="param_desc">Air density in g/m^3</td>
+            </tr>
+            <tr> 
+              <td class="param_name">be </td>
+              <td class="param_desc">ET coefficient used in the logistic equation that computes ET from PET</td>
+            </tr>
+            <tr> 
+              <td class="param_name">temperaturePetOff </td>
+              <td class="param_desc">PET is only active when air temperature is &gt; than this value (in degrees C)</td>
+            </tr>
+            <tr> 
+              <td class="param_name">petParam1 </td>
+              <td class="param_desc">First term of PET Hamon Equation: petParam1 * petParam2 * gS.roair * (esat / 1000.0f)</td>
+            </tr>
+            <tr> 
+              <td class="param_name">petParam2 </td>
+              <td class="param_desc">Second term of PET Hamon Equation: petParam1 * petParam2 * gS.roair * (esat / 1000.0f)</td>
+            </tr>
+            <tr> 
+              <td class="param_name">notranspirationPetFraction </td>
+              <td class="param_desc">The fraction of PET available outside of this a cover species/type's growing season range [0.0 - 1.0].</td>
+            </tr>
+          </table>
+          <h3 id="10-2">10.2 - ET Recovery On/Off ?</h3>
+          <p>Select section 10.2 from the All Parameters drop-down menu to turn the ET recovery function on (true) or off(false):</p><img width="621" height="117" alt="image" src="public/Image_079.jpg">
+          <h3 id="10-2-1">10.2.1 - ET Recovery Parameters</h3>
+          <p>Select section 10.2.1 from the All Parameters drop-down menu to specify ET recovery parameter values for eachcover type in your watershed (just one cover shown below):</p><img width="623" height="146" alt="image" src="public/Image_080.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">etRecoverFractionSlope</td>
+              <td class="param_desc">The value of the ET recovery fraction&#39;s linear equation slope component.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">etRecoverFractionMinimumValue </td>
+              <td class="param_descThe">ET recovery fraction is forced to this value when the current leaf biomass is less than the value specified for etRecoveryFractionLeafBiomassMinimum orwhen the calculated ET recovery fraction is less than zero.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">etRecoverFractionMinimumLeafBiomassC </td>
+              <td class="param_descThe">minimum amount of leaf biomass (in gC/m^2) required to compute an ET recovery fraction. Whenever leaf biomass is less than this amount the ET recoveryfraction is forced to the etRecoverFractionMinimumValue.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">etRecoverFractionIntercept </td>
+              <td class="param_descThe">value of the ET recovery fraction&#39;s linear equation intercept component.</td>
+            </tr>
+          </table>
+          <h4>Calibration Notes</h4>
+          <p>We have prepared a DRAFT Excel spreadsheet that you may choose to use to calibrate ET recovery parameters for your site.</p>
+          <p>Filename: VELMA 2.0_ET Recovery Calibrator_HJA_12-1-13.xlsx</p>
+          <p>Folder location: VELMA Model\Supporting Documents\Excel Calibration Files</p>
+          <h3 id="10-3">10.3 - Transpiration Limiter On/Off?</h3>
+          <p>Studies in the Pacific Northwest have shown that young forests transpire significantly more water than oldforests (McDowell et al. 2002; Moore et al. 2004). VELMA version 2.0 has a new subroutine to address age-relateddeclines in transpiration by forest vegetation.</p>
+          <p>Select section 10.3 from the All Parameters drop-down menu to turn the Transpiration Limiter subroutine on (true)or off (false):</p><img width="626" height="100" alt="image" src="public/Image_081.jpg">
+          <h4>Parameter definition:</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">useTranspirationLimiter</td>
+              <td class="param_desc">When set false (default value) the transpiration limiter fraction value is forced to 1.0 (Which effectively means &quot;No age-related limitation&quot; i.e. the limiter is OFF.)When set true the transpiration limiter fraction is computed based on its jday and coefficients settings.</td>
+            </tr>
+          </table>
+          <p>See section 10.4 for parameters and calibration information. </p>
+          <h4>References</h4>
+          <p>McDowell, N. G., Phillips, N., Lunch, C., Bond, B. J., &amp; Ryan, M. G. (2002). An investigation of hydrauliclimitation and compensation in large, old Douglas-fir trees. Tree Physiology, 22(11), 763-774.</p>
+          <p>Moore, G. W., Bond, B. J., Jones, J. A., Phillips, N., &amp; Meinzer, F. C. (2004). Structural and compositionalcontrols on transpiration in 40-and 450-year-old riparian forests in western Oregon, USA. Tree physiology,24(5), 481-491.</p>
+          <h3 id="10-3-1">10.3.1 - Transpiration Parameters</h3>
+          <p>Select section 10.3.1 from the All Parameters drop-down menu to specify parameter values for the TranspirationLimiter subroutine used to describe age-related declines in transpiration by forest vegetation:</p><img width="622" height="207" alt="image" src="public/Image_082.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">useTranspirationLimiter</td>
+              <td class="param_desc">When set false (default value) the transpiration limiter fraction value is forced to 1.0 (Which effectively means &quot;No limiting at all&quot; i.e. the limiteris OFF.) When set true the transpiration limiter fraction is computed based on its jday and coefficientssettings.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">transpirationLimiterMaxTotalBiomassC </td>
+              <td class="param_desc">Upper limit of total biomass amount (in gC/m^2) for transpiration limiter fraction computation. When total biomass amount in a cell exceeds this max value thetranspiration limiter faction value is forced to the transpirationLimiterCoeffD parameter&#39;s value.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">transpirationLimiterJdayOn </td>
+              <td class="param_desc">Transpiration reduction occurs on the Julian day specified by this &quot;on&quot; parameter and continues on every day of the year up to and including the day specified by the paired &quot;off&quot; parameter. I.e. transpiration reduction occurs in the range[transpirationLimiterJdayOn transpirationLimiterJdayOff]</td>
+            </tr>
+            <tr> 
+              <td class="param_name">transpirationLimiterJdayOff </td>
+              <td class="param_desc">Transpiration reduction occurs on the Julian day specified by this &quot;off&quot; parameter and does not occur for any days of the year remaining after it. I.e. transpiration reduction occurs in the range [transpirationLimiterJdayOn transpirationLimiterJdayOff]</td>
+            </tr>
+            <tr> 
+              <td class="param_name">transpirationLimiterCoeffA </td>
+              <td class="param_desc">The A coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D</td>
+            </tr>
+            <tr> 
+              <td class="param_name">transpirationLimiterCoeffB </td>
+              <td class="param_desc">The B coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D</td>
+            </tr>
+            <tr> 
+              <td class="param_name">transpirationLimiterCoeffC </td>
+              <td class="param_desc">The C coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D</td>
+            </tr>
+            <tr> 
+              <td class="param_name">transpirationLimiterCoeffD </td>
+              <td class="param_desc">The D coefficient in the Transpiration Limiter Fraction equation: A / (1 + B * exp(C * totalBiomassC)) + D</td>
+            </tr>
+          </table>
+          <h4>Calibration Notes</h4>
+          <p>The transpiration limiter subroutine is experimental and we do not recommend using it at this time.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

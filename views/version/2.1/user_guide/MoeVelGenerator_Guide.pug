@@ -12,7 +12,7 @@ block content
             h2 Background
             p Running the MOEA Framework for VELMA produces a MOEA outputs .csv file with multiple rows of results, one row per VELMA simulation run. Via the values in its columns, a given row reports the objective scores and VELMA parameters settings (categorized into "variables", "followers", and "exclusives") unique to a particular VELMA run.
             p As an example, here is a screen-capture of part of the contents of a MOEA outputs.csv file: 
-            img(src="image-moeaOutput_inExcel_example.PNG", alt="part of the contents of a MOEA outputs.csv file")
+            img(src="public/image-moeaOutput_inExcel_example.PNG", alt="part of the contents of a MOEA outputs.csv file")
             p With the contents of the MOEA output .csv file available, the next step in the user's workflow is usually an analysis of which VELMA simulation runs (i.e. rows of MOEA output) are the "best" -- based on the objectives columns scores. For one or more of these best runs, the user typically wishes to re-run VELMA outside of MOEA, to generate full VELMA results and analyze them in detail. But, in order to run VELMA with the same simulation configuration parameters that produced the "best" row of objectives scores the user must recreate the specific .xml configuration file that MOEA ran VELMA with, because MOEA does not report/save that .xml file anywhere.
             p The .xml file for a particular row can be created by duplicating the original ("source") VELMA simulation configuration .xml file (specified for use when MOEA ran), and then subsituting each value in the row from a column representing a VELMA parameter inot the duplcate .xml. When this process in completed, the duplicate .xml 
                 em
@@ -58,14 +58,14 @@ block content
                 |  In Excel:
                 br
                 |  
-                img(src="image-howto_excel_velma_source.PNG", alt="Excel Velma Source")
+                img(src="public/image-howto_excel_velma_source.PNG", alt="Excel Velma Source")
                 |  Via 
                 code
                     | Select-String
                 | :
                 br
                 |  
-                img(src="image-howto_select-string_velma_source.PNG", alt="Select velma source string in powershell")
+                img(src="public/image-howto_select-string_velma_source.PNG", alt="Select velma source string in powershell")
             h3 Open a PowerShell command window
             p
                 em
@@ -78,7 +78,7 @@ block content
                 li
                     | Click the "Windows PowerShell" desktop app: it should be the "Best match", at the top of the list of search results.
             
-            img(src="image-howto_invoke_powershell.PNG", alt="How to open powershell")
+            img(src="public/image-howto_invoke_powershell.PNG", alt="How to open powershell")
             h3 Run MoeVelGenerator
             p As mentioned, you must have Python 3 installed and available via the Powershell command window to run 
                 code
@@ -102,7 +102,7 @@ block content
             p You can pass MoeVelGenerator the single argument "-h" or "--help" to ask it list its required and optional arguments.
             p Here is an example, run immediately after starting a Windows Powershell as detailed above in Step 2:
             
-            img(src="image-invoke_moevelgenerator_helparg.PNG", alt="Invoke moevelgenerator.py from powershell")
+            img(src="public/image-invoke_moevelgenerator_helparg.PNG", alt="Invoke moevelgenerator.py from powershell")
             p As the help message indicates, there are 3 required and 1 optional command line arguments that must must appear in the order shown by the message. (The help message refers to these 4 arguments as 
                 em
                     | positional
@@ -153,7 +153,7 @@ block content
                 br
                 |  The following example illustrates how this works, by first generating a new .xml file, then attempting (and not) overwriting it, then successfully overwriting it by including the prescribed argument:
                 
-            img(src="image-moevelgenerator_write-then-overwrite_cmdline_example.PNG", alt="Write then overwrite command line example")
+            img(src="public/image-moevelgenerator_write-then-overwrite_cmdline_example.PNG", alt="Write then overwrite command line example")
             h3 What happens when the VELMA target .xml file is 
                 em
                     | not

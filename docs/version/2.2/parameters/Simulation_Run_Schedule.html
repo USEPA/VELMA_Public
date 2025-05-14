@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.2/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.2/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.2/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.2/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.2/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.2/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.2/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.2/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.2/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.2/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.2/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.2/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.2/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.2/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.2/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.2/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.2/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.2/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.2/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.2/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.2/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.2/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.2/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.2/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Simulation Run Schedule </h1>
+          <p>To let VELMA know when to start and stop a simulation, you specify need to specify values for the followingparameters:</p>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">forcing_start </td>
+              <td class="param_desc">First year of driver (forcing) data available for the simulation model run</td>
+            </tr>
+            <tr> 
+              <td class="param_name">forcing_end</td>
+              <td class="param_desc">Last year of driver (forcing) data available for the simulation model run</td>
+            </tr>
+            <tr> 
+              <td class="param_name">syear</td>
+              <td class="param_desc">Starting year of simulation model run</td>
+            </tr>
+            <tr> 
+              <td class="param_name">eyear</td>
+              <td class="param_desc">Ending year of simulation model run</td>
+            </tr>
+            <tr> 
+              <td class="param_name">numberOfLoops</td>
+              <td class="param_desc">The number of times (loops) to repeat a simulation (syear</td>
+            </tr>
+          </table>
+          <p>to eyear will repeat for the specified number of loops)</p>
+          <h4>The Forcing Start and End Years Specify When a Simulation CAN Run</h4>
+          <p>The VELMA Simulator expects every driver and observed data file specified in the simulation configuration to have1 line of data for each day between the first day of the year specified for the forcing_start parameterand the last day of the year specified for the forcing_end parameter.</p>
+          <p>For example, if forcing_start = 2000 and forcing_end = 2001, each driver or observed data file musthave 366 + 365 lines of data (one for each of the 731 days of years 2000 through 2001).</p>
+          <p>The value specified by forcing_start must be less than or equal to the value of forcing_end.</p>
+          <h4>The Simulation Start and End Years Specify When a Simulation WILL Run</h4>
+          <p>The years that the VELMA Simulator actually runs a simulation for are specified by the syear (start year)and eyear (end year) simulation configuration parameters. It is an error for syear's value to begreater than eyear's, and for either value to lie outside the bounds of the years specified byforcing_start and forcing_end, however syear and eyear may specify a sub-rangewithin that range.</p>
+          <p>For example, if [forcing_start, forcing_end] = [1995, 2010], [syear, eyear] may be [1997, 2010], oreven a single year, like [1998, 1998].</p>
+          <h4>The Loops Parameter Specifies How Many Times the Simulation Repeats a Run</h4>
+          <p>The numberOfLoops parameter defaults to "1", which tells the VELMA Simulator to run the specifiedsimulation from start year to end year once, and then stop. Setting the numberOfLoops parameter to<i>n</i>, (with &gt; 1) tells the VELMA simulator to run the simulation from start year to end year n times in arow, but to only initialize the simulation before the first start-to-end run. In this way, the numberOfLoopsparameter provides a (simplistic) spin-up mechanism. The second start- to-end run after the first willbegin with the simulation's data state where it was at the end of the first start-to-end run, and so on.</p>
+          <h4> Use the All Parameters Outline Selector to Focus on the Simulation Run Schedule Parameters </h4>
+          <You>can filter the AllParameters tab's parameters table to focus on the simulation run schedule by selecting item "17.0 Simulation RunSchedule" in the outline dropdown selector:</You><img width="614" height="178" alt="image" src="public/Image_108.jpg">
+          <p>You Can Also Review and Set Some of these Values in the Run Parameters Tab</p>
+          <p>Compare circled fields in the Run Parameters tab below with the parameters circled in the All Parameters tableabove. Setting the "Run Simulator From" and "To" fields in the Run Parameters tab sets the values of the syearand eyear parameters. Setting the Run Parameters "Number of Loops" value sets the value of the numberOfLoopsparameter. Note however, that you can only set the forcing_start and forcing_end values in the All Parameterstable. These values are read-only fields in the Run Parameters tab. The screenshot above happens to specify 12loops - i.e. run the simulation [1999, 2003] x12 - that's a significant spin up. Generally speaking, find outhow long one simulation loop takes to run before embarking on that many multiple loops.</p><img width="618" height="215" alt="image" src="public/Image_109.jpg">
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

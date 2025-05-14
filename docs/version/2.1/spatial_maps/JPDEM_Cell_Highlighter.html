@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">Spatial ASCII Maps in VELMA</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">ASCII Maps</strong><a href="/docs/version/2.1/spatial_maps/Ascii_Grid_Chemistry_Spatial_Pools"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a><a href="/docs/version/2.1/spatial_maps/AscMapOct_Guide"><span>ASCII Map Oct Guide</span></a><a href="/docs/version/2.1/spatial_maps/AscRangeMask_Guide"> <span>ASCII Range Mask Guide</span></a><a href="/docs/version/2.1/spatial_maps/Generate_Ascii_Grids_For_Daily_Temp_and_Precip"><span>Generating daily temperature and precipitation grids for running VELMA</span></a><a href="/docs/version/2.1/spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Initialize Spatial Pool Using ASCII</span></a><a href="/docs/version/2.1/spatial_maps/Add_Projection_Info_To_Output_Maps"> <span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a><a href="/docs/version/2.1/spatial_maps/Create_Initial_Soil_and_Plant_Chem_Spatial_Data_Pools"> <span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a><a href="/docs/version/2.1/spatial_maps/Land_Zoning_Maps"> <span>Create Land-zoning Maps for a VELMA Application</span></a><a href="/docs/version/2.1/spatial_maps/Reach_Mapping"> <span>Reach Mapping</span></a>
+            <hr><strong class="center-text white-text">DEM</strong><a href="/docs/version/2.1/spatial_maps/Create_Flat_Processed_DEM_Tutorial"><span>Expanded Flat Processed DEM Tutorial</span></a><a href="/docs/version/2.1/spatial_maps/Create_Flat_Processed_DEM_and_Outlet_Watershed_Delineation"><span>Using DEM data to Determine Outlet and Watershed Delineation</span></a>
+            <hr><strong class="center-text white-text">JPDEM</strong><a href="/docs/version/2.1/spatial_maps/JPDEM_Cell_Highlighter"><span>JPDEM Cell Highlighter</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Channel_Cutter_For_Flow_Path_Modification"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Flow_Accumulation_Threshold_Display"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Flow_Test_Tool"><span>JPDEM Flow Test Tool</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_For_Viewing_Map_Differences"><span>JPDEM for Viewing Map Differences</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_ReachMapping_Demonstration"><span>JPDEM Sub-Reach Mapping Delineations Example</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Saving_Data_To_Files"><span>JPDEM Saving Data to Files</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Sub_Reach_Delineations"><span>JPDEM Sub-Reach Delineations</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_User_Specified_Border_Mask"><span>JPDEM User-Specified Border Mask</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_User_Specified_Map_Borders"><span>JPDEM User-Specified Map Borders</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>JPDEM Cell Highlighter</h1>
+          <div class="info blue-light-1">
+            <p>Overview <i>(Tutorial B.2 - JPDEM Cell Highlighter)</i></p>
+            <p>This tutorial explains how to use JPDEM's Cell Highlighter functions to select one or more specific cells within the currently-loaded map (DEM or other spatial data) and display them in a distinct color. The highlighter makes those cell's locations easier to spot and keep track of.</p></p>
+          </div>
+          <p>Follow these steps to use JPDEM's Cell Highlighter functions to highlight the locations of selected cells:</p>
+          <p>Load a flat-processed DEM into JPDEM (see Section 1.1). </p>
+          <p>The Cell Highlighter controls are items in the View Menu:</p><img width="589" height="496" alt="screenshot" title="screenshot" src="public/suppImage_104.jpg">
+          <p>The "Clear All Highlighted Cells" item does exactly what it says, clearing the highlighting from any cells specifiedfor highlighting. It's only enabled when one or more cells <i>are </i>highlighted.</p>
+          <p>The two "Specify Cells …" options allow you to specify which cells to highlight.</p>
+          <p>"By Index" means either by listing the linear indices of the cells, or by their (x y) coordinate pairs.</p>
+          <p>"By Value" means by specifying a range of cell values. All cells within the map whose values are within the specified range are highlighted.</p>
+          <h2>Highlighting Cells by Index</h2>
+          <p>Click the View -&gt; Highlight Specific Cells in Image -&gt; Specify Cells By Index menu item.</p>
+          <p>The "Cells to Highlight" dialog box opens; note the instructions.</p>
+          <p>Here is an example that specifies the 3 cells above the outlet location, using the (x y) coordinate pairs notation option. <i>Important! Notices that there is NO COMMA between the x and y values.</i></p><img width="586" height="493" alt="screenshot" title="screenshot" src="public/suppImage_105.jpg">
+          <p>After entering the (x y) coordinate pairs and clicking OK, JPDEM highlights the specified cell locations over thecurrent display/view option:</p><img width="586" height="493" alt="screenshot" title="screenshot" src="public/suppImage_106.jpg">
+          <h2>Highlighting Cells by Value</h2>
+          <p>Click the View -&gt; Highlight Specific Cells in Image -&gt; Specify Cells By Value Range menu item.</p>
+          <p>The "Cell Ranges to Highlight" dialog box opens; note the instructions.</p>
+          <p>Here is an example that specifies all cells with values between 10 and 20, and between 90 and 100:</p><img width="586" height="493" alt="screenshot" title="screenshot" src="public/suppImage_107.jpg">
+          <p>Notice that the notation differs from the Cell By index dialog, but that whitespace, NOT COMMAS, is still thedelimiter in use.</p>
+          <p>After entering the low:high coordinate pairs and clicking OK, JPDEM highlights the specified cell locations over thecurrent display/view option:</p><img width="586" height="493" alt="screenshot" title="screenshot" src="public/suppImage_108.jpg">
+          <h2>Notes and Limitations</h2>
+          <p>Cell Highlighting (when specified) is visible for all the rendering modes selectable in the View menu. However,depending upon the selected View mode, the highlight color may be "pepto-pink", cyan, or white:</p>
+          <table>
+            <tr>
+              <th>View Rendering Mode</th>
+              <th>Highlighter Color</th>
+            </tr>
+            <tr>
+              <td>Standard Image Rendering</td>
+              <td>Pepto-Pink</td>
+            </tr>
+            <tr>
+              <td>Contour Image Rendering</td>
+              <td>Pepto-Pink</td>
+            </tr>
+            <tr>
+              <td>Simple HSB Image Rendering</td>
+              <td>White</td>
+            </tr>
+            <tr>
+              <td>DEM Difference Image Rendering</td>
+              <td>Cyan</td>
+            </tr>
+            <tr>
+              <td>Five-Color Mapping Image Rendering</td>
+              <td>Pepto-Pink</td>
+            </tr>
+          </table>
+          <p>The Cell Highlighter does not permit specifying both cell index and cell values at the same time. You must choose oneor the other, and changing from one to the other clears the previous cell-highlighting.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

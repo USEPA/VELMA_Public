@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.1/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.1/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.1/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.1/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.1/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.1/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.1/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.1/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.1/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.1/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.1/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.1/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.1/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.1/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.1/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.1/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.1/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.1/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Chemistry Pools (Dissolved C and N) </a>(link to All </a>Parameters TOC) VELMA simulates ecosysteminputs, outputs and internal cycling of four pools of dissolved nitrogen and carbon in soil: ammonium(NH4), nitrate (NO3), dissolved organic nitrogen (DON)</h1>
+          <p>and dissolved organic carbon (DOC).</p>
+          <p>Sections 8.1 and 8.2, below, describe the specification of initial pools and calibration of parameterscontrolling leaching losses to streams. Subsequent sections describe additional processes affecting inputs andoutputs from these dissolved C and N pools.</p>
+          <h3 id="8-1">8.1 - Chemistry Amounts for uniform cell-initialization</h3>
+          <p>Initial soil pools (g N / m2 or g C / m2) of NH4, NO3, DON and DOC can be viewed and specified byselecting "8.1 Chemistry Amounts for uniform cell-initialization" from the All Parameters drop-down menu. Thevalues specified should represent the sum of all 4 soil layers (total soil column) averaged across thewatershed.</p><img width="620" height="153" alt="image" src="public/Image_075.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">initial_doc</td>
+              <td class="param_desc">Initial DOC pool amount (per cell) in gC/m2.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initial_don</td>
+              <td class="param_desc">Initial DON pool amount(per cell) in gN/m2.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initial_Nh4</td>
+              <td class="param_desc">Initial NH4 pool amount (per cell) in gN/m2.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">initial_No3Initial</td>
+              <td class="param_desc">NO3 pool amount (per cell) in gN/m2.</td>
+            </tr>
+          </table>
+          <h4>Calibration Notes</h4>
+          <p>On day 1 of a simulation, VELMA will use the specified parameter values to calculate the fraction of eachnutrient's total pool to allocate to each of the four soil layers. This is done uniformly for all grid cells onday 1.</p>
+          <p>With some effort, VELMA can be calibrated to simulate spatial variability in C, N, H2O pools and fluxes.With a well-calibrated parameter set, initially uniform nutrient pool values will begin to adjust and, after asufficient spin-up time, more closely match spatial and temporal patterns of observed nutrient pools (McKane2014).</p>
+          <p>Section 7.0 describes methods for setting up an appropriate spin-up period for allowing initialized soil moisturelevels to adjust to a site's biophysical conditions. The same spin-up method applies for all model pools andfluxes, including stream chemistry.</p>
+          <p>Alternatively, you can use a more advanced method for specifying initial nutrient pool values that consider spatial variability in soil types, and cover species type and age.    Details can be found in </a>Appendix 3: Creating Initial ASCII Grid Chemistry Spatial DataPools.</p>
+          <h4>References</h4>
+          <p>The User Manual package includes slides for a seminar describing the effectiveness of riparian buffers for protecting water quality in the Chesapeake Bay.</p>
+          <p>Filename: McKane_ORD GI webinar_7-30-14 Final.pptx</p>
+          <p>Folder location: VELMA Model\Supporting Documents\VELMA Pubs &amp; Talks</p>
+          <h3 id="8-2">8.2 - Chemistry Water Loss Fractions</h3>
+          <p>In VELMA, transport of dissolved nutrients within the soil column, and ultimately to the stream, is a function ofvertical and lateral water drainage, the size of the nutrient pool, and a specified loss fraction (qf)parameter.</p>
+          <p>The nutrient loss fraction parameters can be viewed and specified by selecting "8.2 Chemistry Water LossFractions" from the All Parameters drop-down menu.</p><img width="621" height="156" alt="image" src="public/Image_076.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">qf_din</td>
+              <td class="param_desc">NH4 loss due to horizontal and vertical water flow range [0.0 1.0].</td>
+            </tr>
+            <tr> 
+              <td class="param_name">qf_doc </td>
+              <td class="param_desc">DOC loss due tohorizontal and vertical water flow range [0.0 1.0].</td>
+            </tr>
+            <tr> 
+              <td class="param_name">qf_don </td>
+              <td class="param_desc">DON loss due to horizontal and vertical waterflow range [0.0 1.0]. </td>
+            </tr>
+            <tr> 
+              <td class="param_name">qf_NO3 </td>
+              <td class="param_desc">NO3 loss due to horizontal and vertical water flow range [0.0 1.0].</td>
+            </tr>
+          </table>
+          <h4>Calibration Notes</h4>
+          <p>The "qf" parameters for specifying nutrient loss fractions are very important for achieving a good fit betweensimulated and observed stream chemistry data (Abdelnour et al. 2013).</p>
+          <p>However, when you are calibrating these and any other parameters, keep in mind that it is fairly easy to specifyqf values that provide a good fit between simulated and observed stream chemistry data, <u>even when the source    soil nutrient pools are poorly calibrated (too large or too</u> <u>small</u>.</p>
+          <p>Achieving a well-calibrated <u>ecosystem </u>model is an iterative process, requiring numerous simulation runsuntil a set of parameters values is identified that simultaneously provides a good fit between simulated andobserved data for plants, soils and streams, i.e., all C, N and H2O pools and fluxes forwhich good quality observed data are available (recognizing that complete validation is an ideal never reached).</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

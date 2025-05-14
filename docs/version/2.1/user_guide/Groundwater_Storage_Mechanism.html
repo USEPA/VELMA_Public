@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">User Guides</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">Input / Output Files Guides</strong><a href="/docs/version/2.1/user_guide/Input_File_Details"><span>Input File Details</span></a><a href="/docs/version/2.1/user_guide/Input_File_Formats"><span>Input File Formats</span></a><a href="/docs/version/2.1/user_guide/Output_Overview"><span>Output Files</span></a><a href="/docs/version/2.1/user_guide/MoeVelGenerator_Guide"><span>MOEA-to-VELMA Configuration Generator</span></a><a href="/docs/version/2.1/user_guide/Acquisition_and_Generation_of_Input_Data"><span>Acquire and Generate Input Data</span></a><a href="/docs/version/2.1/user_guide/Biomass_Output_to_BlueSky"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a><a href="/docs/version/2.1/user_guide/ObsRunoff_and_NaNs"><span>Observered Runoff Data May Inlude NaN Values</span></a><a href="/docs/version/2.1/user_guide/Outputs_For_Data_Visualization"><span>Outputs For Data Visualization</span></a>
+            <hr><strong class="center-text white-text">Simulation Configuration Guides</strong><a href="/docs/version/2.1/user_guide/Configuration_Checker_Guide"><span>Configuration Checker Guide</span></a><a href="/docs/version/2.1/user_guide/Add_Multiple_Location_Weather_Drivers"><span>Add Mulitple Location Weather Drivers</span></a><a href="/docs/version/2.1/user_guide/CellSpecificBurnDisturbance_Configuration_Guide"><span>Configuring a Cell-Specific Burn Disturbance</span></a><a href="/docs/version/2.1/user_guide/Cell_Data_Writer_Configuration"><span>Cell Data Writer Configuration</span></a><a href="/docs/version/2.1/user_guide/Default_Tidewater_Model_Config"><span>Default Tidewater Model Configuration</span></a><a href="/docs/version/2.1/user_guide/Groundwater_Storage_Mechanism"><span>Groundwater Storage Mechanism</span></a><a href="/docs/version/2.1/user_guide/Implementing_Green_Roofs"><span>Implementing Green Roof Applications in VELMA</span></a><a href="/docs/version/2.1/user_guide/Simulating_Fate_and_Transport"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a><a href="/docs/version/2.1/user_guide/Surface_Chemistry_Pools"><span>VELMA Surface Chemistry Pools</span></a>
+            <hr><strong class="center-text white-text">Contaminants </strong><a href="/docs/version/2.1/user_guide/Contaminant_Modeling_Example"><span>VELMA Contaminant Modeling Example </span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Overview"><span>Overview of Organic Contaminant Modeling Using VELMA</span></a><a href="/docs/version/2.1/user_guide/Organic_Contaminant_Modeling"><span>Organic Contaminant Modeling Using VELMA Framework and Example</span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Remediation_Configuration_Guide"><span>Configuring An Organic Contaminant to Include Remediation Effects</span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Tracer_Configuration_Guide"><span>Configuring An Organic Contaminant as a Tracer</span></a>
+            <hr><strong class="center-text white-text">Disturbances </strong><a href="/docs/version/2.1/user_guide/Deposition_of_Surface_Chemicals"><span>Deposition of Surface Chemicals </span></a><a href="/docs/version/2.1/user_guide/Irrigation_Disturbance_Model_Overview"><span>Irrigation Disturbance</span></a>
+            <hr><strong class="center-text white-text">Soils </strong><a href="/docs/version/2.1/user_guide/Soil_Data_Mapping_and_Parameter_Initialization"><span>Soil Data Mapping and Parameter Initialization</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Groundwater Storage Mechanism</h1>
+          <div class="info blue-light-1">
+            <p>Overview (Tutorial E.6_Groundwater Storage Box)</p>
+            <p>This document describes how to configure VELMA's groundwater storage mechanism, an optional method for simulating vertical drainage of excess (over saturation) water to a pool of deep groundwater. Drainage to groundwater only occurs when all the layers (1-4) in a cell's soil column are fully saturated.</p>
+            <p>When the groundwater storage mechanism is not invoked - for example when bedrock or other impermeable layer is present below layer 4 - no drainage to deep groundwater occurs and VELMA simulates upwelling of water within the saturated soil column to the surface.</p>
+          </div>
+          <h2>The VELMA simulator can handle over-saturation water amounts in two ways</h2>
+          <p>Due to its original model design, and by its default implementation, the VELMA Simulator behaves as if there is an impermeable bedrock layer underlying the bottom layer of each cell's soil column.</p>
+          <p>When all the layers in a cell's column are fully saturated, any additional water input on a given day "rebounds" up the water column to the surface of the cell, and - if the soil layer column is completely saturated -- becomes standing (i.e. surface) water for the cell.</p>
+          <p>However, the VELMA simulator also provides an alternate mechanism - the groundwater "storage box" - for handling water amounts over the fully-saturated amount a cell's soil column can contain.</p>
+          <p>When the groundwater storage mechanism is enabled (as part of a simulation's configuration) a specified fraction [0.0 to 1.0] of the excess water that reaches the bottom of a saturated soil column is removed from the column and accounted for in a single "storage box" amount accumulator. The remaining excess water "rebounds" up the soil column. The fraction of the excess water transferred to the 'storage box" is, in effect, removed from the watershed's water dynamics.</p>
+          <p>The amount of water transferred to the groundwater storage box is tracked and reported, but is <i>not</i> spatially explicit, and is not returnable to the watershed after it is transferred to the "box".</p>
+          <p>In effect, water in the storage box has been removed from the simulation system.</p>
+          <p>However, the fraction that the determines the amount of water transferred may be either global or spatially explicit. I.e. different groundwater fractions may be specified for each cell in the watershed.</p>
+          <p>In testing, enabling the groundwater storage mechanism has the general effects of reducing watershed total runoff, and "dampening" the reactivity of the day-to-day runoff relative to water input (precipitation, snow melt, etc.).</p>
+          <h3>Enabling the Groundwater Storage Mechanism</h3>
+          <p>The groundwater storage mechanism is enabled/disabled by the setGroundwaterStorageFraction parameter's value, which also specifies the global fraction or map of cell-specific fractions the mechanism employs.</p>
+          <p>The following table indicates the three types of values the parameter accepts:</p>
+          <table>
+            <thead>
+              <th>Value of setGroundwaterStorageFraction</th>
+              <th>Groundwater Mechanism Status and Behavior</th>
+            </thead>
+            <tr>
+              <td>Empty/blank</td>
+              <td>Inactivep No groundwater storage occurs.</td>
+            </tr>
+            <tr>
+              <td>Single numeric value in range [0, 1]</td>
+              <td>Activep Specified value is fraction used for every cell's groundwater calculation.</td>
+            </tr>
+            <tr>
+              <td>Filename of an .asc map containing values, each in range [0, 1]</td>
+              <td>Activep Specified map's values provide cell-specific fractions for groundwater calculations.</td>
+            </tr>
+          </table>
+          <p>To find and set the setGroundwaterStorageFraction parameter in JVelma:</p>
+          <ol> 
+            <li>Click the "All Parameters" tab.</li>
+            <li>Type the (case-sensitive) text setGroundwaterStorageFraction into the middle text- entry filter field.</li>
+            <li>Double-click the "Value" field of the setGroundwaterStorageFraction parameter row, and enter a value.</li>
+          </ol><img width="620" height="117" alt="Where to update the setGroundwaterStorageFraction parameter in the velma gui" src="public/suppImage_296.jpg">
+          <p>To <i><b>disable </b></i>the groundwater storage mechanism set the setGroundwaterStorageFraction</p>
+          <p>paremeter's value to empty/blank.</p>
+          <p>(Note: The value 0.0 has the same effect, but use empty/blank, because this clearly signals "disable the groundwater mechanism" to the VELMA simulator.)</p>
+          <h3>Water "Lost" to the Groundwater Storage Box is Reported in Simulation Results</h3>
+          <p>When the enableGroundwaterStorageBox parameter is set to true, over-saturation water amounts are transferred to the storage box, and are effectively removed from the watershed. (Currently, there is no mechanism for reintroducing water transferred to the storage box back into the simulation.)</p>
+          <p>The VELMA simulator reports the groundwater storage amount in the following results:</p>
+          <ol> 
+            <li>In the simulation runtime log file. Usually named GlobalStateLog.txt (unless user-configured for a different name), the runtime log contains an entry reporting the total amount of water (in mm) transferred to (and thus accumulated in) the groundwater storage box over the course of the entire simulation. Here is an example of the output:  INFO 12:02:39 VelmaSimulatorEngine: Groundwater Storage true : storage amount=4.203496685912282E8</li>
+            <li>In the DailyResults.csv file. Simulation runs with enableGroundwaterStorageBox == true write the per-day amount of water to a column named Groundwater_Storage_Addition(mm/day). The amount is not an averaged-per-cell; it is the total amount of water in the storage box. To determine the addition (as opposed to the total) amount of water added to the storage box on a given day, subtract the given day's amount from the prior day's amount.</li>
+            <li>In Cell Data Writer .csv results files. If a groundwater storage-enabled simulation run also has one or more Cell Data Writers configured, each Cell Data Writer's results file will contain a column named Groundwater_Storage_Addition. This column reports (in mm) the amount of water transferred from to cell to groundwater storage, per day. The values are not cumulative. To determine the cumulative amount over a span of days, sum the amounts in this data column for the days in question.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

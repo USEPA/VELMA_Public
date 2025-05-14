@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.0/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.0/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.0/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.0/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.0/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.0/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.0/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.0/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.0/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.0/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.0/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.0/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.0/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.0/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.0/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.0/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.0/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.0/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.0/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.0/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.0/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.0/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.0/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.0/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Steps for Configuring All Parameters TOC Sections</h1>
+          <p>The "All Parameters Table of Contents" (TOC) provides users with a logical sequence of steps for creating a newsimulator configuration, or for quickly locating and calibrating parameters for existing configurations.</p>
+          <p>To access the All Parameter TOC, click the GUI's "All Parameters" tab, then click the drop-down button located on the right side of the4-window filter field (don't confuse this button with the one located next to the leftmost filter field):</p><img width="627" height="393" alt="View all parameters drop down" src="public/Image_029.jpg">
+          <p>That drop-down menu that appears is designed to organize subsets of model parameters in a "Table of Contents" format. The screenshot above shows the first page of the All Parameters TOC. Additional pages can be viewed byholding your mouse cursor over the TOC and scrolling down.</p>
+          <p>In all, the TOC includes 26 main sections (0.0 - 25.0), each of which addresses a particular simulationconfiguration procedure.</p>
+          <p>The All Parameters TOC is designed to:</p>
+          <ul> 
+            <li>Provide a structured step-by-step guide for building a new simulator configuration.</li>
+            <li>Help users quickly make specific adjustments to an existing simulator configuration, for example, to change thedirectory path and/or folder name for input and output files, or to calibrate a particular subset of parametersfor a hydrological or biogeochemical process.</li>
+          </ul><br>
+          <h2 id="1-0">All Configuration Parameters </h2>
+          <p>Using the drop down button on the right side of the filter field select <i>All Configuration Parameters</i> from the <i>All Parameters </i>menu.</p><img width="626" height="389" alt="All Configuration Parameters from the All Parameters menu" src="public/Image_033.jpg">
+          <p>This view displays all <i>Groups</i>, <i>Items</i>, <i>Parameters </i>and <i>Values </i>for a simulator configuration in a single, scrollable view. To see a pop-up description of any <i>Group</i>, <i>Item </i>or <i>Parameter </i>in any cell, hover the mouse cursor over the cell.</p>
+          <h3>Alternatively, these descriptions are summarized here in an Excel file located here: </h3>
+          <h4>Filename: </h4><code>VELMA 2.0_Description of Calibration Parameters.xlsx;</code>
+          <h4>Folder location: </h4><code>VELMA Model\Supporting Documents\Excel Calibration Files</code>
+          <p>The <i>All Configuration Parameters </i>view contains an overwhelming amount of information, but the user has some search options for organizing and selecting things of interest. Experienced users may find that any of the first three search options, below, are useful for finding a specific parameter of interest in an existing simulator configuration.</p>
+          <ol> 
+            <li>Option 1 - For some purposes it is useful to use the <i>All Configuration Parameters </i>view to locate, sort and select parameters of interest. For example, you can sort columns by double clicking the <i>Group</i>, <i>Item</i>, <i>Parameter </i>or <i>Value </i>column headers (turquois). You can also right click a particular cell and select "Set Column Filter to cellname", which will display values for the selected item across all cover types, soil types, disturbance type, etc. For example, this is useful if your watershed has more than one cover or soil type.</li>
+            <li>Option 2 - Use the drop-down buttonimg(width="19" height="24" alt="image"src="public/Image_034.gif") p on the right side of the first filter field (above <i>Group</i>) toselect from the list of model configuration categories: startups, calibration, cover, disturbance,cellDataWriter, spatailDataWriter, soil, and weather (the meaning and use of these categories will be explained below, under sections 1.0 to 25.0).<span> <img width="629" height="274" alt="All parameters dropdown to filter" src="public/Image_035.jpg"></span></li>
+            <li>Option 3 - Type a search string in the filter fields located above any of the four turquois column headers. Suppose you want to make sure the nitrogen fixation subroutine is turned off for a coniferous cover type. As the screenshot below shows, by typing ".*Conifer in the "Item" filter field and ".*NitrogenFixation" in the "Parameter" filter field. This search verified that the "useNitrogenFixation" parameter is turned off (false).<span> <img width="626" height="136" alt="Searching for Nitrogen Fixation parameter" src="public/Image_036.jpg"></span></li>
+            <li>Option 4 (recommended) - Although experienced users may find Options 1 - 3 handy for quickly locating specific Items, Parameters or Values, we recommend that all users stick with using sections 1.0 - 25.0 of the All Parameters TOC when configuring a new VELMA application. These sections collectively contain the same information listed under "All Configuration Parameters", but in asequence of steps organized to assist users in building new simulator configurations or editing existing ones. Details follow.<span> <img width="624" height="121" alt="Details of startup parameters" src="public/Image_037.jpg"></span></li>
+          </ol>
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">inputDataLocationDirName:</td>
+              <td class="param_desc">The name of a subdirectory of the inputDataLocationRootName directory that contains the set of input data for a specific simulation run. When left unspecified or commented-out defaults to &quot;&quot;. (I.e. VELMA will look for input data in the inputDataLocationRootName directory itself)</td>
+            </tr>
+            <tr> 
+              <td class="param_name">inputDataLocationRootName </td>
+              <td class="param_desc">Fully-qualified path to the directory containing input data directories. When left unspecified or commented-out defaults to the &quot;../data/&quot; subdirectory of VELMA&#39;s installation directory.</td>
+            </tr>
+          </table>
+          <p>For the inputDataLocationRootName parameter, specify a directory name for the folder that contains the set of input data for a given simulation configuration. The inputDataLocationRootName is the <u>path</u> tothat directory.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.1/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.1/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.1/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.1/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.1/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.1/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.1/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.1/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.1/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.1/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.1/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.1/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.1/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.1/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.1/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.1/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.1/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.1/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Nitrification </h1>
+          <p>Nitrification is the microbially-mediated conversion of ammonium (NH4+) to nitrate(NO3-). As the diagram below indicates, nitrification (red box) is an important step in the soilnitrogen cycle (partially shown here).</p><img width="217" height="100" alt="image" src="public/Image_099.gif">
+          <p>Compared to the positively charged NH4+ ion, the negatively charged NO3- ion ishighly mobile in soil (also negatively charged) and more readily leached to groundwater and streams.</p>
+          <p>Nitrification also affects rates of nitrogen uptake by plant species that differ in their affinities forNH4+ and NO3- (McKane et al. 2002). Nitrification is also a preliminary stepfor the process of denitrification, in which NO3- is microbially transformed to nitrous oxide(N2O), a potent greenhouse gas, and nitrogen gas.</p>
+          <p><a href="http://www.ars.usda.gov/contactus/feedback.htm?email=635BFB9F9A09A8DC7B5AA5518CAFA0739460BDBDA297A957D8984045" target="_blank">The default (recommended) version of the nitrification subroutine in VELMA v2.0 is based on    Parton et al. 2001, with recent modifications made by Dr. Stephen Del Grosso    (</a>steve.delgrosso@ars.usda.gov) and coworkers. Dr. Del Grosso's modifications are described in his    NGAS spreadsheet model.</p>
+          <h3 id="15-1">15.1 - Nitrification On/Off</h3>
+          <p>Select "15.1 Nitrification On/Off ?" from the All Parameters drop-down menu to specify whether to turn theNitrification subroutine on (true) or off (false).</p><img width="623" height="124" alt="image" src="public/Image_100.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">useNitrogenFixation</td>
+              <td class="param_desc">When set false daily nitrification amounts are ignored and the PSM model behaves as if the nitrification amount is zero When set true (default) nitrification occursnormally</td>
+            </tr>
+          </table>
+          <h3 id="15-1-1">15.1.1 - Nitrification Function Type</h3>
+          <p>Select "15.1.1 Nitrification Function Type" from the All Parameters drop-down menu to specify the</p><img width="626" height="120" alt="image" src="public/Image_101.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">setNitrogenFunctionSelection</td>
+              <td class="param_desc">Specify &quot;PARTON_1996&quot; &quot;PARTON_2001&quot; or &quot;DEL_GROSSO_XLS_2013&quot; as the value of the setNitrificationFunctionSelection property. Warning: be sure to use UPPERCASE text! The simulator engine will compute nitrifcation amounts using the specified function.PARTON_1996 = Function based upon equation given in Figure 2 (d) in [Parton et al. 1996] from Global BiochemicalCycles v.10. PARTON_2001 = Function based upon equation (2) in [Parton et al. 2001] from Journal of GeophysicalResearch v.106. DEL_GROSSO_XLS_2013 = (Default / RECOMMENDED) function implementing the Excel 2013 spreadsheet model provided byDr. Stephen Del Grosso.</td>
+            </tr>
+          </table>
+          <h3 id="15-1-2">15.1.2 - Nitrification Soil-Specific Parameters</h3>
+          <p>Select "15.1.2 Nitrification Function Type" from the All Parameters drop-down menu to specify nitrificationsubroutine parameters. The parameters shown below must be specified for each soil type in your watershed (justone soil type shown in the screenshot below).</p><img width="623" height="255" alt="image" src="public/Image_102.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">nitrificationK1 </td>
+              <td class="param_desc">Fraction of net Nitrogen mineralized that is nitrified per day range in [0.0 1.0]. [Parton et al.2001].</td>
+            </tr>
+            <tr> 
+              <td class="param_name">nitrificationKmax</td>
+              <td class="param_desc">Maximum fraction of NH4 nitrified per day in units of gN/m2/day range in [0.0 1.0]. [Parton etal. 2001]</td>
+            </tr>
+            <tr> 
+              <td class="param_name">nitrificationToN2o</td>
+              <td class="param_desc">N2O flux associated with nitrification in units of gN/m2/day</td>
+            </tr>
+            <tr> 
+              <td class="param_name">nitrificationWfpsCoeff0</td>
+              <td class="param_desc">Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">nitrificationWfpsCoeff1</td>
+              <td class="param_desc">Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">nitrificationWfpsCoeff2</td>
+              <td class="param_desc">Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">nitrificationWfpsCoeff3</td>
+              <td class="param_desc">Soil-specific coefficient for Water Filled Pore Space (WFPS) effect on nitrification equation.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">pH</td>
+              <td class="param_desc">This soil&#39;s pH value.</td>
+            </tr>
+          </table>
+          <h4>Calibration Notes</h4>
+          <p>The nitrification model has been extensively applied to agricultural systems by the NGAS model developers (Partonet al. 2001; Del Grosso et al. 2001 and 2006). We recommend starting with the default parameter values providedby Stephen Del Grosso in his NGAS spreadsheet model.</p>
+          <h4>Default Parameter Values:</h4>
+          <p>nitrificationK1 = 0.20 (Parton et al. 2001; Del Grosso NGAS spreadsheet model)</p>
+          <p>nitrificationKmax = 0.1 (Parton etal. 2001; Del Grosso NGAS spreadsheet model)</p>
+          <p>nitrificationToN2o = 0.02 (Parton et al. 2001; Del Grosso NGASspreadsheet model = 0.012)</p>
+          <h4>Soil Texture Table</h4>
+          <table>
+            <tr>
+              <th>Nitrification Parameter</th>
+              <th>Coarse </th>
+              <th>Fine </th>
+              <th>Volcanic ash</th>
+            </tr>
+            <tr>
+              <td>nitrificationWfpsCoeff0</td>
+              <td>0.5</td>
+              <td>0.65</td>
+              <td>0.75</td>
+            </tr>
+            <tr>
+              <td>nitrificationWfpsCoeff1</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>nitrificationWfpsCoeff2</td>
+              <td>1.5</td>
+              <td>1.2</td>
+              <td>1.2</td>
+            </tr>
+            <tr>
+              <td>nitrificationWfpsCoeff3</td>
+              <td>4.5</td>
+              <td>2.5</td>
+              <td>2.5</td>
+            </tr>
+          </table>
+          <h4>References for Sections 15.0 - 15.1.2</h4>
+          <p>Del Grosso, S. J., Parton, W. J., Mosier, A. R., Ojima, D. S., Kulmala, A. E., &amp; Phongpan, S. (2000). Generalmodel for N2O and N2 gas emissions from soils due to dentrification. Global Biogeochemical Cycles, 14(4),1045-1060.</p>
+          <p>Del Grosso, S. J., Parton, W. J., Mosier, A. R., Walsh, M. K., Ojima, D. S., &amp; Thornton, P. E. (2006).DAYCENT national-scale simulations of nitrous oxide emissions from cropped soils in the United States. Journalof environmental quality, 35(4), 1451-1460.</p>
+          <p>McKane, R. B., Johnson, L. C., Shaver, G. R., Nadelhoffer, K. J., Rastetter, E. B., Fry, B., ... &amp; Murray, G.(2002). Resource-based niches provide a basis for plant species diversity and dominance in arctic tundra.Nature, 415(6867), 68-71.</p>
+          <p>Parton, W. J., Holland, E. A., Del Grosso, S. J., Hartman, M. D., Martin, R. E., Mosier, A. R., ... &amp;Schimel, D. S. (2001). Generalized model for NO x and N2O emissions from soils. Journal of Geophysical Research:Atmospheres (1984-2012), 106(D15), 17403-17419.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

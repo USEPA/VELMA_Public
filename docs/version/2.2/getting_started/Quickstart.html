@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">Getting Started with VELMA</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.2/getting_started/Quickstart"><span>VELMA Quickstart</span></a><a href="/docs/version/2.2/getting_started/Required_Input_Files"><span>Required Input Files</span></a><a href="/docs/version/2.2/getting_started/New_Simulator_Config"><span>New Simulator Configuration</span></a><a href="/docs/version/2.2/getting_started/VelmaSimRunner"><span>Velma Sim Runner Guide</span></a><a href="/docs/version/2.2/getting_started/VelmaSimRunner_QuickRef"><span>Velma Sim Runner Quick Reference</span></a><a href="/docs/version/2.2/getting_started/VelmaSimulatorAltCmdLine_Overview"><span>VELMA Simulator ALT Command Line Overview</span></a><a href="/docs/version/2.2/getting_started/SnowDepth_initialization_Guide"><span>Snow Depth Initializatioin</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>VELMA 2.2 Quick Start Example </h1>
+          <p>The VELMA 2.2 Simulator is distributed with an example simulation configuration and its associated input maps and driver data. The example simulation data is located in the following of directory of the VELMA 2.1 distribution:</p><code>VELMA Model\VELMA v2.1\BlueRiver_Example</code>
+          <h2>Before you start </h2><strong>You must have Java installed on your machine </strong>
+          <p>Confirm that you have either a Java 7 JRE installed and accessible on your machine by opening a Windows command prompt and typing in the following command: </p><code>java -version </code>
+          <p>Result should be something like </p>
+          <pre><code></code>c:\java version "1.7.0_67"
+Java(TM) SE Runtime Environment (build 1.7.0_67-b01)
+Java HotSpot (TM) 64-Bit Server VM (build 24.65-b04)</pre>
+          <p>If instead of the above text (or something like it) you receive a message that java “is not recognized …” (or a similar error message) then you must install a Java JRE (version 7 or above) onto your machine before proceeding. The Java JRE is freely available from Oracle's Java website. Contact your local system administration or tech support for additional information and assistance.</p><strong>Once Java is installed install VELMA from using this<a href="https://cfpub.epa.gov/ncea/risk/recordisplay.cfm?deid=354355">VELMA download link.</a></strong>
+          <h2>Start the VELMA GUI</h2>
+          <div class="info"> 
+            <p>You could start VELMA by double clicking the JVelma.jar file located in the VELMA v2.1 folder, but we do not recommend this because VELMA will likely run out of memory during a simulation. </p><strong>To ensure that VELMA has sufficient memory, you will need to follow the steps below.</strong>
+          </div>
+          <p>To start the VELMA 2.2 GUI (named “JVelma”), open a Windows command prompt, and launch the GUI via Java and the JVelma.jar file.</p>
+          <p>Here is an example of the form the startup command takes:</p><code>C:\> java -Xmx1024m -jar C:\Some\full\Path\JVelma.jar</code>
+          <p>Of course, replace C:\Some\full\Path\ with the actual, fully-qualified path name of the location where your copy of the JVelma.jar file resides.</p>
+          <h4>Note: </h4>
+          <p>If there are white spaces in your jar path you need quotes around the path. Otherwise double-quotes are not required, but still allowed.</p>
+          <p>The “-Xmx1024m” command line option specifies the amount of memory available to the JVelma GUI and simulator. The value 1024 is in Megabytes, so this command line allocates a 1 Gigabyte memory space (1024 MB = 1GB) for the JVelma GUI and simulator to run in. You can allocate more memory than 1 GB (e.g. the option “-Xmx4096m” would allocate 4 GB) but if you allocate more memory than your computer can make available, JVelma will fail to start properly.</p>
+          <h2>Load the Example Simulation Configuration File </h2>
+          <p>After starting the VELMA GUI, click File in the top left corner then select "Load Configuration From VELMA XML File"</p>
+          <p>This opens a file browser dialog where you can select the example xml located here: </p><code>C:\your_path_to_velma\VELMA v2.1\BlueRiver_Example\BlueRiver_WS10_Example_Configuration.xml </code>
+          <p>Click "OK" to load the .xml file to VELMA </p>
+          <p>Once the simulation configuration .xml file has loaded, the VELMA GUI "Run Parameters" tab should look like this: </p>
+          <p>The “Run Parameters” tab displays a few parameters as a summary of the configuration.</p>
+          <p>Note the large “Notes / Comments” section: you may type whatever notes you find helpful in this area. The simulator will ignore them.</p>
+          <p>The “Simulation Run Name” displays the value of the run_index parameter (underlined in blue above). It's very good practice (but not absolutely necessary) for the run_index parameter's value to match the name of its simulation configuration file (without the “.xml” suffix)</p>
+          <h2>Set the Location of the Simulation Configuration's Input Data Files</h2>
+          <p>The VELMA simulator requires several different (and different types) of input files in order to run. It looks for these using the fully-qualified directory path to the directory that you provide it in the simulation configuration's parameters</p><strong>Using the All Parameters outline selector, click the drop-down button above the “Group” column and select “Startups”; then select “1.0 Input Data Location”:</strong>
+          <The>inputDataLocationDirName is already set to the correct directory name (i.e. the directory with input data for the Blue River Example simulation). Double-click on the inputDataLo</The>
+          <p>cationRootName's “Value” field to activate it for editing. Then type in the fully-qualified path name to the directory specified by inputDataLocationDirName (i.e. the fully-qualified path from disk-letter root down to the directory above the inputDataLocationDirName directory).</p><strong>IMPORTANT: Use forward-slash characters (“/”) as path separators; NOT the backward-slash characters (“\”) that you use to specify the same path name on a Windows command-line.</strong>
+          <p>Press the Enter (“Return”) key after you type in the value for the inputDataLocationRootName; this tells the VELMA GUI to accept the value you've just typed (and the field you typed it into will switch out of edit mode).</p>
+          <h2>Set the Location Where the VELMA Simulator Will Writer Results Files</h2>
+          <p>The VELMA simulator writes several files of results data to an output directory that you specify. The directory must be accessible and writeable (not locked for modification) all during the simulation run.</p><strong>Under the “All Parameters” GUI tab, click the drop-down button above the “Group” column and select “Calibration”; then use the All Parameters outline selector to choose “2.1 Results Data Location (Results Data Directory Placed Under This Location)”: </strong>
+          <p>Double-click the initializeOutputDataLocationRoot parameter's “Value” field to activate it for editing and type the fully-qualified path to a directory on your computer (e.g. “C:/Users/Me/MyVelmaResults” -without the enclosing double-quotes).</p><strong>IMPORTANT: Use forward-slash characters (“/”) as path separators; NOT the backward-slash characters (“\”) that you use to specify the same path name on a Windows command-line.</strong>
+          <p>Remember to press the Enter key after you finish typing the value of the initializeOutputDataLocationRoot parameter.</p>
+          <p>When the VELMA simulator runs this simulation configuration, it will create a new directory, using the value of the run_index parameter (it's already set for you in this example) as the new directory's name, and place results files in that new directory.</p>
+          <h2>Save Your Parameter Changes</h2>
+          <p>When you change parameter values, they are only changed within the current VELMA GUI session. To actually save them back to the simulation configuration, you must explicitly save them to the file.</p>
+          <p>Click the File dropdown then select “Save Configuration To VELMA XML File” menu item:</p><strong>IMPORTANT: Saving changes overwrites the simulation configuration on disk! </strong>
+          <p>The VELMA GUI warns you when you try to save changes to an existing .xml file. Be sure you don't overwrite the .xml file if you don't intent to.</p>
+          <p>Clicking “No” or “Cancel” stops the save process.</p>
+          <p>Clicking “Yes” allows the VELMA GUI to overwrite the existing file.</p>
+          <p>For this example, let's save our changes to a different file name. This will preserve the original file, and create a new file with all the original file's parameters values along with our changes. You could simply rename the file in the “File Name:” field of the file browser before clicking the “Save File” button. If you choose a name that doesn't exist, the browser will correctly create a new .xml file without demur. However, recall that earlier in this example, we mentioned that it's a very good practice to keep the run_index parameter value. Let's modify the run_index parameter's value first.</p>
+          <p>Click “No” or “Cancel” to stop the save process.</p>
+          <p>In the VELMA GUI's “All Parameters” tab, click the drop-down button of the outline selector and select “2.1 Results Data Directory Name (Results Data Placed in Directory With This Name)”.</p>
+          <p>Change the “Value” field for the run_index parameter.</p>
+          <p>Press the Enter key to make the VELMA GUI accept the new value.</p><em>-- OR --</em>
+          <p>In the VELMA GUI's “Run Parameters” tab, click into the “Simulation Run Name” text field.</p>
+          <p>Change the value in the text field.</p>
+          <p>Press the Tab key to make the VELMA GUI accept the new value. (Note that this differs from the “accept change” key you use in the “All Parameters” table!)</p>
+          <p>Here are examples of modified run_index parameters</p>
+          <h2>Click the Start Button to Start a Simulation Run</h2>
+          <p>Clicking the “START” button (circled in blue in the screenshot below) in the lower-left corner of the VELMA GUI window starts the current simulation configuration running, and shifts the view to the GUI's “Chart” tab. The Chart selection is automatically set to “Time Series” at simulation start, but there are other charts available. Click the drop-down button of the chart selector (also circled in blue) to the right of the START button to select different charts.</p>
+          <p>The lower right-hand corner of the VELMA GUI window displays status “RUNNING” and the simulation's current date and loop state (underlined in blue below).</p>
+          <p>There may be a pause between when you click START and the simulation shifts to the Chart tab and begins running. The length of the pause depends upon the size of the simulation area, and how much work is required to initialize the simulator from the simulation configuration.</p>
+          <p>Clicking the “Snapshot” button (circled in red above) creates an image-capture of the currently-selected chart's current state and writes it to a PNG file in the specified results directory. You may click Snapshot multiple times during simulation run - the PNG files are given unique names, prefixed with “run_”. At the end of each simulation year, the currently-selected chart is snapshot automatically. End-of-year snapshot filenames are prefixed “out_” to distinguish them from “manual” snapshot images.</p>
+          <p>Here is an example “run_...” (manually-captured) snapshot file illustrating a different chart display</p>
+          <p>Notice that this chart displays two types of information: spatial (all cells current state) and temporal (averaged daily or annual state - daily in this case - over some period).</p>
+          <h2>Look In the Specified initialOutputDataLocationRoot Results Directory for Results</h2>
+          <p>After a simulation completes, automatic and manual chart display snapshots as well as .csv files of daily and annual results are available for review in directory specified by initialOutputDataLocationRoot.</p>
+          <p>You can also click the “Console” tab, and check the final few lines of console output to see the run time of the simulation, and the Nash-Sutcliffe coefficient calculated for the simulated versus observed runoff daily values.</p>
+          <p>The Nash-Sutcliffe is only meaningful when observed data is available as part of the input set (as it is in the case of this example)</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

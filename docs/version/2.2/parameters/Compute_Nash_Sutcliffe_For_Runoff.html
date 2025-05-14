@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.2/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.2/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.2/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.2/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.2/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.2/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.2/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.2/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.2/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.2/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.2/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.2/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.2/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.2/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.2/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.2/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.2/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.2/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.2/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.2/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.2/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.2/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.2/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.2/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Years to Compute Nash-Sutcliffe for Runoff</h1>
+          <h4>The VELMA Simulator Calculates a Nash-Sutcliffe Value for Runoff</h4>
+          <p>Whenever possible, the VELMA simulator automatically computes a Nash-Sutcliffe Coefficient for observed vs.simulated annual runoff values. In order to calculate the runoff Nash-Sutcliffe, the simulator must know whichspan of years to include in the calculation, and have observed runoff data for those years available.</p>
+          <p>To ensure that the VELMA simulator is able to compute a meaningful Nash-Sutcliffe value for your simulation run,provide values for the following configuration parameters.</p>
+          <h4>Set the Observed Runoff Source File</h4>
+          <p>Click the All Parameters tab's configuration outline dropdown selector and select item "19.0 Observed DataFiles". The All Parameters table should then look like this:</p><img width="628" height="130" alt="image" src="public/Image_110.jpg">
+          <p>Set the input_runoff parameter to the name of a .csv file containing valid observed runoff data. A validfile has a single column of floating-point data, one day's observed runoff value per row. There must be exactlyas many rows in the file as there are days in the simulation configuration's</p>
+          <p>forcing_start to forcing_end parameter's span of years. (E.g. if forcing_start = 2000 and</p>
+          <p>forcing_end = 2001, then there must be 366 + 365 or 731 rows of data in the file.) The specified file's locationis assumed to be the directory specified by the inputDataLocationRootName +inputDatalocationDirName.</p>
+          <h4>Set the Years to Simulation the Nash-Sutcliffe</h4>
+          <p>Click the All Parameters outline dropdown selector again, and this time select item "18.0 Years to ComputeNash-Sutcliffe for Runoff". The All Parameters table should then look like this:</p><img width="629" height="136" alt="image" src="public/Image_111.jpg">
+          <p>The nashSutcliffeStartYearForRunoffStats and nashSutcliffeEndYearForRunoffStats specify the firstand last years of the simulation run that are used to compute the Nash-Sutcliffe coefficient. Obviously, thesestart and end year values must be within the range of the simulation run's start and end years as a whole. Forexample, if your simulation runs from 1995 to 2005, you cannot specify years 1980 to 2009 as the span forcomputing the Nash-Sutcliffe.</p>
+          <h4>The VELMA Simulator Writes the Nash-Sutcliffe Coefficient for Runoff to an Output File</h4>
+          <p>The VELMA simulator writes the Nash-Sutcliffe coefficient for runoff to a file named"NashSutcliffeCoefficients.txt". This is a simple text file, created in the directory specified by thesimulation configuration's intializeOutputDataLocationRoot parameter.</p>
+          <p>The file contains a single line, reporting the Nash-Sutcliffe result like this:</p>
+          <p>Nash-Sutcliffe Coefficient=0.8045351825866978 Loop=1 Years=[1969 to 2008]</p>
+          <h4>The Computed Nash-Sutcliffe Value is Only as Accurate as the Observed Data</h4>
+          <p>The auto-computation of the Nash-Sutcliffe coefficient for runoff is convenient, but it is only as accurate asthe observed data and year's span allow it to be.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

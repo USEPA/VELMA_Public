@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.1/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.1/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.1/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.1/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.1/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.1/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.1/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.1/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.1/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.1/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.1/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.1/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.1/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.1/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.1/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.1/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.1/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.1/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Simulation-End Data Capture for Spin-up Initialization Use</h1>
+          <p>Skip to section 21.0 where the procedure for section 20.0 is included as part of the "Simulation- StartInitialization from Spin-up Data" procedure.</p>
+          <p>This section outlines a technique for using the ending state of a VELMA simulator run's spatial data pool valuesas the initial starting state for the spatial data pools of a second simulation run.</p>
+          <ol> 
+            <li>Create a common simulation configuration base .xml document: The base .xml simulation configuration is your overall simulation configuration, with DEM, soil, cover, etc.parameters set as you wish them to be for site and conditions you are simulating.</li>
+            <li>Make two copies of the base simulation configuration .xml document: One of the two copies will be modified to be the spin up configuration. The other will be the actual, finalconfiguration.</li>
+            <li>Modify the Spin up configuration to save spatial data state at the end of its simulation run
+              <ol>
+                <li>Load the Spin up configuration into JVelma.</li>
+                <li>Click to the "All Parameters" tab and select "All startups" from the drop-down list of filters. That is, usethe drop-down button located abovethe "Group" column, not the "Value" column. You may need to click 'Clear Filters' button first to get rid of any filtering text already present).</li>
+                <li>In the All Parameter "ID Key" column, locate the setEndStateSpatialDataLocationName parameter, then click-click into its "Value" field and type in the name of a directory where the simulation can store spatial data map (".asc") files. Note that:
+                  <h4>Note that: </h4>
+                  <ol> 
+                    <li>The directory name may be either a fully-qualified path, or a relative path. If it's a relative path, JVelma assumes its root is the output directory specified by the simulationconfiguration's /calibration/VelmaInputs.properties/initializeOutputDataLocationRoot parameter.</li>
+                    <li>Use "/" path separators in the directory name.</li>
+                    <li>The directory does not need to exist beforehand; JVelma will try to create it when it's needed during thesimulation run.</li>
+                  </ol>
+                </li>
+                <li>Click to the "Run Parameters" tab and set the "Run Simulator From" and "To" values to the years you want theSpin up to run. (You may also wish to set the Nash-Sutcliffe coefficient "Compute From" and "To" values at thispoint.)</li>
+              </ol>
+              <p>Save the Spin up configuration .xml file.</p>
+            </li>
+            <li>Modify the Actual configuration to initialize its spatial data state at simulation start.
+              <ol> 
+                <li>Load the Actual configuration into JVelma.</li>
+                <li>Click the "All Parameters" tab and select "All Startups" from the drop-down list of filters (you may firstneed to click the "Clear Filters" button).</li>
+                <li>In the All Parameters "ID Key" column, locate the setStartStateSpatialDataLocationFileName parameter,then click-click into its "Value" field and type in the name of a directory where the simulation can look forspatial data map (".asc") files.
+                  <ul>Note that:
+                    <li>Presumably, the directory path will be to the directory specified as the setEndStateSpatialDataLocationFileName value in the Spin up configuration file.</li>
+                    <li>The directory name may be either a fully-qualified path, or a relative path. If it's a relative path, JVelma assumes its root is the output directory specified by the simulationconfiguration's inputDataLocationRootName/inputDataLocationDirName parameters.</li>
+                    <li>Use "/" path separators in the directory name.</li>
+                    <li>The directory MUST exist at the time that the Actual simulation starts running.</li>
+                  </ul>
+                </li>
+                <li>Click to the "Run Parameters" tab and set the "Run Simulator From" and "To" values to the years you want theSpin up to run. (You may also wish to set the Nash-Sutcliffe coefficient "Compute From" and "To" values at thispoint.)</li>
+              </ol>
+              <p>Save the Actual configuration .xml file.</p>
+            </li>
+            <li>Run the Spin up simulation to completion. Start JVelma, load the Spin up configuration .xml and Start the simulation running. Wait until the Spin upsimulation completes its run before proceeding.</li>
+            <li>Run the Actual simulation to completion. Start JVelma, load the Actual configuration .xml and Start the simulation running. When the Actual configuration completes, the Actual simulation run's results will be data based on an initialspatial data state taken from the final spatial data state of the Spin up simulation run.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

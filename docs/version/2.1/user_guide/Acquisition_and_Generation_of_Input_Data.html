@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">User Guides</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">Input / Output Files Guides</strong><a href="/docs/version/2.1/user_guide/Input_File_Details"><span>Input File Details</span></a><a href="/docs/version/2.1/user_guide/Input_File_Formats"><span>Input File Formats</span></a><a href="/docs/version/2.1/user_guide/Output_Overview"><span>Output Files</span></a><a href="/docs/version/2.1/user_guide/MoeVelGenerator_Guide"><span>MOEA-to-VELMA Configuration Generator</span></a><a href="/docs/version/2.1/user_guide/Acquisition_and_Generation_of_Input_Data"><span>Acquire and Generate Input Data</span></a><a href="/docs/version/2.1/user_guide/Biomass_Output_to_BlueSky"><span>Set Up VELMA biomass Outputs as Inputs to BlueSky</span></a><a href="/docs/version/2.1/user_guide/ObsRunoff_and_NaNs"><span>Observered Runoff Data May Inlude NaN Values</span></a><a href="/docs/version/2.1/user_guide/Outputs_For_Data_Visualization"><span>Outputs For Data Visualization</span></a>
+            <hr><strong class="center-text white-text">Simulation Configuration Guides</strong><a href="/docs/version/2.1/user_guide/Configuration_Checker_Guide"><span>Configuration Checker Guide</span></a><a href="/docs/version/2.1/user_guide/Add_Multiple_Location_Weather_Drivers"><span>Add Mulitple Location Weather Drivers</span></a><a href="/docs/version/2.1/user_guide/CellSpecificBurnDisturbance_Configuration_Guide"><span>Configuring a Cell-Specific Burn Disturbance</span></a><a href="/docs/version/2.1/user_guide/Cell_Data_Writer_Configuration"><span>Cell Data Writer Configuration</span></a><a href="/docs/version/2.1/user_guide/Default_Tidewater_Model_Config"><span>Default Tidewater Model Configuration</span></a><a href="/docs/version/2.1/user_guide/Groundwater_Storage_Mechanism"><span>Groundwater Storage Mechanism</span></a><a href="/docs/version/2.1/user_guide/Implementing_Green_Roofs"><span>Implementing Green Roof Applications in VELMA</span></a><a href="/docs/version/2.1/user_guide/Simulating_Fate_and_Transport"><span>Configure VELMA for Simulating Contaminant Fate and Transport</span></a><a href="/docs/version/2.1/user_guide/Surface_Chemistry_Pools"><span>VELMA Surface Chemistry Pools</span></a>
+            <hr><strong class="center-text white-text">Contaminants </strong><a href="/docs/version/2.1/user_guide/Contaminant_Modeling_Example"><span>VELMA Contaminant Modeling Example </span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Overview"><span>Overview of Organic Contaminant Modeling Using VELMA</span></a><a href="/docs/version/2.1/user_guide/Organic_Contaminant_Modeling"><span>Organic Contaminant Modeling Using VELMA Framework and Example</span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Remediation_Configuration_Guide"><span>Configuring An Organic Contaminant to Include Remediation Effects</span></a><a href="/docs/version/2.1/user_guide/OrganicContaminant_Tracer_Configuration_Guide"><span>Configuring An Organic Contaminant as a Tracer</span></a>
+            <hr><strong class="center-text white-text">Disturbances </strong><a href="/docs/version/2.1/user_guide/Deposition_of_Surface_Chemicals"><span>Deposition of Surface Chemicals </span></a><a href="/docs/version/2.1/user_guide/Irrigation_Disturbance_Model_Overview"><span>Irrigation Disturbance</span></a>
+            <hr><strong class="center-text white-text">Soils </strong><a href="/docs/version/2.1/user_guide/Soil_Data_Mapping_and_Parameter_Initialization"><span>Soil Data Mapping and Parameter Initialization</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Acquisition &amp; Generation of VELMA Input Data</h1>
+          <div class="info blue-light-1">
+            <p>Overview (Tutorial D.1 - Basic Acquisition and Generation of VELMA Input Data)</p>
+            <p>This tutorial describes the minimum data input files required to run the VELMA simulator, where to acquire them, and steps to prepare them for a VELMA simulation.</p>
+          </div>
+          <p>The following data files must be complete and available for the VELMA Simulator to run:</p>
+          <table>
+            <tr>
+              <td>FILE</td>
+              <td>TYPE</td>
+              <td>CONTAINS</td>
+            </tr>
+            <tr>
+              <td>Flat-Processed DEM</td>
+              <td>Spatial / Grid ASCII (.asc)</td>
+              <td>Elevation in meters</td>
+            </tr>
+            <tr>
+              <td>Cover Species ID Map</td>
+              <td>Spatial / Grid ASCII (.asc)</td>
+              <td>Cover Species ID integers</td>
+            </tr>
+            <tr>
+              <td>Cover Species Age Map</td>
+              <td>Spatial / Grid ASCII (.asc)</td>
+              <td>Cover Species age in years</td>
+            </tr>
+            <tr>
+              <td>Soil Parameters ID Map</td>
+              <td>Spatial / Grid ASCII (.asc)</td>
+              <td>Soil Parameterization IDp integers</td>
+            </tr>
+            <tr>
+              <td>Precipitation Driver Data</td>
+              <td>Temporal / (.csv or .txt)</td>
+              <td>Precipitation per in mm</td>
+            </tr>
+            <tr>
+              <td>Air Temperature Driver Data</td>
+              <td>Temporal / (.csv or .txt)</td>
+              <td>Air Temperature in degrees C</td>
+            </tr>
+          </table>
+          <h2>Digital Elevation Model and Soils</h2>
+          <p>Elevation and other common GIS data can be retrieved from many local, state, and federal GIS repository libraries. The USDA's "Geospatial Data Gateway" provides easy access to multi resolution USGS National elevation data along with many other types of natural resource data. Higher resolution data, like LiDAR can many times be found from alternative public and private stakeholders such as the "Puget Sound Lidar Consortium". Other popular data, such as STATSGO and newer 10m gridded</p>
+          <p>SSURGO soils GIS layers can also be acquired from the "Geospatial Data Gateway".</p>
+          <h4>References</h4>
+          <ol>
+            <li><a href="https://datagateway.nrcs.usda.gov/">Geospatial Data Gateway</a></li>
+            <li><a href="http://pugetsoundlidar.ess.washington.edu/">Puget Sound Lidar Consortium</a></li>
+          </ol>
+          <h2>Weather Data</h2>
+          <p>Daily meteorological summaries driver data can most easily be acquired from both observational and modeled sources such as:</p>
+          <ol>
+            <li><a href="https://www.ncdc.noaa.gov/cdo-web/">NOAA</a></li>
+            <li><a href="https://www.wcc.nrcs.usda.gov/snow/">SNOTEL</a></li>
+            <li><a href="http://www.prism.oregonstate.edu/">PRISM</a></li>
+            <li><a href="https://daymet.ornl.gov/">DAYMET</a></li>
+          </ol>
+          <p>Care needs to be taken with all weather data drivers to ensure completeness of temporal coverage and</p>
+          <p>accuracy of values. Consistently, observational data will have "not available" (NA's) or gaps in coverage,</p>
+          <p>false readings from equipment malfunction, and user input errors. Modeled data tends to bring with it other types of errors or consistency gaps, which will need to be accounted for. For instance, DAYMET estimates are updated yearly, currently only available for 1980 - 2017, and uniformly truncate leap years to 365 days, where the VELMA model accounts for leap days. Benhnke et al. 2016 highlight the general comparison of observational versus modeled errors, as well as the regional variations of the various popular downscale gridded meteorological data. Appended tools and alternative weather models were created to deal with these and other inconsistencies in daily diver data.</p>
+          <h4>References</h4>
+          <ol> 
+            <li>Behnke, R., Vavrus, S., Allstadt, A., Albright, T., Thogmartin, W. E., &amp; Radeloff, V. C. (2016). Evaluation of downscaled, gridded climate data for the conterminous United States. Ecological Applications.</li>
+            <li><a href="http://prism.oregonstate.edu/">PRISM Climate Group, Oregon State University, http://prism.oregonstate.edu</a></li>
+            <li><a href="http://dx.doi.org/10.3334/ORNLDAAC/1328">Thornton, P.E., M.M. Thornton, B.W. Mayer, Y. Wei, R. Devarakonda, R.S. Vose, and R.B. Cook. 2016. Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 3. ORNL DAAC, Oak Ridge, Tennessee, USA. http://dx.doi.org/10.3334/ORNLDAAC/1328</a></li>
+          </ol>
+          <h2>Cover Species and Land Cover</h2>
+          <p>Species and land cover data can be either custom generated or retrieved from data libraries. There are several national and regional scale land cover and species type data sets to be chosen from. The popular remotely sensed National Land Cover Data for the years 2006 and 2011 can be acquired from either the "Multi-Resolution Land Characteristics consortium" or "Geospatial Data Gateway". The Gap Analysis Program (GAP) has create a national scale vegetation inventory, which was also combined with LANDFIRE, another national GIS data set, to help with both ecosystem management and fire resource management. For Pacific coast states, gradient analysis and nearest neighbor imputation (GNN) techniques were used to create more accurate forested species cover maps. Since cover species is site specific, general reductions can be made from national data sets to meet the user's needs.</p>
+          <h4>References</h4>
+          <ol> 
+            <li><a href="https://www.mrlc.gov/data/statistics/national-land-cover-database-2011-nlcd2011-statistics">NLCD</a></li>
+            <li><a href="https://gapanalysis.usgs.gov/gaplandcover/">GAP - </a></li>
+            <li><a href="https://www.landfire.gov/">LANDFIRE - </a></li>
+            <li><a href="https://lemma.forestry.oregonstate.edu/data/structure-maps">GNN - </a></li>
+            <li>Gergely, K.J., and McKerrow, A., 2016, Terrestrial ecosystems—National inventory of vegetation and land use (ver. 1.1, August 2016): U.S. Geological Survey Fact Sheet 2013-3085, 1 p., https://pubs.usgs.gov/fs/2013/3085/.</li>
+            <li>Homer, C.G., Dewitz, J.A., Yang, L., Jin, S., Danielson, P., Xian, G., Coulston, J., Herold, N.D., Wickham, J.D., and Megown, K., 2015, Completion of the 2011 National Land Cover Database for the conterminous United States-Representing a decade of land cover change information. Photogrammetric Engineering and Remote Sensing, v. 81, no. 5, p. 345-354</li>
+            <li>LANDFIRE, LANDFIRE: Existing Vegetation Type, U.S. Department of Agriculture and U.S. Department of the Interior.</li>
+            <li>Ohmann, Janet L.; Gregory, Matthew J. 2002. Predictive mapping of forest composition and structure with direct gradient analysis and nearest neighbor imputation in coastal Oregon, U.S.A. Canadian Journal of Forest Research. 32: 725-741</li>
+          </ol>
+          <h2>Cover Species Age</h2>
+          <p>In some instances, stand ages maps might exist, but generally cover species age maps are custom made for each VELMA area of interest (AOI) model run. Age maps may be developed from remotely sensed data, surveys, land ownership maps, expert knowledge, or some combination of these methods. Below is an example of a custom species age creation process.</p>
+          <p>The Winant AOI, is a small tidally influence watershed that drains into the Yaquina bay along the Oregon coast. Modeling efforts are being made to quantify and qualify how nutrients are transport and cycled through a salt marsh whose headwaters are drainages of typical coastal conifer species and high nitrogen fixing hardwoods. It was there for necessary to model both types of unique biogeochemistry of the contributing Alder and Conifer forests, and their ages.</p>
+          <p>Cover species maps were developed for the Winant AOI from a combination of ortho-imagery, aerial imagery, and on-site ground surveys (Figure 1).</p><img width="348" height="474" alt="a combination of ortho-imagery, aerial imagery, and on-site ground surveys" src="public/suppImage_177.png">
+          <p>Figure 1. From Top left to right to bottom, ortho-imagery, aerial imagery, and site survey were combined to create cover type raster maps.</p>
+          <p>To generate species specific age maps, Michaelis-Menten curves we developed using literature data to produce functions that related species specific age to height. LiDAR height values were used to run the fitted curves of a particular species and derive its appropriate age cell value (Figure 2 and 3). Similar techniques can be used to develop relationships between above ground biomass or above ground carbon and vegetation age. Woods Hole has produced a national data set which include estimates of above ground carbon and vegetation height (Kellndorfer et al, 2012).</p><img width="630" height="202" alt="Height to age index curve calculation for Douglas-Fir" title="screenshot" src="public/suppImage_178.jpg">
+          <p>Figure 2. Height to age index curve calculation for Douglas-Fir.</p><img width="650" height="367" alt="Site index and curve fitted relationships species age and tree height" src="public/suppImage_179.png">
+          <p>Figure 3. Site index and curve fitted relationships species age and tree height.</p>
+          <h4>References</h4>
+          <ol> 
+            <li><a href="http://daac.ornl.gov/">Kellndorfer, J., Walker, W., LaPoint, E., Bishop, J., Cormier, T., Fiske, G., Hoppus, M., Kirsch, K., and Westfall, J. 2012. NACP Aboveground Biomass and Carbon Baseline Data (NBCD 2000), U.S.A., 2000. Data set. Available on-line </a><a href="http://dx.doi.org/10.3334/ORNLDAAC/1081">[http://daac.ornl.gov] from ORNL DAAC, Oak Ridge, Tennessee, U.S.A. </a><a href="http://dx.doi.org/10.3334/ORNLDAAC/1081">http://dx.doi.org/10.3334/ORNLDAAC/1081</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

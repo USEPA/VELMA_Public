@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.1/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.1/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.1/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.1/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.1/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.1/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.1/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.1/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.1/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.1/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.1/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.1/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.1/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.1/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.1/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.1/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.1/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.1/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Runtime Chart Display Scale</h1>
+          <p>VELMA has powerful visualization capabilities built into it, hence the model's name - Visualizing Ecosystem LandManagement Assessments. To see a list of visualization options, select the VELMA GUI "Chart" tab at any timeduring a simulation, then click the drop-down menu button ( <img width="19" height="24" alt="image"        src="public/Image_158.gif")) located near the lower left corner of the screen, and select a displayoption. Each option dynamically displays daily changes in one or more output variables. The screenshot belowshows the lower half of possible visualization options:</p><img width="599" height="488" alt="image" src="public/Image_159.jpg">
+          <p>For example, the "Soil Moisture Spatial" visualization displays runtime daily changes in spatial patterns of soilmoisture (% saturation) for four soil layers for a 20-ha watershed on the day currently being simulated. Ascreenshot for a particular day is shown below. The lower third of display is a running graphical summary ofdaily changes in soil moisture per soil layer from January 1 up to the date currently simulated. A new view isgenerated at the beginning of each calendar year). A variety of hardwired display formats are used for differentoutput variables.</p><img width="612" height="652" alt="image" src="public/Image_160.jpg">
+          <p>You can save daily screenshots as .png files by clicking the "Snapshot" button (located near the middle of themenu bar at the bottom of the screenshot, above). You can also save a series of daily images by clicking the"Capture Images Daily" checkbox. After a simulation is completed, third-party software can be used to stitchtogether a time series of saved .png screenshots to make a time-lapse movie. However, note that saving daily.png images for long simulations can fill large amounts of disk space.</p>
+          <p>You can use the VELMA GUI's All Parameters tab to review and change the settings for display parameterscontrolling minimum (min) and maximum (max) values for the y-axis and range color bar. To locate all displayparameters, select the "25.0 Runtime Chart Display Scale" item from the All Parameters drop-down menu button:</p><img width="625" height="134" alt="image" src="public/Image_161.jpg">
+          <p>Different runtime display charts use different subsets of the display parameters. Unfortunately, nothing listedunder "All Parameters 25.0 Runtime Chart Display Scale" indicates which display parameters belong to aparticular runtime display chart. Therefore, we have constructed the table below so that users can associateruntime display chart names with the display parameters used by that chart.</p>
+          <p>For example, if you want to adjust VELMA's "Annual Plot" display for soil humus, you would find "Annual Plot"under the "Display Selector Name" column in the table below, copy "maxHumusDayDisplay" and paste it inthe "Parameter" search window in the VELMA GUI's All Parameters view. Hit your keyboard's "Enter" key and youshould see "maxHumusDayDisplay" under "Parameter column. Specify the value you want. Repeat for theprocess for the "minHumusDayDisplay" parameter. [Note: you cannot change the display parameterizationsduring a simulation run. Currently, the VELMA GUI does not allow runtime display scales to change dynamicallyduring simulation runs. Prior to starting a simulation, you must set the display parameters for any chart youwill use during a simulation.]</p>
+          <p> </p>
+          <table>
+            <thead>
+              <th>Display Selector Name</th>
+              <th>MIN Display Setting</th>
+              <th>MAX Display Setting</th>
+            </thead>
+            <tr>
+              <td>&lt;cover&gt; + Denitrification Daily-Linear</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )</td>
+              <td>maxDenitrificationDaySpatialDisplay<br>maxNo3DenitDaySpatialDisplay<br>maxCo2DenitDaySpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>Annual Plot</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )<br>minBiomassYearFinalDisplay<br>minHumusDayDisplay<br>minLitterDayDisplay<br>minNepYearSumDisplay</td>
+              <td>
+                 maxDonLossYearFinalDisplay<br>maxDocLossYearFinalDisplay<br>maxNppYearSumDisplay<br>maxBiomassYearFinalDisplay<br>maxHumusDayDisplay<br>maxLitterDayDisplay<br>maxNepYearSumDisplay</td>
+            </tr>
+            <tr>
+              <td>Burn Spatial Data</td>
+              <td>
+                 minBiomassAgStemDayDisplay<br>minBiomassLeafDayDisplay<br>minDetritusAgStemDayDisplay<br>minDetritusLeafDayDisplay<br>minHumusDayDisplay<br>minLitterDayDisplay</td>
+              <td>
+                 maxBiomassAgStemDayDisplay<br>maxBiomassLeafDayDisplay<br>maxDetritusAgStemDayDisplay<br>maxDetritusLeafDayDisplay<br>maxHumusDayDisplay<br>maxLitterDayDisplay</td>
+            </tr>
+            <tr>
+              <td>Calibration Annual Nutrients</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )<br>minDocLossYearSumDisplay</td>
+              <td>
+                 maxNh4LossYearSumDisplay<br>maxNo3LossYearSumDisplay<br>maxDonLossYearSumDisplay<br>maxDocLossYearSumDisplay</td>
+            </tr>
+            <tr>
+              <td>Calibration Daily Nutrients</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )<br>( always zero )</td>
+              <td>
+                 maxNh4LossDayDisplay<br>maxNo3LossDayDisplay<br>maxDonLossDayDisplay<br>maxDocLossDayDisplay</td>
+            </tr>
+            <tr>
+              <td>Calibration Hydrology</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )<br>( always zero )<br>minHydroYearSumDisplay</td>
+              <td>
+                 maxRainDayDisplay<br>maxRunoffDayDisplay<br>maxSubRunoffDayDisplay<br>maxEtDayDisplay<br>maxHydroYearSumDisplay</td>
+            </tr>
+            <tr>
+              <td>CO2 Pool Spatial</td>
+              <td>( always zero )</td>
+              <td>maxCo2DaySpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>Daily Nitrogen Fixation</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )<br>( always zero )<br>( always zero )<br>( always zero )<br>( always zero )<br>( always zero )</td>
+              <td>
+                 maxNinDayDisplay<br>maxPlantUptakeSpatialDisplay<br>maxSymbioticNfixedDayDisplay<br>maxAsymbioticNfixedDayDisplay<br>maxDonLossDayDisplay<br>maxTotalNLossDayDisplay<br>maxNitrificationDaySpatialDisplay<br>maxDenitrificationDaySpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>Default Layer 1 - 4</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )<br>( always zero )</td>
+              <td>
+                 maxDonLossDayDisplay<br>maxDocLossDayDisplay<br>maxRainDayDisplay<br>maxRunoffDayDisplay</td>
+            </tr>
+            <tr>
+              <td>Denitrification Daily-Spatial</td>
+              <td>( always zero )</td>
+              <td>maxDenitrificationDaySpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>Denitrification Daily-Spatial 1 - 4</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )</td>
+              <td>
+                 maxDenitrificationDaySpatialDisplay<br>maxNo3DenitDaySpatialDisplay<br>maxCo2DaySpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>DOC Pool Spatial</td>
+              <td>( always zero )</td>
+              <td>maxDocSpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>DON Pool Spatial</td>
+              <td>( always zero )</td>
+              <td>maxDonSpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>Evapotranspiration</td>
+              <td>( always zero )</td>
+              <td>maxEtDayDisplay</td>
+            </tr>
+            <tr>
+              <td>Harvest Spatial Data</td>
+              <td>
+                 minBiomassDayDisplay<br>minHumusDayDisplay<br>minLitterDayDisplay</td>
+              <td>
+                 maxBiomassDayDisplay<br>maxHumusDayDisplay<br>maxLitterDayDisplay</td>
+            </tr>
+            <tr>
+              <td>Leaf Stem Root Daily Data</td>
+              <td>
+                 minBiomassAgStemDayDisplay<br>minBiomassBgStemDayDisplay<br>minBiomassLeafDayDisplay<br>minBiomassRootDayDisplay<br>minDetritusAgStemDayDisplay<br>minDetritusBgStemDayDisplay<br>minDetritusLeafDayDisplay<br>minDetritusRootDayDisplay</td>
+              <td>
+                 maxBiomassAgStemDayDisplay<br>maxBiomassBgStemDayDisplay<br>maxBiomassLeafDayDisplay<br>maxBiomassRootDayDisplay<br>maxDetritusAgStemDayDisplay<br>maxDetritusBgStemDayDisplay<br>maxDetritusLeafDayDisplay<br>maxDetritusRootDayDisplay</td>
+            </tr>
+            <tr>
+              <td>Leaf Stem Root Layer Details Daily Data</td>
+              <td>
+                 minBiomassRootLayersDayDisplay<br>minDetritusBgStemLayersDayDisplay<br>minDetritusRootLayersDayDisplay<br>minHumusLayersDayDisplay</td>
+              <td>
+                 maxBiomassRootLayersDayDisplay<br>maxDetritusBgStemLayersDayDisplay<br>maxDetritusRootLayersDayDisplay<br>maxHumusLayersDayDisplay</td>
+            </tr>
+            <tr>
+              <td>LSR Summary Spatial</td>
+              <td>
+                 ( always zero )<br>minBiomassDayDisplay<br>minHumusDayDisplay<br>minLitterDayDisplay</td>
+              <td>
+                 maxNppDayDisplay<br>maxBiomassDayDisplay<br>maxHumusDayDisplay<br>maxLitterDayDisplay</td>
+            </tr>
+            <tr>
+              <td>NH4 Pool Spatial</td>
+              <td>( always zero )</td>
+              <td>maxNh4SpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>Nitrification Daily-Spatial</td>
+              <td>( always zero )</td>
+              <td>maxNitrificationDaySpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>Nitrogen Fixation Daily- Spatial</td>
+              <td>
+                 ( always zero )<br>( always zero )</td>
+              <td>
+                 maxSymbioticNfixedDayDisplay<br>maxAsymbioticNfixedDayDisplay</td>
+            </tr>
+            <tr>
+              <td>NO3 Pool Spatial</td>
+              <td>( always zero )</td>
+              <td>maxNo3SpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>Plant Uptake Spatial</td>
+              <td>minPlantUptakeSpatialDisplay</td>
+              <td>maxPlantUptakeSpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>Productivity Spatial</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )<br>minBiomassDayDisplay</td>
+              <td>
+                 maxNppDayDisplay<br>maxNh4SpatialDisplay<br>maxNo3SpatialDisplay<br>maxBiomassDayDisplay</td>
+            </tr>
+            <tr>
+              <td>Snow Dynamics Spatial</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )<br>( always zero )<br>minAirTSpatialDisplay</td>
+              <td>
+                 maxRainSpatialDisplay<br>maxSnowSpatialDisplay<br>maxSnowDepthSpatialDisplay<br>maxSnowMeltSpatialDisplay<br>maxAirTSpatialDisplay</td>
+            </tr>
+            <tr>
+              <td>Standing Water</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )</td>
+              <td>
+                 maxRainDayDisplay<br>maxRunoffDayDisplay<br>maxStandingWaterDayDisplay</td>
+            </tr>
+            <tr>
+              <td>Temperature Data</td>
+              <td>minAirTDayDisplay</td>
+              <td>maxAirTDayDisplay</td>
+            </tr>
+            <tr>
+              <td>Time Series</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )<br>( always zero )<br>minAirTDayDisplay<br>minBiomassDayDisplay<br>minHumusDayDisplay<br>minLitterDayDisplay</td>
+              <td>
+                 maxDonLossDayDisplay<br>maxDocLossDayDisplay<br>maxRainDayDisplay<br>maxRunoffDayDisplay<br>maxAirTDayDisplay<br>maxBiomassDayDisplay<br>maxHumusDayDisplay<br>maxLitterDayDisplay</td>
+            </tr>
+            <tr>
+              <td>VSA Spatial and Hydro Linear</td>
+              <td>
+                 ( always zero )<br>( always zero )</td>
+              <td>
+                 maxRainDayDisplay<br>maxRunoffDayDisplay</td>
+            </tr>
+            <tr>
+              <td>Weather Summary Spatial</td>
+              <td>
+                 ( always zero )<br>( always zero )<br>( always zero )<br>( always zero )<br>minAirTDayDisplay<br>minAirTSpatialDisplay</td>
+              <td>
+                 maxRainDayDisplay<br>maxRainSpatialDisplay<br>maxSnowSpatialDisplay<br>maxSnowMeltSpatialDisplay<br>maxAirTDayDisplay<br>maxAirTSpatialDisplay</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

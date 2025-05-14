@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">Getting Started with VELMA</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.0/getting_started/Quickstart"><span>VELMA Quickstart</span></a><a href="/docs/version/2.0/getting_started/Required_Input_Files"><span>Required Input Files</span></a><a href="/docs/version/2.0/getting_started/New_Simulator_Config"><span>New Simulator Configuration</span></a><a href="/docs/version/2.0/getting_started/VelmaSimRunner"><span>Velma Sim Runner Guide</span></a><a href="/docs/version/2.0/getting_started/VelmaSimRunner_QuickRef"><span>Velma Sim Runner Quick Reference</span></a><a href="/docs/version/2.0/getting_started/VelmaSimulatorAltCmdLine_Overview"><span>VELMA Simulator ALT Command Line Overview</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>VelmaSimRunner Quick Reference</h1>
+          <h3>Commands</h3>
+          <p>These are the commands that a<code>VelmaSimRunner</code> accepts:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Command</th>
+                <th>KeyName?</th>
+                <th>Value?</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>add</td>
+                <td>&lt;key&gt;</td>
+                <td>&lt;value&gt;</td>
+                <td>Adds the specified value to the specified &lt;key&gt;'s default value.</td>
+              </tr>
+              <tr>
+                <td>add</td>
+                <td>config_item</td>
+                <td>&lt;config_name&gt;</td>
+                <td>Adds a new item to the configuration list. The &lt;config_name&gt; must be the name of a VELMA simulation configuration .xml file. <code>VelmaSimRunner</code> will look for this .xml file in the directory specified for the <code>config_location</code> key.</td>
+              </tr>
+              <tr>
+                <td>delete</td>
+                <td>config_item</td>
+                <td>&lt;index#&gt;</td>
+                <td>Removes the item at the specified (zero-based) integer &lt;index#&gt; from the configuration list.</td>
+              </tr>
+              <tr>
+                <td>exit</td>
+                <td></td>
+                <td></td>
+                <td>Exits the VelmaSimRunner interpreter.</td>
+              </tr>
+              <tr>
+                <td>list</td>
+                <td></td>
+                <td></td>
+                <td>Lists all current defaults key-value settings and configuration list items.</td>
+              </tr>
+              <tr>
+                <td>load</td>
+                <td></td>
+                <td>&lt;confg_file_name&gt;</td>
+                <td>loads and evaluates a sequence of commands from file &lt;confg_file_name&gt;.</td>
+              </tr>
+              <tr>
+                <td>reset</td>
+                <td></td>
+                <td></td>
+                <td>Resets all defaults to original values and removes all items from configuration list.</td>
+              </tr>
+              <tr>
+                <td>run</td>
+                <td></td>
+                <td></td>
+                <td>Runs the current configuration list's items, in order of their indices.</td>
+              </tr>
+              <tr>
+                <td>set</td>
+                <td>&lt;key&gt;</td>
+                <td>&lt;value&gt;</td>
+                <td>Sets the specified value as the specified key's default value. Replaces specified &lt;key&gt;'s current default value with specified &lt;value&gt;.</td>
+              </tr>
+              <tr>
+                <td>set</td>
+                <td>&lt;key&gt;</td>
+                <td></td>
+                <td>Removes &lt;key&gt;'s current value. (This is how to clear/reset a default &lt;key&gt;'s value.)</td>
+              </tr>
+            </tbody>
+          </table>
+          <h3>DEFAULTS Keys</h3>
+          <p>The following key names can be assigned values that serve as defaults when <code>VelmaSimRunner</code> constructs simulation command lines to <code>run</code>.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Key Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>vm_name</td>
+                <td>The name of the virtual machine ("vm") to run (usually <code>java</code>).</td>
+              </tr>
+              <tr>
+                <td>vm_args</td>
+                <td>Zero or more arguments to pass to the vm at runtime.</td>
+              </tr>
+              <tr>
+                <td>vm_classpath</td>
+                <td>The classpath (<em>including</em> the "-cp" or "--classpath" argument itself) for when vm_name is "java".<br>(e.g. <code>-cp C:\Users\me\VelmaUtils\bin;C:\Users\me\VelmaSimulator\bin</code>)</td>
+              </tr>
+              <tr>
+                <td>tool_name</td>
+                <td>The VELMA simulator or utility tool to run (e.g. <code>VelmaSimulatorCmdLine</code> or <code>VelmaParallelCmdLine</code>).</td>
+              </tr>
+              <tr>
+                <td>tool_before_args</td>
+                <td>Any command line arguments that should appear after <code>vm_name</code> and its args, but before <code>tool_name</code> on the command line to run.</td>
+              </tr>
+              <tr>
+                <td>config_location</td>
+                <td>The (fully-qualified) path to the directory where <code>config_item</code> is located.</td>
+              </tr>
+              <tr>
+                <td>config_item</td>
+                <td>Used exclusively with the <code>add</code> command to add a VELMA simulation configuration .xml file to list of configs to run.</td>
+              </tr>
+              <tr>
+                <td>tool_after_args</td>
+                <td>Any command line arguments that should appear after <code>tool_name</code> on the command line to run.</td>
+              </tr>
+              <tr>
+                <td>results_prefix</td>
+                <td>An optional prefix string that will be pre-pended to the simulation results for configs that are run.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

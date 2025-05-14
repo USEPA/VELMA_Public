@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">Spatial ASCII Maps in VELMA</h3>
+          <hr>
+          <div class="flex-container"> <strong class="center-text white-text">ASCII Maps</strong><a href="/docs/version/2.1/spatial_maps/Ascii_Grid_Chemistry_Spatial_Pools"><span>Creating Initial ASCII Grid Chemistry Spatial Data Pools</span></a><a href="/docs/version/2.1/spatial_maps/AscMapOct_Guide"><span>ASCII Map Oct Guide</span></a><a href="/docs/version/2.1/spatial_maps/AscRangeMask_Guide"> <span>ASCII Range Mask Guide</span></a><a href="/docs/version/2.1/spatial_maps/Generate_Ascii_Grids_For_Daily_Temp_and_Precip"><span>Generating daily temperature and precipitation grids for running VELMA</span></a><a href="/docs/version/2.1/spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Initialize Spatial Pool Using ASCII</span></a><a href="/docs/version/2.1/spatial_maps/Add_Projection_Info_To_Output_Maps"> <span>Add Georeferenced Projection Information to VELMA Output ASCII Maps</span></a><a href="/docs/version/2.1/spatial_maps/Create_Initial_Soil_and_Plant_Chem_Spatial_Data_Pools"> <span>Create Initial Soil and Plant Chemistry Spatial (ASCII Grid) Data Pools</span></a><a href="/docs/version/2.1/spatial_maps/Land_Zoning_Maps"> <span>Create Land-zoning Maps for a VELMA Application</span></a><a href="/docs/version/2.1/spatial_maps/Reach_Mapping"> <span>Reach Mapping</span></a>
+            <hr><strong class="center-text white-text">DEM</strong><a href="/docs/version/2.1/spatial_maps/Create_Flat_Processed_DEM_Tutorial"><span>Expanded Flat Processed DEM Tutorial</span></a><a href="/docs/version/2.1/spatial_maps/Create_Flat_Processed_DEM_and_Outlet_Watershed_Delineation"><span>Using DEM data to Determine Outlet and Watershed Delineation</span></a>
+            <hr><strong class="center-text white-text">JPDEM</strong><a href="/docs/version/2.1/spatial_maps/JPDEM_Cell_Highlighter"><span>JPDEM Cell Highlighter</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Channel_Cutter_For_Flow_Path_Modification"><span>Flow Path Modification with the JPDEM Channel Cutter</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Flow_Accumulation_Threshold_Display"><span>JPDEM Flow Accumulation (Facc) Threshold Display</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Flow_Test_Tool"><span>JPDEM Flow Test Tool</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_For_Viewing_Map_Differences"><span>JPDEM for Viewing Map Differences</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_ReachMapping_Demonstration"><span>JPDEM Sub-Reach Mapping Delineations Example</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Saving_Data_To_Files"><span>JPDEM Saving Data to Files</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_Sub_Reach_Delineations"><span>JPDEM Sub-Reach Delineations</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_User_Specified_Border_Mask"><span>JPDEM User-Specified Border Mask</span></a><a href="/docs/version/2.1/spatial_maps/JPDEM_User_Specified_Map_Borders"><span>JPDEM User-Specified Map Borders</span></a>
+          </div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>JPDEM Flow Accumulation (Facc) Threshold Display</h1>
+          <div class="info blue-light-1"> 
+            <p>Overview <i>(Tutorial B.3_JPDEM Facc Threshold Display)</i></p>
+            <p>This document explains how to use JPDEM's flow accumulation threshold display to analyze and prepare a DEM to:</p>
+            <ul>
+              <li>Identify primary flow paths</li>
+              <li>Select an outlet cell</li>
+              <li>Delineate the watershed boundary for a selected outlet</li>
+            </ul>
+          </div>
+          <p>In JPDEM, a DEM cell's flow accumulation (“Facc”) is the number of upstream cells that flow into that cell. Cells with high Facc values are cells that have high water flow, and cells with high water flow are likely to contain channels. The JPDEM application's Facc Threshold display control provides a way to quickly identify and visualize the cells in a (flat-processed) DEM whose Facc values are at or above a specified threshold. You can use the Facc Threshold display to get an idea of which areas and cells of a DEM are likely its main water channels.</p>
+          <p>JPDEM must have Facc values available for the currently-loaded DEM before the Facc Threshold display is used. JPDEM calculates the Facc values for a DEM during flat-processing, or when the “Determine DEM Flow Data” Tools menu item is run for a previously flat-processed DEM map. Perform either activity before using the Facc Threshold display controls.</p>
+          <p>Sidenote: JDPEM and VELMA both compute “flow accumulation” values for the cells of their specified DEM map, and both refer to these as the “Facc” values. However, VELMA calculates Facc values differently than JPDEM. JDPEM and VELMA Facc values for a given cell, while similar, are unlikely to be identical.</p>
+          <p>The Facc Threshold display controls are located in the center of JPDEM's upper toolbar:</p><img height="84" alt="screenshot" title="screenshot" src="public/suppImage_109.jpg">
+          <p>From left to right, the controls are: a checkbox that toggles the display on and off, a drop-downselector for specifying the threshold value's type, and a number-entry field for specifying the thresholdvalue. All three controls are disabled until a map file is loaded into JPDEM, and the typeselector and number- entry field are disabled whenever the checkbox is unchecked.</p>
+          <h2>Using the Facc Threshold Display by Example</h2>
+          <p>In this example, we start with a DEM map that was previously flat-processed, then saved to a new.asc file (see Tutorial B.1 - Creating Flat-Processed DEM Data). We could also start with anunprocessed DEM map - the only difference being that our first step would change from Findingthe Flow Data, to Flat-Processing the map.</p>
+          <h4>Step 1</h4>
+          <p>Load the (flat-processed) DEM map from its .asc file, then click the Tools -&gt; "Determine DEMFlow Data (Alternate)" menu item:</p><img width="588" height="494" alt="screenshot" title="screenshot" src="public/suppImage_110.jpg">
+          <p>You can use either the "(Standard)" or "(Alternate)" Determine DEM Flow Data item - but theAlternate algorithm is usually quicker.</p>
+          <h4>Step 2</h4>
+          <p>Click the Flow Threshold checkbox control to enable the threshold display. The entire map turnsred. Don't panic! The default Facc threshold value is zero, and the display is showing you allthe cells with Facc values &gt; 0.0. Change the number-entry field value to 25.0 and press theTab key. The display now shows all cells with Facc values &gt; 25.0 in red.</p>
+          <table>
+            <tr>
+              <td>Facc threshold OFF</td>
+              <td>ON, with threshold = 0</td>
+              <td>ON, with threshold = 25.0</td>
+            </tr>
+            <tr>
+              <td> <img width="195" height="251" alt="screenshot" title="screenshot" src="public/suppImage_111.jpg"></td>
+              <td><img width="194" height="251" alt="screenshot" title="screenshot" src="public/suppImage_112.jpg"></td>
+              <td><img width="195" height="251" alt="screenshot" title="screenshot" src="public/suppImage_113.jpg"></td>
+            </tr>
+            <tr> 
+              <td>ON, with threshold=2200.0</td>
+              <td>After Delineation</td>
+              <td>Threshold display ON again</td>
+            </tr>
+            <tr>
+              <td><img width="196" height="251" alt="screenshot" title="screenshot" src="public/suppImage_114.jpg"></td>
+              <td><img width="195" height="251" alt="screenshot" title="screenshot" src="public/suppImage_115.jpg"></td>
+              <td><img width="196" height="251" alt="screenshot" title="screenshot" src="public/suppImage_116.jpg"></td>
+            </tr>
+          </table>
+          <p>Try changing the threshold (always follow changing the value by pressing the Tab key) tosuccessively larger values. Watch how the number of red cells that meet that Facc thresholddwindles. These are cells with high waterflow.</p>
+          <h4>Step 3</h4>
+          <p>Set the threshold to a large value (2000.0), select one of the highlighted cells as an outlet ON, with threshold = 2200.0</p>
+          <p>Delineation automatically toggles the threshold display OFF, because delineation andthreshold data cannot be displayed at the same time. Click the Facc Threshold checkboxto re-enable the display.</p>
+          <h2>Other Options and Some Limitations</h2>
+          <p>You can change the type of the threshold value from linear to log using the drop-downselector. When the Log type is selected, the threshold display highlights cells whoselog(Facc) value meets or exceeds the specific value.</p>
+          <p>As mentioned before, you cannot display threshold and delineation information at the sametime, you must toggle between the two. Also, the threshold display is invisible (but notdisabled) when you set the View option to any Image Rendering option apart from Standard.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

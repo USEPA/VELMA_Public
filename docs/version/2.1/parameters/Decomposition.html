@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.1/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.1/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.1/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.1/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.1/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.1/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.1/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.1/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.1/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.1/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.1/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.1/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.1/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.1/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.1/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.1/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.1/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.1/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Decomposition </h1>
+          <p>Decomposition of soil organic matter is a key process in VELMA, controlling the rate at which dead organicC and N pools (detritus and humus) are converted to inorganic C and N pools (CO2, NH4, NO3,DON and DOC).</p>
+          <p>VELMA v2.0 has a new decomposition model based on Potter et al. (1993). In the Potter model,microbially-mediated decomposition of plant and soil organic residues produces CO2, such that</p>
+          <div class="math_formula">
+            <p class="math">CO2i = Ci * ki * Ws * Ts * (1-Me), where</p>
+          </div>
+          <ul>
+            <li>i = a specified soil organic matter pool (in VELMA, plant tissue detritus or humus)</li>
+            <li>CO2i = carbon dioxide released by the decomposition of pool i</li>
+            <li>Ci = carbon content (gC/m2) of pool i</li>
+            <li>ki = maximum decay rate constant of pool i</li>
+            <li>Ws = scalar constant (0-2.8) for the effect of soil moisture content on decomposition</li>
+            <li>Ts = scalar constant (0-1) for the effect of temperature on decomposition</li>
+            <li>Me = carbon assimilation efficiency (0 - 1) of microbes We made several modifications to the Potter model forVELMA v2.0:</li>
+            <li>We modified the Potter decomposition equation, above, to apply it to detritus and humus N pools ratherthan C pools. The difference in the C/N ratios of donor and recipient pools are used to estimate total carbondecomposed. Specified fractions of the total carbon decomposed are converted to CO2 and DOC.Similarly, a specified fraction of total decomposed N is converted to DON.</li>
+            <li>We replaced Potter's scalar constant for soil temperature (Ts) with a nonlinear function describing thefraction (0 - 1) of the maximum decay rate (Ki) versus soil temperature (oC, perlayer). See section 11.3 for a description of this nonlinear temperature function, which is also used in theplant N uptake subroutine.</li>
+            <li>We replaced Potter's scalar constant for soil moisture (Ws) with a nonlinear function describingthe fraction (0 - 1) of the maximum decay rate (Ki) versus layer-specific soil moisture (v/v, per layer).Our soil moisture decomposition function uses a nonlinear Weibull function, which is the same as that applied tothe soil moisture N fixation function (see section 14.0).</li>
+          </ul>
+          <p>"Appendix 1: Overview of VELMA's Leaf-Stem-Root (LSR) PlantBiomass Submodel" presents a conceptual diagram and equations describing pools and fluxes involved in thedecomposition subroutine for VELMA v2.0.</p>
+          <h3 id="13-1">13.1 - Decomposition Nitrogen-To-DON Fraction</h3>
+          <p>Select "13.1 Decomposition Nitrogen-To-DON fraction Plant Mortality Phenology" from the All Parameters drop-downmenu to specify a parameter value for controlling DON production:</p><img width="625" height="110" alt="image" src="public/Image_093.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">psm_q</td>
+              <td class="param_desc">The fraction of decomposed nitrogen converted to DON range [0.0 - 1.0]</td>
+            </tr>
+          </table>
+          <h4>Calibration Notes</h4>
+          <p>You will need to iteratively calibrate "psm_q" against observed stream DON concentrations (Abdelnour et al.2013). This is most easily accomplished using VELMA's runtime visualization option for "Calibration AnnualNutrients". After annual results are in the ballpark, switch to "Calibration Daily Nutrients".</p>
+          <h4>Reference:</h4>
+          <p>Potter, C. S., Randerson, J. T., Field, C. B., Matson, P. A., Vitousek, P. M., Mooney, H. A., &amp; Klooster, S.A. (1993). Terrestrial ecosystem production: a process model based on global satellite and surface data. GlobalBiogeochemical Cycles, 7(4), 811-841.</p>
+          <h3 id="13-2">13.2 - Decomposition CO2 Respiration Fraction</h3>
+          <p>Select "13.2 Decomposition CO2 Respiration Fraction" from the All Parameters drop-down menu to specify aparameter value controlling CO2 production during decomposition:</p><img width="625" height="108" alt="image" src="public/Image_094.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">co2RespriationFraction</td>
+              <td class="param_desc">The fraction of humus decomposition (in Carbon) lost to the atmosphere as CO2.</td>
+            </tr>
+          </table>
+          <h4>Calibration Notes</h4>
+          <p>You will need to iteratively calibrate "co2RespriationFraction" in order to obtain a good fit betweensimulated and observed stream DOC concentrations, since DOC produced during decomposition = 1 -co2RespriationFraction. This is most easily accomplished using VELMA's runtime visualization option for"Calibration Annual Nutrients". After annual results are in the ballpark, switch to "Calibration DailyNutrients".</p>
+          <h3 id="13-3">13.3 - Decomposition Microbe Efficiency</h3>
+          <p>Select "13.3 Decomposition Microbe Efficiency" from the All Parameters drop-down menu to specify the microbialefficiency for carbon assimilation during decomposition:</p><img width="627" height="114" alt="image" src="public/Image_095.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">microbeCefficiency</td>
+              <td class="param_desc">The carbon assimilation efficiency (0 - 1) of microbes. This is a globally-applicable term of the Potter equation.</td>
+            </tr>
+          </table>
+          <p>As an example, an assimilation efficiency = 0.45 means that for every gram of carbon decomposed, 0.45 g isassimilated into the humus carbon pool (microbes are not explicitly modeled), and the remaining 0.55 g isrespired as CO2. However, a small fraction (1 - co2RespriationFraction) of this 0.55 g goes to the DOCpool.</p>
+          <p>Consult the references below for insight into typical values for microbeCefficiency. </p>
+          <h4>References:</h4>
+          <p>Potter, C. S., Randerson, J. T., Field, C. B., Matson, P. A., Vitousek, P. M., Mooney, H. A., &amp; Klooster, S.A. (1993). Terrestrial ecosystem production: a process model based on global satellite and surface data. GlobalBiogeochemical Cycles, 7(4), 811-841.</p>
+          <p>Herron, P. M., Stark, J. M., Holt, C., Hooker, T., &amp; Cardon, Z. G. (2009). Microbial growth efficienciesacross a soil moisture gradient assessed using 13C-acetic acid vapor and 15N- ammonia gas. SoilBiology and Biochemistry, 41(6), 1262-1269.</p>
+          <h3 id="13-4">13.4 - Decomposition Cover-Specific Parameters</h3>
+          <p>Select "13.4 Decomposition Cover-Specific Parameters" from the All Parameters drop-down menu to specify themicrobial efficiency for carbon assimilation during decomposition. These parameters must be specified for eachcover type.</p><img width="629" height="188" alt="image" src="public/Image_096.jpg">
+          <h4>Parameter Definitions</h4>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">humusNmaxDecay</td>
+              <td class="param_desc">The maximum rate of decay (0 - 1) for the humus N pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusBgStemNmaxDecay </td>
+              <td class="param_desc">The maximum rate of decay (0 - 1) for the belowground stem (BgStem) N pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusRootNmaxDecay </td>
+              <td class="param_desc">The maximum rate of decay (0 - 1) for the root N pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusLeafNmaxDecay </td>
+              <td class="param_desc">The maximum rate of decay (0 - 1) for the leaf N pool.</td>
+            </tr>
+            <tr> 
+              <td class="param_name">detritusAgStemNmaxDecay </td>
+              <td class="param_desc">The maximum rate of decay (0 - 1) for the aboveground stem (AgStem) N pool.</td>
+            </tr>
+          </table>
+          <h4>Calibration Notes</h4>
+          <p>You will need to iteratively calibrate these decay constants, for each cover type, in order to obtain a good fitbetween simulated and observed detritus pool data. It is almost always best to calibrate for steady state(equilibrium) conditions, e.g., for mature cover types.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

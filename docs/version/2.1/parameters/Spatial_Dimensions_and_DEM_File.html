@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta name="charset" content="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/js/search.js" type="module"></script>
+    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <link rel="stylesheet" href="/css/search.css">
+    <title> </title>
+  </head>
+  <body class="bg-primary">
+    <div class="header blue-base">
+      <nav class="navbar blue-base navbar-expand"><a class="navbar-brand" href="https://www.epa.gov/water-research/visualizing-ecosystem-land-management-assessments-velma-model"><span>VELMA EPA Home Page</span></a>
+        <ul class="navbar-nav no-bullets">
+          <li class="nav-item"><a class="nav-link" href="../introduction/about"><span>Introduction</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../getting_started/Quickstart"><span>Getting Started</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../parameters/index"><span>Parameters</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../user_guide/Configuration_Checker_Guide"><span>User Guides</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../calibration/NashSutcliffeCalculator_Guide"><span>Calibration </span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../spatial_maps/Initialize_Spatial_Pool_Using_Ascii"><span>Spatial (ASCII) Maps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="../velma_parallel/index"><span>Velma Parallel</span></a></li>
+          <li class="version-dropdown"><span>Version: </span>
+            <select class="select-bubble blue-dark white-text" id="version-dropdown" name="version-dropdown">
+              <option value="2.2">2.2 </option>
+              <option value="2.1">2.1</option>
+              <option value="2.0">2.0 </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function getVersionFromUrl() {
+            const url = window.location.pathname; // Get the current URL path
+            const match = url.match(/\/version\/([^/]+)\//); // Regex to extract version after '/version/'
+            return match ? match[1] : null; // Return the version or null if not found
+        }
+        
+        function setSelectedVersion() {
+            const versionDropdown = document.getElementById('version-dropdown');
+            const currentVersion = getVersionFromUrl(); // Get current version from URL
+            if (currentVersion) {
+                const options = versionDropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === currentVersion) {
+                        options[i].selected = true; // Set the matching option as selected
+                        break;
+                    }
+                }
+            }
+        }
+        
+        document.getElementById('version-dropdown').addEventListener('change', function(event) {
+            const selectedVersion = event.target.value;
+            console.log(selectedVersion);
+            const currentPath = event.target.getAttribute('data-current-path');
+            const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
+            console.log(newPath);
+            window.location.href = newPath;
+        });
+        
+        //- Call setSelectedVersion on page load
+        document.addEventListener('DOMContentLoaded', setSelectedVersion);
+      </script>
+      <div class="search-bar">
+        <input id="search" type="search" name="search" placeholder="Search VELMA Docs" autocomplete="off" list="search-suggestions">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    <div class="container" id="main_body">
+      <div class="main-body">
+        <button class="aside-toggle" aria-expanded="false" aria-controls="sidebar">Show/Hide Sidebar</button>
+        <aside class="flex-aside blue-light" id="sidebar"> 
+          <h3 class="center-text white-text">VELMA Parameters</h3>
+          <hr>
+          <div class="flex-container"> <a href="/docs/version/2.1/parameters/index"><span>Overview of VELMA Parameters</span></a><a href="/docs/version/2.1/parameters/Results_Data_Location"> <span>Results Data Location </span></a><a href="/docs/version/2.1/parameters/Spatial_Dimensions_and_DEM_File"><span>Spatial Dimensions and DEM File</span></a><a href="/docs/version/2.1/parameters/Soil_Types"><span>Soil Types</span></a><a href="/docs/version/2.1/parameters/Cover_Types"><span>Cover Types </span></a><a href="/docs/version/2.1/parameters/Weather_Model"><span>Weather Model</span></a><a href="/docs/version/2.1/parameters/Water_Amount_Per_Cell"><span>Initialize Uniform Water Amount Per Cell</span></a><a href="/docs/version/2.1/parameters/Chemistry_Pools"><span>Chemistry Pools (Dissolved C and N)</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Deposition"><span>Nitrogen Deposition</span></a><a href="/docs/version/2.1/parameters/Transpiration"><span>Transpiration</span></a><a href="/docs/version/2.1/parameters/Plant_Uptake"><span>Plant Uptake</span></a><a href="/docs/version/2.1/parameters/Plant_Mortality"><span>Plant Mortality </span></a><a href="/docs/version/2.1/parameters/Decomposition"><span>Decomposition</span></a><a href="/docs/version/2.1/parameters/Nitrogen_Fixation"><span>Nitrogen-Fixation</span></a><a href="/docs/version/2.1/parameters/Denitrification"><span>Denitrification </span></a><a href="/docs/version/2.1/parameters/Simulation_Run_Schedule"><span>Simulation Run Schedule</span></a><a href="/docs/version/2.1/parameters/Compute_Nash_Sutcliffe_For_Runoff"><span>Years to Compute Nash-Sutcliffe for Runoff</span></a><a href="/docs/version/2.1/parameters/Observed_Data_Files"><span>Observed Data Files</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-End Data Capture for Spin-up Initialization Use</span></a><a href="/docs/version/2.1/parameters/Simulation_End_Data_Capture"><span>Simulation-Start Initialization from Spin-up Data </span></a><a href="/docs/version/2.1/parameters/Cell_Data_Writer_Items"><span>Cell Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Spatial_Data_Writer_Items"><span>Spatial Data Writer Items</span></a><a href="/docs/version/2.1/parameters/Disturbance_Items"><span>Disturbance Items</span></a><a href="/docs/version/2.1/parameters/Runtime_Chart_Display_Scale"><span>Runtime Chart Display Scale</span></a></div>
+        </aside>
+        <div class="flex-body-content">
+          <h1>Spatial Dimensions and DEM File</h1>
+          <p>The VELMA simulator requires a DEM file in order to run a simulation. The simulator also assumes that all otherspatial data files (discussed below) contain spatial data with the same overall (row and column) and cell(pixel) size dimensions as the DEM file. We highly recommend that the DEM used for VELMA simulations bepre-processed using the JPDEM software, rather than by other available "flat-processor" software (see Appendix7).The VELMA simulation configuration parameter that specifies the name of the DEM file is:</p>
+          <table>
+            <thead> 
+              <th>Parameter Name </th>
+              <th>Parameter Description</th>
+            </thead>
+            <tr> 
+              <td class="param_name">input_dem example: </td>
+              <td class="param_desc">SmallWatershed_10m.asc</td>
+            </tr>
+          </table>
+          <p>The VELMA simulation configuration parameters that define the DEM file's location are:</p>
+          <table> 
+            <tr> 
+              <td class="param_name">InputDataLocationRootName </td>
+              <td class="param_desc">example: CoastalSite</td>
+            </tr>
+            <tr> 
+              <td class="param_name">inputDataLocationDirName </td>
+              <td class="param_desc">example: C:\VelmaInputData</td>
+            </tr>
+          </table>
+          <h3>Note that:</h3>
+          <ul> 
+            <li>Input_dem and inputDataLocationRootName are single file or directory names, while inputDataLocationDirName specifies a complete directory path.</li>
+            <li>When a simulation is started, the DEM data is loaded from inputDataLocationRootName/inputDataLocationDirName/input_dem</li>
+            <li>The DEM File's Dimensions are NOT Set Automatically by the Simulator or GUI</li>
+            <li>The VELMA simulator does not read the DEM file's dimensions from the DEM file's header!</li>
+          </ul>
+          <p>As part of parameterizing a VELMA simulation configuration, you must manually determine (usually by viewing theDEM file's header rows with a text editor) the DEM file dimensions, and set the corresponding VELMA simulationparameters (usually by using the JVelma GUI)</p>
+          <p>This table lists the header rows of a DEM (Grid ASCII) file and the corresponding VELMA simulation parameters:</p>
+          <table>
+            <tr>
+              <td>Grid ASCII Header Item</td>
+              <td>VELMA Simulation Configuration Parameter</td>
+            </tr>
+            <tr>   
+              <td>ncols</td>
+              <td>Ncol</td>
+            </tr>
+            <tr>
+              <td>nrows    </td>
+              <td>Nrow</td>
+            </tr>
+            <tr>
+              <td>xllcorner</td>
+              <td>cellOffsetX</td>
+            </tr>
+            <tr>
+              <td>yllcorner</td>
+              <td>cellOffsetY</td>
+            </tr>
+            <tr>
+              <td>cellsize</td>
+              <td>cell</td>
+            </tr>
+            <tr>
+              <td>nodata_value</td>
+              <td> </td>
+            </tr>
+          </table>
+          <p>Sections 3.1 - 3.3 provide details on configuring these parameters for a DEM file.</p>
+          <p>Note: if you change the DEM file that a simulation is configured to use (i.e. you change the DEM filename for theinput_dem parameter) then you must ensure that all of the parameters above are updated as well.</p>
+          <h3 id="3-1">3.1 - DEM Row and Column Counts</h3>
+          <p>Specify values for the ncol and nrow parameters based on the DEM grid ASCII header items in the table above.</p><img width="628" height="135" alt="Specify values for the ncol and nrow parameters based on the DEM grid ASCII header items in the table" src="public/Image_041.jpg">
+          <h3 id="3-2">3.2 - DEM Cell Size (Assumes a square cell, i.e. Width and Height equal)</h3>
+          <p>Specify the value of the cell parameter.</p><img width="630" height="102" alt="Specify the value of the cell parameter" src="public/Image_042.jpg">
+          <p>This describes the xy-dimension in meters of individual cells in the DEM grid ASCII file. In this example, eachcell is 10x10 meters. The choice of DEM cell size will depend upon the set of questions a user wishes toaddress. For example, applications focusing on the effect of riparian buffer width on nutrient export to streamsmay require relatively small cells (e.g., 10 meters), compared to applications focusing on ecosystem carbondynamics (e.g., 100 meters). Obviously, an application's total number of cells (and consequent simulation time)increases with the square of the ratio of alternative cell sizes - e.g., (100/10)2 = 100 times more cellsfor 10m versus 100m cell sizes. In any case, the specified cell size must be consistent with the DEM cell size.That is, the user cannot arbitrarily adjust the cell size parameter without telling VELMA to load a DEM havingthe same cell size (see All Parameters 3.0). Furthermore, the DEM used must be "flat- processed" for thespecified cell size using the JPDEM tool. The executable JPDEM.jar, a JPDEM user manual, and backgroundinformation (Pan et al. 2012) can be found here: VELMA Model\JPDEM_DEM Processor. The JPDEM user manual is alsoincluded in Appendix 7 of this manual.</p>
+          <h3 id="3-3">3.3 - Watershed Outlet (X and Y coordinates are Column and Row indices)</h3>
+          <p>Specify the value of the outx and outy parameters. These describe the watershed outlet cell's X andY coordinates (column index) relative to the DEM upper-left corner. The watershed outlet cell coordinates are determined using the JPDEM tool.</p><img width="619" height="115" alt="Specify the value of the outx and outy parameters" src="public/Image_043.jpg">
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer id="footer">
+    <p>VELMA SOFTWARE DOCUMENTATION</p>
+  </footer>
+</html>

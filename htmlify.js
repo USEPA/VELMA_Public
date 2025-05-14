@@ -16,6 +16,9 @@ function compileAndSavePugFiles(pugDir, htmlDir) {
             const htmlFilePath = path.join(htmlDir, relativePath).replace(/\.pug$/, '.html');
 
             if (file.isDirectory()) {
+                if (file.name == 'dev') {
+                    return;
+                }
                 compileAndSavePugFiles(pugFilePath, path.join(htmlDir, file.name)); // Recursive call for subdirectories
             } else if (path.extname(pugFilePath) === '.pug') {
                 var html = pug.renderFile(pugFilePath, options={'pretty':true});
@@ -25,10 +28,6 @@ function compileAndSavePugFiles(pugDir, htmlDir) {
                 });
             } else {
                 console.log("Else File", file);
-                // fs.writeFile(htmlFilePath, file, (writeErr) => {
-                //     if (writeErr) throw writeErr;
-                //     console.log(`Compiled ${file} to ${htmlFilePath}`);
-                // })
             }
         });
     });
