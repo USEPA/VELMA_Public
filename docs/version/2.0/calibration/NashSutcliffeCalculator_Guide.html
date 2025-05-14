@@ -54,7 +54,7 @@
         document.getElementById('version-dropdown').addEventListener('change', function(event) {
             const selectedVersion = event.target.value;
             console.log(selectedVersion);
-            const currentPath = event.target.getAttribute('data-current-path');
+            const currentPath = window.location.href;
             const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
             console.log(newPath);
             window.location.href = newPath;
@@ -74,7 +74,7 @@
         <aside class="flex-aside blue-light" id="sidebar"> 
           <h3 class="center-text white-text">VELMA Calibration</h3>
           <hr>
-          <div class="flex-container"> <a href="/docs/version/2.0/calibration/NseQuarts_Guide.html"><span>NSE Quarts Guide</span></a><a href="/docs/version/2.0/calibration/NashSutcliffeCalculator_Guide.html"><span>Nash-Sutcliffe Calculator</span></a></div>
+          <div class="flex-container"> <a href="../calibration/NseQuarts_Guide.html"><span>NSE Quarts Guide</span></a><a href="../calibration/NashSutcliffeCalculator_Guide.html"><span>Nash-Sutcliffe Calculator</span></a></div>
         </aside>
         <div class="flex-body-content">
           <h1>NashSutcliffeCalculator : A Tool for Computing Nash-Sutcliffe Coefficients</h1>

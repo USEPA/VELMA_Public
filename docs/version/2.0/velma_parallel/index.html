@@ -54,7 +54,7 @@
         document.getElementById('version-dropdown').addEventListener('change', function(event) {
             const selectedVersion = event.target.value;
             console.log(selectedVersion);
-            const currentPath = event.target.getAttribute('data-current-path');
+            const currentPath = window.location.href;
             const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
             console.log(newPath);
             window.location.href = newPath;
@@ -74,7 +74,7 @@
         <aside class="flex-aside blue-light" id="sidebar"> 
           <h3 class="center-text white-text">VELAM Parallel</h3>
           <hr>
-          <div class="flex-container"> <a href="/docs/version/2.0/velma_parallel/index.html"><span>Overview of VELMA Parallel</span></a><a href="/docs/version/2.0/velma_parallel/How_To_Run_VELMA_In_Parallel_Mode.html"><span>How to run VELMA in Parallel Mode</span></a></div>
+          <div class="flex-container"> <a href="../velma_parallel/index.html"><span>Overview of VELMA Parallel</span></a><a href="../velma_parallel/How_To_Run_VELMA_In_Parallel_Mode.html"><span>How to run VELMA in Parallel Mode</span></a></div>
         </aside>
         <div class="flex-body-content">
           <h1>Rationale for Parallel Velma and Reach Segmentation</h1>

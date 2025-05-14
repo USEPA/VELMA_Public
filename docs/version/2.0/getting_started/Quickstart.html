@@ -54,7 +54,7 @@
         document.getElementById('version-dropdown').addEventListener('change', function(event) {
             const selectedVersion = event.target.value;
             console.log(selectedVersion);
-            const currentPath = event.target.getAttribute('data-current-path');
+            const currentPath = window.location.href;
             const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
             console.log(newPath);
             window.location.href = newPath;
@@ -74,7 +74,7 @@
         <aside class="flex-aside blue-light" id="sidebar"> 
           <h3 class="center-text white-text">Getting Started with VELMA</h3>
           <hr>
-          <div class="flex-container"> <a href="/docs/version/2.0/getting_started/Quickstart.html"><span>VELMA Quickstart</span></a><a href="/docs/version/2.0/getting_started/Required_Input_Files.html"><span>Required Input Files</span></a><a href="/docs/version/2.0/getting_started/New_Simulator_Config.html"><span>New Simulator Configuration</span></a><a href="/docs/version/2.0/getting_started/VelmaSimRunner.html"><span>Velma Sim Runner Guide</span></a><a href="/docs/version/2.0/getting_started/VelmaSimRunner_QuickRef.html"><span>Velma Sim Runner Quick Reference</span></a><a href="/docs/version/2.0/getting_started/VelmaSimulatorAltCmdLine_Overview.html"><span>VELMA Simulator ALT Command Line Overview</span></a></div>
+          <div class="flex-container"> <a href="../getting_started/Quickstart.html"><span>VELMA Quickstart</span></a><a href="../getting_started/Required_Input_Files.html"><span>Required Input Files</span></a><a href="../getting_started/New_Simulator_Config.html"><span>New Simulator Configuration</span></a><a href="../getting_started/VelmaSimRunner.html"><span>Velma Sim Runner Guide</span></a><a href="../getting_started/VelmaSimRunner_QuickRef.html"><span>Velma Sim Runner Quick Reference</span></a><a href="../getting_started/VelmaSimulatorAltCmdLine_Overview.html"><span>VELMA Simulator ALT Command Line Overview</span></a></div>
         </aside>
         <div class="flex-body-content">
           <h1>VELMA 2.0 Quick Start Example </h1>

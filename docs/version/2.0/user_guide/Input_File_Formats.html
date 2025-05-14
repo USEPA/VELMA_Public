@@ -54,7 +54,7 @@
         document.getElementById('version-dropdown').addEventListener('change', function(event) {
             const selectedVersion = event.target.value;
             console.log(selectedVersion);
-            const currentPath = event.target.getAttribute('data-current-path');
+            const currentPath = window.location.href;
             const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
             console.log(newPath);
             window.location.href = newPath;
@@ -74,8 +74,8 @@
         <aside class="flex-aside blue-light" id="sidebar"> 
           <h3 class="center-text white-text">User Guides</h3>
           <hr>
-          <div class="flex-container"> <strong class="white-text">Input / Output Files Guides</strong><a href="/docs/version/2.0/user_guide/Input_File_Details.html"><span>Input File Details</span></a><a href="/docs/version/2.0/user_guide/Input_File_Formats.html"><span>Input File Formats</span></a><a href="/docs/version/2.0/user_guide/Output_Overview.html"><span>Output Files</span></a><a href="/docs/version/2.0/user_guide/MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a>
-            <hr><strong class="center-text white-text">Simulation Configuration Guides</strong><a href="/docs/version/2.0/user_guide/Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a>
+          <div class="flex-container"> <strong class="white-text">Input / Output Files Guides</strong><a href="../user_guide/Input_File_Details.html"><span>Input File Details</span></a><a href="../user_guide/Input_File_Formats.html"><span>Input File Formats</span></a><a href="../user_guide/Output_Overview.html"><span>Output Files</span></a><a href="../user_guide/MoeVelGenerator_Guide.html"><span>MOEA-to-VELMA Configuration Generator</span></a>
+            <hr><strong class="center-text white-text">Simulation Configuration Guides</strong><a href="../user_guide/Configuration_Checker_Guide.html"><span>Configuration Checker Guide</span></a>
           </div>
         </aside>
         <div class="flex-body-content">

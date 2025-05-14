@@ -54,7 +54,7 @@
         document.getElementById('version-dropdown').addEventListener('change', function(event) {
             const selectedVersion = event.target.value;
             console.log(selectedVersion);
-            const currentPath = event.target.getAttribute('data-current-path');
+            const currentPath = window.location.href;
             const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
             console.log(newPath);
             window.location.href = newPath;
@@ -74,7 +74,7 @@
         <aside class="flex-aside blue-light" id="sidebar"> 
           <h3 class="center-text white-text">About VELMA</h3>
           <hr>
-          <div class="flex-container"> <a href="/docs/version/2.2/introduction/about.html"><span>Version 2.2 Overview</span></a><a href="/docs/version/2.2/introduction/changes.html"><span>Changes for 2.2</span></a><a href="/docs/version/2.2/introduction/LSR_Plant_Biomass_Submodel.html"> <span>Leaf-Stem-Root Plant Biomass Submodel Overview</span></a><a href="/docs/version/2.2/introduction/Hydrological_and_Biochemical_models.html"><span>Hydrological and Biochemical Models in VELMA </span></a></div>
+          <div class="flex-container"> <a href="../introduction/about.html"><span>Version 2.2 Overview</span></a><a href="../introduction/changes.html"><span>Changes for 2.2</span></a><a href="../introduction/LSR_Plant_Biomass_Submodel.html"> <span>Leaf-Stem-Root Plant Biomass Submodel Overview</span></a><a href="../introduction/Hydrological_and_Biochemical_models.html"><span>Hydrological and Biochemical Models in VELMA </span></a></div>
         </aside>
         <div class="flex-body-content">
           <h1>How to Use This Manual</h1>

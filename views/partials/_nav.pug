@@ -55,7 +55,8 @@ script.
     document.getElementById('version-dropdown').addEventListener('change', function(event) {
         const selectedVersion = event.target.value;
         console.log(selectedVersion);
-        const currentPath = event.target.getAttribute('data-current-path');
+        //- const currentPath = event.target.getAttribute('data-current-path');
+        const currentPath = window.location.href;
         const newPath = currentPath.replace(/\/version\/\d+\.\d+\//, `/version/${selectedVersion}/`);
         console.log(newPath);
         window.location.href = newPath;
