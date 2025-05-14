@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -110,7 +110,7 @@
             <li>Change the enableReachMapping from SOLO_MODE to MULTI_MODE.
               <h5>Note: there is also an AUTO_MODE available, but we do not recommend using it at this time.</h5>
             </li>
-            <li>Enter the linear indices of the sub-reach outlet cells as the whitespace-separated value of the initializeReachOutlets parameter. The tutorial "Tutorial B.9 - JPDEM Sub-Reach Delineations" details how to determine sub-reach locations. Here is a snapshot of the "Run Parameters" tab's "Sub-Reach Mapping Controls" section showing an example of configuring for MULTI_MODE.<img width="533" height="65" alt="screenshot" title="screenshot" src="public/suppImage_171.jpg">
+            <li>Enter the linear indices of the sub-reach outlet cells as the whitespace-separated value of the initializeReachOutlets parameter. The tutorial "Tutorial B.9 - JPDEM Sub-Reach Delineations" details how to determine sub-reach locations. Here is a snapshot of the "Run Parameters" tab's "Sub-Reach Mapping Controls" section showing an example of configuring for MULTI_MODE.<img width="533" height="65" alt="screenshot" title="screenshot" src="../../../public/suppImage_171.jpg">
               <p>The numbers to the right of the MULTI_MODE setting are the sub-reach indices. Entering them into this numeric field assigns them to the initializeReachOutlets parameter.</p>
             </li>
             <li>Spatial Data must be output as &quot;trimmed&quot; maps.
@@ -141,15 +141,15 @@
             </li>
             <li>Determine the amount of RAM available on your computer. The simplest way to do this is to open the Windows Start -&gt; Settings (the &quot;gear&quot; icon) Window, then click &quot;System&quot;, and finally click &quot;About&quot;. In the &quot;About&quot; window, look for the &quot;Installed RAM&quot; specification. Example:</li>
           </ul>
-          <h4>The Settings icon:</h4><img width="298" height="196" alt="screenshot" title="screenshot" src="public/suppImage_172.jpg">
-          <p>Settings -&gt; System -&gt; About:</p><img width="569" height="471" alt="screenshot" title="screenshot" src="public/suppImage_173.jpg">
+          <h4>The Settings icon:</h4><img width="298" height="196" alt="screenshot" title="screenshot" src="../../../public/suppImage_172.jpg">
+          <p>Settings -&gt; System -&gt; About:</p><img width="569" height="471" alt="screenshot" title="screenshot" src="../../../public/suppImage_173.jpg">
           <p>Knowing the amount of RAM available is important, because you will probably want to specify an initial heap size (via Java's -Xmx option), and VelmaParallelCmdLine will request the amount of memory you specify <i><b>for each process starts</b></i>. This means that, if you request 6 processors and 4 gigabytes of memory ("-Xmx6g") VelmaParallelCmdLine may request up to 6 x 6 = 36 gigabytes of memory at a time (if you have 6 or more sub-reaches that it determines can all be run in parallel).</p>
           <p>Once you know the number of available processes and memory, you can keep your VelmaParallelCmdLine startup within the limits of what your computer can process.</p>
           <p>The VelmaParallelCmdLine front-end is part of the JVelma.jar. To run it, use the following command-line format, within a Powershell window:</p><code>
             | java -Xmx&lt;size&gt; -cp "&lt;path/JVelma.jar&gt;" 
             | gov.epa.velmasimulator.VelmaParallelCmdLine "&lt;file.xml&gt;" --maxProcesses=&lt;n&gt;</code>
           <p>(<i>The above command should all be entered as one line - it wraps across more than one line in this document.</i>)</p>
-          <h4>Here is an example of an actual command line:</h4><img width="604" height="78" alt="screenshot" title="screenshot" src="public/suppImage_174.jpg">
+          <h4>Here is an example of an actual command line:</h4><img width="604" height="78" alt="screenshot" title="screenshot" src="../../../public/suppImage_174.jpg">
           <p>In the above example: </p>
           <ol> 
             <li>The &lt;size&gt; of "4g" for the -Xmx argument requests 4 gigabytes per process/sub-reach.</li>
@@ -201,9 +201,9 @@
           <p>The VelmaParallelRunlog.txt file's contents are useful for figuring out what went wrong when a</p>
           <p>VelmaParallelCmdLine run does not complete all the sub-reaches.</p>
           <p>Appendix 1: How to Open a Microsoft PowerShell Window</p>
-          <p>Click the Windows Start button </p><img width="51" height="40" alt="screenshot" title="screenshot" src="public/suppImage_175.jpg">
+          <p>Click the Windows Start button </p><img width="51" height="40" alt="screenshot" title="screenshot" src="../../../public/suppImage_175.jpg">
           <p>and start typing "Powershell".</p>
-          <p>The Start panel should change to show the following:</p><img width="395" height="661" alt="screenshot" title="screenshot" src="public/suppImage_176.jpg">
+          <p>The Start panel should change to show the following:</p><img width="395" height="661" alt="screenshot" title="screenshot" src="../../../public/suppImage_176.jpg">
           <p>Click the "Windows PowerShell" (Best Match item) as shown above.</p>
         </div>
       </div>

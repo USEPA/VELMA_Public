@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -85,15 +85,15 @@
           <h4>Adding a Spatial Data Writer to a Simulation Configuration</h4>
           <p>Spatial Data Writers are optional. Simulation configurations contain zero instances of them by default. Whenadded, they do not change the simulation computations - they only report results.</p>
           <p>To add a Spatial Data Writer to your simulation configuration:</p>
-          <p>Click the "Edit"  "Spatial Data Writer"  "Add a New Spatial Writer".</p><img width="626" height="177" alt="image" src="public/Image_119.jpg">
-          <p>Clicking "Add a New Spatial Writer" opens the Spatial Writer Type and Name dialog which looks like this:</p><img width="400" height="147" alt="image" src="public/Image_120.jpg">
+          <p>Click the "Edit"  "Spatial Data Writer"  "Add a New Spatial Writer".</p><img width="626" height="177" alt="image" src="../../../public/Image_119.jpg">
+          <p>Clicking "Add a New Spatial Writer" opens the Spatial Writer Type and Name dialog which looks like this:</p><img width="400" height="147" alt="image" src="../../../public/Image_120.jpg">
           <p>Leave the Spatial Data Writer Type selector set to "SpatialDataWriter".</p>
           <p>The Spatial Data Writer Name must be unique (i.e. no other Spatial Data Writer already specified for thissimulation configuration can share the name you specify). Avoid whitespace and punctuation characters (e.g. "("and ")"). As an example, here are a couple of acceptable</p>
           <p>names (assuming they're not already in use by another Spatial Data Writer, and the Spatial Data Writer we'readding will report layer 3 root biomass; "Root_Biomass_Layer_3" and "Root_L3".</p>
           <h3 id="23-2">23.2 - Spatial Data Writer Items Data Sources</h3>
           <h4>Configuring a Spatial Data Writer's Parameters</h4>
           <p>After you click OK in the Spatial Data Writer's Type and Name dialog, the VELMA GUI adds the Spatial Data Writerto the simulation configuration, and sets the All Parameters tab's filters to display only the parameters of thenewly-added Spatial Data Writer.</p>
-          <p>Assuming we named our new Spatial Data Writer "Root_Biomass_Layer_3" and clicked OK, the VELMA GUI would looklike this afterwards:</p><img width="625" height="207" alt="image" src="public/Image_121.jpg">
+          <p>Assuming we named our new Spatial Data Writer "Root_Biomass_Layer_3" and clicked OK, the VELMA GUI would looklike this afterwards:</p><img width="625" height="207" alt="image" src="../../../public/Image_121.jpg">
           <p>Notice, in passing, that the configuration outline does not automatically get set by the GUI. In the examplescreen capture above, it displays "0.0 All Configuration Parameters" - which is not what is being displayed inthe parameterization table. This behavior is harmless.</p>
           <p>A Spatial Data Writer has 7 parameters. None are optional, but one (modelClass) is set automatically bythe GUI, and two others (allowNonWatershedCellValues and trimOutputToWatershedBoundary) default toreasonable values automatically. The remaining 4 parameters specify when this parameterization writes itsspecified spatial data source to file, and what that spatial data source should be.</p>
           <h4>The Spatial Data Sources Parameter Specifies What Data Is Written</h4>
@@ -102,7 +102,7 @@
           <p>For example: "BIOMASS_ROOT_N" specifies the spatial data source name for biomass root, and"BIOMASS_ROOT_N, 2" specifies biomass root data, layer 2 (enter these, and all parameterization values,<i><b>without </b></i>the surrounding quotation (") marks).</p>
           <h3 id="23-3">23.3 - Spatial Data Writer Items Core Scheduling</h3>
           <h4>The Three "InitializeActive…" Parameters Specify When Data Is Written</h4>
-          <p>Select "23.3 Spatial Data Writer Items Core Scheduling" from the All Parameters drop-down outline selector menu:</p><img width="621" height="140" alt="image" src="public/Image_122.jpg">
+          <p>Select "23.3 Spatial Data Writer Items Core Scheduling" from the All Parameters drop-down outline selector menu:</p><img width="621" height="140" alt="image" src="../../../public/Image_122.jpg">
           <p>Set the initializeActiveLoops, initializeActiveYears and initializeActiveJdays parametervalues to the loop numbers, years and Julian day values that you want the Spatial Data Writer to write resultsfor.</p>
           <p>Any specified Loop numbers, years or Julian days that are "beyond bounds" are ignored. I.e. if the simulationconfiguration specifies 3 loops, and the Spatial Data Writer initializeActiveLoops value is set to 4, nodata will ever be written. It is an error to specify negative numbers for Loop, Year or Jday parameters.</p>
           <p>[TIP: Setting an initializeActiveLoops value greater than the number of loops the simulation configurationspecifies run is an unintuitive yet handy way to temporarily "shut off" a spatial data writer's output withoutremoving it from the simulation configuration.]</p>
@@ -112,10 +112,10 @@
           <p>When the allowNonWatershedCellValues parameter is set false, its spatial data writer writes anycell value outside the watershed as NO_DATA (the value "-9999.0"). The default value is false,which makes it easy to discern the watershed's delineation in the results file. If you want the results file toinclude every cell value, regardless of whether a given cell is in or out of the watershed delineation, set thisparameter to true.</p>
           <h3 id="23-4">23.4 - Spatial Data Writer Items Output Map Size</h3>
           <h4>You May Reduce the Dimensions of the Results Grid File</h4>
-          <p>Select "23.4 Spatial Data Writer Items Output Map Size" from the All Parameters drop-down outline selector menu:</p><img width="622" height="107" alt="image" src="public/Image_123.jpg">
+          <p>Select "23.4 Spatial Data Writer Items Output Map Size" from the All Parameters drop-down outline selector menu:</p><img width="622" height="107" alt="image" src="../../../public/Image_123.jpg">
           <p>When trimOutputToWatershedBoundary is set false, the spatial data writer writes a results file withthe same grid dimensions at the simulation configuration's DEM file. This (default value) make it easy to overlySpatial Data Writer output results on top of the DEM, cover Id map, or soil Id map files. When set totrue, the spatial data writer writes a results file that contains only the cells within the boundingrectangle of the delineated watershed. Depending upon the size of the watershed relative to the overall DEM,this may result in Spatial Data Writer files that are smaller, and easier to review "by hand".</p>
           <p>[TIP: Spatial Data Writer output results files are not really meant for "manual" review (e.g. via Notepad or asimilar simple text editor). The choice of the Grid ASCII format was for ease of use with GIS systems, and sothat they could be readily "fed back" into the VELMA Simulator as subsequent initialization input. However,there's nothing wrong with opening a results file in a text editor or spreadsheet for a quick sanity check.]</p>
-          <p>To reduce the Dimensions of the Results Grid File, click the All Parameters tab's configuration outline dropdownselector and select "23.4 Spatial Data Writer Items Output Map Size".</p><img width="623" height="106" alt="image" src="public/Image_124.jpg">
+          <p>To reduce the Dimensions of the Results Grid File, click the All Parameters tab's configuration outline dropdownselector and select "23.4 Spatial Data Writer Items Output Map Size".</p><img width="623" height="106" alt="image" src="../../../public/Image_124.jpg">
           <h4>Spatial Data Writer Output is a Grid ASCII File</h4>
           <p>The VELMA simulator creates 1 .asc file each time a given Spatial Data Writer is triggered (based on its activeLoops, Years and Jdays parameter settings).</p>
           <p>Spatial Data Writer output files are written to the Results Data Location folder. Their filenames always beginwith the prefix "Spatial_" and include the name of the spatial data source and layer number of the data theycontain. The dimensions of the Grid ASCII file match those of the simulation configuration's DEM .asc file,unless the trimOutputToWatershedBoundary parameter was set "true"; in that case, the dimensions of theSpatial Data Writer output file are those of the bounding box of the simulation run's delineated watershed.</p>

@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -157,7 +157,7 @@
           <h3>Save Flow Direction Data</h3>
           <p>When JPDEM flat-processes a map, it generates a flow-direction ("fdir") value for each cell in that map. Flowdirection data is also generated when the "Tools" -&gt; "Determine Flow Data" item is run.</p>
           <p>The flow direction value of a cell is a number between 1 and 8, uniquely identifying one of the cell's eight adjacentcells. A flow direction value &lt;= 0 indicates that flow direction data has not been computed yet.</p>
-          <p>The directional values for cell "C" are show below:</p><img width="204" height="169" alt="screenshot" title="screenshot" src="public/suppImage_120.jpg">
+          <p>The directional values for cell "C" are show below:</p><img width="204" height="169" alt="screenshot" title="screenshot" src="../../../public/suppImage_120.jpg">
           <p>So, for example, if C's fdir = 2, C's flow direction is to the cell below and to the right of it.</p>
           <p>Flow direction indicates only the primary direction that water will flow from a cell to its adjacent cells. Water mayflow to adjacent cells in addition to the cell specified by the flow direction value.</p>
           <p>Flow direction data may be saved as either an .asc grid file, or a delineated .asc grid file.</p>

@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -84,12 +84,12 @@
           <p>Calculating surface evaporation involves dew point, and VELMA's Surface Evaporation code uses minimum air temperature as an approximate value for dew point. Therefore, <strong>any VELMA simulation configuration that includes Surface Evaporation must also include per-step minumum air temperature values as part of the driver data for its weather model</strong>.<br> Miniumum air temperature values are not required for VELMA simulation configuration <em>without</em> Surface Evaporation, but simulations configured <em>with</em> Surface Evaporation <em>must</em> provide miniumum air temperature driver data: without it, the simulation run will halt and fail during the first simulation step.<br> See the <a>Dewpoint and Dewpoint Correction</a> section of this document for how to provide minimum air temperature values to the simulation.</p>
           <h3>Adding Surface Evaporation to a VELMA Configuration</h3>
           <p>Begin by loading a VELMA simulation configuration into JVelma, or by creating a new configuration from within JVelma (via the Edit -> "Create a New, Empty Configuration" menu item).</p>
-          <p>Next, click the Edit -> "Set Surface Evaporation Model" to display the Surface Evaporation sub-menu. The Surface Evaporation sub-menu has two items: "NO Surface Evaporation Model" and "Default Surface Evaporation Model".</p><img src="public/image-JVelma_AddSurfaceEvaporation.PNG" alt="Set SurfaceEvaporation Model to default in gui">
+          <p>Next, click the Edit -> "Set Surface Evaporation Model" to display the Surface Evaporation sub-menu. The Surface Evaporation sub-menu has two items: "NO Surface Evaporation Model" and "Default Surface Evaporation Model".</p><img src="../../../public/image-JVelma_AddSurfaceEvaporation.PNG" alt="Set SurfaceEvaporation Model to default in gui">
           <p>To add Surface Evaporation parameters to the current configuration, click the "Default Surface Evaporation Model" item.</p>
           <blockquote>
             <p><strong><em>Note:</em></strong> If the current configuration <em>already</em> contains Surface Evaporation parameters, clicking "Default Surface Evaporation Model" "resets" all existing Surface Evaporation parameters back to their default values.</p>
           </blockquote>
-          <p>When you click "Default Surface Evaporation Model", JVelma shifts display focus to the "All Parameters" tab, and filters the rows of the parameters table to those specific to Surface Evaporation.</p><img src="public/image-JVelma_AllParameters_SurfaceEvaporation.PNG" alt="All surface evaporation parameters in GUI">
+          <p>When you click "Default Surface Evaporation Model", JVelma shifts display focus to the "All Parameters" tab, and filters the rows of the parameters table to those specific to Surface Evaporation.</p><img src="../../../public/image-JVelma_AllParameters_SurfaceEvaporation.PNG" alt="All surface evaporation parameters in GUI">
           <p>The current set of Surface Evaporation parameters is relatively small, and several of them should be left as-is, set to the values provided as defaults.</p>
           <h4><em>Parameters That Can (Should!) be Left Alone</em></h4>
           <p>The <code>modelClass</code> parameter is set by JVelma when you add the contaminant to the simulation configuration. Do Not Change this parameter's value. <em>Ever</em>.</p>
@@ -385,7 +385,7 @@
           <p>Other simulation configurations could select different timing or trimming values. Only the <code>initializeSpatialDataSources</code> parameter's value is invariant: it <em>must</em> be set to <code>SURFACE_EVAPORATION</code> for the Spatial Data Writer to successfully report surface evaporation data values.</p>
           <h3>The Surface Evaporation Runtime Display</h3>
           <p>When VELMA simulation configurations include Surface Evaporation, the JVelma GUI's "Chart" provides a basic runtime display option.<br> After starting a simulation run in JVelma, in the "Chart" tab, click the drop-down display selector to list the available chart types, and click-select "Surface Evaporation". (Note: "Surface Evaporation" only appears in the drop-down if the running simulation configuration includes Surface Evaporation.)</p>
-          <p>The Surface Evaporation display provides spatially-explicit views of current surface evaporation values and surface later outflow amounts, as well as daily average temporal charting for the same.</p><img src="public/image-JVelma_SurfaceEvaporation_RuntimeDisplay.PNG" alt="Surface evaporation runtime display">
+          <p>The Surface Evaporation display provides spatially-explicit views of current surface evaporation values and surface later outflow amounts, as well as daily average temporal charting for the same.</p><img src="../../../public/image-JVelma_SurfaceEvaporation_RuntimeDisplay.PNG" alt="Surface evaporation runtime display">
           <p>The display panel color-range min/max values are specified by the following configuration parameters:</p>
           <table>
             <thead>

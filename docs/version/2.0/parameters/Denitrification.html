@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -78,12 +78,12 @@
         </aside>
         <div class="flex-body-content">
           <h1>Denitrification </h1>
-          <p>Denitrification is the microbially-mediated conversion of nitrate (NO3-) to nitrous oxide(N2O) and nitrogen gas (N2). This process is represented in the red-outlined area in the diagrambelow.</p><img width="193" height="93" alt="image" src="public/Image_103.gif">
+          <p>Denitrification is the microbially-mediated conversion of nitrate (NO3-) to nitrous oxide(N2O) and nitrogen gas (N2). This process is represented in the red-outlined area in the diagrambelow.</p><img width="193" height="93" alt="image" src="../../../public/Image_103.gif">
           <p>Nitrate that is not denitrified or taken up by plants can be readily transported to ground and surfacewaters (the high mobility of NO3- in soil is because both are negatively charged). Thus,</p>
           <p>denitrification can be important for protecting water quality. On the other hand, if denitrification does not goto completion (stops at N2O instead of N2) it can increase atmospheric inputs of N2O, a potentgreenhouse gas.</p>
           <p><a href="http://www.ars.usda.gov/contactus/feedback.htm?email=635BFB9F9A09A8DC7B5AA5518CAFA0739460BDBDA297A957D8984045.html"    target="_blank">The denitrification subroutine in VELMA v1.0 and v2.0 is based on Del Grosso et al. 2001.    However, VELMA v2.0 includes recent updates to equations and correction to parameter values described in Dr.    Stephen Del Grosso's (</a>steve.delgrosso@ars.usda.gov) NGAS spreadsheet model.</p>
           <h3 id="16-1">16.1 - Denitrification On/Off?</h3>
-          <p>Select "16.1 Denitrification On/Off ?" from the All Parameters drop-down menu to specify whether to turn thedenitrification subroutine on (true) or off (false).</p><img width="618" height="98" alt="image" src="public/Image_104.jpg">
+          <p>Select "16.1 Denitrification On/Off ?" from the All Parameters drop-down menu to specify whether to turn thedenitrification subroutine on (true) or off (false).</p><img width="618" height="98" alt="image" src="../../../public/Image_104.jpg">
           <h4>Parameter Definitions</h4>
           <table>
             <thead> 
@@ -96,7 +96,7 @@
             </tr>
           </table>
           <h3 id="16-1-1">16.1.1 - Denitrification Core Parameters</h3>
-          <p>Select "16.1.1 Denitrification Core Parameters" from the All Parameters drop-down menu to specify denitrificationsubroutine parameter values. These global parameters are applicable to all soil types.</p><img width="623" height="129" alt="image" src="public/Image_105.png">
+          <p>Select "16.1.1 Denitrification Core Parameters" from the All Parameters drop-down menu to specify denitrificationsubroutine parameter values. These global parameters are applicable to all soil types.</p><img width="623" height="129" alt="image" src="../../../public/Image_105.png">
           <h4>Parameter Definitions</h4>
           <table>
             <thead> 
@@ -117,7 +117,7 @@
             </tr>
           </table>
           <h3 id="16-1-2">16.1.2 - Denitrification Soil-Specific Parameters</h3>
-          <p>Select "16.1.2 Denitrification Soil-Specific Parameters" from the All Parameters drop-down menu to specify thefollowing set of denitrification parameters for each soil type in your watershed. There is just one parameterper soil type (3 soil types are shown in the screenshot below).</p><img width="628" height="128" alt="image" src="public/Image_106.jpg">
+          <p>Select "16.1.2 Denitrification Soil-Specific Parameters" from the All Parameters drop-down menu to specify thefollowing set of denitrification parameters for each soil type in your watershed. There is just one parameterper soil type (3 soil types are shown in the screenshot below).</p><img width="628" height="128" alt="image" src="../../../public/Image_106.jpg">
           <h4>Parameter Definitions</h4>
           <table>
             <thead> 
@@ -132,7 +132,7 @@
           <h4>Calibration Notes:</h4>
           <p>The denitrification subroutine has been extensively applied to agricultural systems by the NGAS model developers(Parton et al. 2001; Del Grosso et al. 2000 and 2006). The parameter values used in the model seem to be fairlyrobust across the wide range of conditions reported by the authors. When calibrating the denitrificationsubroutine for a new site, we recommend that you initially focus on just two parameters (assuming all thetrue/false options are set up correctly).</p>
           <p>These are the yellow-highlighted parameters above: denitDiffusivity and setDenitrificationSoilCondition.</p>
-          <p>The denitDiffusivity parameter controls the shape of the logistic function that defines the response of"relative denitrification" (0.0 - 1.0) to water filled pore space (WFPS %). Figure 7 in Del Grosso et al. (2000)illustrates this:</p><img width="626" height="407" alt="image" src="public/Image_107.png">
+          <p>The denitDiffusivity parameter controls the shape of the logistic function that defines the response of"relative denitrification" (0.0 - 1.0) to water filled pore space (WFPS %). Figure 7 in Del Grosso et al. (2000)illustrates this:</p><img width="626" height="407" alt="image" src="../../../public/Image_107.png">
           <p>Thus, you will need to adjust the denitDiffusivity parameter ("a" in Figure 7) to obtain a response forthe soil texture that is most appropriate for your watershed. You will also need to specify "INTACT" forundisturbed soils. "REPACKED_MEDIUM" or "REPACKED_FINE" refers to soil columns that have been reconstructed inthe laboratory (Del Grosso et al. 2000). You will need to decide if the REPACKED choices are appropriate forcompacted field soils, e.g., under high tillage practices.</p>
           <h4>References for section 16.0 (all subsections sections)</h4>
           <p>Del Grosso, S. J., Parton, W. J., Mosier, A. R., Ojima, D. S., Kulmala, A. E., &amp; Phongpan, S. (2000). Generalmodel for N2O and N2 gas emissions from soils due to dentrification. Global Biogeochemical Cycles, 14(4),1045-1060.</p>

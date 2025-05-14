@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -83,14 +83,14 @@
           <p>When you create a new simulation configuration in the VELMA GUI (Edit  "Create a New, EmptyConfiguration"), it automatically contains parameters for the default weather model. This weather model'smodelClass, uniqueName and uniqueId parameters are preset to valid, default values. You maychange those values if you wish, but there is no need to do so and we advise</p>
           <p>you to leave them alone. You must provide the model with the names of data files for precipitation and airtemperature driver data, and parameterize the snow model.</p>
           <p>You can focus the All Parameters tab's parameters table to various aspects of the simulation configuration'sweather model by selecting them in the tab's drop-down selector.</p>
-          <p>To view the complete core weather model parameterization, select "6.0 Weather Model":</p><img width="625" height="239" alt="image" src="public/Image_064.jpg">
+          <p>To view the complete core weather model parameterization, select "6.0 Weather Model":</p><img width="625" height="239" alt="image" src="../../../public/Image_064.jpg">
           <h4>You Must Provide the Weather Model with Rain and Air Temperature Driver Files.</h4>
           <p>The rain and air temperature driver files share the same format requirements: one floating-point value per line,with exactly one line for each day between the first day of the year specified by the simulation configuration'sforcing_start value, and the last day of the year specified by the simulation configuration's forcing_end value.For example, if a forcing start/end range of [2000 to 2001] would require each driver file to have 731 lines ofdata (corresponding to 366 + 365 days per year, accounting for the leap year), with one value per line.</p>
           <p>You may omit the path of the driver file names you specify. The Velma simulator then assumes the file's locationis specified by the simulation configuration's input data location settings (set the outline selection to "1.0Input Data Selection" to review or set the input location). You may also provide a fully-qualified path + namefor a driver file. If you do, be sure to use "/" (forward-slash) characters as path-separators.</p>
           <h4>Select "6.1 Weather Rain Driver File" to focus the parameters table on the weather model's</h4>
-          <p>rainDriverDataFileName parameter.</p><img width="625" height="106" alt="image" src="public/Image_065.jpg">
+          <p>rainDriverDataFileName parameter.</p><img width="625" height="106" alt="image" src="../../../public/Image_065.jpg">
           <p>Each value in this file represents a day's precipitation (in millimeters) at each cell in simulation's thedelineated watershed. Because of the snow model, some of this precipitation may be rain, and some may be snow.The parameterization of the snow model determines the amounts of both.</p>
-          <h4>Select "6.2 Weather Air Temperature Driver File" to focus the parameters table on the weather model'sairTemperatureDriverFileName.</h4><img width="624" height="106" alt="image" src="public/Image_066.jpg">
+          <h4>Select "6.2 Weather Air Temperature Driver File" to focus the parameters table on the weather model'sairTemperatureDriverFileName.</h4><img width="624" height="106" alt="image" src="../../../public/Image_066.jpg">
           <p>Each value in this file represents a day's average air temperature (in degrees Centigrade) at each cell in thesimulation's delineated watershed.</p>
           <h4>The Snow Model Determines the Rain / Snow Mixture for the Precipitation Driver Value</h4>
           <p>The four parameters of the snow model determine how much of a given day's precipitation falls as rain or as snow,and how fast snow on the ground is converted to surface water.</p>
@@ -129,11 +129,11 @@
             <p>The Spatial Weather Model is still somewhat experimental and undergoing testing and refinement.p Also, it requires more effort to configure/parameterize than the Default Weather Model. For both of these    reasons, we currently recommend using only the Default Weather Model unless you <i>must </i>have the more    complex behavior that the Spatial Weather Model provides, e.g, for mountainous terrain.</p>
           </div>
           <h4>You Must Explicitly Specify Activation of the Spatial Weather Model</h4>
-          <p>When you create a new simulation configuration, the VELMA GUI automatically adds a Default Weather Modelparameters group to it. If you wish to use the Spatial Weather Model instead, Click the Edit  "SetWeather Model  "Spatial Weather Model" menu item:</p><img width="625" height="178" alt="image" src="public/Image_067.jpg">
+          <p>When you create a new simulation configuration, the VELMA GUI automatically adds a Default Weather Modelparameters group to it. If you wish to use the Spatial Weather Model instead, Click the Edit  "SetWeather Model  "Spatial Weather Model" menu item:</p><img width="625" height="178" alt="image" src="../../../public/Image_067.jpg">
           <p>When you set the weather model to "Spatial Weather Model", the VELMA GUI removes any pre-existing weather modelparameters and adds the parameters group for the Spatial Weather Model.</p>
           <p>You can focus the All Parameters tab's parameters table to various aspects of the simulation configuration'sweather model by selecting them in the tab's outline drop-down selector.</p>
           <p>The VELMA GUI automatically provides valid default values for the Spatial Weather Model's</p>
-          <p>uniqueId, uniqueName and modelClass parameters. You may leave these as they are initially set. Toview the complete core weather model parameterization, select "6.0 Weather Model":</p><img width="625" height="309" alt="image" src="public/Image_068.jpg">
+          <p>uniqueId, uniqueName and modelClass parameters. You may leave these as they are initially set. Toview the complete core weather model parameterization, select "6.0 Weather Model":</p><img width="625" height="309" alt="image" src="../../../public/Image_068.jpg">
           <h4>You Must Provide the Weather Model with Rain and Air Temperature Driver Files</h4>
           <p>The Spatial Weather Model derives daily rain and air temperature values for every cell in the simulationwatershed by applying functions to the daily rain and air temperature values of one specific cell (the "Primary"or "Prime" Cell) within the watershed. You must provide the data file names for rain and air temperature dataobserved for this Prime Cell, as well as its x-and-y coordinates as part of the Spatial Weather Model'sparameterization.</p>
           <p>Set the xPrimeCell and yPrimeCell parameter's values to the Prime Cell's x (column) and y (row)location.</p>
@@ -150,7 +150,7 @@
           <h4>The Precipitation Coefficients File</h4>
           <p>A comma-separated values (.csv) file containing a table of coefficients for the spatial weather model'sprecipitation equation. The file must contain 13 rows of 6 comma-separated values (columns) each.</p>
           <p>The first row is a header row, and the remaining 12 rows provide values for the equation's a, b, c, d and ecoefficients for each month of the year.</p>
-          <p>Here is an example table of values:</p><img width="486" height="280" alt="image" src="public/Image_069.gif">
+          <p>Here is an example table of values:</p><img width="486" height="280" alt="image" src="../../../public/Image_069.gif">
           <p>and here are the lines from the corresponding .csv data file:</p>
           <div class="csv_textarea">
             <p>month,a,b,c,d,e</p>
@@ -170,7 +170,7 @@
           <h4>The Air Temperature Coefficients File</h4>
           <p>A comma-separated values (.csv) file containing a table of coefficients for the spatial weather model's airtemperature equation. The file must contain 13 rows of 10 comma-separated values (columns) each.</p>
           <p>The first row is a header row, and the remaining 12 rows provide values for the equation's a - j and xcoefficients for each month of the year.</p>
-          <p>Here is an example table of values:</p><img width="622" height="222" alt="image" src="public/Image_070.gif">
+          <p>Here is an example table of values:</p><img width="622" height="222" alt="image" src="../../../public/Image_070.gif">
           <p>And here are the lines from the corresponding .csv data file:</p>
           <div class="csv_textarea"> 
             <p>month,b,c,d,e,g,h,i,j,x</p>
@@ -190,7 +190,7 @@
           <h4>The Spatial and Default Weather Model Both Employ the Same Snow Model Parameterization of the Spatial WeatherModel's snow (sub)model is exactly the same as that of the Default Weather Model's. See the Default WeatherModel's documentation for the details.</h4>
           <p>The difference between the two is that the Spatial Weather Model first calculates the precipitation and airtemperature values <i>for the specific cell </i>before applying the snow model's mechanism to determine theday's rain, snow, snow depth and snow melt values. In contrast, the Default Weather Model presents the same(driver) precipitation and air temperature values to the snow model at every cell location in the simulation'swatershed.</p>
           <h3 id="6-4">6.4 - Latitude/Longitude</h3>
-          <p>The VELMA simulator computes a daily solar radiation value for the latitude and longitude specified by thedeg_lat and deg_lon parameter values. Set the values of these parameters to the latitude andlongitude of your simulation configuration's location. Use decimal degrees, NOT "degrees, minutes, seconds"format for the values. For example:</p><img width="623" height="122" alt="image" src="public/Image_071.jpg">
+          <p>The VELMA simulator computes a daily solar radiation value for the latitude and longitude specified by thedeg_lat and deg_lon parameter values. Set the values of these parameters to the latitude andlongitude of your simulation configuration's location. Use decimal degrees, NOT "degrees, minutes, seconds"format for the values. For example:</p><img width="623" height="122" alt="image" src="../../../public/Image_071.jpg">
           <h3 id="6-5">6.5 - Solar Radiation</h3>
           <p>In addition to latitude and longitude, VELMA's solar radiation equation requires values for the followingparameters:</p>
           <table>
@@ -220,7 +220,7 @@
             <li>provide a daily mean air temperature file (see "Required Input Data Files for VELMA Simulations")</li>
             <li>specify values for total soil depth and soil bulk density (see All Parameters sections 4.3 and 4.5,respectively)</li>
             <li>and specify the average annual air temperature for your site (avgAT), as follows:</li>
-          </ul><img width="620" height="107" alt="image" src="public/Image_072.jpg">
+          </ul><img width="620" height="107" alt="image" src="../../../public/Image_072.jpg">
         </div>
       </div>
     </div>

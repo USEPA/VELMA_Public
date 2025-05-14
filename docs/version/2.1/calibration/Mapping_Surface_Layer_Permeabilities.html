@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -94,7 +94,7 @@
           <h3>1.3. Specify the Simulation's Permeability Map File via a Configuration Parameter</h3>
           <p>Set the permeability fractions for the cells of the grid by providing the name of the permeability .asc map file as the value of the permeabilityFractionsFileName Calibration parameter.</p>
           <p>You can find this parameter by entering "^perm" (without the double-quote marks) into the middle</p>
-          <p>filter text box on JVelma's "All Parameters" panel, like so:</p><img width="625" height="137" alt="screenshot" title="screenshot" src="public/suppImage_266.jpg">
+          <p>filter text box on JVelma's "All Parameters" panel, like so:</p><img width="625" height="137" alt="screenshot" title="screenshot" src="../../../public/suppImage_266.jpg">
           <p>The Value for the permeabilityFractionsFileName parameter must be the name of an existing, accessible, valid Grid ASCII (.asc) file containing permeability fractions. If the Value provided is a fully- qualified path, the simulator will look for the .asc file at that location, with that filename. If the Value provided is a partial path or only a file name, the simulator will look for a file with specified name relative to the location specified by the inputDataLocationRootName/inputDataLocationDirName parameters.</p>
           <h2>2.0. How to Establish Pervious Surfaces for a VELMA Application</h2>
           <h3>2.1. Data Sources</h3>
@@ -108,9 +108,9 @@
           <p>A fractional pervious surface map is created by using a combination of impervious layer map(s) and an area of interest (AOI) DEM. The pervious surface maps permeability percent values will range from 0 to 1, where 0 completely impervious and 1 being completely pervious. Layers such as road polylines or raster green infrastructures are converted to a user resolution that is finer or equal to the resolution of the AOI raster, and must have the exact same extent of the AOI raster<b>. </b>For instance, a user would determine the appropriate road or impervious surface width (10m, 5m, 3m, 2.5m, or 1m etc.), all of which would evenly divide into a 30m processed DEM / AOI ASCII. The AOI raster may be of any resolution, as long as the impervious surface raster evenly divides into it. To illustrate, a 30m AOI that is 50 rows by 100 columns could be evenly divided by a 10m impervious surface ASCII that was 150 rows by 300 columns. When converting polylines, polygons, or rasters, as with all VELMA layers, they must be locked (snap) to the AOI to ensure proper overlap and alignment of higher resolution cells with the AOI.</p>
           <p>The perviousness of finer resolution maps will be weighted by their cell size ratio to the AOI DEM when data is aggregated to the AOI map resolution. For example, to derive a 30m cell's fraction perviousness, the number of higher resolution cells that are analyzed as road are summed together and then divided by the total number of cells. That percentage is then subtracted from 1. 1 being completely pervious and 0 entirely impervious. With the scenario drawn in Figure 1, this single 30m cell would evaluate to 1 -</p>
           <p>(15 / 36) = 58% or 1 - (8/9) = 11 % perviousness depending on whether a 10m or 5m road grid were used. An example of a processed permeability fraction map can be seen in Figure 2.</p>
-          <p>Multiple impervious map layers can be aggregated and weighted together to create the permeability map (Figure 3). When calculating the permeability value for a particular cell with multiple overlapping impervious cell values, the layers must be ordered or ranked by precedence of the layer's influence. In figure 3 the "Roads" layer is ranked first and the "Green I." layer ranked last. The "Roads" layer's imperviousness value is 100% and the "Green I." layer's impervious cells values are 50%, and if any cells overlap each other the 100% value from the "Roads" layer will be used to calculate the partial influence of the 10m area that it represents in the permeability map's 30m cell (Figure 3).</p><img width="605" height="283" alt="figure 1" title="figure 1" src="public/suppImage_267.png">
-          <p>Figure 25. 30m cell overlap of 10m and 5m road grid.</p><img width="619" height="460" alt="image" src="public/suppImage_268.png">
-          <p>Figure 26. Processed permeability fraction map.</p><img width="562" height="438" alt="image" src="public/suppImage_269.png">
+          <p>Multiple impervious map layers can be aggregated and weighted together to create the permeability map (Figure 3). When calculating the permeability value for a particular cell with multiple overlapping impervious cell values, the layers must be ordered or ranked by precedence of the layer's influence. In figure 3 the "Roads" layer is ranked first and the "Green I." layer ranked last. The "Roads" layer's imperviousness value is 100% and the "Green I." layer's impervious cells values are 50%, and if any cells overlap each other the 100% value from the "Roads" layer will be used to calculate the partial influence of the 10m area that it represents in the permeability map's 30m cell (Figure 3).</p><img width="605" height="283" alt="figure 1" title="figure 1" src="../../../public/suppImage_267.png">
+          <p>Figure 25. 30m cell overlap of 10m and 5m road grid.</p><img width="619" height="460" alt="image" src="../../../public/suppImage_268.png">
+          <p>Figure 26. Processed permeability fraction map.</p><img width="562" height="438" alt="image" src="../../../public/suppImage_269.png">
           <p>Figure 27 Aggregating multiple impervious surface maps into the permeability layers.</p>
           <h3>2.3. Software Requirements and Processing</h3>
           <p>To run and produce the processed permeability fraction map (ASCII) from the "roads" or impervious surface layer (ASCII), you will need the following:</p>
@@ -131,9 +131,9 @@
           <p>"python .\Permeability_algorithm.py -IMP C:\Temp\roads_5m.asc -PERC 0 -IMP C:\Temp\green_roof_3m.asc -PERC .5</p>
           <p>-IMP C:\Temp\green_infrastructure_10m.asc -PERC .25</p>
           <p>-AOI C:\Temp\ws1_30m_larger_flatalt.asc -OUT C:\Temp\perm.asc"</p>
-          <p>"python C:\Path\To\Permeability_algorithm.py -help" for exact arguments (Figure 4).</p><img width="594" height="152" alt="figure 4" title="figure 4" src="public/suppImage_270.jpg">
+          <p>"python C:\Path\To\Permeability_algorithm.py -help" for exact arguments (Figure 4).</p><img width="594" height="152" alt="figure 4" title="figure 4" src="../../../public/suppImage_270.jpg">
           <p>Figure 28. Command line example of running the pervious surface map algorithm</p>
-          <p>L. The permeability fraction algorithm also can be run from a Python development environment such as IDLE, by editing the default arguments paths of the inputs and outputs in the python code (Figure 4).</p><img width="624" height="203" alt="figure 5" title="figure 5" src="public/suppImage_271.jpg">
+          <p>L. The permeability fraction algorithm also can be run from a Python development environment such as IDLE, by editing the default arguments paths of the inputs and outputs in the python code (Figure 4).</p><img width="624" height="203" alt="figure 5" title="figure 5" src="../../../public/suppImage_271.jpg">
           <p>Figure 29. Default arguments paths.</p>
           <h2>Scripts</h2>
           <p># Pervious_Fraction_Algorithm.py # Author: Paul Pettus, Kevin Djang # Date: 10-11-2016</p>
@@ -182,7 +182,7 @@
           <p># STUB exception handler</p>
           <p># Warning: poor programming style.</p>
           <p># Catches almost any exception (but not KeyboardInterrupt -- which is a Good Thing) raise e</p>
-          <p>def percentPervious(impermFiles, percentPerm, aoiFile = None, outFile = None): # <img width="342" height="1" alt="image" src="public/suppImage_273.png" )p # Modify default or single run input and output files, impervs ascii, AOI raster, and output file.</p>
+          <p>def percentPervious(impermFiles, percentPerm, aoiFile = None, outFile = None): # <img width="342" height="1" alt="image" src="../../../public/suppImage_273.png" )p # Modify default or single run input and output files, impervs ascii, AOI raster, and output file.</p>
           <p>if len(impermFiles) == 0:</p>
           <p>impermFiles = [&#39;D:/Temp/ArgTest/ASCII/roads_5m.asc&#39;, &#39;D:/Temp/ArgTest/ASCII/green_roof_3m.asc&#39;,</p>
           <p>&#39;D:/Temp/ArgTest/ASCII/green_infrastructure_10m.asc&#39;] if len(percentPerm) == 0:</p>

@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -86,7 +86,7 @@
             <li>Specify soil hydraulic conductivity values controlling infiltration rate (Ks), and depth dependent changes invertical and lateral macropore flow, Ksv and Ksl, respectively. See section 4.4 for details.</li>
           </ul>
           <h3 id="4-1">4.1 - Soil ID Map File</h3>
-          <p>The Soil ID Map File is specified by the <i>soilParametersIndexMapFileName </i>parameter. You can view and set itby selecting "4.1 Soil ID Map File" in the All Parameters outline drop-down selector:</p><img width="625" height="136" alt="image" src="public/Image_044.jpg">
+          <p>The Soil ID Map File is specified by the <i>soilParametersIndexMapFileName </i>parameter. You can view and set itby selecting "4.1 Soil ID Map File" in the All Parameters outline drop-down selector:</p><img width="625" height="136" alt="image" src="../../../public/Image_044.jpg">
           <h4>Parameter Definitions</h4>
           <table>
             <thead> 
@@ -101,22 +101,22 @@
           <p>The file specified for the soilParametersIndexMapFileName is assumed to be a Grid ASCII (".asc") map filewith the same row and column dimensions as the simulation configuration's DEM file. Its contents should be integer values. Each cell's integer value should be the ID number of a soiltype.</p>
           <p>Suppose the specified soil index map file contains three distinct integers for this map: 100, 105 and 110. TheVELMA simulation will expect the simulation configuration to include 3 soil parameterizations.</p>
           <h3 id="4-2">4.2 - Soil IDs and Names</h3>
-          <p>Adding a Soil Parameterization to a simulation configuration using the following steps. Click the Edit Soil Parameterizations "Add a New Soil Parameterization" menu item:</p><img width="625" height="193" alt="image" src="public/Image_045.jpg">
-          <p>Clicking "Add a New Soil Parameterization" opens the Soil Parameterization Name and ID dialog which looks likethis:</p><img width="400" height="137" alt="image" src="public/Image_046.jpg">
+          <p>Adding a Soil Parameterization to a simulation configuration using the following steps. Click the Edit Soil Parameterizations "Add a New Soil Parameterization" menu item:</p><img width="625" height="193" alt="image" src="../../../public/Image_045.jpg">
+          <p>Clicking "Add a New Soil Parameterization" opens the Soil Parameterization Name and ID dialog which looks likethis:</p><img width="400" height="137" alt="image" src="../../../public/Image_046.jpg">
           <p>Enter a name and ID number for your new Soil Parameterization.</p>
           <p>The name must be unique (i.e. no other Soil Parameterization already specified for this simulation configurationcan share the name you specify) and we recommend avoiding whitespace and punctuation characters (e.g. "(" and")") apart from the underbar ("_") character, which can be used instead of whitespace.</p>
           <p>The ID number must be an integer, not already specified for any existing Soil Parameterization, and must matchone of the integers that appears in the Soil ID Map File.</p>
           <p>As an example: Suppose we are adding the first Soil Parameterization ("100") for the hypothetical Soil ID MapFile mentioned above, and that ID "100" identifies cells that contain loamy sand.</p>
           <p>Acceptable names (it's guaranteed unique because it's the first Soil Parameterization we're adding) might be:"Loamy_Sand" or "Soil_100_LoamySand", or something similar.</p>
           <p>However, the only acceptable ID value is "100" - because the Unique Soil ID # of this parameterization is whatkeys it to those particular cells in the Soil ID Map File.</p>
-          <p>Once you've entered valid name and ID values in the Name and ID dialog, click the OK button. When you click OK,the VELMA GUI adds a new Soil Parameterization to the simulation configuration, and sets the All Parameterstab's filters to display only the parameters of the newly-added Soil Parameterization. Assuming we named our newSoil Parameterization "Loamy_Sand", with ID = "100", this is what the All Parameters tab would look like afterclicking OK:</p><img width="624" height="193" alt="image" src="public/Image_047.jpg">
+          <p>Once you've entered valid name and ID values in the Name and ID dialog, click the OK button. When you click OK,the VELMA GUI adds a new Soil Parameterization to the simulation configuration, and sets the All Parameterstab's filters to display only the parameters of the newly-added Soil Parameterization. Assuming we named our newSoil Parameterization "Loamy_Sand", with ID = "100", this is what the All Parameters tab would look like afterclicking OK:</p><img width="624" height="193" alt="image" src="../../../public/Image_047.jpg">
           <p>We did one other thing to get the above display: notice that the "Parameter" column is circled, and has a"down-arrow" indicating "descending-sort". After clicking OK to add the new Soil Parameterization, we clickedthe "Parameter" header field (twice), which sorts the table of properties on that column.</p>
           <p>Now go to <i>All Parameters 4.3 </i>and <i>4.4 </i>where parameter values for each soil name/ID will need to bespecified for total soil column depth, thickness of each of four soil layers, and hydrologic parametersaffecting vertical and lateral flow.</p>
           <h3 id="4-3">4.3 - Soil Depth Values</h3>
           <p>There are two methods, direct or indirect, that can be used to specify soil layer depths. The direct and indirectmethods have their own distinct set of parameters that are available to each soil type specified for a givensimulation configuration. Each method has its advantages. Thus, it is up to the user to decide which one to use.Either the direct or indirect set of parameters can be applied to a specified soil type, independent of whichset is applied in other specified soil types.</p>
           <h3 id="4-3-1">4.3.1 - Soil Depth Direct Specification</h3>
           <p>The direct method (optional) for setting a soil type's layer thicknesses uses a comma-separated list of valuesfor the setSoilLayerThicknesses parameter in millimeters for of each of 4 soil layers. For example:&quot;500, 500, 500, 1500&quot; (without the quote-marks) specifies the soil type's 4</p>
-          <p>layers as being 500 mm, 500 mm 500 mm, and 1500 mm thick, from layer 1 to layer 4, respectively.</p><img width="629" height="118" alt="image" src="public/Image_048.jpg">
+          <p>layers as being 500 mm, 500 mm 500 mm, and 1500 mm thick, from layer 1 to layer 4, respectively.</p><img width="629" height="118" alt="image" src="../../../public/Image_048.jpg">
           <h4>Parameter Definitions</h4>
           <table>
             <thead> 
@@ -130,7 +130,7 @@
           </table>
           <p>Thus, for the direct method, VELMA internally calculates the value for the <i>soilColumnDepth </i>parameter fromthe setSoilLayerThicknesses values specified for layers 1, 2, 3 and 4. When setSoilLayerThicknessesis not specified (left blank), the indirect method must be used to specify the soil layer thicknesses andsoil column depth (see All Parameters 4.32).</p>
           <h3 id="4-3-2">4.3.2 - Soil Depth Indirect Specification</h3>
-          <p>As an alternative to the direct method described under <i>All Parameters 4.31</i>, you can instead use theindirect method for specifying a soil type's total soil column depth (parameter = soilColumnDepth, inmillimeters) and soil layer depth (parameter = setSoilLayerWeights, which is equal to the fraction "soillayer thickness / soil column depth".</p><img width="627" height="134" alt="image" src="public/Image_049.jpg">
+          <p>As an alternative to the direct method described under <i>All Parameters 4.31</i>, you can instead use theindirect method for specifying a soil type's total soil column depth (parameter = soilColumnDepth, inmillimeters) and soil layer depth (parameter = setSoilLayerWeights, which is equal to the fraction "soillayer thickness / soil column depth".</p><img width="627" height="134" alt="image" src="../../../public/Image_049.jpg">
           <p>In this example the soil type named "SoilWedge1" has soilColumnDepth = 2000 mm, and setSoilLayerWeights= 0.25, 0.25, 0.25, 0.25 for layers 1, 2, 3 and 4, respectively. VELMA uses these values during asimulation to compute each soil layer's thickness (in millimeters) as:</p>
           <p class="math">layerThickness[iLayer] = soilColumnDepth * soilLayerWeight[iLayer].</p>
           <p>Thus, the parameter values shown in the above example translate to soil layer thicknesses of 500 mm, 500 mm, 500mm, and 500 mm for each layer.</p>
@@ -140,7 +140,7 @@
           <h3 id="4-4-1">4.4.1 - Soil Ks Values Direct Specification</h3>
           <p>Under development - please use the indirect method described in the next section.</p>
           <h3 id="4-4-2">4.4.2 - Soil Ks Values Indirect Specification</h3>
-          <p>We refer to this method as an "indirect&quot; because VELMA internally uses the specified soil Ks parametervalues to calculate the actual soil lateral and vertical hydraulic conductivity (Ks) values used during thesimulation run. You must specify values for 3 parameters for each soil type (in this example, "SoilWedge1"refers to a particular soil type / map unit).</p><img width="626" height="157" alt="image" src="public/Image_050.jpg">
+          <p>We refer to this method as an "indirect&quot; because VELMA internally uses the specified soil Ks parametervalues to calculate the actual soil lateral and vertical hydraulic conductivity (Ks) values used during thesimulation run. You must specify values for 3 parameters for each soil type (in this example, "SoilWedge1"refers to a particular soil type / map unit).</p><img width="626" height="157" alt="image" src="../../../public/Image_050.jpg">
           <h4>Parameter Definitions</h4>
           <table>
             <thead> 
@@ -181,9 +181,9 @@
             <li>Bulk density (parameter name = bulkDensity): the dry weight of soil per unit volume of soil(g/cm3).</li>
           </ul>
           <h4>The following table provides typical values for these parameters for 11 soil texture classes(surface Ks, described above in All Parameters 4.4, is included here as well). The values listedare offered here as a starting point for model initialization. However, users should be aware thatthese values can vary dramatically as a result of compaction, presence of hard pans, and otherfactors.</h4>
-          <p>Table 1. Physical characteristics of major soil texture classes (Pan et al. 2009, VELMA v1.0 user manual)</p><img width="557" height="267" alt="image" src="public/Image_051.png">
+          <p>Table 1. Physical characteristics of major soil texture classes (Pan et al. 2009, VELMA v1.0 user manual)</p><img width="557" height="267" alt="image" src="../../../public/Image_051.png">
           <p>For each soil type in a watershed (we recommend just one texture type per soil type / mapping unit), you willneed to specify values for porosity, field capacity, wilt point and bulk density.</p>
-          <p>Use the All Parameters drop-down menu to select "4.5 Soil Other Hydrologic Parameters (only one of six soil typesis shown in the truncated screenshot below):</p><img width="618" height="142" alt="image" src="public/Image_052.jpg">
+          <p>Use the All Parameters drop-down menu to select "4.5 Soil Other Hydrologic Parameters (only one of six soil typesis shown in the truncated screenshot below):</p><img width="618" height="142" alt="image" src="../../../public/Image_052.jpg">
           <h4>IMPORTANT INFORMATION FOR SECTIONS 5.0 - 25.0 OF THE ALL PARAMETERS TOC</h4>
           <p>VELMA version 2.0 simulates plant biomass and detritus much differently than VELMA version 1.0. Version 1.0 useda simplified Plant Soil Model (PSM, Stieglitz et al. 2006) to simulate plant biomass in each cell in aggregate -that is, leaves, stems and roots were lumped together in a single biomass pool (Abdelnour et al. 2011). Thislumped approach greatly simplified the structure and application of the model. Version 1.0 successfullysimulates important aspects of catchment hydrology and biogeochemistry (e.g., Abdelnour et al. 2011, 2013), butit does not simulate effects associated with phenological changes and disturbances that disproportionatelyaffect specific plant tissues - for example, leaf growth and senescence, defoliation events, selective removalof high or low C/N tissues via harvest or grazing, etc. These effects can have important implications forassessments involving water quality and quantity, carbon sequestration and other ecosystem services.</p>
           <p>To address such effects, VELMA version 2.0 simulates nitrogen pools and fluxes for four plant tissue types:leaves, aboveground stems, belowground stems (&gt;2 mm diameter), and fine roots (&lt; 2 mm</p>
@@ -197,7 +197,7 @@
             <li>A new subroutine describing age-related declines in transpiration of forest stands has been added. Abovegroundplant biomass is used as a proxy for stand age. See All Parameters section 10.3 for details.</li>
           </ol>
           <p>The figure on the next page illustrates the structure of the new LSR submodel and its integration into theoverall Plant Soil Model. Additional Details on the LSR model structure, equations and parameterscan be found in &quot;</a>Appendix 1: Overview of VELMA'sLeaf-Stem-Root (LSR) Plant Biomass Submodel". We recommend reviewing this material before proceeding further, focusing on the LSR model structureand equations describing the various LSR nitrogen and carbon pools and fluxes.</p>
-          <p>Figure 1.</p><img width="659" height="500" alt="image" src="public/Image_053.png">
+          <p>Figure 1.</p><img width="659" height="500" alt="image" src="../../../public/Image_053.png">
           <p>The User Manual package includes slides for a seminar describing the effectiveness of riparian buffers for protecting water quality in the Chesapeake Bay.</p>
           <p>Filename: McKane_VELMA overview_OSU 2April2014_final.pptx Folder location: VELMAModel\Supporting Documents\VELMA Pubs &amp; Talks</p>
         </div>

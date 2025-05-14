@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -93,14 +93,14 @@
           <h2>Adding a Cell Data Writer to a Simulation Configuration</h2>
           <p>Cell Data Writers are optional. Simulation configurations contain zero instances of them by default. When added, they do not change the simulation computations - they are only involved in reporting results.</p>
           <p>To add a Cell Data Writer to your simulation configuration:</p>
-          <p>Click the "Edit" --> "Cell Data Writer" --> "Add a New Cell Writer" menu item.</p><img width="625" height="192" alt="Add new cell writer example on GUI" src="public/suppImage_233.jpg">
-          <p>Clicking "Add a New Cell Writer" opens the Cell Writer Name dialog, which looks like this:</p><img width="400" height="137" alt="Specify cell writer name popup" src="public/suppImage_234.jpg">
+          <p>Click the "Edit" --> "Cell Data Writer" --> "Add a New Cell Writer" menu item.</p><img width="625" height="192" alt="Add new cell writer example on GUI" src="../../../public/suppImage_233.jpg">
+          <p>Clicking "Add a New Cell Writer" opens the Cell Writer Name dialog, which looks like this:</p><img width="400" height="137" alt="Specify cell writer name popup" src="../../../public/suppImage_234.jpg">
           <p>Enter a name for your new Cell Data Writer and click "OK".</p>
           <p>The name must be unique (i.e. no other Cell Data Writer already specified for this simulation configuration can share the name you specify) and we recommend avoiding whitespace and</p>
           <p>punctuation characters (e.g. "(" and ")"). An acceptable example name (assuming it's not already in use by another Cell Data Writer might be "Probe_Point_1" or maybe "Outlet_Cell".</p>
           <h2>Configuring a Cell Data Writer's Parameters</h2>
           <p>After you click OK in the Cell Data Writer's naming dialog, the VELMA GUI adds the Cell Data Writer to the simulation configuration, and sets the All Parameters tab's filters to display only the parameters of the newly-added Cell Data Writer.</p>
-          <p>Assuming we named our new Cell Data Writer "Probe_Point_1" and clicked OK, the VELMA GUI would look like this afterwards:</p><img width="599" height="203" alt="Result of adding new cell data writer" src="public/suppImage_235.jpg">
+          <p>Assuming we named our new Cell Data Writer "Probe_Point_1" and clicked OK, the VELMA GUI would look like this afterwards:</p><img width="599" height="203" alt="Result of adding new cell data writer" src="../../../public/suppImage_235.jpg">
           <p>Notice, in passing, that the configuration outline does <i>not </i>automatically get set by the GUI. In the example screen capture above, it displays "0.0 All Configuration Parameters" - which is not what is being displayed in the parameterization table. This behavior is harmless.</p>
           <p>A Cell Data Writer has only 2 parameters, but they must both be set correctly: <i>none are optional</i>.</p>
           <p>Set the cellX parameter's value to the X-coordinate (i.e. column value) of the cell you want data reported for. The valid range is from 0 (the leftmost column) to (number of columns - 1).</p>

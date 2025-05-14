@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -92,14 +92,14 @@
           </ol>
           <ol> 
             <li> <a href="https://www.python.org.html">Python</a> comes pre-packaged within ArcGIS, so it is likely you already have it installed on your computer. For example, mine is installed currently here: C:\Python27\ArcGIS10.2\python.exe. Check to see if you have Python installed before installing a new version. Note that Python 3.12 is currently considered safe for use on U.S. EPA network and non-network computers.</li>
-            <li>ArcPy is a python package that comes pre-installed with ArcGIS. You can test that you have access to ArcPy by opening your Python executable and typing 'import arcpy' into the command line. If you receive no error, then you have ArcPy installed appropriately.<img width="469" height="239" alt="Checking arcpy install via the command line" src="public/suppImage_236.jpg"><span>
+            <li>ArcPy is a python package that comes pre-installed with ArcGIS. You can test that you have access to ArcPy by opening your Python executable and typing 'import arcpy' into the command line. If you receive no error, then you have ArcPy installed appropriately.<img width="469" height="239" alt="Checking arcpy install via the command line" src="../../../public/suppImage_236.jpg"><span>
                  <a href="http://pro.arcgis.com/en/pro-app/arcpy/get-started/importing-arcpy.htm.html">If you have problems importing ArcPy click here</a></span></li>
             <li><b>Velma2Bluesky Python Algorithm: </b>This file is called VELMA2BLUESKY.py and can be run using a command line command: "python C:\Path\To\VELMA2BLUESKY.py". It can also be edited directly with any text editor (e.g., Notepad, EMACS)</li>
           </ol>
           <h2>Steps for running the VELMA2BLUESKY.py script</h2>
           <ol> 
-            <li>First, navigate to the directory that contains the Bluesky script. In this example, the script is called VELMA2BLUESKY_2016-10-11.py, but you can rename it if you would like.<img width="607" height="234" alt="File explorer example" src="public/suppImage_237.jpg"></li>
-            <li>You can open the file with any text editor, as shown here:<img width="558" height="373" alt="opening velma2bluesky.py in text editor" src="public/suppImage_238.png"></li>
+            <li>First, navigate to the directory that contains the Bluesky script. In this example, the script is called VELMA2BLUESKY_2016-10-11.py, but you can rename it if you would like.<img width="607" height="234" alt="File explorer example" src="../../../public/suppImage_237.jpg"></li>
+            <li>You can open the file with any text editor, as shown here:<img width="558" height="373" alt="opening velma2bluesky.py in text editor" src="../../../public/suppImage_238.png"></li>
             <li>You will need to change the paths within the script to make it work on your system.
               <ul> 
                 <li>dataLoc = This should be the path to your data directory that contains VELMA output files.</li>
@@ -108,14 +108,14 @@
                 <li>finalOutputDir = This directory will hold the Bluesky inputs after the script is run.</li>
               </ul><span>
                 <h5>NOTE: The tempFilesDir and finalOutputDir must exist and they must be empty for the script to work properly. If you receive an error, make sure that these paths are correct and that there are no files in the tempFilesDir or finalOutputDir.</h5>
-                <p>Below is an example of a proper specification of paths:</p><img width="605" height="85" alt="Alter paths in text editor to users use case" src="public/suppImage_239.jpg"></span>
+                <p>Below is an example of a proper specification of paths:</p><img width="605" height="85" alt="Alter paths in text editor to users use case" src="../../../public/suppImage_239.jpg"></span>
             </li>
-            <li>You will also need to set the cellArea in the script. You obtain the cellArea variable by squaring the original size of your VELMA cell. That is, if you have a 30m grid, you will input a cellArea = 30x30 = 900.<img width="599" height="87" alt="Setting the cellArea variable" src="public/suppImage_240.jpg"></li>
-            <li>To run the script, start by opening a command window. You can also open the script file in IDLE or another Python user environment if you know how to do this. For the command line method, on Windows, click Start -&gt; Search for Programs or Files -&gt; type in "cmd" and click on cmd.exe. Then, navigate to the directory where you have your VELMA files using the 'cd' command.<img width="556" height="159" alt="Running script in IDLE" src="public/suppImage_241.jpg"></li>
-            <li>Finally, use your python.exe file to run the script using the following command: C:\path\to\python.exe D:\Path\to\VELMA2BLUESKY_2016_10-11.py An example is shown below. Note that my python.exe program is located at C:\Python27\ArcGIS10.2\python.exe<img width="605" height="141" alt="Run script using python.exe" src="public/suppImage_242.jpg">
-              <p>The program will begin and will display the following output. If you receive an error, check the error carefully and determine whether or not you have properly configured your paths and made sure that you have the proper software configuration (ArcGIS with Spatial Analyst, ArcPy, etc.)</p><img width="616" height="306" alt="Output of script running" src="public/suppImage_243.jpg">
+            <li>You will also need to set the cellArea in the script. You obtain the cellArea variable by squaring the original size of your VELMA cell. That is, if you have a 30m grid, you will input a cellArea = 30x30 = 900.<img width="599" height="87" alt="Setting the cellArea variable" src="../../../public/suppImage_240.jpg"></li>
+            <li>To run the script, start by opening a command window. You can also open the script file in IDLE or another Python user environment if you know how to do this. For the command line method, on Windows, click Start -&gt; Search for Programs or Files -&gt; type in "cmd" and click on cmd.exe. Then, navigate to the directory where you have your VELMA files using the 'cd' command.<img width="556" height="159" alt="Running script in IDLE" src="../../../public/suppImage_241.jpg"></li>
+            <li>Finally, use your python.exe file to run the script using the following command: C:\path\to\python.exe D:\Path\to\VELMA2BLUESKY_2016_10-11.py An example is shown below. Note that my python.exe program is located at C:\Python27\ArcGIS10.2\python.exe<img width="605" height="141" alt="Run script using python.exe" src="../../../public/suppImage_242.jpg">
+              <p>The program will begin and will display the following output. If you receive an error, check the error carefully and determine whether or not you have properly configured your paths and made sure that you have the proper software configuration (ArcGIS with Spatial Analyst, ArcPy, etc.)</p><img width="616" height="306" alt="Output of script running" src="../../../public/suppImage_243.jpg">
             </li>
-            <li>Check your output directory for output files.<img width="563" height="129" alt="Example of output directory with output files" src="public/suppImage_244.jpg"></li>
+            <li>Check your output directory for output files.<img width="563" height="129" alt="Example of output directory with output files" src="../../../public/suppImage_244.jpg"></li>
             <li>You can view the output files using a text or spreadsheet editor.</li>
           </ol>
           <h3>Scripts</h3>
@@ -139,7 +139,7 @@
           <p>asciiaoi = &quot;L:/Priv/CORFiles/Projects/Velma/Kansas_Project/VELMA_SETUPS_WORKSHOP/Velma_Outputs/KS_Flint_Cent ral_Small_125m_wbFixup_AST2_2017-01- 30_historicBurnPlusGraze/Spatial_BURNED_BIOMASS_AG_STEM_C_ALL_1_2000_88.asc&quot;</p>
           <p>tempFilesDir = &quot;L:/Priv/CORFiles/Projects/Velma/Kansas_Project/VELMA_SETUPS_WORKSHOP/Velma_Outputs/temp/&quot; finalOutputDir = &quot;L:/Priv/CORFiles/Projects/Velma/Kansas_Project/VELMA_SETUPS_WORKSHOP/Velma_Outputs/toolOutput/&quot; ####</p>
           <p>## Edit the Cell size</p>
-          <p>##cellSize = 900 #width x length for square meters (30m x 30m) cellSize = 15625 #width x length for square meters (125m x 125m)img(width="499" height="1" alt="image" src="public/suppImage_249.png")</p>
+          <p>##cellSize = 900 #width x length for square meters (30m x 30m) cellSize = 15625 #width x length for square meters (125m x 125m)img(width="499" height="1" alt="image" src="../../../public/suppImage_249.png")</p>
           <p>#</p>
           <p>print &quot;Starting data clean up...&quot;</p>
           <p>outDirStep1 = tempFilesDir + &quot;temp-HeaderFixed/&quot;</p>

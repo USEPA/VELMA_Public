@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -226,8 +226,8 @@
               <td>4</td>
               <td>N g/m^2</td>
             </tr>
-          </table><br><img width="243" height="80" alt="image" src="public/Image_179.png"><img width="435" height="311" alt="image" src="public/Image_180.png"><img width="98" height="43" alt="image" src="public/Image_181.png"><img width="98" height="43" alt="image" src="public/Image_182.png"><img width="435" height="82" alt="image" src="public/Image_183.png"><img width="98" height="43" alt="image" src="public/Image_184.png">
-          <p>Figure 1. Process flow diagram of ratio (fractions) processing of "observed" above ground biomass (g / m²) to thefinal nitrogen (g / m²) spatial data pools for VELMA's initialization of disturbance events.</p><img width="673" height="496" alt="image" src="public/Image_185.jpg">
+          </table><br><img width="243" height="80" alt="image" src="../../../public/Image_179.png"><img width="435" height="311" alt="image" src="../../../public/Image_180.png"><img width="98" height="43" alt="image" src="../../../public/Image_181.png"><img width="98" height="43" alt="image" src="../../../public/Image_182.png"><img width="435" height="82" alt="image" src="../../../public/Image_183.png"><img width="98" height="43" alt="image" src="../../../public/Image_184.png">
+          <p>Figure 1. Process flow diagram of ratio (fractions) processing of "observed" above ground biomass (g / m²) to thefinal nitrogen (g / m²) spatial data pools for VELMA's initialization of disturbance events.</p><img width="673" height="496" alt="image" src="../../../public/Image_185.jpg">
           <p>Figure 2. Quality control check of Python script's dynamic conversions of "observed" above ground biomass (g /m²) to the final nitrogen (g / m²) spatial data pools. Conversion of biomass (g / m²) to the final nitrogen (g /m²) were made through an intermediate step of converting mass to carbon (g / m²), and then using different C toN ratios for each pool to calculate the final nitrogen pools. Fractions (ratios) of spatial pools change both inthe positive and negative direction as a forest ages or increases in total biomass. Ratio pools can increases ordecreases between stand age increments, and the calculations of these intermediate biomass observational valuesmust reflect this dynamic nature of changing ratios between time steps. Intermediate values of biomass, thosethat land in between time step years, were therefore linearly interpolated between the time point bounds.Spatial map ASCII grid values for each of the 37 pools should then backward match ratio conversions and final Cto N calculations to the original "observed" above ground biomass. (Only a partial list of pools is displayedhere).</p>
           <p>Example: A mid biomass cell value at B10 = 3276 (g / m²) and is part way between stand age values at L9 and L10.It's above ground stem carbon mass fraction increases from 0.8609 (D9) to 0.8642 (D10). So its fraction stemmass (column D) should increase as its percentage difference moves from L9 towards LD10. Conversely, for all theother pool attributes, its percentage difference would increase as its fraction moves the opposite directionfrom rows 10 to rows 9.</p>
         </div>

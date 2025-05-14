@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -97,22 +97,22 @@
           <h3>JPDEM Must Have Flat-Processed DEM and Flow Data Available for Delineation</h3>
           <p>Use JPDEM to flat-process the map containing your overall watershed before you use JPDEM to determine the sub-reach outlet locations. Flat-process the raw DEM .asc file, save it to a new .asc file, and then close JPDEM, restart it, and load the new, flat-processed .asc file. If you already have a flat- processed .asc file available, you can simply start JPDEM and load it.</p>
           <p>Once you have flat-processed DEM map loaded in JPDEM, use the "Determine DEM Flow" tool to generate flow and direction information. (The delineation tools need this information to figure how which cells flow to which reach outlets.)</p>
-          <p>Click the "Tools" -&gt; "Determine DEM Flow Data (Alternate)" menu item, as shown in the following</p><img width="587" height="295" alt="screenshot" title="screenshot" src="public/suppImage_139.jpg">
+          <p>Click the "Tools" -&gt; "Determine DEM Flow Data (Alternate)" menu item, as shown in the following</p><img width="587" height="295" alt="screenshot" title="screenshot" src="../../../public/suppImage_139.jpg">
           <p>Delineate the Overall Watershed First</p>
-          <p>After JPDEM determines the flat-processed DEM's flow data, the map display should so a grayscale image like this:</p><img width="586" height="375" alt="screenshot" title="screenshot" src="public/suppImage_140.jpg">
-          <p>Set the Outlet X= and Y= fields to the x,y coordinates of the primary outlet for your watershed (i.e. the cell location of the pour point for the entire watershed), then click the "Tools" -&gt; "Delineate DEM Data (Experimental)" menu item.</p><img width="608" height="391" alt="screenshot" title="screenshot" src="public/suppImage_141.jpg">
+          <p>After JPDEM determines the flat-processed DEM's flow data, the map display should so a grayscale image like this:</p><img width="586" height="375" alt="screenshot" title="screenshot" src="../../../public/suppImage_140.jpg">
+          <p>Set the Outlet X= and Y= fields to the x,y coordinates of the primary outlet for your watershed (i.e. the cell location of the pour point for the entire watershed), then click the "Tools" -&gt; "Delineate DEM Data (Experimental)" menu item.</p><img width="608" height="391" alt="screenshot" title="screenshot" src="../../../public/suppImage_141.jpg">
           <h3>Display the Overall Delineation, and the High-Flow Paths</h3>
-          <p>Once it is delineated, the watershed is clearly marked in JPDEM's map display:</p><img width="586" height="375" alt="screenshot" title="screenshot" src="public/suppImage_142.jpg">
+          <p>Once it is delineated, the watershed is clearly marked in JPDEM's map display:</p><img width="586" height="375" alt="screenshot" title="screenshot" src="../../../public/suppImage_142.jpg">
           <p>Usually, you'll want to choose sub-reach outlet locations at forks in the highest-flow paths of the watershed. You can see those paths by clicking the "Facc Threshold" checkbox, then typing a cell count in the numeric field to its right.</p>
-          <p>In the example below, the Facc Threshold is set to 75, which means that any cell colored red has 75 or more cells flowing into it.</p><img width="586" height="375" alt="screenshot" title="screenshot" src="public/suppImage_143.jpg">
+          <p>In the example below, the Facc Threshold is set to 75, which means that any cell colored red has 75 or more cells flowing into it.</p><img width="586" height="375" alt="screenshot" title="screenshot" src="../../../public/suppImage_143.jpg">
           <p>Note that when the Facc Threshold indicator is checked, the watershed area is not shown. You can switch back and forth between the two display modes by repeatedly clicking the Facc Threshold checkbox.</p>
           <h3>Determining Sub-Reach Outlets Manually</h3>
           <p>Using the Delineation and Facc Threshold displays, you can see which cells are in the overall watershed, and which of those in-watershed cells form the highest flow paths. The process of determining the cell locations of sub-reaches is as follows:</p>
           <p>First, with the Outlet X and Y values set to the overall watershed's outlet location, click the "Tools" -&gt;</p>
-          <p>"Add Current Outlet to Outlets Set":</p><img width="591" height="502" alt="screenshot" title="screenshot" src="public/suppImage_144.jpg">
+          <p>"Add Current Outlet to Outlets Set":</p><img width="591" height="502" alt="screenshot" title="screenshot" src="../../../public/suppImage_144.jpg">
           <p>The "current outlet" is the outlet whose X and Y coordinates are specified in upper right numeric fields of JPDEM's status bar.</p>
           <p>Once the overall watershed's outlet is recorded, adding other, sub-reach outlets is simply a matter of changing the current outlet X and Y values, and click the "Add Current Outlet …" menu item again.</p>
-          <p>You can directly enter the X and Y value of each new sub-reach outlet into the Outlet X=, Y= fields, but if you don't know the exact coordinates, you can left-click, then hold-left-button + drag-to-select "Cell at …" - when you un-hold the left mouse button, the current outlet will change to the selected "Cell at …" and you can then add it using the "Add Current Outlet …" menu item.</p><img width="586" height="375" alt="screenshot" title="screenshot" src="public/suppImage_145.jpg"><img width="586" height="375" alt="screenshot" title="screenshot" src="public/suppImage_146.jpg">
+          <p>You can directly enter the X and Y value of each new sub-reach outlet into the Outlet X=, Y= fields, but if you don't know the exact coordinates, you can left-click, then hold-left-button + drag-to-select "Cell at …" - when you un-hold the left mouse button, the current outlet will change to the selected "Cell at …" and you can then add it using the "Add Current Outlet …" menu item.</p><img width="586" height="375" alt="screenshot" title="screenshot" src="../../../public/suppImage_145.jpg"><img width="586" height="375" alt="screenshot" title="screenshot" src="../../../public/suppImage_146.jpg">
           <p>Unfortunately, if you add a cell to the outlet set by mistake, there's no way to undo that particular cell's addition. You must click the "Tools" -&gt; "Clear Outlets Set" menu item, and the start over, re-adding the overall watershed outlet, and then all the sub-reach outlet cell's in turn.</p>
           <p>JPDEM doesn't currently provide any confirmation when you "Add Current Outlet …", however it does</p>
           <p>echo a statement to the console window it was started from.</p>
@@ -127,28 +127,28 @@
           <p>output won't be available. Also, the above doesn't provide the X, Y coordinates, which are handy if you</p>
           <p>want to set Cell Data Writers in JVelma for each sub-reach.</p>
           <p>JPDEM does provide a way to view the Outlet Set, but it is a bit confusing.</p>
-          <p>Click the "Tools" -&gt; "Generation Delineation Set" menu item:</p><img width="590" height="503" alt="screenshot" title="screenshot" src="public/suppImage_147.jpg">
+          <p>Click the "Tools" -&gt; "Generation Delineation Set" menu item:</p><img width="590" height="503" alt="screenshot" title="screenshot" src="../../../public/suppImage_147.jpg">
           <p>This pops up a File Dialog - however, YOU'RE NOT ACTUALLY GOING TO GENERATE A DELINEATION SET.</p>
-          <p>Simply Click the "Cancel" button:</p><img width="588" height="377" alt="screenshot" title="screenshot" src="public/suppImage_148.jpg">
-          <p>Clicking the cancel button brings up a summary dialog window, containing the details of the set of outlets, <i><b>without </b></i>actually performing the "Group Delineation" that it claims is completed:</p><img width="569" height="484" alt="screenshot" title="screenshot" src="public/suppImage_149.jpg">
+          <p>Simply Click the "Cancel" button:</p><img width="588" height="377" alt="screenshot" title="screenshot" src="../../../public/suppImage_148.jpg">
+          <p>Clicking the cancel button brings up a summary dialog window, containing the details of the set of outlets, <i><b>without </b></i>actually performing the "Group Delineation" that it claims is completed:</p><img width="569" height="484" alt="screenshot" title="screenshot" src="../../../public/suppImage_149.jpg">
           <p>You can highlight-select-copy the text in this window.</p>
           <p>We recommend paste/saving it to a Notepad .txt file for later reference.</p>
-          <p>You can also view the sub-reaches by clicking the "Tools" -&gt; "View Delineation Set Areas" menu item, but the Image Scale is fixed at "1", which may make small maps hard to read:</p><img width="587" height="377" alt="screenshot" title="screenshot" src="public/suppImage_150.jpg">
+          <p>You can also view the sub-reaches by clicking the "Tools" -&gt; "View Delineation Set Areas" menu item, but the Image Scale is fixed at "1", which may make small maps hard to read:</p><img width="587" height="377" alt="screenshot" title="screenshot" src="../../../public/suppImage_150.jpg">
           <h3>Using the Sub-Reach Delineation Outlets with JVelma</h3>
           <p>Once you've found a set of sub-reach delineations that identify the cells for which you want to determine runoff, you'll need to configure a VELMA simulation configuration (using JVelma) to use those locations.</p>
           <p>Start JVelma, and either create a new configuration using the DEM you found sub-reaches for, or load an existing .xml configuration file that uses that DEM.</p>
           <p>In the "Run Parameters" Tab, under "Sub-Reach Mapping Controls", click the drop-down selector and choose "MULTI_MODE", then type the overall watershed outlet index value and the other sub-reach outlet index values into the numeric field to the right of the mode selector.</p>
           <p>The following example shows an existing .xml configuration file being changed from solo mode to multi. (continued)</p>
-          <p>The original configuration:</p><img width="619" height="198" alt="screenshot" title="screenshot" src="public/suppImage_151.jpg">
-          <p>Setting the mode:</p><img width="619" height="216" alt="screenshot" title="screenshot" src="public/suppImage_152.jpg">
-          <p>Adding the sub-reach indices:</p><img width="618" height="191" alt="screenshot" title="screenshot" src="public/suppImage_153.jpg">
+          <p>The original configuration:</p><img width="619" height="198" alt="screenshot" title="screenshot" src="../../../public/suppImage_151.jpg">
+          <p>Setting the mode:</p><img width="619" height="216" alt="screenshot" title="screenshot" src="../../../public/suppImage_152.jpg">
+          <p>Adding the sub-reach indices:</p><img width="618" height="191" alt="screenshot" title="screenshot" src="../../../public/suppImage_153.jpg">
           <p>When this simulation configuration is started, the VELMA simulation engine notes the MULTI_MODE setting and the list of outlets, and reports runoff for each of the specified sub-reaches. It also writes an</p>
           <p>.asc file mapping the cells of the overall watershed to their specific reach-id values (which are listed in the ReachSummary.csv file).</p>
           <p>After running the above simulation via JVelma, here is the ReachSummary.csv file's contents, opened</p>
-          <p>using Excel:</p><img width="624" height="378" alt="screenshot" title="screenshot" src="public/suppImage_154.jpg">
+          <p>using Excel:</p><img width="624" height="378" alt="screenshot" title="screenshot" src="../../../public/suppImage_154.jpg">
           <p>The ReachSummary.csv contains 1 row for each sub-reach, and lists the linear index and X,Y coordinates of the each reach's outlet, plus the number of cells in the reach, and a list of the other reaches that flow into it.</p>
           <p>The daily runoff values for each reach are listed in the ReachFlowResults.csv and ReachFlowContributions.csv files.</p>
-          <p>Here are the first 10 simulation days from the ReachFlowResults.csv file:</p><img width="429" height="421" alt="screenshot" title="screenshot" src="public/suppImage_155.jpg">
+          <p>Here are the first 10 simulation days from the ReachFlowResults.csv file:</p><img width="429" height="421" alt="screenshot" title="screenshot" src="../../../public/suppImage_155.jpg">
           <h4>AN IMPORTANT CONSIDERATION:</h4>
           <p>The contents of the ReachFlowResults.csv and ReachFlowContributions.csv files depend upon how you run the VELMA simulation.</p>
           <p>When you use JVelma or VelmaSimulatorCmdLine to run your simulation, the contents of the ReachFlowResults.csv and ReachFlowContributions.csv files will show the same values.</p>

@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -157,15 +157,15 @@
           </ul>
           <p>The example given above includes a header row, but a header row is not required. The drain config .csv data file could consist of only the 2 data rows and still be valid.</p>
           <p>The example configuration above result in the network of drain "pipes" illustrated below:</p>
-          <p><img src="public/image-WaterDrainNetworkMap_1.PNG" alt="An example watershed annotated with drains data"></p>
+          <p><img src="../../../public/image-WaterDrainNetworkMap_1.PNG" alt="An example watershed annotated with drains data"></p>
           <h2>Adding a WaterDrainDisturbanceModel Parameterization to a VELMA Configuration</h2>
           <p>Start with an appropriate VELMA simulation configuration .xml file.</p>
           <p>Load the file into JVelma and click the "Edit" -> "Disturbances" -> "Add a Disturbance" menu item:</p>
-          <p><img src="public/image-JVelma_AddDisturbance_Menu.PNG" alt="Add a Disturbance menu selection"></p>
+          <p><img src="../../../public/image-JVelma_AddDisturbance_Menu.PNG" alt="Add a Disturbance menu selection"></p>
           <p>In the "Specify Disturbance Model Type and Name" pop-up dialog that opens, click the drop-down selector, scroll down, and click-select the "WaterDrainDisturbanceModel" type:</p>
-          <p><img src="public/image-JVelma_SpecifyModelTypeName_DialogSelector.PNG" alt="Specify Disturbance Model Type and Name pop-up dialog"></p>
+          <p><img src="../../../public/image-JVelma_SpecifyModelTypeName_DialogSelector.PNG" alt="Specify Disturbance Model Type and Name pop-up dialog"></p>
           <p>After selecting WaterDrainDisturbanceModel as the type, enter a unique name for the disturbance in ihe “Disturbance Name' field of the dialog. Finally, click the OK button, which adds a new parameterization group to the simulation configuration and changes JVelma's display to the “All Parameters” tab, with the item-level filter set to only display the parameters for the newly-added Water Drain Disturbance:</p>
-          <p><img src="public/image-JVelma_AllParameters_WaterDrainDisturbance.PNG" alt="A new water drain disturbance parameterization group in JVelma's All Parameters tab"></p>
+          <p><img src="../../../public/image-JVelma_AllParameters_WaterDrainDisturbance.PNG" alt="A new water drain disturbance parameterization group in JVelma's All Parameters tab"></p>
           <p>Nearly all of the (many) parameters required to configure a Water Drain Disturbance are for its drain "pipes", and reside in the <a>drain configuration</a> file. That file is one of the few things that you must specify in the Water Drain Disturbance's parameterization group.</p>
           <p>The goup's parameters initially have these default values:</p>
           <table>

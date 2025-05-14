@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -82,7 +82,7 @@
           <p>This guide explains what the <code>MoeVelGenerator</code> utility tool is for, and how to use it.</p>
           <h2>Background</h2>
           <p>Running the MOEA Framework for VELMA produces a MOEA outputs .csv file with multiple rows of results, one row per VELMA simulation run. Via the values in its columns, a given row reports the objective scores and VELMA parameters settings (categorized into "variables", "followers", and "exclusives") unique to a particular VELMA run.</p>
-          <p>As an example, here is a screen-capture of part of the contents of a MOEA outputs.csv file: </p><img src="public/image-moeaOutput_inExcel_example.PNG" alt="part of the contents of a MOEA outputs.csv file">
+          <p>As an example, here is a screen-capture of part of the contents of a MOEA outputs.csv file: </p><img src="../../../public/image-moeaOutput_inExcel_example.PNG" alt="part of the contents of a MOEA outputs.csv file">
           <p>With the contents of the MOEA output .csv file available, the next step in the user's workflow is usually an analysis of which VELMA simulation runs (i.e. rows of MOEA output) are the "best" -- based on the objectives columns scores. For one or more of these best runs, the user typically wishes to re-run VELMA outside of MOEA, to generate full VELMA results and analyze them in detail. But, in order to run VELMA with the same simulation configuration parameters that produced the "best" row of objectives scores the user must recreate the specific .xml configuration file that MOEA ran VELMA with, because MOEA does not report/save that .xml file anywhere.</p>
           <p>The .xml file for a particular row can be created by duplicating the original ("source") VELMA simulation configuration .xml file (specified for use when MOEA ran), and then subsituting each value in the row from a column representing a VELMA parameter inot the duplcate .xml. When this process in completed, the duplicate .xml <em>is</em> the .xml file that MOEA ran to produce the results for the given output row.</p>
           <p>Although perhaps not <em>exactly</em> the same: the user will likely set VELMA's <code>suppressAllOutputFiles</code> false instead of true, and change the <code>run_index</code> and .xml file's name to make it and its full results directory easy to identify.</p>
@@ -99,21 +99,21 @@
           <p>These instructions start assuming you have already run MOEA for VELMA, and the MOEA configuration and outputs .csv files are available and accessible.</p>
           <h3>Determine the VELMA simulation configuration .xml file used as the source for the MOEA output results.</h3>
           <p>The original ("source") VELMA simulation configuration .xml file that MOEA used to build the .xml files for each row of its output results is specified in MOEA's own configuration .csv file. Open that file and find the configuration record (row) containing the keyword "VELMA_SOURCE". The third column in the row should contain the fully-qualified path + name of the VELMA source .xml file. Make a note of this path + file name for use as the <code>velma_xml_source</code> command line argument in Step 3 below.</p>
-          <p>You can look for VELMA_SOURCE either by opening the MOEA configuration .csv file in Excel, or by using PowerShell's <code>Select-String</code> cmdlet. Here are examples of each:<br> In Excel:<br> <img src="public/image-howto_excel_velma_source.PNG" alt="Excel Velma Source"> Via <code>Select-String</code>:<br> <img src="public/image-howto_select-string_velma_source.PNG" alt="Select velma source string in powershell"></p>
+          <p>You can look for VELMA_SOURCE either by opening the MOEA configuration .csv file in Excel, or by using PowerShell's <code>Select-String</code> cmdlet. Here are examples of each:<br> In Excel:<br> <img src="../../../public/image-howto_excel_velma_source.PNG" alt="Excel Velma Source"> Via <code>Select-String</code>:<br> <img src="../../../public/image-howto_select-string_velma_source.PNG" alt="Select velma source string in powershell"></p>
           <h3>Open a PowerShell command window</h3>
           <p><em>(Note: there are many ways of opening PowerShell -- this guide details only one of them.)</em></p>
           <ol>
             <li>Click the Windows Start icon to open the start menu. Note: do not click into the menu, just open it.</li>
             <li>Type "powershell": Windows will replace the start menu with its search results menu.</li>
             <li>Click the "Windows PowerShell" desktop app: it should be the "Best match", at the top of the list of search results.</li>
-          </ol><img src="public/image-howto_invoke_powershell.PNG" alt="How to open powershell">
+          </ol><img src="../../../public/image-howto_invoke_powershell.PNG" alt="How to open powershell">
           <h3>Run MoeVelGenerator</h3>
           <p>As mentioned, you must have Python 3 installed and available via the Powershell command window to run <code>MoeVelmGenerator</code>.</p>
           <p>To run MoeVelGenerator, start Python 3 and pass it the fully-qualified location and name of the MoeVelGenerator .py file, followed by command line arguments for MoeVelGenerator.</p>
           <p>(Typically, Python 3 is started from a PowerShell as <code>py -3</code>, however this may differ on your system; <code>python</code> and <code>python3</code> are other possibilities.)</p>
           <p>But wait -- what <em>are</em> the command line arguments for MoeVelGenerator?</p>
           <p>You can pass MoeVelGenerator the single argument "-h" or "--help" to ask it list its required and optional arguments.</p>
-          <p>Here is an example, run immediately after starting a Windows Powershell as detailed above in Step 2:</p><img src="public/image-invoke_moevelgenerator_helparg.PNG" alt="Invoke moevelgenerator.py from powershell">
+          <p>Here is an example, run immediately after starting a Windows Powershell as detailed above in Step 2:</p><img src="../../../public/image-invoke_moevelgenerator_helparg.PNG" alt="Invoke moevelgenerator.py from powershell">
           <p>As the help message indicates, there are 3 required and 1 optional command line arguments that must must appear in the order shown by the message. (The help message refers to these 4 arguments as <em>positional</em> because they must appear on the command line in the order specified)</p>
           <ol>
             <li><code>moea_csv_filename</code><br> (required) the path and filename of the MOEA outputs .csv file to extract parameterization data from.</li>
@@ -122,7 +122,7 @@
             <li><code>velma_xml_target</code><br> (optional -- but <em>highly</em> recommended) the name of the VELMA simulation configuration file that <code>MoeVelGenerator</code> will create.</li>
           </ol>
           <h3>What about when the VELMA target .xml file already exists?</h3>
-          <p><code>MoeVelGenerator</code> won't automatically overwrite a pre-existing file specified by <code>velma_xml_target</code>, however, you can force it to do so by adding the optional <code>--overwrite</code> argument to the end of the command line.<br> The following example illustrates how this works, by first generating a new .xml file, then attempting (and not) overwriting it, then successfully overwriting it by including the prescribed argument:</p><img src="public/image-moevelgenerator_write-then-overwrite_cmdline_example.PNG" alt="Write then overwrite command line example">
+          <p><code>MoeVelGenerator</code> won't automatically overwrite a pre-existing file specified by <code>velma_xml_target</code>, however, you can force it to do so by adding the optional <code>--overwrite</code> argument to the end of the command line.<br> The following example illustrates how this works, by first generating a new .xml file, then attempting (and not) overwriting it, then successfully overwriting it by including the prescribed argument:</p><img src="../../../public/image-moevelgenerator_write-then-overwrite_cmdline_example.PNG" alt="Write then overwrite command line example">
           <h3>What happens when the VELMA target .xml file is <em>not</em> specified?</h3>
           <p>As noted, the <code>velma_xml_target</code> argument is not required, but it is highly recommended.<br> When it is left off the command line, <code>MoeVelGenerator</code> echoes the .xml file that it would have written to stdout (i.e. the PowerShell command window itself) instead. It is possible to still capture the xml by redirecting stdout to a file, but we recommend against this. For one thing, there is no check for whether the file you redirect stdout to exists or not, so capturing the output in this way circumvents the "file already exists?" check that <code>MoeVelGenerator</code> would have performed for you. For another, the automatic equating of the VELMA <code>run_index</code> parameter and the <code>velma_xml_target</code> file name doesn't happen.</p>
           <h3>What about the <code>run_index</code> and <code>suppressAllOutputFiles</code> parameters?</h3>

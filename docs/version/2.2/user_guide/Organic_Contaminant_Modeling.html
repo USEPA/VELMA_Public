@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -101,7 +101,7 @@
           </ol>
           <p>Sections 2.1 and 2.2 describe the conceptual basis for the partitioning and transport modeling steps in VELMA.</p>
           <h2>2.1 Contaminant Partitioning between Sorbed and Aqueous Phases</h2>
-          <p>VELMA 2.1 incorporates the methods of <a href="https://permanent.access.gpo.gov/lps49292/issue6.pdf.html" class="a" target="_blank">Piwoni and Keeley (1990)</a> to describe the processes by which organic contaminants are partitioned between sorbed (bound by soil, immobile) and aqueous (dissolved, mobile) phases within soil columns, such as those represented in VELMA. The section on "Sorption Estimation" in Piwoni and Keeley (1990), presented below as Figure 1, provides a concise summary of the processes, parameters and calculations used to estimate partitioning of any given contaminant into its sorbed and aqueous phases. These parameters and methods have been built into VELMA 2.1.</p><img width="614" height="507" alt="image" src="public/suppImage_005.png">
+          <p>VELMA 2.1 incorporates the methods of <a href="https://permanent.access.gpo.gov/lps49292/issue6.pdf.html" class="a" target="_blank">Piwoni and Keeley (1990)</a> to describe the processes by which organic contaminants are partitioned between sorbed (bound by soil, immobile) and aqueous (dissolved, mobile) phases within soil columns, such as those represented in VELMA. The section on "Sorption Estimation" in Piwoni and Keeley (1990), presented below as Figure 1, provides a concise summary of the processes, parameters and calculations used to estimate partitioning of any given contaminant into its sorbed and aqueous phases. These parameters and methods have been built into VELMA 2.1.</p><img width="614" height="507" alt="image" src="../../../public/suppImage_005.png">
           <h6>Figure 1. Quoted material from Piwoni and Keeley (1990) describing an adaptable set of equations for estimating the partitioning of a contaminant, in this case 1,4-dichlorobenzene, between groundwater (aqueous phase) and soil organic matter (sorbed phase).</h6>
           <p>Figure 1 describes several contaminant model parameters that require additional comment. KOW is the octanol- water partition coefficient for a specified organic chemical. Octanol is used as a standard organic chemical for calculating hydrophobicity of organic contaminants, particularly lipids. When an organic contaminant of interest - dichlorobenzene in the Figure 1 example - is placed in a well-mixed, octanol-water system, KOW is the ratio of the contaminant's concentration in the octanol phase to its concentration in the aqueous phase. This octanol-water partitioning procedure is determined experimentally.</p>
           <p>VELMA 2.1 users can find the published KOW value for contaminants of interest in EPA's Comptox library (https://comptox.epa.gov/dashoard/). Comptox also provides estimates for other contaminant biophysical constants that VELMA requires, for example, solubility in water (mol/L) and biodegradation half-life (days) - See sections 3.0 - 3.4 for details.</p>
@@ -159,7 +159,7 @@
             <li>Solubilization of contaminants deposited on impervious surfaces (SW in Figure 2A) or on soil layer 1;</li>
             <li>Contaminant sorption- desorption kinetics between sorbed and aqueous phases; </li>
             <li>and contaminant degradation. Modeled biogeochemical processes and parameters for these processes are described in Tutorial A.1 subsection 2.1 (above), and Tutorial A.2. It is the interaction of these hydro-biogeochemical (ecohydrological) processes that control transport of dissolved contaminants within cells, between neighboring cells, and to distant cells and outfalls to stream channel cells via storm drains and pipes.</li>
-          </ol><img width="655" height="385" alt="Ecohydrology model conceptual diagram" title="Ecohydrology model conceptual diagram" src="public/suppImage_006.jpg"><br><img width="657" height="445" alt="conceptual diagram, fig 2b" title="conceptual diagram, fig 2b" src="public/suppImage_007.jpg">
+          </ol><img width="655" height="385" alt="Ecohydrology model conceptual diagram" title="Ecohydrology model conceptual diagram" src="../../../public/suppImage_006.jpg"><br><img width="657" height="445" alt="conceptual diagram, fig 2b" title="conceptual diagram, fig 2b" src="../../../public/suppImage_007.jpg">
           <h2>2.3 Other Processes Affecting Contaminant Fate and Transport</h2>
           <p>Organic contaminants added to a VELMA simulation configuration can also undergo degradation. Contaminant degradation in VELMA is based on generalized organic matter decay equations and applied using microbial efficiency and decay parameters (Potter et. al 1993; see McKane et al. 2014).</p>
           <p>No other soil and plant processes currently occur for contaminants. Plant uptake of contaminants is not currently simulated but is functionally possible with VELMA's existing plant-soil submodel (McKane et al. 2014) and could be added later to address phytoremediation actions.</p>
@@ -197,12 +197,12 @@
           <p>The DailyResults and any configuration Cell Data Writer .csv files automatically include columns for any contaminants added to simulation configuration. Only Spatial Data Writers must be explicitly parameterized.</p>
           <p>Save the changes to the simulation configuration .xml file. It is now ready for use in VELMA Parallel Mode.</p>
           <h2>3.2 How to Add a Contaminant Parameterization to a VELMA Configuration</h2>
-          <p>With a proven VELMA simulation configuration loaded into JVelma, click the Edit --> Contaminants --> "Add a New Contaminant" menu item, as shown in Figure 3, below: </p><img width="624" height="264" alt="image" src="public/suppImage_008.png">
+          <p>With a proven VELMA simulation configuration loaded into JVelma, click the Edit --> Contaminants --> "Add a New Contaminant" menu item, as shown in Figure 3, below: </p><img width="624" height="264" alt="image" src="../../../public/suppImage_008.png">
           <p>Figure 3.</p>
-          <p>In the "Unique Contaminant Name" pop-up dialog (Figure 4<b>) </b>that opens next, provide a name for the contaminant. The name should begin with an alphabet character and may consist of only alpha-numeric and underscore ("_") characters and must remain unique among all contaminants in the configuration.</p><img width="310" height="130" alt="screenshot" title="screenshot" src="public/suppImage_009.jpg">
+          <p>In the "Unique Contaminant Name" pop-up dialog (Figure 4<b>) </b>that opens next, provide a name for the contaminant. The name should begin with an alphabet character and may consist of only alpha-numeric and underscore ("_") characters and must remain unique among all contaminants in the configuration.</p><img width="310" height="130" alt="screenshot" title="screenshot" src="../../../public/suppImage_009.jpg">
           <p>Figure 4.</p>
           <p>Clicking OK in the "Unique Contaminant Name" dialog adds a new parameterization group to the simulation configuration, and changes JVelma's display to the "All Parameters" tab, with the Item-level filter set to only display the parameters for the newly-added contaminant.</p>
-          <p>In the display below, click the "Parameter" column header to sort the parameters by name.</p><img width="661" height="291" alt="image" src="public/suppImage_010.png">
+          <p>In the display below, click the "Parameter" column header to sort the parameters by name.</p><img width="661" height="291" alt="image" src="../../../public/suppImage_010.png">
           <p>Figure 5.</p>
           <p>Note that when you first establish a contaminant Group/Item, all adjustable parameter values are initially highlighted in yellow, indicating that they are currently unset and need to have Values entered. In Figure 5, the user has left no adjustable parameters unset. Preset parameter values that are never highlighted and should never be adjusted. Preset parameters include "modelClass" and "uniqueName". In Figure 5, the user preset values for these parameters as "OrganicContaminantModel" and "Melamine", respectively, when using the "Edit/Contaminant/Add a New Contaminant" menu.</p>
           <h2>3.3 How to Set Contaminant Parameter Values</h2>
@@ -321,7 +321,7 @@
               <td>0.05</td>
             </tr>
           </table>
-          <p>Figure 6 illustrates how these biochemical properties differentiate the fate and transport behavior of melamine and PCB within a subwatershed of the Longfellow Creek watershed in West Seattle, WA.</p><img width="921" height="478" alt="image" src="public/suppImage_011.png">
+          <p>Figure 6 illustrates how these biochemical properties differentiate the fate and transport behavior of melamine and PCB within a subwatershed of the Longfellow Creek watershed in West Seattle, WA.</p><img width="921" height="478" alt="image" src="../../../public/suppImage_011.png">
           <h6>Figure 6.We conducted a beta test of VELMA 2.1 or a subwatershed of Longfellow Creek in West Seattle. This preliminary demonstration compares fate and transport of melamine and PCB. (a) The test subwatershed includes residential and industrial districts that drain to the outlet (white dot, upper right frame) in the Lower Duwamish Waterway Superfund site. This hypothetical simulation compares fate and transport of a one-time (June 1, 2011) deposition of 1 g/m.</h6>
           <h3>8.0 References</h3>
           <p>Abdelnour, A., Stieglitz, M., Pan, F., &amp; McKane, R. (2011). Catchment hydrological responses to forest harvest amount and spatial pattern. <i>Water Resources Research</i>, <i>47</i>(9).</p>

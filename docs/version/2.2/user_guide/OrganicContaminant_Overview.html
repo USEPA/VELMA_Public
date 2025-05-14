@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -97,15 +97,15 @@
           <p>The DailyResults.csv, and DailyContaminantResults.csv files, along with any configuration-specified Cell Data Writer <code>.csv</code> files automatically include columns for any contaminants added to a simulation configuration. However, spatially-data capture for contaminants must be explicity specified and parameterized.</p>
           <p>Completing the steps above and saving the changes will provide contaminant-parameterized simulation that is ready to run.</p>
           <h3>Adding a Contaminant Parameterization Group to a VELMA Configuration</h3>
-          <p>Load a VELMA simulation configuration into JVelma, then click the Edit -> Contaminants -> "Add a New Contaminant" menu item.</p><img src="public/image-JVelma_AddNewContaminant.PNG" alt="Add new contaminant to VELMA configuration">
+          <p>Load a VELMA simulation configuration into JVelma, then click the Edit -> Contaminants -> "Add a New Contaminant" menu item.</p><img src="../../../public/image-JVelma_AddNewContaminant.PNG" alt="Add new contaminant to VELMA configuration">
           <p>In the "Unique Contaminant Name" pop-up dialog that opens next, provide a name for the contaminant.</p>
           <p>The name must:</p>
           <ul>
             <li>Begin with an alphabet character.</li>
             <li>Contain only alpha-numeric and underscore (“_”) characters.</li>
             <li>Remain unique among all contaminants in the configuration.</li>
-          </ul><img src="public/image-JVelma_UniqueContaminantName_Dialog.PNG" alt="Unique Contaminant Name Dialog">
-          <p>Clicking OK in the “Unique Contaminant Name” dialog adds the new parameterization group to the simulation configuration and changes JVelma's display to the “All Parameters” tab, with the Item-level filter set to display the the parameters for the newly-added contaminant.</p><img src="public/image-JVelma_AllParameters_Contaminant.PNG" alt="All contaminant parameters">
+          </ul><img src="../../../public/image-JVelma_UniqueContaminantName_Dialog.PNG" alt="Unique Contaminant Name Dialog">
+          <p>Clicking OK in the “Unique Contaminant Name” dialog adds the new parameterization group to the simulation configuration and changes JVelma's display to the “All Parameters” tab, with the Item-level filter set to display the the parameters for the newly-added contaminant.</p><img src="../../../public/image-JVelma_AllParameters_Contaminant.PNG" alt="All contaminant parameters">
           <p>You can click the “Parameter” column header to sort the parameters by name (as was done for the screen-capture image above.)</p>
           <p>Initially, some of the contaminant's parameters are set, while others are blank (and highlighted yellow).</p>
           <p>A few of the parameters that are set have default values that should not be changed. However, the majority of the parameters that are set have default values that you will need to change for the specific contaminant you are adding. You will also need to provide contaminant-appropriate values for the parameters that are blank.</p><em>Parameters That Can be Left Alone</em>

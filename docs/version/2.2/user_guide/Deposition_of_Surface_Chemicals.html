@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -112,10 +112,10 @@
           <p>It may be helpful to open VELMA the simulation configuration's flat-processed DEM .asc file in JPDEM, delineate it at the configuration-specified outlet</p>
           <p>Adding a Surface Deposition Disturbance Parameterization to a VELMA Configuration</p>
           <p>Start with an appropriate VELMA simulation configuration .xml file and deposition driver data .csv file (i.e., the driver data .csv file's cell indices are appropriate for the configuration .xml file's DEM and delineation). Load the VELMA simulation configuration .xml file into JVelma, then click the</p>
-          <p>Edit -&gt; Disturbances -&gt; "Add a Disturbance" menu item, as shown below:</p><img width="618" height="249" alt="Add a disturbance dialog window" src="public/suppImage_280.jpg">
-          <p>In the "Specify Disturbance model Type and Name" pop-up dialog that opens next, click the drop-down selector, scroll down, and click-select the SurfaceDepositionDisturbanceModel type:</p><img width="469" height="214" alt="Specify disturbance model type and name pop-up dialog" src="public/suppImage_281.jpg">
+          <p>Edit -&gt; Disturbances -&gt; "Add a Disturbance" menu item, as shown below:</p><img width="618" height="249" alt="Add a disturbance dialog window" src="../../../public/suppImage_280.jpg">
+          <p>In the "Specify Disturbance model Type and Name" pop-up dialog that opens next, click the drop-down selector, scroll down, and click-select the SurfaceDepositionDisturbanceModel type:</p><img width="469" height="214" alt="Specify disturbance model type and name pop-up dialog" src="../../../public/suppImage_281.jpg">
           <p>Next, type in a unique name for the disturbance in the "Disturbance Name" field of the dialog.</p>
-          <p>Finally click the OK button, which adds a new parameterization group to the simulation configuration, and changes JVelma's display to the "All Parameters" tab, with the Item-level filter set to only display the parameters for the newly-added contaminant.</p><img width="617" height="173" alt="Result of adding new disturbance in All Parameters tab" src="public/suppImage_282.jpg">
+          <p>Finally click the OK button, which adds a new parameterization group to the simulation configuration, and changes JVelma's display to the "All Parameters" tab, with the Item-level filter set to only display the parameters for the newly-added contaminant.</p><img width="617" height="173" alt="Result of adding new disturbance in All Parameters tab" src="../../../public/suppImage_282.jpg">
           <h3>Parameters That Must Be Left Alone</h3>
           <p>The modelClass parameter is set by JVelma when you add the Surface Deposition Disturbance to the simulation configuration. Do Not Change this parameter's value. Ever.</p>
           <h3>Parameters You Can / Must Provide Values For</h3>

@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -88,12 +88,12 @@
           <h3 id="5-1">5.1 - Cover ID Map File</h3>
           <p>The VELMA program requires a set of Cover Species parameters for each Cover ID number that occurs in the Cover IDMap File. Each Cover ID corresponds to a distinct, user-defined Cover Species (cover type) - for example,hardwood forest, grassland, corn cropland, and so forth.</p>
           <p>This section describes the Cover ID map file and associated parameter specifications.</p>
-          <p>The Cover ID Map File is specified by the <i>coverSpeciesIndexMapFileName </i>parameter. You can view and set itby selecting "All Parameters 5.1 Cover ID Map File" from the All Parameters outline drop-down menu:</p><img width="624" height="134" alt="image" src="public/Image_054.jpg">
+          <p>The Cover ID Map File is specified by the <i>coverSpeciesIndexMapFileName </i>parameter. You can view and set itby selecting "All Parameters 5.1 Cover ID Map File" from the All Parameters outline drop-down menu:</p><img width="624" height="134" alt="image" src="../../../public/Image_054.jpg">
           <p>The file specified for the <i>coverSpeciesIndexMapFileName </i>is assumed to be a grid ASCII (".asc") map filewith the same row and column dimensions as the simulation configuration's DEM file. Its contents should beinteger values. Each cell's integer value should be the ID number of a cover type.</p>
           <p>Suppose the specified cover index map file contains three distinct integers: 5, 7 and 9. For this map, the VELMAsimulation will expect the simulation configuration to include 3 Cover Species.</p>
           <p>You will need to add a new Cover Species to a simulation configuration using the following steps:</p>
           <ol>
-            <li>Click Edit  Cover Species  "Add a New Cover Species" menu item. This will cause a pop-up menuto appear (see step 2).<img width="620" height="177" alt="image" src="public/Image_055.jpg"></li>
+            <li>Click Edit  Cover Species  "Add a New Cover Species" menu item. This will cause a pop-up menuto appear (see step 2).<img width="620" height="177" alt="image" src="../../../public/Image_055.jpg"></li>
           </ol>
           <h3 id="5-3">5.3 - Cover IDs and Names</h3>
           <p>[Note: All Parameters 5.2 - Cover Age Map File has been moved below section 5.3 to reflect therequired workflow]</p>
@@ -101,23 +101,23 @@
             <li>Enter a name and ID number for your new Cover Species. The name must be unique (i.e. no other Cover Species already specified for this simulation configuration canshare the name you specify) and we recommend avoiding whitespace and punctuation characters (e.g. "(" and ")")apart from the underbar ("_") character, which can be used instead of whitespace. The ID number must be an integer, not already specified for any existing Cover Species, and must match one of theintegers that appears in the Cover ID Map File.</li>
           </p>
           <p>As an example: Suppose we are adding the first Cover Species ("5") for the hypothetical Cover ID Map File mentioned above, andthat ID "5" identifies cells that contain Conifers. Acceptable names (guaranteed unique because this is the first Cover Species we're adding) might be: "Conifer" or"Cover_5_Conifer", or something similar. However, the only acceptable ID value is "5" - because the Unique Cover ID # of this parameterization is whatkeys it to those particular cells in the Cover ID Map File.
-            <li>Once you've entered valid name and ID values in the Name and ID dialog, click the OK button. When you click OK, the VELMA GUI adds a new Cover Species Parameterization to the simulation configuration, andsets the All Parameters tab's filters to display only the parameters of the newly-added Cover Species. Assumingwe named our new Cover Species "Conifer", with ID = "5", this is what the All Parameters tab would look likeafter clicking OK:<img width="624" height="295" alt="image" src="public/Image_056.jpg"></li>
+            <li>Once you've entered valid name and ID values in the Name and ID dialog, click the OK button. When you click OK, the VELMA GUI adds a new Cover Species Parameterization to the simulation configuration, andsets the All Parameters tab's filters to display only the parameters of the newly-added Cover Species. Assumingwe named our new Cover Species "Conifer", with ID = "5", this is what the All Parameters tab would look likeafter clicking OK:<img width="624" height="295" alt="image" src="../../../public/Image_056.jpg"></li>
           </p>
           <p>We did one other thing to get the above display: notice that the "Parameter" column is circled, and has a"down-arrow" indicating "descending-sort". After clicking OK to add the new Cover Species, we clicked the"Parameter" header field (twice), which sorts the table of properties on that column.</p>
           <h3>5.2 - Cover Age Map File</h3>
           <h4>[Note: section 5.2 appears after section 5.3 to reflect the required workflow for developing a Cover Age Map fileand associated parameter values]</h4>
           <p>To enable scheduling of disturbance events during a simulation (per All Parameters section 24.0), VELMA needs tokeeps track of changes in the age (years) of vegetation from one calendar year to another, or as a result ofdisturbances that can reset stand age to 0 (e.g., by clearcutting) or to some other age (e.g., by selectivethinning of old trees that establishes understory vegetation as the new dominant age class). Note that cover agemaps can be can be applied to cover types other than forests, e.g., rangeland vegetation that may have a more diverse mixt ofspecies than vegetation recovering from a recent fire.</p>
           <p>After you have established a Cover ID Map file (section 5.1) and specified Cover IDs and names for each CoverSpecies (section 5.3, above!), you will need to set up a Cover Age Map file and specify the file name.</p>
-          <p>The Cover Age Map file name is specified by the coverAgeMapFileName parameter. You can view and set it byselecting "All Parameters 5.2 Cover Age Map File" from the All Parameters outline drop-down menu:</p><img width="628" height="117" alt="image" src="public/Image_057.jpg">
+          <p>The Cover Age Map file name is specified by the coverAgeMapFileName parameter. You can view and set it byselecting "All Parameters 5.2 Cover Age Map File" from the All Parameters outline drop-down menu:</p><img width="628" height="117" alt="image" src="../../../public/Image_057.jpg">
           <p>The file specified for the coverAgeMapFileName is assumed to be a grid ASCII (".asc") map file with thesame row and column dimensions as the simulation configuration's DEM file. Its contents should be integer valuesreflecting the age of vegetation (Cover Species) occupying each grid cell. Each cell's integer value should bethe ID number of a Cover Species. For example, an age of 0 could be assigned to row crops (corn, soybeans,etc.). Cells in a forest landscape might range in age from 0 (newly burned or planted) to many centuries. TheVELMA team has used biomass-to-age and tree height-to-age relationships to establish Cover Age Maps.</p>
           <h3 id="5-4">5.4 - Cover Carbon-To-Nitrogen Ratios</h3>
-          <p>This section is concerned with initializing plant tissue C/N ratios for plant biomass and detritus associatedwith leaves, aboveground stems (AgStem), belowground stems (BgStem) and roots. Thus, a total of eight C/N (CtoN)ratios must be specified for each cover type. Only one cover type (CoverForest_1) is displayed for the examplebelow. In addition, a C/N ratio must be specified for the humus pool.</p><img width="624" height="235" alt="image" src="public/Image_058.jpg">
+          <p>This section is concerned with initializing plant tissue C/N ratios for plant biomass and detritus associatedwith leaves, aboveground stems (AgStem), belowground stems (BgStem) and roots. Thus, a total of eight C/N (CtoN)ratios must be specified for each cover type. Only one cover type (CoverForest_1) is displayed for the examplebelow. In addition, a C/N ratio must be specified for the humus pool.</p><img width="624" height="235" alt="image" src="../../../public/Image_058.jpg">
           <h3 id="5-5">5.5 - Cover Uniform-Cell Initialization Amounts</h3>
           <p>Using the <i>All Parameters </i>drop-down menu, select "5.5 Cover Uniform-Cell Initialization Amounts". Theparameters shown are used to specify initial pool sizes (<b>g C / m</b>2) that VELMA</p>
-          <p>requires at the start of each simulation run. Values must be specified for all plant biomass pools, detrituspools and humus pool associated with each cover type. The example below shows just one cover type, but the samelist of 9 parameters repeats for each additional cover type that has been has been for the simulationconfiguration.</p><img width="624" height="232" alt="image" src="public/Image_059.jpg">
+          <p>requires at the start of each simulation run. Values must be specified for all plant biomass pools, detrituspools and humus pool associated with each cover type. The example below shows just one cover type, but the samelist of 9 parameters repeats for each additional cover type that has been has been for the simulationconfiguration.</p><img width="624" height="232" alt="image" src="../../../public/Image_059.jpg">
           <p>"Cover Uniform-Cell Initialization Amounts" refers to the fact that all grid cells assigned to a particular covertype will have the same initial values for plant biomass, detritus and humus. Obviously this method will notwork for watersheds where there is significant spatial variability in pool sizes (e.g., where forest stands varyin age). In these situations, you can use All Parameters menu item "24.3 Disturbance Items Spatial Specifiers"to establish spatially variable initialization amounts for any or all pools.</p>
           <h3 id="5-6">5.6 - Cover Gale-Grigal Root Parameter</h3>
-          <p>Select section 5.6 from the All Parameters drop-down menu to specify Gale-Grigal root parameter values for eachcover type in your watershed:</p><img width="626" height="125" alt="image" src="public/Image_060.jpg">
+          <p>Select section 5.6 from the All Parameters drop-down menu to specify Gale-Grigal root parameter values for eachcover type in your watershed:</p><img width="626" height="125" alt="image" src="../../../public/Image_060.jpg">
           <h4>Parameter Definitions</h4>
           <table>
             <thead> 
@@ -134,9 +134,9 @@
           <p>Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E., &amp; Schulze, E. D. (1996). Aglobal analysis of root distributions for terrestrial biomes. Oecologia, 108(3), 389-411.</p>
           <h4>Calibration Notes:</h4>
           <p>VELMA uses the method of Gale and Grigal (1987) to vertically distribute a cover    type's specified total root biomass. This results in an exponentially decreasing amount of root biomass per    soil layer. See </a>Appendix 6.2 section A1.2.6 (Abdelnour et al. 2013) for a description    of VELMA's implementation of the Gale-Grigal root distribution function.</p>
-          <p>Jackson et al. (1996) used the Gale-Grigal method to characterize rooting patterns for terrestrial biomesglobally. In the absence of measured data to calibrate GaleGrigalBetaParam for your site's cover types,we recommend consulting Jackson et al.'s Table 1and Figure 1:</p><img width="613" height="272" alt="image" src="public/Image_061.png"><img width="626" height="515" alt="image" src="public/Image_062.png">
+          <p>Jackson et al. (1996) used the Gale-Grigal method to characterize rooting patterns for terrestrial biomesglobally. In the absence of measured data to calibrate GaleGrigalBetaParam for your site's cover types,we recommend consulting Jackson et al.'s Table 1and Figure 1:</p><img width="613" height="272" alt="image" src="../../../public/Image_061.png"><img width="626" height="515" alt="image" src="../../../public/Image_062.png">
           <h3 id="5-7">5.7 - Cover Leaf Stem and Root Pool Parameters</h3>
-          <p>Select section 5.7 from the All Parameters drop-down menu to specify leaf stem and root pool parameter values foreach cover type in your watershed (do this for each cover type):</p><img width="670" height="188" alt="image" src="public/Image_063.jpg">
+          <p>Select section 5.7 from the All Parameters drop-down menu to specify leaf stem and root pool parameter values foreach cover type in your watershed (do this for each cover type):</p><img width="670" height="188" alt="image" src="../../../public/Image_063.jpg">
           <p>Parameters in this section cover the Leaf, Stem and Root pool C/N ratios, initial values, mortalityparameterizations and uptake fractions. Because each biomass or detritus leaf, stem and root pool has its ownset of parameters for these subjects, this list of parameters is relatively extensive.</p>
           <h4>Parameter Definitions</h4>
           <table>

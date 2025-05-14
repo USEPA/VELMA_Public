@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -101,7 +101,7 @@
             </li>
           </ul>
           <h2>Soil Data Pre-Processing</h2>
-          <p>To create a thematic soil texture map for either the gSSURGO, SSURGO, or STATSGO2 data sets the one too many to many hierarchies of relationships must be resolved with spatial map units and tabular data. Both soil tabular and spatial data tables are included when any of the data sets are downloaded from the USDA. For a complete overview of relationships, refer to the SSURGO/STATSGO2 documentation "SSURGO 2.2 Data Model - Diagram 1 of 2". To link the spatial map units to their textures a series of joins must be made between the tabular text file and the Shapefiles.</p><br><img width="693" height="258" alt="Spatial join process" src="public/suppImage_180.png">
+          <p>To create a thematic soil texture map for either the gSSURGO, SSURGO, or STATSGO2 data sets the one too many to many hierarchies of relationships must be resolved with spatial map units and tabular data. Both soil tabular and spatial data tables are included when any of the data sets are downloaded from the USDA. For a complete overview of relationships, refer to the SSURGO/STATSGO2 documentation "SSURGO 2.2 Data Model - Diagram 1 of 2". To link the spatial map units to their textures a series of joins must be made between the tabular text file and the Shapefiles.</p><br><img width="693" height="258" alt="Spatial join process" src="../../../public/suppImage_180.png">
           <p>Figure 1. Spatial join process</p>
           <h3>Example: Tolt River Watershed Soil Data Pre-Processing</h3>
           <ol> 
@@ -130,10 +130,10 @@
                 </li>
               </ul>
             </li>
-          </ul><img width="480" height="435" alt="USDA Soil texture triangle" src="public/suppImage_181.jpg">
+          </ul><img width="480" height="435" alt="USDA Soil texture triangle" src="../../../public/suppImage_181.jpg">
           <p>Figure 2. USDA Soil texture triangle</p>
           <p>Replaced all missing gSSURGO soils texture cells with STATSGO soil textures, creating a merged high- and low-resolution soils data layer (Table 1, Figure 4, Figure 5, and Figure 6).</p>
-          <h3>Table 1. Soil texture key for VELMA</h3><img width="222" height="240" alt="Soil texture key for VELMA" src="public/suppImage_182.png">
+          <h3>Table 1. Soil texture key for VELMA</h3><img width="222" height="240" alt="Soil texture key for VELMA" src="../../../public/suppImage_182.png">
           <h4>File Name tolt_ssurgo_statsgo_soil.tif</h4>
           <table> 
             <thead> 
@@ -208,10 +208,10 @@
             <li><i>"Soil_merger.py"</i> and can be run on the Command Prompt line with Python. This script requires at a minimum a gSSURGO map, one STATSGO2 map, and one output file name. The script will output an intermediate merged file map with No-data values. The merged soil texture values will assign values to the output map from the higher resolution gSSURGO map first and then from the STATSGO2 map. The final output map will fill No-data values with soil texture values. The technique uses a nearest neighbor search algorithm that will radiate out in one cell radius increments searching for the nearest cell with a valid texture value which will then be assigned to the No-data cell.</li>
           </ol>
           <h4>Command prompt input example:</h4><code>"python .\soils_merger.py -SUR D:\Temp\ssurgo_aoi_texture_reclass.asc -STA D:\Temp\statsgo_aoi_texture_reclass.asc -OUT D:\Temp\Merged_output.asc" "python C:\Path\To\soils_merger.py -help"</code>
-          <h5>The exact arguments used to make Figure 4.</h5><img width="653" height="105" alt="Powershell exact arguments" src="public/suppImage_183.jpg">
-          <h5>Figure 5. Windows PowerShell python example</h5><img width="620" height="466" alt="Figure 4. gSSURGO Soils texture and NODATA" src="public/suppImage_184.jpg">
-          <p>Figure 4. gSSURGO Soils texture and NODATA</p><img width="621" height="464" alt="Figure 5. STATSGO Soils texture and NODATA" src="public/suppImage_185.jpg">
-          <p>Figure 5. STATSGO Soils texture and NODATA</p><img width="633" height="476" alt="Figure 6. Merged soils, gSSURGO and STATSGO." src="public/suppImage_186.jpg">
+          <h5>The exact arguments used to make Figure 4.</h5><img width="653" height="105" alt="Powershell exact arguments" src="../../../public/suppImage_183.jpg">
+          <h5>Figure 5. Windows PowerShell python example</h5><img width="620" height="466" alt="Figure 4. gSSURGO Soils texture and NODATA" src="../../../public/suppImage_184.jpg">
+          <p>Figure 4. gSSURGO Soils texture and NODATA</p><img width="621" height="464" alt="Figure 5. STATSGO Soils texture and NODATA" src="../../../public/suppImage_185.jpg">
+          <p>Figure 5. STATSGO Soils texture and NODATA</p><img width="633" height="476" alt="Figure 6. Merged soils, gSSURGO and STATSGO." src="../../../public/suppImage_186.jpg">
           <p>Figure 6. Merged soils, gSSURGO and STATSGO.</p>
           <h4>References</h4>
           <p>Soil Science Division Staff. 2017. Soil survey manual. C. Ditzler, K. Scheffe, and H.C. Monger (eds.). USDA Handbook 18. Government Printing Office, Washington, D.C.</p>

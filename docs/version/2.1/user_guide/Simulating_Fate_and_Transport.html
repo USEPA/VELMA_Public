@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -121,10 +121,10 @@
           <p>Save the changes - the simulation configuration .xml is now ready for use with JVelma.</p>
           <h2>Adding a Contaminant Parameterization to a VELMA Configuration</h2>
           <p>With a proven VELMA simulation configuration loaded into JVelma,</p>
-          <p>click the Edit -&gt; Contaminants -&gt; "Add a New Contaminant" menu item, as shown below:</p><img width="624" height="264" alt="Add new contaminant with the velma gui" src="public/suppImage_015.jpg">
-          <p>In the "Unique Contaminant Name" pop-up dialog that opens next, provide a name for the contaminant. The name should begin with an alphabet character, and may consist of only alpha-numeric and underscore ("_") characters, and must remain unique among all contaminants in the configuration.</p><img width="386" height="131" alt="Pop-up dialog for new contaminant name" src="public/suppImage_016.jpg">
+          <p>click the Edit -&gt; Contaminants -&gt; "Add a New Contaminant" menu item, as shown below:</p><img width="624" height="264" alt="Add new contaminant with the velma gui" src="../../../public/suppImage_015.jpg">
+          <p>In the "Unique Contaminant Name" pop-up dialog that opens next, provide a name for the contaminant. The name should begin with an alphabet character, and may consist of only alpha-numeric and underscore ("_") characters, and must remain unique among all contaminants in the configuration.</p><img width="386" height="131" alt="Pop-up dialog for new contaminant name" src="../../../public/suppImage_016.jpg">
           <p>Click OK in the "Unique Contaminant Name" dialog adds a new parameterization group to the simulation configuration, and changes JVelma's display to the "All Parameters" tab, with the Item-level filter set to only display the parameters for the newly-added contaminant.</p>
-          <p>(Click the "Parameter" column header to sort the parameters by name)</p><img width="628" height="266" alt="Sort parameter by name example" src="public/suppImage_017.jpg">
+          <p>(Click the "Parameter" column header to sort the parameters by name)</p><img width="628" height="266" alt="Sort parameter by name example" src="../../../public/suppImage_017.jpg">
           <p>Some of the parameters have default values already set for them (although it is likely you will want to change them for the specific contaminant you are adding), some are set and should not be changed, and some are highlighted yellow, indicating that they are currently unset, and need to have values provided for them.</p>
           <h2>Parameters That Must Be Left Alone</h2>
           <p>The modelClass parameter is set by JVelma when you add the contaminant to the simulation configuration. Do <i>Not </i>Change this parameter's value. <i>Ever</i>.</p>

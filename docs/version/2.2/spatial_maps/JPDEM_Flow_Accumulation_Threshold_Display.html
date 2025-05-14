@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -93,12 +93,12 @@
           <p>In JPDEM, a DEM cell's flow accumulation (“Facc”) is the number of upstream cells that flow into that cell. Cells with high Facc values are cells that have high water flow, and cells with high water flow are likely to contain channels. The JPDEM application's Facc Threshold display control provides a way to quickly identify and visualize the cells in a (flat-processed) DEM whose Facc values are at or above a specified threshold. You can use the Facc Threshold display to get an idea of which areas and cells of a DEM are likely its main water channels.</p>
           <p>JPDEM must have Facc values available for the currently-loaded DEM before the Facc Threshold display is used. JPDEM calculates the Facc values for a DEM during flat-processing, or when the “Determine DEM Flow Data” Tools menu item is run for a previously flat-processed DEM map. Perform either activity before using the Facc Threshold display controls.</p>
           <p>Sidenote: JDPEM and VELMA both compute “flow accumulation” values for the cells of their specified DEM map, and both refer to these as the “Facc” values. However, VELMA calculates Facc values differently than JPDEM. JDPEM and VELMA Facc values for a given cell, while similar, are unlikely to be identical.</p>
-          <p>The Facc Threshold display controls are located in the center of JPDEM's upper toolbar:</p><img height="84" alt="screenshot" title="screenshot" src="public/suppImage_109.jpg">
+          <p>The Facc Threshold display controls are located in the center of JPDEM's upper toolbar:</p><img height="84" alt="screenshot" title="screenshot" src="../../../public/suppImage_109.jpg">
           <p>From left to right, the controls are: a checkbox that toggles the display on and off, a drop-downselector for specifying the threshold value's type, and a number-entry field for specifying the thresholdvalue. All three controls are disabled until a map file is loaded into JPDEM, and the typeselector and number- entry field are disabled whenever the checkbox is unchecked.</p>
           <h2>Using the Facc Threshold Display by Example</h2>
           <p>In this example, we start with a DEM map that was previously flat-processed, then saved to a new.asc file (see Tutorial B.1 - Creating Flat-Processed DEM Data). We could also start with anunprocessed DEM map - the only difference being that our first step would change from Findingthe Flow Data, to Flat-Processing the map.</p>
           <h4>Step 1</h4>
-          <p>Load the (flat-processed) DEM map from its .asc file, then click the Tools -&gt; "Determine DEMFlow Data (Alternate)" menu item:</p><img width="588" height="494" alt="screenshot" title="screenshot" src="public/suppImage_110.jpg">
+          <p>Load the (flat-processed) DEM map from its .asc file, then click the Tools -&gt; "Determine DEMFlow Data (Alternate)" menu item:</p><img width="588" height="494" alt="screenshot" title="screenshot" src="../../../public/suppImage_110.jpg">
           <p>You can use either the "(Standard)" or "(Alternate)" Determine DEM Flow Data item - but theAlternate algorithm is usually quicker.</p>
           <h4>Step 2</h4>
           <p>Click the Flow Threshold checkbox control to enable the threshold display. The entire map turnsred. Don't panic! The default Facc threshold value is zero, and the display is showing you allthe cells with Facc values &gt; 0.0. Change the number-entry field value to 25.0 and press theTab key. The display now shows all cells with Facc values &gt; 25.0 in red.</p>
@@ -109,9 +109,9 @@
               <td>ON, with threshold = 25.0</td>
             </tr>
             <tr>
-              <td> <img width="195" height="251" alt="screenshot" title="screenshot" src="public/suppImage_111.jpg"></td>
-              <td><img width="194" height="251" alt="screenshot" title="screenshot" src="public/suppImage_112.jpg"></td>
-              <td><img width="195" height="251" alt="screenshot" title="screenshot" src="public/suppImage_113.jpg"></td>
+              <td> <img width="195" height="251" alt="screenshot" title="screenshot" src="../../../public/suppImage_111.jpg"></td>
+              <td><img width="194" height="251" alt="screenshot" title="screenshot" src="../../../public/suppImage_112.jpg"></td>
+              <td><img width="195" height="251" alt="screenshot" title="screenshot" src="../../../public/suppImage_113.jpg"></td>
             </tr>
             <tr> 
               <td>ON, with threshold=2200.0</td>
@@ -119,9 +119,9 @@
               <td>Threshold display ON again</td>
             </tr>
             <tr>
-              <td><img width="196" height="251" alt="screenshot" title="screenshot" src="public/suppImage_114.jpg"></td>
-              <td><img width="195" height="251" alt="screenshot" title="screenshot" src="public/suppImage_115.jpg"></td>
-              <td><img width="196" height="251" alt="screenshot" title="screenshot" src="public/suppImage_116.jpg"></td>
+              <td><img width="196" height="251" alt="screenshot" title="screenshot" src="../../../public/suppImage_114.jpg"></td>
+              <td><img width="195" height="251" alt="screenshot" title="screenshot" src="../../../public/suppImage_115.jpg"></td>
+              <td><img width="196" height="251" alt="screenshot" title="screenshot" src="../../../public/suppImage_116.jpg"></td>
             </tr>
           </table>
           <p>Try changing the threshold (always follow changing the value by pressing the Tab key) tosuccessively larger values. Watch how the number of red cells that meet that Facc thresholddwindles. These are cells with high waterflow.</p>

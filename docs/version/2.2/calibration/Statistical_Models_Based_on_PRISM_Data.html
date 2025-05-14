@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -389,18 +389,18 @@
           </table>
           <h2>Procedure 2 - Daily weather drivers</h2>
           <p>Pseudo weather stations were created to solve the problem of when there is no ground observational climate data within AOI. These data are also need to properly parametrize the regression driver data of the VELMA spatial weather model. Daily Gridded Weather Data (Daymet) is a national climate data set that was developed in part from NASA funding, for the years of 1980 - 2014, and is widely used in the scientific community (Thorton et al., 2014). It models daily air temperature and precipitation at a higher 1 km x 1 km spatial resolution, compared to the 4 km x 4 km spatial resolution climate data that is publicly available from the PRISM group (PRISM, 2013).</p>
-          <p>Pseudo weather stations were created by choosing a semi homogenous elevation area within the AOI that was overlaid by one 1 km Daymet cell. Using the latitude and longitude of the cell, daily precipitation and air temperature data was downloaded for the temporal period of interest. This daily Daymet modeled data was then used as an observed "weather station" within the AOI. This cell location would be used as the "Prime Cell" by its center DEM cell x- and-y coordinates as part of the Spatial Weather Model's parameterization.</p><img width="625" height="391" alt="image" src="public/suppImage_225.png">
+          <p>Pseudo weather stations were created by choosing a semi homogenous elevation area within the AOI that was overlaid by one 1 km Daymet cell. Using the latitude and longitude of the cell, daily precipitation and air temperature data was downloaded for the temporal period of interest. This daily Daymet modeled data was then used as an observed "weather station" within the AOI. This cell location would be used as the "Prime Cell" by its center DEM cell x- and-y coordinates as part of the Spatial Weather Model's parameterization.</p><img width="625" height="391" alt="image" src="../../../public/suppImage_225.png">
           <p>As an example, the Mowich SNOTEL weather station that is several KM north and east of the Mashel river basin in Washington was used to explore the effectiveness of this process. 1998 - 2014 SNOTEL from this station along with Daymet modeled climate for these days was plotted to explore fit ground observations vs modeled climate. Results are summarized in Figure 1 and Figure 2.</p>
-          <p>Figure 17 Daymet modeled air temperature vs overserved Mowich, WA SNOTEL data.</p><img width="625" height="448" alt="image" src="public/suppImage_226.png">
+          <p>Figure 17 Daymet modeled air temperature vs overserved Mowich, WA SNOTEL data.</p><img width="625" height="448" alt="image" src="../../../public/suppImage_226.png">
           <p>Figure 18. Daymet modeled precipitation vs overserved Mowich, WA SNOTEL data.</p>
           <h2>Addendum - Procedure 2 - Daily weather drivers</h2>
           <p>Pseudo station Daymet climate data for water years 1995 and 1999 were compared to two observed SNOTEL climate sites in the Tolt river basin, Alpine Meadows and Skookum. Daily observations of precipitation (mm / day) were accumulated over the water year starting at October 1st and plotted out against Daymet model data at Longitude and Latitudes 1km cells at the location each SNOTEL site. 10 day moving average lines were added to daily comparisons of mean air temperature observations and Daymet models temperatures at those locations.</p>
-          <p>The same mean daily average temperature and precipitation comparison were made between the two SNOTEL sites.</p><img width="621" height="240" alt="Figure 3" title="Figure 3" src="public/suppImage_227.jpg">
-          <p>Figure 19 Accumulated precipitation, Daymet vs Alpine Meadows SNOTEL.</p><img width="621" height="240" alt="figure 4" title="figure 4" src="public/suppImage_228.jpg">
-          <p>Figure 20 Accumulated precipitation, Daymet vs Skookum SNOTEL.</p><img width="620" height="240" alt="figure 5" title="figure 5" src="public/suppImage_229.jpg">
-          <p>Figure 21 Accumulated precipitation, Alpine Meadows vs Skookum SNOTEL</p><img width="624" height="240" alt="figure 6" title="figure 6" src="public/suppImage_230.jpg">
-          <p>Figure 22 Daily air temperature, Daymet vs Alpine Meadows</p><img width="624" height="240" alt="figure 7" title="figure 7" src="public/suppImage_231.jpg">
-          <p>Figure 23 Daily air temperature, Daymet vs Skookum</p><img width="624" height="240" alt="figure 8" title="figure 8" src="public/suppImage_232.jpg">
+          <p>The same mean daily average temperature and precipitation comparison were made between the two SNOTEL sites.</p><img width="621" height="240" alt="Figure 3" title="Figure 3" src="../../../public/suppImage_227.jpg">
+          <p>Figure 19 Accumulated precipitation, Daymet vs Alpine Meadows SNOTEL.</p><img width="621" height="240" alt="figure 4" title="figure 4" src="../../../public/suppImage_228.jpg">
+          <p>Figure 20 Accumulated precipitation, Daymet vs Skookum SNOTEL.</p><img width="620" height="240" alt="figure 5" title="figure 5" src="../../../public/suppImage_229.jpg">
+          <p>Figure 21 Accumulated precipitation, Alpine Meadows vs Skookum SNOTEL</p><img width="624" height="240" alt="figure 6" title="figure 6" src="../../../public/suppImage_230.jpg">
+          <p>Figure 22 Daily air temperature, Daymet vs Alpine Meadows</p><img width="624" height="240" alt="figure 7" title="figure 7" src="../../../public/suppImage_231.jpg">
+          <p>Figure 23 Daily air temperature, Daymet vs Skookum</p><img width="624" height="240" alt="figure 8" title="figure 8" src="../../../public/suppImage_232.jpg">
           <p>Figure 24 Daily air temperature, Skookum vs Alpine Meadows SNOTEL</p>
           <h4>References</h4>
           <p><a href="http://prism.oregonstate.edu/documents/PRISM_history_jun2013.pdf.html">PRISM Climate Group (2013) Descriptions of PRISM Spatial Climate Datasets for the Conterminous United States. In. PRISM Climate Group, Oregon State University, Corvallis, Oregon</a></p>

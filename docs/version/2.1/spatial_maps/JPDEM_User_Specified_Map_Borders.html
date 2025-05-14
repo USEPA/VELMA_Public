@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -114,7 +114,7 @@
           </ul>
           <p>Step 1: Load the DEM file as Raw Data via the “Load Map File Data” --> “Load As Raw Map File” menu item.</p>
           <p>Step 2: Load the Border Mask via the “Load Map File Data” --> “Load Border Mask” menu item.</p>
-          <p>At this point, we can see the user-specified border by highlighting cells that are < 0 meters in elevation. (For this particular map, the lowest elevation prior to setting the computation domain was zero meters. After loading the border mask and setting the computation domain, all border cells will have been “pushed down” below 0 meters in elevation.) In the image below, border cells are highlighted “pepto-pink”, while interior cells are shown with contour-rendering greyscale to make the contrast clear:</p><img height="434" alt="screenshot" title="screenshot" src="public/suppImage_121.jpg">
+          <p>At this point, we can see the user-specified border by highlighting cells that are < 0 meters in elevation. (For this particular map, the lowest elevation prior to setting the computation domain was zero meters. After loading the border mask and setting the computation domain, all border cells will have been “pushed down” below 0 meters in elevation.) In the image below, border cells are highlighted “pepto-pink”, while interior cells are shown with contour-rendering greyscale to make the contrast clear:</p><img height="434" alt="screenshot" title="screenshot" src="../../../public/suppImage_121.jpg">
           <p>Notice that the top and bottom rows, and the left-most and right-most columns are part of the border. This was specified in the border mask file ("Winant_2pnt5_dmMask.asc") and is required (per the prior Limitations list).</p>
           <p>Step 3: (Optional)</p>
           <p>Load a stream burn-in dredge channel guide map via the "Load Stream File Data" menu item</p>
@@ -127,7 +127,7 @@
           <p>If you have not performed a burn-in (Step 3), then it is possible -- but still not recommended -- to run either the Standard or Alternate flat-processing algorithms, however it is unlikely that they will produce better results than either the EXP and EEX algorithms.</p>
           <p>Here's what our example looks like after flat-processing using the EEX algorithm.</p>
           <p>Cells colored red meet the Facc Threshold indicated on the GUI, Cells colored green are channel guide cells that do not meet the Facc Threshold, Cells colored yellow-orange are channel guide cells that meet the Facc threshold.</p>
-          <p><br/></p><img width="569" height="653" alt="screenshot" title="screenshot" src="public/suppImage_122.jpg">
+          <p><br/></p><img width="569" height="653" alt="screenshot" title="screenshot" src="../../../public/suppImage_122.jpg">
           <p><br/></p>
           <div class="info blue-light-1">
             <p>NOTE: Please see JPDEM tutorial B.7, "JPDEM User-Specified Border Mask Example", which provides a more detailed example of how to create a DEM border mask that encompasses large waterbodies at the edge of a DEM. By including these flat features as part of the map border, JPDEM will ignore them during flat-processing of raw DEMs, considerably speeding up the flat-processing process.</p>

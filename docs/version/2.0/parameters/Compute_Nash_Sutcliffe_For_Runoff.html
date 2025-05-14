@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -82,12 +82,12 @@
           <p>Whenever possible, the VELMA simulator automatically computes a Nash-Sutcliffe Coefficient for observed vs.simulated annual runoff values. In order to calculate the runoff Nash-Sutcliffe, the simulator must know whichspan of years to include in the calculation, and have observed runoff data for those years available.</p>
           <p>To ensure that the VELMA simulator is able to compute a meaningful Nash-Sutcliffe value for your simulation run,provide values for the following configuration parameters.</p>
           <h4>Set the Observed Runoff Source File</h4>
-          <p>Click the All Parameters tab's configuration outline dropdown selector and select item "19.0 Observed DataFiles". The All Parameters table should then look like this:</p><img width="628" height="130" alt="image" src="public/Image_110.jpg">
+          <p>Click the All Parameters tab's configuration outline dropdown selector and select item "19.0 Observed DataFiles". The All Parameters table should then look like this:</p><img width="628" height="130" alt="image" src="../../../public/Image_110.jpg">
           <p>Set the input_runoff parameter to the name of a .csv file containing valid observed runoff data. A validfile has a single column of floating-point data, one day's observed runoff value per row. There must be exactlyas many rows in the file as there are days in the simulation configuration's</p>
           <p>forcing_start to forcing_end parameter's span of years. (E.g. if forcing_start = 2000 and</p>
           <p>forcing_end = 2001, then there must be 366 + 365 or 731 rows of data in the file.) The specified file's locationis assumed to be the directory specified by the inputDataLocationRootName +inputDatalocationDirName.</p>
           <h4>Set the Years to Simulation the Nash-Sutcliffe</h4>
-          <p>Click the All Parameters outline dropdown selector again, and this time select item "18.0 Years to ComputeNash-Sutcliffe for Runoff". The All Parameters table should then look like this:</p><img width="629" height="136" alt="image" src="public/Image_111.jpg">
+          <p>Click the All Parameters outline dropdown selector again, and this time select item "18.0 Years to ComputeNash-Sutcliffe for Runoff". The All Parameters table should then look like this:</p><img width="629" height="136" alt="image" src="../../../public/Image_111.jpg">
           <p>The nashSutcliffeStartYearForRunoffStats and nashSutcliffeEndYearForRunoffStats specify the firstand last years of the simulation run that are used to compute the Nash-Sutcliffe coefficient. Obviously, thesestart and end year values must be within the range of the simulation run's start and end years as a whole. Forexample, if your simulation runs from 1995 to 2005, you cannot specify years 1980 to 2009 as the span forcomputing the Nash-Sutcliffe.</p>
           <h4>The VELMA Simulator Writes the Nash-Sutcliffe Coefficient for Runoff to an Output File</h4>
           <p>The VELMA simulator writes the Nash-Sutcliffe coefficient for runoff to a file named"NashSutcliffeCoefficients.txt". This is a simple text file, created in the directory specified by thesimulation configuration's intializeOutputDataLocationRoot parameter.</p>

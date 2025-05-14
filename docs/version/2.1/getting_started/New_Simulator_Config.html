@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -122,22 +122,22 @@
           <p>Here is an example of the form the startup command takes:</p>
           <p>C:\&gt; java -Xmx1024m -jar C:\Some\full\Path\JVelma.jar</p>
           <p>Of course, replace C:\Some\full\Path\ with the actual, fully-qualified path name of the location where your copyof the JVelma.jar file resides.</p>
-          <p>Here are a couple of screen captures showing actual command lines for starting JVelma:</p><br><img width="531" height="96" alt="image" src="public/Image_015.gif">
-          <p>(In the above screen-capture, the double-quotes around the fully-qualified path+name of the JVelma.jar file arerequired because the text of the path contains whitespace.)</p><br><img width="517" height="107" alt="image" src="public/Image_016.gif">
+          <p>Here are a couple of screen captures showing actual command lines for starting JVelma:</p><br><img width="531" height="96" alt="image" src="../../../public/Image_015.gif">
+          <p>(In the above screen-capture, the double-quotes around the fully-qualified path+name of the JVelma.jar file arerequired because the text of the path contains whitespace.)</p><br><img width="517" height="107" alt="image" src="../../../public/Image_016.gif">
           <p>(When there is no whitespace in the entire path the double-quotes are not required.)</p>
           <p>The "-Xmx1024m" command line option specifies the amount of memory available to the JVelma GUI and simulator. Thevalue 1024 is in Megabytes, so this command line allocates a 1 Gigabyte memory space for the JVelma GUI andsimulator to run in. You can allocate more memory than 1 GB (e.g. the option "-Xmx4096m" would allocate 4 GB)but if you allocate more memory than your computer can make available, JVelma will fail to start properly.</p>
-          <p>Once you type in the command line and press the enter key, the JVelma GUI should begin running. Initially, theGUI looks like this:</p><br><img width="614" height="555" alt="image" src="public/Image_017.jpg">
+          <p>Once you type in the command line and press the enter key, the JVelma GUI should begin running. Initially, theGUI looks like this:</p><br><img width="614" height="555" alt="image" src="../../../public/Image_017.jpg">
           <h2 id="using_gui">Using the GUI </h2>
           <hr>
-          <p>Click the <b>Edit </b>menu's <b>Create a New, Empty Configuration </b>item:</p><br><img width="625" height="565" alt="image" src="public/Image_019.jpg">
+          <p>Click the <b>Edit </b>menu's <b>Create a New, Empty Configuration </b>item:</p><br><img width="625" height="565" alt="image" src="../../../public/Image_019.jpg">
           <p>Clicking this item creates a new, empty simulation configuration in the JVelma GUI and opens the <b>All    Parameters </b>table view. The All Parameters table lists the Group, Item and Parameter keys and the currentvalue of all the parameters used by a single VELMA simulation run. When we speak of the "SimulationConfiguration", this list of parameters is what we're speaking of.</p>
-          <p>For demonstration purposes, here is an annotated screen-captured snapshot of the All Parameters table for anexisting simulator configuration (cells under the Value column will be blank for new simulator configurations):</p><br><img width="661" height="586" alt="image" src="public/Image_020.jpg"><br>
+          <p>For demonstration purposes, here is an annotated screen-captured snapshot of the All Parameters table for anexisting simulator configuration (cells under the Value column will be blank for new simulator configurations):</p><br><img width="661" height="586" alt="image" src="../../../public/Image_020.jpg"><br>
           <p>In addition to filtering by an arbitrary text string, the filter field at the top of the table can be set to anyof several pre-composed filtering expressions.</p>
-          <p>For example, In the All Parameters table, click "Clear Filters" at the left of side of the filter fields, thenclick the drop-down button (<img width="19" height="24" alt="image" src="public/Image_021.gif" />) on theright side of the leftmost filter field to display a drop-down menu (see demonstration, below).</p><br>
+          <p>For example, In the All Parameters table, click "Clear Filters" at the left of side of the filter fields, thenclick the drop-down button (<img width="19" height="24" alt="image" src="../../../public/Image_021.gif" />) on theright side of the leftmost filter field to display a drop-down menu (see demonstration, below).</p><br>
           <h2 id="gui_startup_and_input_params">Using the GUI to Specify Startup and Input Parameters</h2>
           <hr>
           <h3 id="gui_startup_paras">Specify Startup Parameters</h3>
-          <p>In the All Parameters table, click the first (leftmost) filter field's drop-down button and select "startups"from the drop-down list:</p><br><img width="623" height="302" alt="image" src="public/Image_024.jpg"><br>
+          <p>In the All Parameters table, click the first (leftmost) filter field's drop-down button and select "startups"from the drop-down list:</p><br><img width="623" height="302" alt="image" src="../../../public/Image_024.jpg"><br>
           <h4>The resulting display shows 13 "startups" parameters under the 3rd column. For now, we will focus on 2startup parameters that VELMA uses to locate simulation input files at the start of a simulation. You will needto specify a valid value in the 4th column for these:</h4>
           <table>
             <thead> 
@@ -154,7 +154,7 @@
             </tr>
           </table>
           <h3 id="gui_input_params">Specify Input Parameters</h3>
-          <p>Under the All Parameters menu tab, in the 2nd filter field to the left of the "Clear Filters" button, type"VelmaInputs" (case sensitive, without the double-quotes):</p><img width="625" height="278" alt="image" src="public/Image_025.jpg"><br>
+          <p>Under the All Parameters menu tab, in the 2nd filter field to the left of the "Clear Filters" button, type"VelmaInputs" (case sensitive, without the double-quotes):</p><img width="625" height="278" alt="image" src="../../../public/Image_025.jpg"><br>
           <h4>In the displayed subset of configuration parameters, enter values for the following parameters:</h4>
           <table>
             <thead> 
@@ -238,7 +238,7 @@
               <td class="param_desc">The fully-qualified path above the directory name you specifiedfor the run_index.</td>
             </tr>
           </table><br>
-          <p>The drop-down filter field menu above the "Group" column can also be used to add and specify parameters for theother parameter categories listed: cover, disturbance, cellDataWriter, spatialDataWriter, soil,and weather:</p><img width="627" height="164" alt="image" src="public/Image_026.jpg">
+          <p>The drop-down filter field menu above the "Group" column can also be used to add and specify parameters for theother parameter categories listed: cover, disturbance, cellDataWriter, spatialDataWriter, soil,and weather:</p><img width="627" height="164" alt="image" src="../../../public/Image_026.jpg">
           <p>However, we recommend that you use the "All Parameters Table of Contents" described in the next section to configure these and other subsets of parameters.</p>
         </div>
       </div>

@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -89,9 +89,9 @@
           <p>Each of these disturbance models specifies where and when a disturbance event will occur. The Burn, Graze andHarvest models have options for specifying how much of each plant tissue and detritus pool (leaves, stems,roots) will be removed and where it goes (offsite and/or to a specified onsite C and N pools). The Fertilizemodel has options for applying nitrogen as ammonium, nitrate, urea and/or manure.</p>
           <p>Requirements for implementing a disturbance model include (1) a grid ASCII map of your watershed and associatedparameter specifications that determine where and when a disturbance will occur, and (2) parameterspecifications that determine which plant biomass and detritus pools will be affected, and the fraction of eachpool burned, grazed or harvested and its destination. Portions of harvested aboveground stem biomass can beexported offsite or transferred to the aboveground stem detritus pool.</p>
           <p>Sections 24.1 - 24.3 describe how to select a disturbance model type and specify parameter values to simulatewhere, when and how disturbances occur. You can set up as many disturbance types and events as you may require.</p>
-          <p>However, we first want to step through an example on the next four pages that illustrate how VELMA's newdisturbance models work. We've chosen the Harvest disturbance model for this example because it illustrates keyconcepts shared by most of the other disturbance models, particularly with regard to how disturbances can bekeyed to the LSR (Leaves-Stems-Root) plant biomass model. We recommend that you look over the details of thisexample before proceeding to sections 24.1 - 24.3.</p><img width="585" height="24" alt="image" src="public/Image_126.png">
-          <h3>LEAF, STEM and ROOT Biomass Pool Arrangement</h3><img src="public/Image_126.png" alt="leaf, stem, and root biomass pool arrangement">
-          <h3>Harvest LSR Disturbance Transfer Diagram</h3><img src="public/Image_127.png">
+          <p>However, we first want to step through an example on the next four pages that illustrate how VELMA's newdisturbance models work. We've chosen the Harvest disturbance model for this example because it illustrates keyconcepts shared by most of the other disturbance models, particularly with regard to how disturbances can bekeyed to the LSR (Leaves-Stems-Root) plant biomass model. We recommend that you look over the details of thisexample before proceeding to sections 24.1 - 24.3.</p><img width="585" height="24" alt="image" src="../../../public/Image_126.png">
+          <h3>LEAF, STEM and ROOT Biomass Pool Arrangement</h3><img src="../../../public/Image_126.png" alt="leaf, stem, and root biomass pool arrangement">
+          <h3>Harvest LSR Disturbance Transfer Diagram</h3><img src="../../../public/Image_127.png">
           <h3>When and Where a Harvest LSR Disturbance Occurs: An Example</h3>
           <p><b>Harvest LSR Disturbances occur for each loop, year and Julian day the user specifies</b></p>
           <p>in the initializeActiveloops,initializeActiveYears andinitiaHzeActiveJdaysparameters1values..The user may specify one ormore loops,years and Julian days, orranges of the same..</p>
@@ -130,14 +130,14 @@
           <ol> 
             <li>Find the subset of cells in the filter map that match the filter ids specified by initializeFilterlds.</li>
             <li>Consider other spatial-selection (e.g cover Ids) based only on that subset of cells.</li>
-          </ol><img src="public/Image_147.png">
+          </ol><img src="../../../public/Image_147.png">
           <h3 id="24-1">24.1 - Disturbance Items by Model Type</h3>
-          <p>To begin, you need to select the disturbance model you want by clicking Edit  Disturbances  Add aDisturbance:</p><img width="467" height="252" alt="image" src="public/Image_149.jpg">
-          <p>You will see the following drop-down menu for selecting a Disturbance Model. To further demonstrate the harvestdisturbance example illustrated under section 24.0, we select the HarvestLsrDisturbanceModel:</p><img width="510" height="218" alt="image" src="public/Image_150.jpg">
-          <p>Now choose a name for your HarvestLsrDisturbanceModel and type it the "Disturbance Name" dialog box, forexample, "ForestClearcut":</p><img width="500" height="149" alt="image" src="public/Image_151.jpg">
-          <p>After selecting the HarvestLsrDisturbanceModel and giving it a disturbance name, go to the All Parametersdrop-down menu and select "24.1 Disturbance Items by Model Type". You should see the following:</p><img width="622" height="110" alt="image" src="public/Image_152.jpg">
+          <p>To begin, you need to select the disturbance model you want by clicking Edit  Disturbances  Add aDisturbance:</p><img width="467" height="252" alt="image" src="../../../public/Image_149.jpg">
+          <p>You will see the following drop-down menu for selecting a Disturbance Model. To further demonstrate the harvestdisturbance example illustrated under section 24.0, we select the HarvestLsrDisturbanceModel:</p><img width="510" height="218" alt="image" src="../../../public/Image_150.jpg">
+          <p>Now choose a name for your HarvestLsrDisturbanceModel and type it the "Disturbance Name" dialog box, forexample, "ForestClearcut":</p><img width="500" height="149" alt="image" src="../../../public/Image_151.jpg">
+          <p>After selecting the HarvestLsrDisturbanceModel and giving it a disturbance name, go to the All Parametersdrop-down menu and select "24.1 Disturbance Items by Model Type". You should see the following:</p><img width="622" height="110" alt="image" src="../../../public/Image_152.jpg">
           <p> </p>
-          <p>Select "24.0 - Disturbance Items" from the All Parameters drop-down menu to see a list of all parametersassociated with the HarvestLsrDisturbanceModel. In the screenshot below, we have specified parametervalues for the HarvestLsrDisturbanceModel disturbance we named "ForestClearcut":</p><img width="620" height="383" alt="image" src="public/Image_153.jpg">
+          <p>Select "24.0 - Disturbance Items" from the All Parameters drop-down menu to see a list of all parametersassociated with the HarvestLsrDisturbanceModel. In the screenshot below, we have specified parametervalues for the HarvestLsrDisturbanceModel disturbance we named "ForestClearcut":</p><img width="620" height="383" alt="image" src="../../../public/Image_153.jpg">
           <h4>Parameter Definitions</h4>
           <table>
             <thead> 
@@ -210,11 +210,11 @@
             </tr>
           </table>
           <h3 id="24-2">24.2 - Disturbance Items Core Scheduling</h3>
-          <p>Select "24.2 - Disturbance Items Core Scheduling" to focus the All Parameters table on the parameters forspecifying <u>when</u> disturbance events occur:</p><img width="622" height="162" alt="image" src="public/Image_154.jpg">
+          <p>Select "24.2 - Disturbance Items Core Scheduling" to focus the All Parameters table on the parameters forspecifying <u>when</u> disturbance events occur:</p><img width="622" height="162" alt="image" src="../../../public/Image_154.jpg">
           <h4>Parameter Definitions: </h4>
           <p>these parameters are defined under the All Parameters screenshot for Select "24.0 -Disturbance Items", above.</p>
           <h3 id="24-3">24.3 -- Disturbance Items Spatial Specifiers</h3>
-          <h4>Select "24.3 -- Disturbance Items Spatial Specifiers" to focus the All Parameters table on the parametersfor specifying <u>where</u> disturbance events occur:</h4><img width="628" height="146" alt="image" src="public/Image_155.jpg">
+          <h4>Select "24.3 -- Disturbance Items Spatial Specifiers" to focus the All Parameters table on the parametersfor specifying <u>where</u> disturbance events occur:</h4><img width="628" height="146" alt="image" src="../../../public/Image_155.jpg">
           <h4>Parameter Definitions: </h4>
           <p>these parameters are defined under the All Parameters screenshot for Select "24.0 -Disturbance Items", above.</p>
           <h4>Calibration Notes</h4>
@@ -222,7 +222,7 @@
           <p>drop-down menu button located near the lower left corner of the screen, then select an appropriate spatial datadisplay option (see section "25.0 - Runtime Chart Display Scale" for details").</p>
           <p>For example, by selecting the "Harvest Spatial Data" menu item you can see daily and year-to- date summaries ofharvest events and their effects on various biomass tools. The two figures below show year-end summaries ofharvest events for consecutive years, 2000 and 2001. In 2000 there were no harvests (top figure: top row, middleframe). In 2001 there were several fairly large harvest events (bottom figure: top row, middle frame). Acomparison of the other frames in top and bottom figures reveals changes in plant biomass, detritus, soilorganic matter, and cover age following harvest events.</p>
           <p>An examination of VELMA's daily and annual output files (csv format) provides a more quantitative check ofdisturbance events.</p>
-          <p>Screenshot of runtime "Harvest Spatial Data" display.</p><img width="496" height="418" alt="image" src="public/Image_156.png"><img width="491" height="415" alt="image" src="public/Image_157.png">
+          <p>Screenshot of runtime "Harvest Spatial Data" display.</p><img width="496" height="418" alt="image" src="../../../public/Image_156.png"><img width="491" height="415" alt="image" src="../../../public/Image_157.png">
         </div>
       </div>
     </div>

@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -263,7 +263,7 @@
           <ul>
             <li>Click the "All Parameters" tab.</li>
             <li>Click-select "cover" (or "soil") in the drop-selection filter.</li>
-            <li>Type "uniqueId" (case sensitive) into the middle ("Parameter" column) text-selection filter textbox and press either the "Tab" or "Enter" key.<br> <em>Example</em><br> <img src="public/image-AllParameters_FilteredTo_cover_uniqueId.PNG" alt="All parameters filtered to cover type and unique id in GUI"></li>
+            <li>Type "uniqueId" (case sensitive) into the middle ("Parameter" column) text-selection filter textbox and press either the "Tab" or "Enter" key.<br> <em>Example</em><br> <img src="../../../public/image-AllParameters_FilteredTo_cover_uniqueId.PNG" alt="All parameters filtered to cover type and unique id in GUI"></li>
           </ul>
           <h3>Parameter Details</h3>
           <p><strong>enableCategorizedLossTransfersReport</strong><br> Determines whether the sediment model emits <a>additional detailed loss data</a> as part of the simulation results.<br> When set <code>true</code> per-step counts and amounts for sediment loss transfers are reported as csv data rows in the simulation's global trace log file.<br> The csv data rows are identified by a keytext column: <code>LOSS_TRANSFER_REPORT</code>.<br> Each data row reports sediment transfer counts and amounts for the cell-to-cell transfer categories that comprise daily sediment loss values.<br> This parameter's default value is <code>false</code>.</p>

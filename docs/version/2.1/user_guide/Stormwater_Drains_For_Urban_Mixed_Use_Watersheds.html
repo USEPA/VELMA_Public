@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width">
     <meta name="charset" content="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/search.js" type="module"></script>
-    <script src="/js/sidebar-toggle.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/style.css">
+    <script src="../../../public/js/search.js" type="module"></script>
+    <script src="../../../public/js/sidebar-toggle.js" type="module"></script>
     <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="../../../public/css/search.css">
     <title> </title>
   </head>
   <body class="bg-primary">
@@ -93,7 +93,7 @@
           <h2>General Procedure for Implementing Water Drain Disturbance</h2>
           <p>The Water Drain Disturbance transfers water between non-adjacent cells or removes it from the simulation watershed. It provides a way to redistribute or remove water within a watershed at specific steps of a VELMA Simulation run. Examples of use would be to explicitly simulate transfer of water through stormwater systems, detection ponds, or culverts.</p>
           <p>Users specify one or more drain inlet cell locations for a given Water Drain Disturbance, along with parameters that determine when, and under what conditions, those drain inlet cells are to transfer water from the Surface Water spatial pool.</p>
-          <p>Users also specify whether the water drained from inlet cells is transferred to drain outlet cells in the same watershed, or is transferred beyond the watershed boundary, which will result in water transferred out to not be represented in the simulations hydrograph and hydrology statistics.</p><img width="670" height="425" alt="screenshot" title="screenshot" src="public/suppImage_093.jpg">
+          <p>Users also specify whether the water drained from inlet cells is transferred to drain outlet cells in the same watershed, or is transferred beyond the watershed boundary, which will result in water transferred out to not be represented in the simulations hydrograph and hydrology statistics.</p><img width="670" height="425" alt="screenshot" title="screenshot" src="../../../public/suppImage_093.jpg">
           <h2>Water Drain Disturbances Have Several Significant Usage Restrictions</h2>
           <p>When configuring a simulation with Water Drain Disturbances, keep the following in mind:</p>
           <ol> 
@@ -165,7 +165,7 @@
             <li>The OFF-SITE location may be specified for multiple inlets, but not multiple times for a single inlet.</li>
             <li>The example data above has header row, but a header row is not required.</li>
           </ul>
-          <p>The example configuration above results in the network of drains illustrated below:</p><img width="529" height="478" alt="screenshot" title="screenshot" src="public/suppImage_094.jpg">
+          <p>The example configuration above results in the network of drains illustrated below:</p><img width="529" height="478" alt="screenshot" title="screenshot" src="../../../public/suppImage_094.jpg">
           <p>The following table summarizes the fields (left to right) for one row of a drain configuration data .CSV file:</p>
           <table>
             <tr>
@@ -207,9 +207,9 @@
           </table>
           <h2>Adding a Water Drain Disturbance Parameterization to a VELMA Configuration</h2>
           <p>Start with an appropriate VELMA simulation configuration .xml file.</p>
-          <p>Load the file into JVelma and confirm that the enableReachMapping parameter's value is SOLO_MODE. Next, click the Edit -&gt; Disturbances -&gt; "Add a Disturbance" menu item, as shown below:</p><img width="620" height="252" alt="screenshot" title="screenshot" src="public/suppImage_095.jpg">
-          <p>In the "Specify Disturbance Model Type and Name" pop-up dialog that opens, click the drop-down selector, scroll down, and click-select the "WaterDrainDisturbanceModel" type:</p><img width="396" height="184" alt="screenshot" title="screenshot" src="public/suppImage_096.jpg">
-          <p>After selecting WaterDrainDisturbanceModel as the type, enter a unique name for the disturbance in the "Disturbance Name" field of the dialog. Finally, click the OK button, which adds a new parameterization group to the simulation configuration and changes JVelma's display to the "All Parameters" tab, with the item-level filter set to only display the parameters for the newly added Water Drain Disturbance.</p><img width="619" height="178" alt="screenshot" title="screenshot" src="public/suppImage_097.jpg">
+          <p>Load the file into JVelma and confirm that the enableReachMapping parameter's value is SOLO_MODE. Next, click the Edit -&gt; Disturbances -&gt; "Add a Disturbance" menu item, as shown below:</p><img width="620" height="252" alt="screenshot" title="screenshot" src="../../../public/suppImage_095.jpg">
+          <p>In the "Specify Disturbance Model Type and Name" pop-up dialog that opens, click the drop-down selector, scroll down, and click-select the "WaterDrainDisturbanceModel" type:</p><img width="396" height="184" alt="screenshot" title="screenshot" src="../../../public/suppImage_096.jpg">
+          <p>After selecting WaterDrainDisturbanceModel as the type, enter a unique name for the disturbance in the "Disturbance Name" field of the dialog. Finally, click the OK button, which adds a new parameterization group to the simulation configuration and changes JVelma's display to the "All Parameters" tab, with the item-level filter set to only display the parameters for the newly added Water Drain Disturbance.</p><img width="619" height="178" alt="screenshot" title="screenshot" src="../../../public/suppImage_097.jpg">
           <h2>Parameters That Must Be Left Alone</h2>
           <p>The modelClass parameter is set by JVelma when you add the Surface Deposition Disturbance to the simulation configuration. Do Not Change this parameter's value. Ever.</p>
           <h2>Parameterizing When Drainage Occurs</h2>
@@ -224,17 +224,17 @@
           <p>You may specify the file by a fully-qualified path and name, a partial path and name, or only the name of the file. When the waterDrainDataFilename parameter's value isn't fully-qualified, JVelma assumes the file's location is relative to the input location specified for the simulation run by the inputDataLocationRootName and inputDataLocationFileName (startups group) parameters.</p>
           <h2>Results Output for Water Drainage</h2>
           <p>The GlobalStateLog.txt file records an INFO statement for each WaterDrainDisturbance occurrence during a simulation run. No additional map files or DailyResults.csv columns are automatically generated. A simple visualization of WaterDrainDisturbance events can be viewed using the "VelmaDrainDisturbanceVisualizer.py" code. This code requires minor, yet direct, changes to the Python code.</p>
-          <p>The logged WaterDrainDisturbance events can also be processed into ASCII maps using the "curb_n_drainToAsciiMapConvertor.py" code, then provided to the VISTAS 3D visualization tool.</p><img width="323" height="388" alt="modeled 6PPDquinone g/m2 on roads" title="modeled 6PPDquinone g/m2 on roads" src="public/suppImage_098.jpg">
+          <p>The logged WaterDrainDisturbance events can also be processed into ASCII maps using the "curb_n_drainToAsciiMapConvertor.py" code, then provided to the VISTAS 3D visualization tool.</p><img width="323" height="388" alt="modeled 6PPDquinone g/m2 on roads" title="modeled 6PPDquinone g/m2 on roads" src="../../../public/suppImage_098.jpg">
           <p>Above is a frame from a VISTAS video of 6PPD-quinone being deposited and routed along road surfaces due to the Water Drain Disturbance routing water along road surfaces to stormwater catchments. Details on this setup and generally how to a Water Drain Disturbance below.</p>
           <h2>Example of explicit Stormwater System modeling using the Water Drain Disturbance</h2>
           <p>Part of VELMA additions leading to version 2.1 allowed for the spatially explicit replicate municipal high- resolution spatial data describing stormwater infrastructure (roads, curbs, drains, pipe inlet and outlets) for densely developed urban watershed.</p>
-          <p>The Longfellow watershed is located within City of Seattle Washington's West Seattle area. Most of this watershed is heavily urbanized with some lesser areas consisting of more natural areas such as the golf course and riparian corridor along the Longfellow Creek. But these more natural areas are overshadowed by this watershed's end to end coverage of impervious roadways and parking lots paired with a modern stormwater system. The VELMA Urban Setup figure below represents the major components that allow VELMA to simulate urban landscapes. This HowTo document focuses on the translation of GIS stormwater data seen in the far-right map panel to the CSV file format described above.</p><img width="659" height="375" alt="image" src="public/suppImage_099.png">
+          <p>The Longfellow watershed is located within City of Seattle Washington's West Seattle area. Most of this watershed is heavily urbanized with some lesser areas consisting of more natural areas such as the golf course and riparian corridor along the Longfellow Creek. But these more natural areas are overshadowed by this watershed's end to end coverage of impervious roadways and parking lots paired with a modern stormwater system. The VELMA Urban Setup figure below represents the major components that allow VELMA to simulate urban landscapes. This HowTo document focuses on the translation of GIS stormwater data seen in the far-right map panel to the CSV file format described above.</p><img width="659" height="375" alt="image" src="../../../public/suppImage_099.png">
           <p>VELMA set up for explicitly modeling actual stormwater infrastructure in Longfellow Creek watershed, Seattle, WA (McKane et al. 2021).</p>
           <p>The City of Seattle has publicly available GIS data representing their stormwater systems catchments, lateral pipes, mainline pipes, and outfall locations. These four stormwater components are separated regarding the GIS spatial data, yet all linked within the shapefile attributes tables using variable keys. Catchments contain a unique key linking to a lateral pipe or mainline pipe, lateral pipes and mainline pipes all have an uphill key linking to a downhill key linking to the next pipe piece, and all outfall locations have a key linking to final mainline pipe of that section of the network.</p>
-          <p>The Java based programming tool called "VelmaEndPtFromDrainWalker.java" was developed to "walk" the City of Seattle's stormwater GIS data when provided the above key information as three data tables. The below image represents the tabular walking from key to key among one catchment to one lateral pipe to a mainline pipe. Most lateral pipes are the direct connection between the catchment and mainline pipes. There are cases where more than one lateral pipe was installed, and in those cases multiple lateral pipes are "walked".</p><img width="620" height="348" alt="screenshot" title="screenshot" src="public/suppImage_100.jpg">
-          <p>The below image represents the same tabular walking pattern among a series of mainline pipes to the final outfall point location.</p><img width="626" height="357" alt="screenshot" title="screenshot" src="public/suppImage_101.jpg">
+          <p>The Java based programming tool called "VelmaEndPtFromDrainWalker.java" was developed to "walk" the City of Seattle's stormwater GIS data when provided the above key information as three data tables. The below image represents the tabular walking from key to key among one catchment to one lateral pipe to a mainline pipe. Most lateral pipes are the direct connection between the catchment and mainline pipes. There are cases where more than one lateral pipe was installed, and in those cases multiple lateral pipes are "walked".</p><img width="620" height="348" alt="screenshot" title="screenshot" src="../../../public/suppImage_100.jpg">
+          <p>The below image represents the same tabular walking pattern among a series of mainline pipes to the final outfall point location.</p><img width="626" height="357" alt="screenshot" title="screenshot" src="../../../public/suppImage_101.jpg">
           <p>The output from the "VelmaEndPtFromDrainWalker.java" tool matches the format described above under section titled "Creating a Drain Configuration DataFile". Below is a visual example of highlighting both the location of catchments to outfalls with the csv file format</p>
-          <h6>Note: though both the above tabular walking and below visual are both within Longfellow watershed, the above stormwater features in the tabular data are not the locations represented below.</h6><img width="627" height="369" alt="image" src="public/suppImage_102.png">
+          <h6>Note: though both the above tabular walking and below visual are both within Longfellow watershed, the above stormwater features in the tabular data are not the locations represented below.</h6><img width="627" height="369" alt="image" src="../../../public/suppImage_102.png">
           <h2>Curbed Streets</h2>
           <p>Street systems within an urban landscape can include curbs or drainage ditches that route water along roadways to curb stormwater drain inlets or catchment basins. This engineered system entirely removes the water from the original natural flow pathways and instead produces the water either:</p>
           <p>unnaturally elsewhere within the watershed delineation (e.g., stream, detention pond, stormwater overflow vaults) shifting the hydrograph peak and timing, or</p>
@@ -248,7 +248,7 @@
             <li>Isolated Stormwater Inlets (green): driven by GIS stormwater data but were not in vicinity of road network or impervious parking lots.</li>
             <li>Curbed Streets (aqua): these were locations that were road cells uphill of a stormwater catchment or contained a direct linkage in series to a catchment.</li>
             <li>Non-curbed (black): these were road cells not determined to have a water routing path directly to a catchment cell. Note: an optional impervious ASCII map could represent water transfer along these cells, but such water would not be routed to a stormwater catchment cell.</li>
-          </ul><img height="553" alt="image" src="public/suppImage_103.png">
+          </ul><img height="553" alt="image" src="../../../public/suppImage_103.png">
           <h2>References</h2>
           <p>McKane, R.B., J.J. Halama, V. Phan, A. Brookes, K. Djang, E. Kolodziej, K. Peter. 2021. Model analysis and visualization of 6PPD-quinone fate and transport in Longfellow Creek watershed, Seattle, USA. 2021 International Emerging Contaminants (EMCON) Conference (virtual). U.S. Environmental Protection Agency clearance tracking number ORD-042888.</p>
           <p>PowerPoint describing this work: <a href="https://github.com/USEPA/VELMA_Public/blob/master/McKane%20et%20al%20EMCON_2021%20Presentation_9-13-21_v2%20with%20Notes.pptx.html"  target="_blank">https://github.com/USEPA/VELMA_Public/blob/master/McKane%20et%20al%20EMCON_2021%20Presentation_9-13-21_v2%20with%20Notes.pptx </a></p>
